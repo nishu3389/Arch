@@ -1,4 +1,4 @@
-package com.three.u.item_detail
+package com.three.u.intro_slider
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -10,29 +10,17 @@ import com.three.u.BindingAdapters.loadImage
 import com.three.u.R
 import com.three.u.base.push
 import com.three.u.base.set
-import com.three.u.browse_items.IViewPagerClick
 import com.three.u.common.IViewPagerClickListener
 import com.three.u.model.request.ListOfFile
 import com.three.u.model.response.AdvModel
 
-class ItemImagesAdapter(
-    private val mContext: Context,
-    private val mediaList: List<AdvModel>?,
-    val layoutResId: Int,
-    val iViewPagerClick: IViewPagerClickListener?
-) : PagerAdapter()
+class IntroAdapter(private val mContext: Context, private val mediaList: List<Int>?, val layoutResId: Int, val iViewPagerClick: IViewPagerClickListener?) : PagerAdapter()
 {
     override fun instantiateItem(collection: ViewGroup, position: Int): Any
     {
         val mediaData = mediaList?.get(position)
         val inflater = LayoutInflater.from(mContext)
         val layout = inflater.inflate(layoutResId, collection, false) as ImageView
-
-        val itemImage =layout.findViewById<View>(R.id.imv_item) as ImageView
-        itemImage.set(mContext,mediaData?.advertisementImage)
-        itemImage?.setOnClickListener{
-            iViewPagerClick?.viewPagerItemClicked(mediaData)
-        }
         collection.addView(layout)
         return layout
     }

@@ -9,7 +9,7 @@ import android.util.AttributeSet
  * Created by Piyush Prajapati on 27-JAN-2020.
  * at http://www.dotsquares.com/
  */
-class CommonEditText : androidx.appcompat.widget.AppCompatEditText {
+class CommonEditTextSemiBold : androidx.appcompat.widget.AppCompatEditText {
 
 
     /**
@@ -18,7 +18,7 @@ class CommonEditText : androidx.appcompat.widget.AppCompatEditText {
      * @param context the context
      */
     constructor(context: Context) : super(context) {
-        val face = Typeface.createFromAsset(context.assets, "fonts/poppins_regular.ttf")
+        val face = Typeface.createFromAsset(context.assets, "fonts/poppins_semibold.ttf")
         this.typeface = face
     }
 
@@ -30,7 +30,7 @@ class CommonEditText : androidx.appcompat.widget.AppCompatEditText {
      */
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
 
-        val face = Typeface.createFromAsset(context.assets, "fonts/poppins_regular.ttf")
+        val face = Typeface.createFromAsset(context.assets, "fonts/poppins_semibold.ttf")
         this.typeface = face
     }
 
@@ -42,7 +42,7 @@ class CommonEditText : androidx.appcompat.widget.AppCompatEditText {
      * @param defStyle the def style
      */
     constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(context, attrs, defStyle) {
-        val face = Typeface.createFromAsset(context.assets, "fonts/poppins_regular.ttf")
+        val face = Typeface.createFromAsset(context.assets, "fonts/poppins_semibold.ttf")
         this.typeface = face
     }
 

@@ -1,6 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-</LinearLayout>
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.three.u.intro_slider.IntroSliderViewModel" />
+
+        <variable
+            name="clickHandler"
+            type="com.three.u.intro_slider.IntroSliderFragment.ClickHandler" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:background="@drawable/gradiat_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/view_pager2"
+            app:layout_constraintTop_toBottomOf="@id/tv_skip"
+            app:layout_constraintBottom_toTopOf="@id/tv_next"
+            android:layout_width="match_parent"
+            android:layout_height="0dp" />
+
+        <com.three.u.views.CommonTextView
+            android:id="@+id/tv_skip"
+            android:textSize="20sp"
+            android:text="Skip"
+            android:textColor="@color/white"
+            android:paddingLeft="@dimen/_25sdp"
+            android:paddingRight="@dimen/_25sdp"
+            android:paddingTop="@dimen/_15sdp"
+            android:paddingBottom="@dimen/_15sdp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"></com.three.u.views.CommonTextView>
+
+
+        <com.rd.PageIndicatorView
+            android:id="@+id/indicator"
+            app:piv_viewPager="@id/view_pager2"
+            app:piv_interactiveAnimation="true"
+            app:piv_selectedColor="@color/white"
+            app:piv_unselectedColor="@color/white"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:piv_animationType="scale"
+            app:piv_dynamicCount="true"
+            android:gravity="center_vertical"
+            android:layout_margin="@dimen/_30sdp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/tv_next"
+            android:background="@drawable/rounded_bg"
+            android:textColor="@color/app_red"
+            android:gravity="center_vertical"
+            android:text="Next"
+            android:textSize="20sp"
+            android:paddingLeft="@dimen/_30sdp"
+            android:paddingRight="@dimen/_30sdp"
+            android:paddingTop="@dimen/_8sdp"
+            android:paddingBottom="@dimen/_8sdp"
+            android:layout_marginBottom="@dimen/_20sdp"
+            android:layout_marginRight="@dimen/_20sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"></TextView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

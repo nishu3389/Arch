@@ -1,4 +1,4 @@
-package com.three.u.changepassword
+package com.three.u.intro_slider
 
 import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
@@ -11,7 +11,7 @@ import com.three.u.util.Validator
 import com.three.u.webservice.Api
 
 
-class ChangePasswordViewModel(controller : AsyncViewController) : BaseViewModel(controller){
+class IntroSliderViewModel(controller : AsyncViewController) : BaseViewModel(controller){
 
     val requestChangePassword = ObservableField<RequestChangePassword>(RequestChangePassword())
     val responseChangePassword = MutableLiveData<MasterResponse<ResponseChangePassword>>()

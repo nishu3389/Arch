@@ -1,4 +1,4 @@
-package com.dots.shoppingcart.views
+package com.three.u.views
 
 import android.content.Context
 import android.graphics.Canvas
