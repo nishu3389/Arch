@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/HomeFragment">
+
+    <fragment
+        android:id="@+id/HomeFragment"
+        android:name="com.three.u.home.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/ProfileShowFragment"
+        android:name="com.three.u.profileshow.ProfileShowFragment"
+        android:label="@string/profile"
+        tools:layout="@layout/fragment_profile_show">
+
+        <argument
+            android:name="type"
+            app:argType="string" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/SalesProfileShowFragment"
+        android:name="com.three.u.sales_profile.SalesProfileShowFragment"
+        android:label="@string/sales_profile"
+        tools:layout="@layout/fragment_sales_profile_show" />
+    <fragment
+        android:id="@+id/RedeemFreeBoxFragment"
+        android:name="com.three.u.redeem_freebox.RedeemFreeBoxFragment"
+        android:label="@string/redeem_free_boxes"
+        tools:layout="@layout/fragment_redeem_freebox" />
+    <fragment
+        android:id="@+id/U3AgentFragment"
+        android:name="com.three.u.u_three_agent.U3AgentFragment"
+        android:label="@string/_3u_agent"
+        tools:layout="@layout/fragment_u_three_agent" />
+    <fragment
+        android:id="@+id/ChecklistDetailFragment"
+        android:name="com.three.u.residential_checklist.checklist_detail.ChecklistDetailFragment"
+        android:label="@string/checklist"
+        tools:layout="@layout/fragment_u_three_agent" />
+
+    <fragment
+        android:id="@+id/ChangePasswordFragment"
+        android:name="com.three.u.changepassword.ChangePasswordFragment"
+        android:label="@string/change_password"
+        tools:layout="@layout/fragment_change_password" />
+    <fragment
+        android:id="@+id/ProfileEditFragment"
+        android:name="com.three.u.profileedit.ProfileEditFragment"
+        tools:layout="@layout/fragment_profile_edit" />
+    <fragment
+        android:id="@+id/SalesProfileEditFragment"
+        android:name="com.three.u.sales_profile.sales_profile_edit.SalesProfileEditFragment"
+        tools:layout="@layout/fragment_profile_edit" />
+    <fragment
+        android:id="@+id/AddItemFragment"
+        android:name="com.three.u.add_item_fragment.AddItemFragment"
+        tools:layout="@layout/add_item_fragment" />
+    <fragment
+        android:id="@+id/BudgetTrackerFragment"
+        android:name="com.three.u.budget_tracker.BudgetTrackerFragment"
+        tools:layout="@layout/fragment_budget_tracker" />
+
+    <fragment
+        android:id="@+id/MyCheckListFragment"
+        android:name="com.three.u.my_checklist_fragment.MyCheckListFragment"
+        tools:layout="@layout/my_checklist_fragment">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/NewAddChecklistFragment"
+        android:name="com.three.u.add_checklist_new.NewAddCheckListFragment"
+        tools:layout="@layout/my_checklist_fragment">
+
+    </fragment>
+    <fragment
+        android:id="@+id/MasterChecklistFragment"
+        android:name="com.three.u.residential_checklist.master_checklist.MasterChecklistFragment"
+        tools:layout="@layout/my_checklist_fragment">
+
+    </fragment>
+    <fragment
+        android:id="@+id/SharedUserFragment"
+        android:name="com.three.u.shared_users.SharedUsersFragment"
+        tools:layout="@layout/fragment_shared_users">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/ResidentialChecklistFragment"
+        android:name="com.three.u.residential_checklist.ResidentialChecklistFragment"
+        tools:layout="@layout/fragment_residentials_checklist">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/AddCheckListFragment"
+        android:name="com.three.u.add_checklist.AddCheckListFragment"
+        tools:layout="@layout/add_check_list_fragment" />
+
+    <fragment
+        android:id="@+id/SellOrGiveAwayFragment"
+        android:name="com.three.u.sell_or_give_away.MyItemListFragment"
+        tools:layout="@layout/my_item_list_fragment">
+        <action
+            android:id="@+id/action_SellOrGiveAwayFragment_to_AddItemFragment"
+            app:destination="@id/AddItemFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/GoogleMapFragment"
+        android:name="com.three.u.googlemap.GoogleMapFragment"
+        android:label="@string/select_location"
+        tools:layout="@layout/fragment_google_map" />
+    <fragment
+        android:id="@+id/EditItemFragment"
+        android:name="com.three.u.add_item_fragment.AddItemFragment"
+        tools:layout="@layout/add_item_fragment" />
+
+    <fragment
+        android:id="@+id/CourierCompaniesFragment"
+        android:name="com.three.u.courier_companies.CourierCompaniesFragment"
+        tools:layout="@layout/fragment_courier_companies" />
+
+    <fragment
+        android:id="@+id/ServicesDirectoryFragment"
+        android:name="com.three.u.service_directory.ServicesDirectoryFragment"
+        tools:layout="@layout/fragment_service_dir" />
+
+    <fragment
+        android:id="@+id/ServiceDirDetailsFragment"
+        android:name="com.three.u.service_dir_details.ServiceDirDetailsFragment"
+        tools:layout="@layout/fragment_service_dir_details" />
+
+    <fragment
+        android:id="@+id/ConciergeRequestFragment"
+        android:name="com.three.u.concierge_request.ConciergeRequestFragment"
+        tools:layout="@layout/fragment_concierge_request" />
+
+    <fragment
+        android:id="@+id/ReferAFriendFragment"
+        android:name="com.three.u.refer_a_friend.ReferAFriendFragment"
+        tools:layout="@layout/fragment_refer_a_friend" />
+
+    <fragment
+        android:id="@+id/ContactUsFragment"
+        android:name="com.three.u.contact_us.ContactUsFragment"
+        tools:layout="@layout/fragment_contact_us" />
+
+    <fragment
+        android:id="@+id/ItemDetailFragment"
+        android:name="com.three.u.item_detail.ItemDetailFragment"
+        tools:layout="@layout/fragment_item_detail" />
+    <fragment
+        android:id="@+id/BrowseItemListFragment"
+        android:name="com.three.u.browse_items.BrowseItemListFragment"
+        tools:layout="@layout/fragment_browse_item" />
+    <fragment
+        android:id="@+id/MyOrdersFragment"
+        android:name="com.three.u.my_orders.MyOrdersListingFragment"
+        tools:layout="@layout/my_orders_list_fragment" />
+    <fragment
+        android:id="@+id/MyOrderDetailFragment"
+        android:name="com.three.u.my_orders.detail.MyOrderDetailFragment"
+        tools:layout="@layout/fragment_my_order_detail" />
+
+    <fragment
+        android:id="@+id/BrowseItemDetailFragment"
+        android:name="com.three.u.browse_item_detail.BrowseItemDetailFragment"
+        tools:layout="@layout/fragment_browser_item_detail" />
+    <fragment
+        android:id="@+id/ScanQRCodeFragment"
+        android:name="com.three.u.scan_code.ScanCodeFragment"
+        tools:layout="@layout/fragment_scan_code" />
+
+    <fragment
+        android:id="@+id/AddBankAccountFragment"
+        android:name="com.three.u.bankaccount.AddBankAccountFragment"
+        tools:layout="@layout/add_bank_account_fragment" />
+
+     <fragment
+        android:id="@+id/ShowBankAccountFragment"
+        android:name="com.three.u.bankaccount.ShowBankAccountFragment"
+        tools:layout="@layout/add_bank_account_fragment" />
+
+    <fragment
+        android:id="@+id/SuccessBankAccountFragment"
+        android:name="com.three.u.bankaccount.SuccessBankAccountFragment"
+        tools:layout="@layout/success_bank_account_fragment" />
+
+    <fragment
+        android:id="@+id/WebViewFragment"
+        android:name="com.three.u.webview.WebViewFragment"
+        tools:layout="@layout/webview_fragment" />
+
+    <fragment
+        android:id="@+id/ShippingFragment"
+        android:name="com.three.u.place_order.shipping.ShippingFragment"
+        tools:layout="@layout/fragment_shipping" />
+
+    <fragment
+        android:id="@+id/PaymentFragment"
+        android:name="com.three.u.place_order.payment.PaymentFragment"
+        tools:layout="@layout/fragment_payment" />
+
+    <fragment
+        android:id="@+id/OrderSuccessFragment"
+        android:name="com.three.u.place_order.order_success.OrderSuccessFragment"
+        tools:layout="@layout/fragment_order_success" />
+
+</navigation>
+
+
+
+
+
+
+
+

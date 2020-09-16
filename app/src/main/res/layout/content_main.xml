@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <fragment
+            android:id="@+id/nav_host_fragment"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:defaultNavHost="true"
+            android:background="#000000"
+            android:layout_above="@id/bottom_navigation_bar"
+            app:navGraph="@navigation/nav_dashboard" />
+
+        <RelativeLayout
+            android:id="@+id/bottom_navigation_bar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_70sdp"
+            android:layout_alignParentBottom="true"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:src="@drawable/bottom_manu_bg"
+                android:scaleType="fitXY"
+                android:layout_marginTop="@dimen/_6sdp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+            <LinearLayout
+                android:layout_alignParentBottom="true"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <!--Directory-->
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/bump_directory"
+                        style="@style/tab_bump"
+                        android:src="@drawable/round_select_box"/>
+
+                    <LinearLayout
+                        android:id="@+id/tab_directory"
+                        style="@style/tab_container">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/img_directory"
+                            style="@style/tabs"
+                            android:src="@drawable/directory" />
+
+                        <TextView
+                            android:id="@+id/tv_tab_directory"
+                            android:text="Directory"
+                            style="@style/tab_text"></TextView>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!--Scan-->
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/bump_scan"
+                        style="@style/tab_bump"
+                        android:src="@drawable/round_select_box"/>
+
+                    <LinearLayout
+                        android:id="@+id/tab_scan"
+                        style="@style/tab_container">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/img_scan"
+                            style="@style/tabs"
+                            android:src="@drawable/boxvert" />
+
+                        <TextView
+                            android:id="@+id/tv_tab_scan"
+                            android:text="@string/boxvert"
+                            style="@style/tab_text"></TextView>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!--Concierge-->
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/bump_concierge"
+                        style="@style/tab_bump"
+                        android:src="@drawable/round_select_box"/>
+
+                    <LinearLayout
+                        android:id="@+id/tab_concierge"
+                        style="@style/tab_container">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/img_concierge"
+                            style="@style/tabs"
+                            android:src="@drawable/concierge" />
+
+                        <TextView
+                            android:id="@+id/tv_tab_concierge"
+                            android:text="Concierge"
+                            style="@style/tab_text"></TextView>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!--Packaging-->
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/bump_packaging"
+                        style="@style/tab_bump"
+                        android:src="@drawable/round_select_box"/>
+
+                    <LinearLayout
+                        android:id="@+id/tab_packaging"
+                        android:layout_width="match_parent"
+                        style="@style/tab_container">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/img_packaging"
+                            style="@style/tabs"
+                            android:src="@drawable/packages" />
+
+                        <TextView
+                            android:id="@+id/tv_tab_packaging"
+                            android:text="Packaging"
+                            style="@style/tab_text"></TextView>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!--Utilities-->
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/bump_utilities"
+                        style="@style/tab_bump"
+                        android:src="@drawable/round_select_box"/>
+
+                    <LinearLayout
+                        android:id="@+id/tab_utilities"
+                        android:layout_width="match_parent"
+                        style="@style/tab_container">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/img_utility"
+                            style="@style/tabs"
+                            android:src="@drawable/utilities_icon" />
+
+                        <TextView
+                            android:id="@+id/tv_tab_utilities"
+                            android:text="Utilities"
+                            style="@style/tab_text"></TextView>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+</layout>

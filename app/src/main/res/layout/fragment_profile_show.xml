@@ -1,0 +1,535 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.three.u.profileshow.ProfileShowViewModel" />
+
+        <import type="android.view.View" />
+
+        <variable
+            name="clickHandler"
+            type="com.three.u.profileshow.ProfileShowFragment.ClickHandler" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedscoll_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:background="@drawable/bg_profiletop_gradient"
+                android:orientation="vertical">
+
+                <include
+                    android:id="@+id/toolbarLayout"
+                    layout="@layout/layout_toolbar" />
+
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="111dp"
+                    android:layout_height="111dp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/pic_user"
+                    app:civ_border_color="@color/white"
+                    app:civ_border_width="1dp" />
+
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/imageView"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="9dp"
+                    android:fontFamily="@font/poppins_medium"
+                    android:text="@{viewModel.responseGetUserProfile.data.customerName}"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="26dp"
+                android:layout_marginEnd="26dp"
+                android:orientation="vertical">
+
+                <!--Email-->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="32dp"
+
+                    android:textColorHint="@color/grey"
+                    app:errorEnabled="true"
+
+                    app:hintEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edt_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:fontFamily="@font/poppins_regular"
+                        android:hint="@string/email_address"
+                        android:imeOptions="actionNext"
+                        android:inputType="textEmailAddress"
+                        android:maxLength="100"
+                        android:singleLine="true"
+                        android:textColor="@color/black"
+                        android:textColorHighlight="@color/black"
+                        android:textColorHint="@color/black"
+                        android:textSize="16dp"
+                        app:hintTextAppearance="@style/AppTheme.NoActionBarNew" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!--Contact number-->
+                <com.google.android.material.textfield.TextInputLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="10dp"
+
+                    android:textColorHint="@color/grey"
+                    app:errorEnabled="true"
+
+                    app:hintEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edt_contact_number"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:fontFamily="@font/poppins_regular"
+                        android:hint="@string/contact_number"
+                        android:imeOptions="actionNext"
+                        android:inputType="phone"
+                        android:maxLength="15"
+                        android:singleLine="true"
+                        android:textColor="@color/black"
+                        android:textColorHighlight="@color/black"
+                        android:textColorHint="@color/black"
+                        android:textSize="16dp"
+
+                        app:hintTextAppearance="@style/AppTheme.NoActionBarNew" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!--Age and gender-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <!--Age-->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="1"
+                        android:layout_marginRight="@dimen/_5sdp"
+                        android:textColorHint="@color/grey"
+                        app:error="@{viewModel.errAge}"
+                        app:errorEnabled="true"
+
+
+                        app:hintEnabled="true">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edt_age"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:focusable="false"
+                            android:fontFamily="@font/poppins_regular"
+                            android:hint="@string/age"
+                            android:imeOptions="actionNext"
+                            android:inputType="textPostalAddress"
+                            android:maxLength="3"
+                            android:singleLine="true"
+                            android:textColor="@color/black"
+                            android:textColorHighlight="@color/black"
+                            android:textColorHint="@color/black"
+                            android:textSize="16dp"
+                            app:hintTextAppearance="@style/AppTheme.NoActionBarNew" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <!--Gender-->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="@dimen/_5sdp"
+                        android:textColorHint="@color/grey"
+                        app:error="@{viewModel.errGender}"
+                        app:errorEnabled="true"
+
+
+                        app:hintEnabled="true">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edt_gender"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:focusable="false"
+                            android:fontFamily="@font/poppins_regular"
+                            android:hint="@string/gender"
+                            android:imeOptions="actionNext"
+                            android:inputType="textPostalAddress"
+                            android:maxLength="18"
+                            android:singleLine="true"
+                            android:textColor="@color/black"
+                            android:textColorHighlight="@color/black"
+                            android:textColorHint="@color/black"
+                            android:textSize="16dp"
+                            app:hintTextAppearance="@style/AppTheme.NoActionBarNew" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+                <!--Address-->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="10dp"
+                    android:textColorHint="@color/grey"
+                    app:errorEnabled="true"
+
+                    app:hintEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edt_address"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:fontFamily="@font/poppins_regular"
+                        android:hint="@string/address"
+                        android:imeOptions="actionNext"
+                        android:inputType="textPostalAddress"
+                        android:maxLength="300"
+                        android:singleLine="true"
+                        android:textColor="@color/black"
+                        android:textColorHighlight="@color/black"
+                        android:textColorHint="@color/black"
+                        android:textSize="16dp"
+                        app:hintTextAppearance="@style/AppTheme.NoActionBarNew" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!--Suburb-->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="10dp"
+                    android:textColorHint="@color/grey"
+                    app:errorEnabled="true"
+
+                    app:hintEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edt_suburb"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:fontFamily="@font/poppins_regular"
+                        android:hint="@string/suburb"
+                        android:imeOptions="actionNext"
+                        android:inputType="textPostalAddress"
+                        android:maxLength="300"
+                        android:singleLine="true"
+                        android:textColor="@color/black"
+                        android:textColorHighlight="@color/black"
+                        android:textColorHint="@color/black"
+                        android:textSize="16dp"
+                        app:hintTextAppearance="@style/AppTheme.NoActionBarNew" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!--City and State-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <!--Country-->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="1"
+                        android:layout_marginRight="@dimen/_5sdp"
+                        android:textColorHint="@color/grey"
+                        app:error="@{viewModel.errAge}"
+                        app:errorEnabled="true"
+
+
+                        app:hintEnabled="true">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edt_country"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:focusable="false"
+                            android:fontFamily="@font/poppins_regular"
+                            android:hint="@string/country"
+                            android:imeOptions="actionNext"
+                            android:inputType="textPostalAddress"
+                            android:maxLength="50"
+                            android:singleLine="true"
+                            android:textColor="@color/black"
+                            android:textColorHighlight="@color/black"
+                            android:textColorHint="@color/black"
+                            android:textSize="16dp"
+                            app:hintTextAppearance="@style/AppTheme.NoActionBarNew" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <!--State-->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="@dimen/_5sdp"
+                        android:textColorHint="@color/grey"
+                        app:error="@{viewModel.errGender}"
+                        app:errorEnabled="true"
+
+
+                        app:hintEnabled="true">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edt_state"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:focusable="false"
+                            android:fontFamily="@font/poppins_regular"
+                            android:hint="@string/state"
+                            android:imeOptions="actionNext"
+
+                            android:inputType="textPostalAddress"
+                            android:maxLength="50"
+                            android:singleLine="true"
+                            android:textColor="@color/black"
+                            android:textColorHighlight="@color/black"
+                            android:textColorHint="@color/black"
+                            android:textSize="16dp"
+                            app:hintTextAppearance="@style/AppTheme.NoActionBarNew" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+                <!--Country and Postcode-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <!--City-->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="@dimen/_5sdp"
+                        android:layout_weight="1"
+                        android:textColorHint="@color/grey"
+                        app:error="@{viewModel.errAge}"
+                        app:errorEnabled="true"
+
+
+                        app:hintEnabled="true">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edt_city"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:focusable="false"
+                            android:fontFamily="@font/poppins_regular"
+                            android:hint="@string/city"
+                            android:imeOptions="actionNext"
+
+                            android:inputType="textPostalAddress"
+                            android:maxLength="50"
+                            android:singleLine="true"
+                            android:textColor="@color/black"
+                            android:textColorHighlight="@color/black"
+                            android:textColorHint="@color/black"
+                            android:textSize="16dp"
+                            app:hintTextAppearance="@style/AppTheme.NoActionBarNew" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <!--Postcode-->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="@dimen/_5sdp"
+                        android:textColorHint="@color/grey"
+                        app:error="@{viewModel.errGender}"
+                        app:errorEnabled="true"
+
+
+                        app:hintEnabled="true">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edt_postcode"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:focusable="false"
+                            android:fontFamily="@font/poppins_regular"
+                            android:hint="@string/postcode"
+                            android:imeOptions="actionNext"
+                            android:inputType="textPostalAddress"
+                            android:maxLength="10"
+                            android:singleLine="true"
+                            android:textColor="@color/black"
+                            android:textColorHighlight="@color/black"
+                            android:textColorHint="@color/black"
+                            android:textSize="16dp"
+                            app:hintTextAppearance="@style/AppTheme.NoActionBarNew" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+                <!--Notifications-->
+               <!-- <androidx.cardview.widget.CardView
+                    app:cardCornerRadius="@dimen/_5sdp"
+                    app:cardElevation="@dimen/_1sdp"
+                    app:cardBackgroundColor="@color/white"
+                    app:contentPadding="@dimen/_5sdp"
+                    app:cardUseCompatPadding="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <RelativeLayout
+                        android:gravity="center_vertical"
+                        android:paddingLeft="@dimen/_5sdp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/tv_enable_notification"
+                            android:layout_toLeftOf="@id/tv_notification_status"
+                            android:textSize="16dp"
+                            android:layout_centerVertical="true"
+                            android:text="Receive Notifications"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+
+                        <TextView
+                            android:id="@+id/tv_notification_status"
+                            android:text="Enabled"
+                            android:textStyle="bold"
+                            android:textSize="15dp"
+                            android:textColor="@color/black"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentRight="true"
+                            android:padding="@dimen/_10sdp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    </RelativeLayout>
+
+                </androidx.cardview.widget.CardView>-->
+
+                <!--Change password-->
+               <!-- <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_marginBottom="@dimen/_20sdp"
+                    android:background="@drawable/bg_changepass_gradient"
+                    android:onClick="@{() -> clickHandler.onChanagePassword()}"
+                    android:orientation="horizontal">
+-->
+                <!--Change password-->
+                    <TextView
+                        android:id="@+id/tv_change_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="44dp"
+                        android:layout_centerVertical="true"
+                        android:paddingRight="@dimen/_5sdp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginLeft="15dp"
+                        android:padding="@dimen/_10sdp"
+                        android:onClick="@{() -> clickHandler.onChanagePassword()}"
+                        android:background="@drawable/bg_changepass_gradient"
+                        android:drawableRight="@drawable/down_arrowd_right"
+                        android:drawableLeft="@drawable/change_password_icon"
+                        android:drawablePadding="7.5dp"
+                        android:fontFamily="@font/poppins_regular"
+                        android:text="@string/change_password"
+                        android:textColor="@color/black"
+                        android:textSize="16dp" />
+
+                <RelativeLayout
+                    android:layout_marginLeft="15dp"
+                    android:background="@drawable/bg_changepass_gradient"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_20sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp">
+
+                    <ImageView
+                        android:id="@+id/img_left"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:src="@drawable/notification"
+                        android:layout_width="@dimen/_16sdp"
+                        android:layout_height="@dimen/_16sdp"></ImageView>
+
+                    <TextView
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@id/img_left"
+                        android:text="Notifications"
+                        android:paddingLeft="@dimen/_10sdp"
+                        android:fontFamily="@font/poppins_regular"
+                        android:textColor="@color/black"
+                        android:textSize="16dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"></TextView>
+
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/btn_switch"
+                        android:layout_alignParentRight="true"
+                        android:onClick="@{() -> clickHandler.onClickNotification()}"
+                        android:layout_marginRight="@dimen/_5sdp"
+                        android:layout_centerVertical="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                </RelativeLayout>
+
+<!--                </RelativeLayout>-->
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+
+</layout>

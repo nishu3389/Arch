@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.three.u.home.HomeViewModel" />
+
+        <variable
+            name="clickHandler"
+            type="com.three.u.home.HomeFragment.ClickHandler" />
+
+        <variable
+            name="checkListProgress"
+            type="Integer" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/main_layout"
+            android:visibility="visible"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_content_start"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.36" />
+
+            <!--Top buttons layout-->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_top"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:background="@drawable/bg_home_gradient"
+                app:layout_constraintBottom_toBottomOf="@id/guideline_content_start"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline_inner_Start"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.1" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline_inner_End"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.90" />
+
+                <!--Checklist buttons-->
+                <LinearLayout
+                    android:id="@+id/ll_checklist"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginLeft="@dimen/_15sdp"
+                    android:layout_marginRight="@dimen/_15sdp"
+                    android:layout_marginBottom="@dimen/_15sdp"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="@id/guideline_inner_End"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@id/guideline_inner_Start"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <!--Residential-->
+                    <RelativeLayout
+                        android:id="@+id/rr_residential"
+                        android:layout_width="0dp"
+                        android:layout_marginRight="@dimen/_5sdp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content">
+
+                        <RelativeLayout
+                            android:layout_marginTop="@dimen/_20sdp"
+                            android:background="@drawable/three_side_rounded_bg"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:text="@string/residential"
+                                android:textSize="@dimen/_15sdp"
+                                android:textColor="@color/white"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="@dimen/_25sdp"
+                                android:layout_marginBottom="@dimen/_10sdp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"></TextView>
+
+                            <RelativeLayout
+                                android:visibility="@{viewModel.responseAdv.data.residentialCount == 0 ? View.INVISIBLE : View.VISIBLE}"
+                                android:layout_alignParentRight="true"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                                <de.hdodenhof.circleimageview.CircleImageView
+                                    android:src="@color/yellow"
+                                    android:layout_margin="@dimen/_5sdp"
+                                    android:layout_width="@dimen/_20sdp"
+                                    android:layout_height="@dimen/_20sdp"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:text="@{viewModel.responseAdv.data.residentialCount +``}"
+                                    android:textStyle="bold" />
+
+                            </RelativeLayout>
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_centerHorizontal="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_width="@dimen/_38sdp"
+                            android:layout_height="@dimen/_38sdp">
+
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:src="@color/white"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"/>
+
+                            <ImageView
+                                android:layout_centerInParent="true"
+                                android:src="@drawable/residential"
+                                android:layout_width="@dimen/_18sdp"
+                                android:layout_height="@dimen/_18sdp"></ImageView>
+
+                        </RelativeLayout>
+
+                    </RelativeLayout>
+
+                    <!--Business-->
+                    <RelativeLayout
+                        android:id="@+id/rr_business"
+                        android:layout_width="0dp"
+                        android:layout_marginLeft="@dimen/_5sdp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content">
+
+                        <RelativeLayout
+                            android:layout_marginTop="@dimen/_20sdp"
+                            android:background="@drawable/three_side_rounded_bg"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:text="@string/business"
+                                android:textSize="@dimen/_15sdp"
+                                android:textColor="@color/white"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="@dimen/_25sdp"
+                                android:layout_marginBottom="@dimen/_10sdp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"></TextView>
+
+                            <RelativeLayout
+                                android:layout_alignParentRight="true"
+                                android:visibility="@{viewModel.responseAdv.data.businessCount == 0 ? View.INVISIBLE : View.VISIBLE}"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                                <de.hdodenhof.circleimageview.CircleImageView
+                                    android:src="@color/yellow"
+                                    android:layout_margin="@dimen/_5sdp"
+                                    android:layout_width="@dimen/_20sdp"
+                                    android:layout_height="@dimen/_20sdp"/>
+
+                                <TextView
+                                    android:text="@{viewModel.responseAdv.data.businessCount+``}"
+                                    android:textStyle="bold"
+                                    android:layout_centerInParent="true"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+
+                            </RelativeLayout>
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_centerHorizontal="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_width="@dimen/_38sdp"
+                            android:layout_height="@dimen/_38sdp">
+
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:src="@color/white"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"/>
+
+                            <ImageView
+                                android:layout_centerInParent="true"
+                                android:src="@drawable/business"
+                                android:layout_width="@dimen/_18sdp"
+                                android:layout_height="@dimen/_18sdp"></ImageView>
+
+                        </RelativeLayout>
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <!--Browse and Upload-->
+                <LinearLayout
+                    android:id="@+id/rel_market"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:weightSum="10"
+                    android:layout_marginTop="@dimen/_18sdp"
+                    android:orientation="horizontal"
+                    android:background="@drawable/two_side_rounded_bg"
+                    android:padding="15dp"
+                    app:layout_constraintEnd_toEndOf="@+id/ll_checklist"
+                    app:layout_constraintStart_toStartOf="@+id/ll_checklist"
+                    app:layout_constraintTop_toBottomOf="@+id/ll_checklist">
+
+                    <ImageView
+                        android:id="@+id/img_market"
+                        android:layout_width="@dimen/_25sdp"
+                        android:layout_height="@dimen/_25sdp"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:layout_marginBottom="@dimen/_8sdp"
+                        android:layout_marginLeft="@dimen/_5sdp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/u3" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/u_market"
+                        android:layout_width="0dp"
+                        android:layout_weight="3"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="left"
+                        android:textStyle="normal"
+                        android:fontFamily="@font/poppins_regular"
+                        android:layout_marginLeft="@dimen/_6sdp"
+                        android:text="Market"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_15sdp" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="0dp"
+                        android:layout_weight="3.5"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/rounded_bg_browse"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:onClick="@{()->clickHandler.browseItemClicked()}"
+                        android:paddingTop="@dimen/_3sdp"
+                        android:paddingBottom="@dimen/_3sdp"
+                        android:paddingLeft="@dimen/_8sdp"
+                        android:paddingRight="@dimen/_8sdp"
+                        android:fontFamily="@font/poppins_regular"
+                        android:layout_marginLeft="@dimen/_5sdp"
+                        android:text="@string/browse"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_13sdp" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="0dp"
+                        android:layout_weight="3.5"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/rounded_bg_upload"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:onClick="@{()->clickHandler.selllGiveAwayClicked()}"
+                        android:paddingTop="@dimen/_3sdp"
+                        android:paddingBottom="@dimen/_3sdp"
+                        android:paddingLeft="@dimen/_8sdp"
+                        android:paddingRight="@dimen/_8sdp"
+                        android:fontFamily="@font/poppins_regular"
+                        android:layout_marginLeft="@dimen/_5sdp"
+                        android:text="@string/upload"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_13sdp" />
+
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_vertical_Start"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.05" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_vertical_End"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.95" />
+
+            <!--Advertisement-->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_adv"
+                app:cardBackgroundColor="@color/light_blue"
+                app:cardCornerRadius="@dimen/_22sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:scaleType="fitXY"
+                app:layout_constraintDimensionRatio="H,6:5"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintEnd_toEndOf="@id/guideline_vertical_End"
+                app:layout_constraintStart_toStartOf="@id/guideline_vertical_Start"
+                app:layout_constraintTop_toBottomOf="@id/guideline_content_start"
+                tools:src="@drawable/demo_advertise">
+
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/view_pager"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <View
+                    android:background="#80000000"
+                    android:layout_gravity="bottom"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_35sdp"/>
+
+                <com.three.u.util.ViewPagerIndicator
+                    android:id="@+id/instadot"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|center_horizontal"
+                    android:layout_marginBottom="15dp"
+                    app:delimiterSize="8dp"
+                    app:itemScale="1"
+                    app:itemSelectedTint="@color/app_green"
+                    app:itemSize="@dimen/_10sdp"
+                    app:itemTint="@color/white"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/bg_hone_item"
+                android:padding="@dimen/_15sdp"
+                app:layout_constraintEnd_toEndOf="@id/cv_adv"
+                app:layout_constraintStart_toStartOf="@id/cv_adv"
+                app:layout_constraintTop_toBottomOf="@+id/cv_adv">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_regular"
+                    android:gravity="center"
+                    android:text="@string/home_below"
+                    android:textColor="#000000"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+</layout>

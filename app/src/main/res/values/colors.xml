@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#F5333F</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#000</color>
+
+    <color name="app_red">#F33341</color>
+
+    <color name="grey">#8f8f8f</color>
+    <color name="transparent_white">#80ffffff</color>
+    <color name="transparent">#00ffffff</color>
+    <color name="bg_alert_dialog">#F2ffffff</color>
+    <color name="off_white">#f5f5f5</color>
+    <color name="off_white_1">#F9F9F9</color>
+    <color name="off_black_1">#4E4E4E</color>
+    <color name="dark_shadow_color">#F8F8F8</color>
+    <color name="yellow">#FFDF00</color>
+    <color name="orange_on_boarding">#E7978D</color>
+
+
+    //app color real
+    <color name="colorGreen">#ff669900</color>
+    <color name="colorGray">#ccc</color>
+
+    <color name="pale_salmon">#f3b49f</color>
+    <color name="rose_pink">#ef8f90</color>
+    <color name="perrywinkle">#8093ec</color>
+    <color name="cornflower">#727be5</color>
+    <color name="white">#ffffff</color>
+    <color name="black">#222222</color>
+    <color name="black_40_opacity">#66000000</color>
+    <color name="brown_grey">#979797</color>
+    <color name="black_color">#222222</color>
+    <color name="gray_viewcolor">#f8f8f8</color>
+    <color name="prity_winkle_color">#8093ec</color>
+    <color name="corner_flower">#8093ec</color>
+    <color name="edit_text_Shape">#f8f8f8</color>
+    <color name="line_selected">#f3b49f</color>
+    <color name="line_colors">#004BDF40</color>
+    <color name="blush">#edac97</color>
+    <color name="pig_pink">#e8787a</color>
+    <color name="background_color">#f8f8f8</color>
+    <color name="see_more">#7581e6</color>
+
+
+    <color name="blue_color_picker">#0066FF</color>
+    <color name="brown_color_picker">#AF593E</color>
+    <color name="green_color_picker">#01A368</color>
+    <color name="orange_color_picker">#FF861F</color>
+    <color name="red_color_picker">#ED0A3F</color>
+    <color name="red_orange_color_picker">#FF3F34</color>
+    <color name="sky_blue_color_picker">#76D7EA</color>
+    <color name="violet_color_picker">#8359A3</color>
+    <color name="yellow_color_picker">#FBE870</color>
+    <color name="yellow_green_color_picker">#C5E17A</color>
+    <color name="tool_bg">#151414</color>
+
+
+    <color name="blackFF">#FF000000</color>
+    <color name="grey1">#a6a6a6</color>
+
+    <color name="smallMic">#c2185b</color>
+    <color name="slideText">#6e6e6e</color>
+    <color name="color_lang_bg">#F2F2F2</color>
+    <color name="light_grey">#DCDCDC</color>
+
+    <color name="text_header">#5f5f5f</color>
+    <color name="line_color">#7a7a7a</color>
+    <color name="colorDivider">#aaaaaa</color>
+    <color name="listBg">#F9F9F9</color>
+    <color name="text_grey">#949495</color>
+
+    <color name="blue">#00e1e7</color>
+    <color name="light_blue">#b9b4ff</color>
+    <color name="shadow_color">#FF000000</color>
+    <color name="line_button">#565758</color>
+    <color name="background_video_color">#2f3031</color>
+    <color name="button_bg">#F5333F</color>
+    <color name="app_blue">#F5333F</color>
+    <color name="app_blue_dark">#2DCBEB</color>
+    <color name="app_green">#74E965</color>
+    <color name="app_progress_color">#19C947</color>
+    <color name="otp">#E5E5E5</color>
+    <color name="recycler_bg">#F9F9F9</color>
+    <color name="txt_color_dark">#606060</color>
+</resources>
+
+
+    <!--Hex Opacity Values
+    100% — FF
+    95% — F2
+    90% — E6
+    85% — D9
+    80% — CC
+    75% — BF
+    70% — B3
+    65% — A6
+    60% — 99
+    55% — 8C
+    50% — 80
+    45% — 73
+    40% — 66
+    35% — 59
+    30% — 4D
+    25% — 40
+    20% — 33
+    15% — 26
+    10% — 1A
+    5% — 0D
+    0% — 00-->

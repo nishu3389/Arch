@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_main"
+    app:startDestination="@id/LoginFragment">
+    <fragment
+        android:id="@+id/LoginFragment"
+        android:name="com.three.u.login.LoginFragment"
+        tools:layout="@layout/fragment_login" />
+    <fragment
+        android:id="@+id/RegisterFragment"
+        android:name="com.three.u.register.RegisterFragment"
+        tools:layout="@layout/fragment_register" />
+    <fragment
+        android:id="@+id/ForgotPasswordFragment"
+        android:name="com.three.u.forgot_password.ForgotPasswordFragment"
+        tools:layout="@layout/fragment_forgot_password" />
+    <fragment
+        android:id="@+id/OTPFragment"
+        android:name="com.three.u.otp.OTPFragment"
+        tools:layout="@layout/fragment_otp" />
+    <fragment
+        android:id="@+id/ChangePasswordFragment"
+        android:name="com.three.u.changepassword.ChangePasswordFragment"
+        tools:layout="@layout/fragment_change_password" />
+    <fragment
+        android:id="@+id/ResetPasswordFragment"
+        android:name="com.three.u.reset_password.ResetPasswordFragment"
+        tools:layout="@layout/fragment_change_password" />
+
+    <fragment
+        android:id="@+id/ProfileEditFragment"
+        android:name="com.three.u.profileedit.ProfileEditFragment"
+        tools:layout="@layout/fragment_profile_edit" />
+
+    <fragment
+        android:id="@+id/IntroSliderFragment"
+        android:name="com.three.u.intro_slider.IntroSliderFragment"
+        tools:layout="@layout/intro_slider" />
+
+
+</navigation>

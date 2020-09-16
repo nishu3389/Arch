@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_directory"
+        android:icon="@drawable/service_directory_menu_icon"
+        android:title="Directory"/>
+    <item
+        android:id="@+id/action_scan"
+        android:icon="@drawable/scan_qr_menu_icon"
+        android:title="Scan Boxvert" />
+    <!--<item
+        android:id="@+id/action_package"
+        android:icon="@drawable/boxes_packaing_icon"
+        android:title="Packaging" />
+  <item
+        android:id="@+id/action_utilities"
+        android:icon="@drawable/utilities_icon"
+        android:title="Utilities" />-->
+  <item
+        android:id="@+id/action_concierge"
+        android:icon="@drawable/request"
+        android:title="Concierge" />
+</menu>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name = "ViewPagerIndicator">
+        <attr name = "itemSize" format = "dimension" />
+        <attr name = "itemScale" format = "float" />
+        <attr name = "itemSelectedTint" format = "color" />
+        <attr name = "itemTint" format = "color" />
+        <attr name = "delimiterSize" format = "dimension" />
+        <attr name = "itemIcon" format = "reference" />
+    </declare-styleable>
+
+    <declare-styleable name="MorphBottomNavigationView">
+        <attr format="color" name="backgroundTint"/>
+        <attr format="dimension" name="morphItemRadius"/>
+        <attr format="dimension" name="morphVerticalOffset"/>
+        <attr format="dimension" name="morphCornerRadius"/>
+    </declare-styleable>
+
+</resources>

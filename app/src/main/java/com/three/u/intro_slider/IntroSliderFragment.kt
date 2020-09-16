@@ -1,19 +1,19 @@
 package com.three.u.intro_slider
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.annotation.NonNull
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager.widget.PagerAdapter
+import androidx.viewpager.widget.ViewPager
 import com.three.u.R
-import com.three.u.base.*
+import com.three.u.base.AsyncViewController
+import com.three.u.base.BaseFragment
+import com.three.u.base.MyViewModelProvider
 import com.three.u.databinding.IntroSliderBinding
 import com.three.u.model.request.RequestChangePassword
-import kotlin.collections.ArrayList
 
 
 class IntroSliderFragment : BaseFragment() {
@@ -42,34 +42,12 @@ class IntroSliderFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setupViewPager(
-            arrayListOf(
-                SliderModel(R.drawable.onboarding_1, getString(R.string.slider_1_msg_1), getString(R.string.slider_1_msg_2)),
-                SliderModel(
-                    R.drawable.onboarding_2, getString(R.string.slider_2_msg_1), getString(
-                        R.string.slider_2_msg_2
-                    )
-                ),
-                SliderModel(
-                    R.drawable.onboarding_3, getString(R.string.slider_3_msg_1), getString(
-                        R.string.slider_3_msg_2
-                    )
-                ),
-                SliderModel(
-                    R.drawable.onboarding_4, getString(R.string.slider_4_msg_1), getString(
-                        R.string.slider_4_msg_2
-                    )
-                )
-            )
-        )
-
+        setupViewPager(arrayListOf(R.layout.row_slider1, R.layout.row_slider2, R.layout.row_slider3, R.layout.row_slider4))
     }
 
 
     private fun setupViewModel() {
-        mViewModel =
-            ViewModelProviders.of(this, MyViewModelProvider(commonCallbacks as AsyncViewController))
-                .get(IntroSliderViewModel::class.java)
+        mViewModel = ViewModelProviders.of(this, MyViewModelProvider(commonCallbacks as AsyncViewController)).get(IntroSliderViewModel::class.java)
         mViewModel.requestChangePassword.set(RequestChangePassword())
     }
 
@@ -82,36 +60,32 @@ class IntroSliderFragment : BaseFragment() {
     }
 
 
-    private fun setupViewPager(listOfFiles: ArrayList<SliderModel>) {
+    private fun setupViewPager(listOfFiles: ArrayList<Int>) {
         mAdapter = ViewsSliderAdapter(listOfFiles)
-        mBinding.viewPager2.adapter = mAdapter
+        mBinding.viewPager.adapter = mAdapter
     }
 
-    class ViewsSliderAdapter(private var images: ArrayList<SliderModel>?) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    class ViewsSliderAdapter(private var sliderViews: ArrayList<Int>?) : PagerAdapter() {
 
-        @NonNull
-        override fun onCreateViewHolder(@NonNull parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-            val view = LayoutInflater.from(parent.context).inflate(R.layout.row_slider, parent, false)
-            return SliderViewHolder(view)
+        override fun instantiateItem(container: ViewGroup, position: Int): Any {
+            var inflater = container.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+            val view: View = inflater.inflate(sliderViews?.get(position)!!, container, false)
+            (container as ViewPager).addView(view, 0)
+            return view
         }
 
-        override fun onBindViewHolder(@NonNull holder: RecyclerView.ViewHolder, position: Int) {
-            holder.itemView.findViewById<ImageView>(R.id.imv_item)
-                .set(holder.itemView.context, images?.get(position)?.image)
-            holder.itemView.findViewById<TextView>(R.id.tv_1)
-                .setText(images?.get(position)?.message1)
-            holder.itemView.findViewById<TextView>(R.id.tv_2)
-                .setText(images?.get(position)?.message2)
+        override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
+            container.removeView(`object` as View)
         }
 
-        override fun getItemCount(): Int {
-            return images?.size ?: 0
+        override fun isViewFromObject(view: View, `object`: Any): Boolean {
+            return view === `object`
         }
 
-        inner class SliderViewHolder(view: View?) :
-            RecyclerView.ViewHolder(view!!) {
-            var imageView: TextView? = null
+        override fun getCount(): Int {
+            return sliderViews?.size?:0
         }
+
 
     }
 
