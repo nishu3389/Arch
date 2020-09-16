@@ -47,7 +47,6 @@ class ChangePasswordFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (activity as MainBoardActivity).setTitle(resources.getString(R.string.change_password))
-        (activity as MainBoardActivity).unlockDrawer()
     }
 
 

@@ -1,17 +1,21 @@
 package com.three.u.intro_slider
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.three.u.R
+import com.three.u.activity.MainBoardActivity
 import com.three.u.base.AsyncViewController
 import com.three.u.base.BaseFragment
 import com.three.u.base.MyViewModelProvider
+import com.three.u.base.push
 import com.three.u.databinding.IntroSliderBinding
 import com.three.u.model.request.RequestChangePassword
 
@@ -42,12 +46,21 @@ class IntroSliderFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setupViewPager(arrayListOf(R.layout.row_slider1, R.layout.row_slider2, R.layout.row_slider3, R.layout.row_slider4))
+        setupViewPager(
+            arrayListOf(
+                R.layout.row_slider1,
+                R.layout.row_slider2,
+                R.layout.row_slider3,
+                R.layout.row_slider4
+            )
+        )
     }
 
 
     private fun setupViewModel() {
-        mViewModel = ViewModelProviders.of(this, MyViewModelProvider(commonCallbacks as AsyncViewController)).get(IntroSliderViewModel::class.java)
+        mViewModel =
+            ViewModelProviders.of(this, MyViewModelProvider(commonCallbacks as AsyncViewController))
+                .get(IntroSliderViewModel::class.java)
         mViewModel.requestChangePassword.set(RequestChangePassword())
     }
 
@@ -63,12 +76,27 @@ class IntroSliderFragment : BaseFragment() {
     private fun setupViewPager(listOfFiles: ArrayList<Int>) {
         mAdapter = ViewsSliderAdapter(listOfFiles)
         mBinding.viewPager.adapter = mAdapter
+        mBinding.tvNext?.push()?.setOnClickListener {
+
+            var position = mBinding.viewPager.currentItem
+
+            if (position == 3)
+                findNavController().navigate(R.id.LoginFragment)
+            else
+                mBinding.viewPager.setCurrentItem(position + 1, true)
+        }
+
+        mBinding.tvSkip.push()?.setOnClickListener {
+            findNavController().navigate(R.id.HomeFragment)
+        }
+
     }
 
     class ViewsSliderAdapter(private var sliderViews: ArrayList<Int>?) : PagerAdapter() {
 
         override fun instantiateItem(container: ViewGroup, position: Int): Any {
-            var inflater = container.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+            var inflater =
+                container.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             val view: View = inflater.inflate(sliderViews?.get(position)!!, container, false)
             (container as ViewPager).addView(view, 0)
             return view
@@ -83,9 +111,8 @@ class IntroSliderFragment : BaseFragment() {
         }
 
         override fun getCount(): Int {
-            return sliderViews?.size?:0
+            return sliderViews?.size ?: 0
         }
-
 
     }
 

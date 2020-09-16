@@ -45,7 +45,6 @@ class ProfileShowFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        (activity as MainBoardActivity).unlockDrawer()
         setHasOptionsMenu(true)
         getIntentData()
     }
@@ -92,7 +91,6 @@ class ProfileShowFragment : BaseFragment() {
 
             Prefs.get().loginData=responseLogin
 
-            (activity as MainBoardActivity).upadteNameImage()
 
             mViewModel.callGetCountryStateCityApi().observe(viewLifecycleOwner, Observer { handleCountryStateCityResponse(it,model) })
 

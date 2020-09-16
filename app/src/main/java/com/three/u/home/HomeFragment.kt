@@ -50,25 +50,6 @@ class HomeFragment : BaseFragment() {
         setupViewModel()
     }
 
-    override fun onStart() {
-        super.onStart()
-        Log.d(" lifecycle", "onStartFrag")
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Log.d(" lifecycle", "onStopFrag")
-    }
-
-    override fun onResume() {
-        super.onResume()
-        Log.d(" lifecycle", "onResumeFrag")
-    }
-
-    override fun onPause() {
-        super.onPause()
-        Log.d(" lifecycle", "onPauseFrag")
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         mBinding = FragmentHomeBinding.inflate(inflater, container, false).apply {
@@ -77,9 +58,9 @@ class HomeFragment : BaseFragment() {
 
         }
 
-        mViewModel.callAdvApi().observe(viewLifecycleOwner, Observer {
-            mBinding.mainLayout.visible()
-        })
+        /*mViewModel.callAdvApi().observe(viewLifecycleOwner, Observer {
+
+        })*/
         return mBinding.root
     }
 
@@ -87,10 +68,6 @@ class HomeFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         (activity as MainBoardActivity).title = context?.titleWithLogo(R.string.home)
-        (activity as MainBoardActivity).unlockDrawer()
-
-        mBinding.rrBusiness.push()?.setOnClickListener { ClickHandler().onBusinessCheckListClicked() }
-        mBinding.rrResidential.push()?.setOnClickListener { ClickHandler().onResidentialCheckListClicked() }
     }
 
     private fun setupViewModel() {
@@ -99,71 +76,7 @@ class HomeFragment : BaseFragment() {
     }
 
     inner class ClickHandler : IPermissionGranted {
-        fun onCheckListClicked() {
-            findNavController().navigate(R.id.MyCheckListFragment)
-        }
 
-        fun onResidentialCheckListClicked() {
-            findNavController().navigate(R.id.ResidentialChecklistFragment, bundleOf(Pair("from",true)))
-            (activity as MainBoardActivity).highlightResidentialMenuItem()
-        }
-
-        fun onBusinessCheckListClicked() {
-            findNavController().navigate(R.id.ResidentialChecklistFragment, bundleOf(Pair("from",false)))
-            (activity as MainBoardActivity).highlightBusinessMenuItem()
-        }
-
-        fun serviceDirectoryItemClicked() {
-            findNavController().navigate(R.id.ServicesDirectoryFragment)
-        }
-
-        fun boxesPackagingItemClicked() {
-            var bundle: Bundle
-            bundle = Bundle()
-            bundle.putInt("BusinessCategoryID", 209)
-            findNavController().navigate(R.id.ServicesDirectoryFragment, bundle)
-        }
-
-        fun utiliesItemClicked() {
-            var bundle: Bundle
-            bundle = Bundle()
-            bundle.putInt("BusinessCategoryID", 210)
-            findNavController().navigate(R.id.ServicesDirectoryFragment, bundle)
-
-        }
-
-        fun qrCodeClicked() {
-            (activity as BaseActivity).setPermissionGranted(this)
-            permissionDenied(DeviceRuntimePermission.REQUEST_PERMISSION_ACCESS_COARSE__FINE_LOCATION_CAMERA)
-
-        }
-
-        fun onServiceDirectoryClicked() {
-            findNavController().navigate(R.id.ServicesDirectoryFragment)
-        }
-
-        fun browseItemClicked() {
-            findNavController().navigate(R.id.BrowseItemListFragment)
-        }
-
-        fun selllGiveAwayClicked() {
-            findNavController().navigate(R.id.SellOrGiveAwayFragment)
-        }
-
-        fun onClickSearch() {
-            commonCallbacks?.hideKeyboard()
-            if (mViewModel.validateInput()) {
-                mViewModel.callForgotPasswordApi()
-            }
-        }
-
-       /* fun advClicked() {
-             mViewModel?.responseAdvertsementStrip?.advertLink.let {
-                val i = Intent(Intent.ACTION_VIEW)
-                i.data = Uri.parse(it)
-                startActivityForResult(i,90)
-            }
-        }*/
 
         override fun permissionGranted(requestCode: Int) {
             when (requestCode) {
@@ -187,15 +100,5 @@ class HomeFragment : BaseFragment() {
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        /* (requireActivity() as MainBoardActivity).supportActionBar!!.setBackgroundDrawable(
-             ColorDrawable(Color.parseColor("#FFFFFF"))
-         )*/
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-    }
 
 }

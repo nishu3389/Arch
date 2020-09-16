@@ -28,10 +28,18 @@
                     android:layout_width="@dimen/_200sdp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:visibility="gone"
                     android:gravity="center"
                     android:lineSpacingExtra="3sp"
                     android:textColor="@color/black"
                     android:textSize="19sp" />
+
+                <ImageView
+                    android:layout_margin="@dimen/_7sdp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/logo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"></ImageView>
 
             </androidx.appcompat.widget.Toolbar>
 
@@ -39,15 +47,6 @@
 
         </LinearLayout>
 
-        <com.google.android.material.navigation.NavigationView
-            android:id="@+id/nav_view"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="left"
-            android:background="#FFF"
-            android:fitsSystemWindows="true"
-            app:headerLayout="@layout/nav_header_main"
-            app:menu="@menu/activity_main_drawer" />
 
     </androidx.drawerlayout.widget.DrawerLayout>
 </layout>

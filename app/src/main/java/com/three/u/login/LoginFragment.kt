@@ -83,7 +83,11 @@ class LoginFragment : BaseFragment(), IPermissionGranted {
     inner class ClickHandler {
         fun onClickLogin() {
             commonCallbacks?.hideKeyboard()
-            if(isLoginValid()){
+
+            startActivity(Intent(context, MainBoardActivity::class.java))
+//            navigate(R.id.HomeFragment)
+
+           /* if(isLoginValid()){
                 if(!mBinding.edtEmail.get().isEmptyy() && mBinding.edtEmail.get().isNumber()){
                     mViewModel.requestLogin.get()?.PhoneNumber = mBinding.edtEmail.get()
                     mViewModel.requestLogin.get()?.Email = ""
@@ -94,7 +98,7 @@ class LoginFragment : BaseFragment(), IPermissionGranted {
                 }
 
                 mViewModel.callLoginApi()
-            }
+            }*/
         }
 
         fun onClickForgotPassword() {

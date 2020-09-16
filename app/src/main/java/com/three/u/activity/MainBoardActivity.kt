@@ -50,45 +50,21 @@ import com.three.u.util.permission.IPermissionGranted
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.content_main.*
 
-class MainBoardActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener,
-    NavController.OnDestinationChangedListener, IPermissionGranted {
-    var popupShown = false
+class MainBoardActivity : BaseActivity(), NavController.OnDestinationChangedListener, IPermissionGranted {
+
     var notificationModel : NotificationBean? = null
     var fromNotification : Boolean = false
-    private var map = HashMap<AppCompatImageView, Int>()
-    private var arrTabBump = ArrayList<ImageView>()
     private var arrTabTextView = ArrayList<TextView>()
 
-    private val TAB_DIRECTORY = 1
-    private val TAB_SCAN = 2
-    private val TAB_CONCIERGE = 3
-    private val TAB_PACKAGING = 4
-    private val TAB_UTILITIES = 5
+    private val TAB_HOME = 1
+    private val TAB_HEALTH = 2
+    private val TAB_NOTIFICATION = 3
+    private val TAB_SETTINGS = 4
     private val TAB_NONE = 6
-    private var CODE_RECENT_DIRECTORY_FRAGMENT: Int = 0
 
     lateinit var context: Context
     private lateinit var appBarConfiguration: AppBarConfiguration
     lateinit var navController: NavController
-
-    private val topLevelFIds = listOf(
-        R.id.HomeFragment,
-        R.id.ProfileShowFragment,
-        R.id.SalesProfileEditFragment,
-        R.id.U3AgentFragment,
-        R.id.AddCheckListFragment,
-        R.id.SellOrGiveAwayFragment,
-        R.id.MyCheckListFragment,
-        R.id.ResidentialChecklistFragment,
-        R.id.RedeemFreeBoxFragment,
-        R.id.ServicesDirectoryFragment,
-        R.id.ServiceDirDetailsFragment,
-        R.id.ConciergeRequestFragment,
-        R.id.ScanQRCodeFragment,
-        R.id.ReferAFriendFragment,
-        R.id.ContactUsFragment,
-        R.id.MyOrdersFragment
-    )
 
     private val fragmentsWhereBottomTabsShouldBeShown = listOf(
         R.id.HomeFragment,
@@ -121,38 +97,18 @@ class MainBoardActivity : BaseActivity(), NavigationView.OnNavigationItemSelecte
    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
         initWork()
         otherWork()
         MainApplication.setInstance(this)
-       lockDrawer()
     }
 
 
     var passwordVerified: Boolean = false
 
     private val INTENT_AUTHENTICATE: Int = 3487
-    var keyguardManager: KeyguardManager? = null
 
-    fun showLockScreen() {
-        keyguardManager = getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            val km = getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager
-            if (km.isKeyguardSecure) {
-                startActivityForResult(
-                    km.createConfirmDeviceCredentialIntent(
-                        "3U Customer",
-                        "Unlock your screen"
-                    ), INTENT_AUTHENTICATE
-                )
-                Prefs.get().lastLockedMillis = System.currentTimeMillis()
-            }
-        }
-    }
 
     private fun otherWork() {
-        upadteNameImage()
-        unlockDrawer()
         bottomNavigationWork()
     }
 
@@ -189,10 +145,6 @@ class MainBoardActivity : BaseActivity(), NavigationView.OnNavigationItemSelecte
     }
 
 
-    /* override fun setLang(strLang: String) {
-
-     }
- */
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
@@ -201,66 +153,35 @@ class MainBoardActivity : BaseActivity(), NavigationView.OnNavigationItemSelecte
 
     private fun bottomNavigationWork() {
 
-        map = hashMapOf(
-            img_utility to R.drawable.utilities_icon,
-            img_directory to R.drawable.directory,
-            img_scan to R.drawable.boxvert,
-            img_concierge to R.drawable.concierge,
-            img_packaging to R.drawable.packages
-        )
-
-        arrTabBump =
-            arrayListOf(bump_directory, bump_scan, bump_concierge, bump_packaging, bump_utilities)
         arrTabTextView = arrayListOf(
-            tv_tab_directory,
-            tv_tab_scan,
-            tv_tab_concierge,
-            tv_tab_packaging,
-            tv_tab_utilities
+            tab_home,
+            tab_health,
+            tab_notification,
+            tab_settings
         )
 
-        tab_directory.pushTab()?.setOnClickListener {
-            if (navController.currentDestination?.id == R.id.ServicesDirectoryFragment && CODE_RECENT_DIRECTORY_FRAGMENT == CODE_DIRECTORY)
+        tab_home.pushTab()?.setOnClickListener {
+            if (navController.currentDestination?.id == R.id.HomeFragment)
                 return@setOnClickListener
-
-            fromChecklistToServiceDirectory = false
-            CODE_RECENT_DIRECTORY_FRAGMENT = CODE_DIRECTORY
-            navController.navigate(R.id.ServicesDirectoryFragment)
+            navController.navigate(R.id.HomeFragment)
         }
 
-        tab_scan.pushTab()?.setOnClickListener {
-            if (navController.currentDestination?.id == R.id.ScanQRCodeFragment)
+        tab_health.pushTab()?.setOnClickListener {
+            if (navController.currentDestination?.id == R.id.HomeFragment)
                 return@setOnClickListener
-            setPermissionGranted(this)
-            permissionDenied(DeviceRuntimePermission.REQUEST_PERMISSION_ACCESS_COARSE__FINE_LOCATION_CAMERA)
+            navController.navigate(R.id.HomeFragment)
         }
 
-        tab_concierge.pushTab()?.setOnClickListener {
-            if (navController.currentDestination?.id == R.id.ConciergeRequestFragment)
+        tab_notification.pushTab()?.setOnClickListener {
+            if (navController.currentDestination?.id == R.id.HomeFragment)
                 return@setOnClickListener
-            navController.navigate(R.id.ConciergeRequestFragment)
+            navController.navigate(R.id.HomeFragment)
         }
 
-        tab_packaging.pushTab()?.setOnClickListener {
-            if (navController.currentDestination?.id == R.id.ServicesDirectoryFragment && CODE_RECENT_DIRECTORY_FRAGMENT == CODE_PACKAGING)
+        tab_settings.pushTab()?.setOnClickListener {
+            if (navController.currentDestination?.id == R.id.HomeFragment)
                 return@setOnClickListener
-
-            fromChecklistToServiceDirectory = false
-            CODE_RECENT_DIRECTORY_FRAGMENT = CODE_PACKAGING
-            var bundle = Bundle()
-            bundle.putInt("BusinessCategoryID", CODE_PACKAGING)
-            navController.navigate(R.id.ServicesDirectoryFragment, bundle)
-        }
-
-        tab_utilities.pushTab()?.setOnClickListener {
-            if (navController.currentDestination?.id == R.id.ServicesDirectoryFragment && CODE_RECENT_DIRECTORY_FRAGMENT == CODE_UTILITIES)
-                return@setOnClickListener
-
-            fromChecklistToServiceDirectory = false
-            CODE_RECENT_DIRECTORY_FRAGMENT = CODE_UTILITIES
-            var bundle = Bundle()
-            bundle.putInt("BusinessCategoryID", CODE_UTILITIES)
-            navController.navigate(R.id.ServicesDirectoryFragment, bundle)
+            navController.navigate(R.id.HomeFragment)
         }
 
 
@@ -270,188 +191,26 @@ class MainBoardActivity : BaseActivity(), NavigationView.OnNavigationItemSelecte
         highlightTab(TAB_NONE)
     }
 
-    fun highlightDirectoryTab() {
-        highlightTab(TAB_DIRECTORY)
+    fun highlightHomeTab() {
+        highlightTab(TAB_HOME)
     }
 
-    fun highlightConciergeTab() {
-        highlightTab(TAB_CONCIERGE)
+    fun highlightHealthTab() {
+        highlightTab(TAB_HEALTH)
     }
 
-    fun highlightScanTab() {
-        highlightTab(TAB_SCAN)
+    fun highlightNotificationTab() {
+        highlightTab(TAB_NOTIFICATION)
     }
 
-    fun highlightPackagingTab() {
-        highlightTab(TAB_PACKAGING)
+    fun highlightSettingsTab() {
+        highlightTab(TAB_SETTINGS)
     }
 
-    fun highlightUtilitiesTab() {
-        highlightTab(TAB_UTILITIES)
-    }
-
-    fun highlightBusinessMenuItem() {
-        mBinding.navView.menu.findItem(R.id.BusinessChecklistFragment).isChecked = true
-    }
-
-    fun highlightResidentialMenuItem() {
-        mBinding.navView.menu.findItem(R.id.ResidentialChecklistFragment).isChecked = true
-    }
-
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.HomeFragment -> {
-
-                if (navController.currentDestination?.id == R.id.HomeFragment) {
-                    mBinding.drawerLayout.closeDrawer(GravityCompat.START, true)
-                    return true
-                }
-
-                navController.navigate(R.id.HomeFragment)
-                mBinding.drawerLayout.closeDrawer(GravityCompat.START, true)
-                highlightTab(TAB_NONE)
-
-                return true
-            }
-            R.id.ProfileShowFragment -> {
-                var bundle = bundleOf(KEY_PROFILE_TYPE to PROFILE_NORMAL)
-                navController.navigate(R.id.ProfileShowFragment, bundle)
-                mBinding.drawerLayout.closeDrawer(GravityCompat.START, true)
-                highlightTab(TAB_NONE)
-
-                return true
-            }
-            R.id.SalesProfileEditFragment -> {
-                navController.navigate(R.id.SalesProfileEditFragment)
-                mBinding.drawerLayout.closeDrawer(GravityCompat.START, true)
-                highlightTab(TAB_NONE)
-
-                return true
-            }
-            R.id.U3AgentFragment -> {
-                navController.navigate(R.id.U3AgentFragment)
-                mBinding.drawerLayout.closeDrawer(GravityCompat.START, true)
-                highlightTab(TAB_NONE)
-
-                return true
-            }
-            R.id.RedeemFreeBoxFragment -> {
-                navController.navigate(R.id.RedeemFreeBoxFragment)
-                mBinding.drawerLayout.closeDrawer(GravityCompat.START, true)
-                highlightTab(TAB_NONE)
-
-                return true
-            }
-            R.id.ReferAFragment -> {
-                navController.navigate(R.id.ReferAFriendFragment)
-                mBinding.drawerLayout.closeDrawer(GravityCompat.START, true)
-                highlightTab(TAB_NONE)
-
-                return true
-            }
-            R.id.ConciergeRequestFragment -> {
-                if (navController.currentDestination?.id == R.id.ConciergeRequestFragment) {
-                    mBinding.drawerLayout.closeDrawer(GravityCompat.START, true)
-                    return true
-                }
-
-                navController.navigate(R.id.ConciergeRequestFragment)
-                mBinding.drawerLayout.closeDrawer(GravityCompat.START, true)
-                highlightTab(TAB_CONCIERGE)
-                return true
-            }
-            R.id.Logout -> {
-                requestLogout()
-                mBinding.drawerLayout.closeDrawer(GravityCompat.START, true)
-                return true
-            }
-            /* R.id.ChecklistFragment -> {
-                 navController.navigate(R.id.MyCheckListFragment)
-                 mBinding.drawerLayout.closeDrawer(GravityCompat.START, true)
-                 highlightTab(TAB_NONE)
-
-                 return true
-             }*/
-            R.id.ResidentialChecklistFragment -> {
-                navController.navigate(
-                    R.id.ResidentialChecklistFragment,
-                    bundleOf(Pair("from", true))
-                )
-                mBinding.drawerLayout.closeDrawer(GravityCompat.START, true)
-                highlightTab(TAB_NONE)
-
-                return true
-            }
-            R.id.BusinessChecklistFragment -> {
-                navController.navigate(
-                    R.id.ResidentialChecklistFragment,
-                    bundleOf(Pair("from", false))
-                )
-                mBinding.drawerLayout.closeDrawer(GravityCompat.START, true)
-                highlightTab(TAB_NONE)
-
-                return true
-            }
-            R.id.SellGiveAwaFragment -> {
-                navController.navigate(R.id.SellOrGiveAwayFragment)
-                mBinding.drawerLayout.closeDrawer(GravityCompat.START, true)
-                highlightTab(TAB_NONE)
-                return true
-            }
-            R.id.ServicesDirectoryFragment -> {
-
-                if (navController.currentDestination?.id == R.id.ServicesDirectoryFragment && CODE_RECENT_DIRECTORY_FRAGMENT == CODE_DIRECTORY) {
-                    mBinding.drawerLayout.closeDrawer(GravityCompat.START, true)
-                    return true
-                }
-
-                navController.navigate(R.id.ServicesDirectoryFragment)
-                CODE_RECENT_DIRECTORY_FRAGMENT = CODE_DIRECTORY
-                mBinding.drawerLayout.closeDrawer(GravityCompat.START, true)
-
-                return true
-            }
-            R.id.ContactUsFragment -> {
-                navController.navigate(R.id.ContactUsFragment)
-                mBinding.drawerLayout.closeDrawer(GravityCompat.START, true)
-
-                return true
-            }
-            R.id.SacnQRFragment -> {
-
-                if (navController.currentDestination?.id == R.id.ScanQRCodeFragment) {
-                    mBinding.drawerLayout.closeDrawer(GravityCompat.START, true)
-                    return true
-                }
-
-                mBinding.drawerLayout.closeDrawer(GravityCompat.START, true)
-                setPermissionGranted(this)
-                permissionDenied(DeviceRuntimePermission.REQUEST_PERMISSION_ACCESS_COARSE__FINE_LOCATION_CAMERA)
-                return true
-            }
-            R.id.ThreeUMarketFargment -> {
-                navController.navigate(R.id.BrowseItemListFragment)
-
-                mBinding.drawerLayout.closeDrawer(GravityCompat.START, true)
-
-                return true
-            }
-            R.id.MyOrdersFragment -> {
-                navController.navigate(R.id.MyOrdersFragment)
-                mBinding.drawerLayout.closeDrawer(GravityCompat.START, true)
-
-                return true
-            }
-        }
-        return false
-    }
 
     private fun setNavigationController(): NavController {
         val navController = Navigation.findNavController(this, R.id.nav_host_fragment)
-
         navController.addOnDestinationChangedListener(this)
-        mBinding.navView.setupWithNavController(navController)
-        mBinding.navView.setNavigationItemSelectedListener(this)
         navController.addOnDestinationChangedListener(this)
         return navController
     }
@@ -461,7 +220,7 @@ class MainBoardActivity : BaseActivity(), NavigationView.OnNavigationItemSelecte
         destination: NavDestination,
         arguments: Bundle?
     ) {
-        when (destination.id) {
+        /*when (destination.id) {
             R.id.HomeFragment -> {
                 supportActionBar!!.setBackgroundDrawable(
                     ContextCompat.getDrawable(this, R.drawable.bg_home_toolbar_gradient)
@@ -515,24 +274,16 @@ class MainBoardActivity : BaseActivity(), NavigationView.OnNavigationItemSelecte
 
         }
 
-
         if(checklistFragments.contains(destination.id)){
             highlightTabNone()
         }
 
         hideKeyboard()
-        if (topLevelFIds.contains(destination.id)) {
-            // mBinding.relShadow.showOrGone(true)
-            showDrawerMenu()
-        } else {
-            //  mBinding.relShadow.showOrGone(false)
-            hideDrawerMenu()
-        }
 
         if (fragmentsWhereBottomTabsShouldBeShown.contains(destination.id))
             bottom_navigation_bar.visibility = View.VISIBLE
         else
-            bottom_navigation_bar.visibility = View.GONE
+            bottom_navigation_bar.visibility = View.GONE*/
 
     }
 
@@ -544,91 +295,15 @@ class MainBoardActivity : BaseActivity(), NavigationView.OnNavigationItemSelecte
         bottom_navigation_bar.visibility = View.GONE
     }
 
-    private fun hideDrawerMenu() {
-        // bottom_navigation is BottomNavigationView
-        with(mBinding.navView) {
-            if (visibility == View.VISIBLE && alpha == 1f) {
-                animate().alpha(0f).withEndAction { visibility = View.GONE }.duration = 200
-            }
-        }
-    }
 
-    private fun showDrawerMenu() {
-        // bottom_navigation is BottomNavigationView
-        with(mBinding.navView) {
-            visibility = View.VISIBLE
-            animate().alpha(1f).duration = 200
-        }
-    }
-
-    fun lockDrawer() {
-        mBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-
-        mBinding.apply {
-
-            toolbar.setNavigationIcon(resources!!.getDrawable(R.drawable.back_icon))
-            toolbar.setNavigationOnClickListener {
-                onBackPressed()
-            }
-        }
-    }
-
-
-    fun unlockDrawer() {
-        mBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
-        mBinding.apply {
-            toolbar.setNavigationIcon(resources!!.getDrawable(R.drawable.menu_icon))
-            toolbar.setNavigationOnClickListener {
-                mBinding.drawerLayout.openDrawer(Gravity.LEFT)
-            }
-        }
-    }
-
-    fun upadteNameImage() {
-        var view: View
-        view = mBinding.navView.getHeaderView(0)
-
-        var imageView: ImageView
-        var textView: TextView
-        textView = view.findViewById(R.id.textView)
-        imageView = view.findViewById(R.id.imageView)
-
-        textView.setText(Prefs.get().loginData?.customerName)
-        Picasso.get().load(Prefs.get().loginData?.logoProfilePic).into(imageView)
-
-    }
-
-    fun updatetopBarColor(isBlue: Boolean) {
-        if (isBlue)
-            mBinding.toolbar.setBackgroundColor(Color.parseColor("#A9EFFF"))
-        else
-            mBinding.toolbar.setBackgroundColor(Color.parseColor("#FFFFFF"))
-    }
 
     override fun setTitle(title: CharSequence?) {
         mBinding.tvTitle.setText(title)
     }
 
-    override fun onTrimMemory(level: Int) {
-        super.onTrimMemory(level)
 
-        Log.d(" lifecycle", "onTrimMemory")
-    }
 
-    override fun onPause() {
-        super.onPause()
-        passwordVerified = false
-    }
 
-    override fun onResume() {
-        super.onResume()
-        if (!passwordVerified)
-            showLockScreen()
-        else {
-
-        }
-        Log.d(" lifecycle", "onResume")
-    }
 
     @SuppressLint("MissingSuperCall")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -653,7 +328,6 @@ class MainBoardActivity : BaseActivity(), NavigationView.OnNavigationItemSelecte
 
             DeviceRuntimePermission.REQUEST_PERMISSION_ACCESS_COARSE__FINE_LOCATION_CAMERA -> {
                 navController.navigate(R.id.ScanQRCodeFragment)
-                mBinding.navView.menu.findItem(R.id.SacnQRFragment).isChecked = true
             }
         }
     }
@@ -702,70 +376,40 @@ class MainBoardActivity : BaseActivity(), NavigationView.OnNavigationItemSelecte
 
     private fun highlightTab(tab: Int) {
         when (tab) {
-            TAB_DIRECTORY -> {
+            TAB_HOME -> {
                 highlightTab(
-                    R.drawable.directory_active,
-                    img_directory,
-                    tv_tab_directory,
-                    bump_directory,
+                    tab_home,
                     false
                 )
-                mBinding.navView.menu.findItem(R.id.ServicesDirectoryFragment).isChecked = true
             }
-            TAB_SCAN -> {
-                highlightTab(R.drawable.boxvert_active, img_scan, tv_tab_scan, bump_scan, false)
-                mBinding.navView.menu.findItem(R.id.SacnQRFragment).isChecked = true
+            TAB_HEALTH-> {
+                highlightTab(tab_health, false)
             }
-            TAB_CONCIERGE -> {
+            TAB_NOTIFICATION -> {
                 highlightTab(
-                    R.drawable.concierge_active,
-                    img_concierge,
-                    tv_tab_concierge,
-                    bump_concierge,
+                    tab_notification,
                     false
                 )
-                mBinding.navView.menu.findItem(R.id.ConciergeRequestFragment).isChecked = true
             }
-            TAB_PACKAGING -> highlightTab(
-                R.drawable.packages_active,
-                img_packaging,
-                tv_tab_packaging,
-                bump_packaging,
+            TAB_SETTINGS -> highlightTab(
+                tab_settings,
                 false
             )
-            TAB_UTILITIES -> highlightTab(
-                R.drawable.utilities_active,
-                img_utility,
-                tv_tab_utilities,
-                bump_utilities,
-                false
-            )
-            TAB_NONE -> highlightTab(null, null, null, null, true)
+
+            TAB_NONE -> highlightTab(null, true)
         }
     }
 
     private fun highlightTab(
-        drawableActive: Int?,
-        imageViewToHighlight: AppCompatImageView?,
         tvTab: TextView?,
-        bump: ImageView?,
         clear: Boolean
     ) {
 
-        for (arrTabIcon in map)
-            setDrawable(arrTabIcon.key, arrTabIcon.value)
-
-        for (view in arrTabBump)
-            view.invisible()
-
         for (textView in arrTabTextView)
-            setTvColor(textView, R.color.black)
+            setTvColor(textView, R.color.white)
 
         if (!clear) {
-            setDrawable(imageViewToHighlight, drawableActive)
-            bump.visible()
             setTvColor(tvTab, R.color.app_green)
-//            playTap()
         }
 
     }
@@ -824,5 +468,6 @@ class MainBoardActivity : BaseActivity(), NavigationView.OnNavigationItemSelecte
         startActivity(Intent(this, SplashActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK))
         finish()
     }
+
 
 }

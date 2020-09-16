@@ -79,7 +79,6 @@ class GoogleMapFragment : BaseFragment(), IPermissionGranted, OnMapReadyCallback
         }
 
         (activity as MainBoardActivity).title = context?.titleWithLogo(R.string.select_location)
-        (activity as MainBoardActivity).lockDrawer()
         return mBinding.root
     }
 

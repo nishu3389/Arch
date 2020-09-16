@@ -261,4 +261,42 @@
         <item name="android:backgroundDimEnabled">false</item>
         <item name="android:background">@android:color/transparent</item>
     </style>
+
+    <style name="HomeMenuInner">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_marginTop">@dimen/_20sdp</item>
+        <item name="android:background">@drawable/three_side_rounded_bg</item>
+    </style>
+
+    <style name="HomeMenu">
+        <item name="android:elevation">@dimen/_5sdp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/_100sdp</item>
+        <item name="android:layout_marginTop">@dimen/_15sdp</item>
+    </style>
+
+    <style name="HomeMenuText">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:paddingLeft">@dimen/_15sdp</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="HomeMenuImage">
+<!--        <item name="android:scaleType">centerCrop</item>-->
+        <item name="android:layout_marginRight">@dimen/_2sdp</item>
+        <item name="android:layout_marginBottom">@dimen/_10sdp</item>
+        <item name="android:layout_alignParentTop">true</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+
+
+
+
 </resources>

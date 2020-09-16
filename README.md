@@ -1,22 +1,24 @@
-Client ID - 177012164831-i662dslp9sumauv83eiduuq208vtmsa4.apps.googleusercontent.com
+RKF - Fitness Tracking App
 
-Client Secret - 4_5Ql8etJ4pmwfAt-vFi7NJI
+---------------------------------GIT-----------------------------------------------------
+Repository Name: FitnessTrackingApp
 
+URL :- https://git-codecommit.ap-south-1.amazonaws.com/v1/repos/fitnesstrackingapp
 
+Username : avinash.sharma@dotsquares.com-at-134080855983
 
+Password : kWFP5wS/dc2Ij0sD25JpXFm9m+QXM8W+vHitaZyAzc0=
+---------------------------------GIT-----------------------------------------------------
 
+Client Country - Australia
+Client Name - Ray kelly
 
-AWS account email login admin@u3group.com.au
-password U3mapp2020
+DESIGN - https://xd.adobe.com/view/08a2abd1-72e8-4d37-88f2-a37bca419007-5df1/
 
-Apple account email login david@u3group.com.au
-password U3mapp2020
+SLICES - \\192.168.0.4\Projects_new\FitnessTrackingApp\Android
 
-Google account email login 3umapp@gmail.com
-password Phoenix1806$$$
-
-twitter account email login admin@u3group.com.au
-password U3mapp2020
-
-LinkedIn email login admin@u3group.com.au
-password U3mapp2020
+---------------------------------SOCIAL ACCOUNTS------------------------------------
+Google:
+raykellyfitness@gmail.com
+Password: Yaamaa789
+---------------------------------SOCIAL ACCOUNTS------------------------------------

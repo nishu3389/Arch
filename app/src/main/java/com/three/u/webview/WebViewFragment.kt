@@ -101,7 +101,6 @@ class WebViewFragment : BaseFragment(), IPermissionGranted {
             url = it?.getString("url")
         }
 
-        (activity as MainBoardActivity).lockDrawer()
         (activity as MainBoardActivity).title = context?.titleWithLogo(R.string.setup_bank_account)
 
         setHasOptionsMenu(false)
