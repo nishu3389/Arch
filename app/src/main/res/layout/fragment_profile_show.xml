@@ -16,11 +16,11 @@
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedscoll_view"
         android:fillViewport="true"
-        android:background="@drawable/gradiat_bg"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <RelativeLayout
+            android:background="@drawable/rounded_setting_top"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -31,7 +31,7 @@
 
                 <com.three.u.views.CommonTextView
                     android:text="Name"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:layout_marginTop="@dimen/_30sdp"
                     android:layout_gravity="center_horizontal"
                     android:textColor="@color/white"
@@ -40,7 +40,7 @@
 
                 <com.three.u.views.CommonTextView
                     android:text="@{viewModel.user.name}"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:layout_gravity="center_horizontal"
                     android:textColor="@color/white"
                     android:layout_width="wrap_content"
@@ -48,7 +48,7 @@
 
                 <com.three.u.views.CommonTextView
                     android:text="Email"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:layout_marginTop="@dimen/_30sdp"
                     android:layout_gravity="center_horizontal"
                     android:textColor="@color/white"
@@ -57,7 +57,7 @@
 
                 <com.three.u.views.CommonTextView
                     android:text="@{viewModel.user.email}"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:layout_gravity="center_horizontal"
                     android:textColor="@color/white"
                     android:layout_width="wrap_content"
@@ -65,7 +65,7 @@
 
                 <com.three.u.views.CommonTextView
                     android:text="Contact Number"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:layout_marginTop="@dimen/_30sdp"
                     android:layout_gravity="center_horizontal"
                     android:textColor="@color/white"
@@ -74,7 +74,7 @@
 
                 <com.three.u.views.CommonTextView
                     android:text="@{viewModel.user.mobile}"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:layout_gravity="center_horizontal"
                     android:textColor="@color/white"
                     android:layout_width="wrap_content"
@@ -82,7 +82,7 @@
 
                 <com.three.u.views.CommonTextView
                     android:text="Address"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:layout_marginTop="@dimen/_30sdp"
                     android:layout_gravity="center_horizontal"
                     android:textColor="@color/white"
@@ -91,7 +91,7 @@
 
                 <com.three.u.views.CommonTextView
                     android:text="@{viewModel.user.address}"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:layout_gravity="center_horizontal"
                     android:textColor="@color/white"
                     android:layout_width="wrap_content"
