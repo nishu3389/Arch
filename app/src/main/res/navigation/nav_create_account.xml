@@ -6,7 +6,7 @@
     app:startDestination="@id/LoginFragment">
     <fragment
         android:id="@+id/LoginFragment"
-        android:name="com.three.u.login.LoginFragment"
+        android:name="com.three.u.ui.login.LoginFragment"
         tools:layout="@layout/fragment_login" />
     <fragment
         android:id="@+id/RegisterFragment"
@@ -14,7 +14,7 @@
         tools:layout="@layout/fragment_register" />
     <fragment
         android:id="@+id/ForgotPasswordFragment"
-        android:name="com.three.u.forgot_password.ForgotPasswordFragment"
+        android:name="com.three.u.ui.forgot_password.ForgotPasswordFragment"
         tools:layout="@layout/fragment_forgot_password" />
     <fragment
         android:id="@+id/OTPFragment"
@@ -22,11 +22,11 @@
         tools:layout="@layout/fragment_otp" />
     <fragment
         android:id="@+id/ChangePasswordFragment"
-        android:name="com.three.u.changepassword.ChangePasswordFragment"
+        android:name="com.three.u.ui.changepassword.ChangePasswordFragment"
         tools:layout="@layout/fragment_change_password" />
     <fragment
         android:id="@+id/ResetPasswordFragment"
-        android:name="com.three.u.reset_password.ResetPasswordFragment"
+        android:name="com.three.u.ui.reset_password.ResetPasswordFragment"
         tools:layout="@layout/fragment_change_password" />
 
     <fragment
@@ -36,7 +36,7 @@
 
     <fragment
         android:id="@+id/IntroSliderFragment"
-        android:name="com.three.u.intro_slider.IntroSliderFragment"
+        android:name="com.three.u.ui.intro_slider.IntroSliderFragment"
         tools:layout="@layout/intro_slider" />
 
 

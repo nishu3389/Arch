@@ -23,7 +23,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
-import androidx.recyclerview.widget.RecyclerView
 import com.androidnetworking.AndroidNetworking
 import com.androidnetworking.common.Priority
 import com.androidnetworking.error.ANError
@@ -37,12 +36,9 @@ import com.thekhaeng.pushdownanim.PushDownAnim
 import com.three.u.R
 import com.three.u.util.Prefs
 import com.three.u.util.RoundedCornersTransform
-import com.three.u.util.RoundedCornersTransformation
 import com.three.u.util.Util
-import com.three.u.webservice.Api
-import com.three.u.webservice.Api.BASE_URL
-import com.three.u.webservice.Api.UPDATE_TOKEN_TO_SERVER
-import kotlinx.android.synthetic.main.fragment_login.view.*
+import com.three.u.networking.Api.BASE_URL
+import com.three.u.networking.Api.UPDATE_TOKEN_TO_SERVER
 import org.json.JSONObject
 import java.text.ParseException
 import java.text.SimpleDateFormat
@@ -459,7 +455,7 @@ fun String.sendToServer(){
         headers["DeviceType"] = "2"
 
         Prefs.get().loginData?.apply {
-            headers["AuthorizationToken"] = "$authToken"
+            headers["Token"] = "$token"
             headers["UserId"] = "$id"
         }
 

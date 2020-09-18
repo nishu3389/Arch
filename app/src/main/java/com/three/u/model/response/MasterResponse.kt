@@ -7,13 +7,16 @@ data class MasterResponse<T>(
 	@field:SerializedName("data")
 	var data: T? = null,
 
-	@field:SerializedName("responseCode")
+	@field:SerializedName("status")
+	var status: Boolean? = false,
+
+	@field:SerializedName("statusCode")
 	var responseCode: Int = 0,
 
 	@field:SerializedName("successMsg")
 	var successMsg: String = "",
 
-	@field:SerializedName("failureMsg")
+	@field:SerializedName("message")
 	var failureMsg: String = "",
 
 	@field:SerializedName("apiName")
@@ -21,4 +24,5 @@ data class MasterResponse<T>(
 
 	@field:SerializedName("validationErrors")
 	var validationErrors: List<String> = emptyList()
+
 )

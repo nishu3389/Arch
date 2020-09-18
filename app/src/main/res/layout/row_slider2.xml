@@ -41,7 +41,7 @@
 
             <com.three.u.views.CommonTextViewMedium
                 android:id="@+id/tv_1"
-                android:textSize="16sp"
+                android:textSize="17sp"
                 android:paddingLeft="@dimen/_20sdp"
                 android:paddingRight="@dimen/_20sdp"
                 android:paddingBottom="@dimen/_15sdp"
@@ -60,7 +60,7 @@
                 android:paddingRight="@dimen/_20sdp"
                 android:layout_gravity="center"
                 android:text="@string/slider_2_msg_2"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
         </LinearLayout>

@@ -7,11 +7,11 @@
 
         <variable
             name="viewModel"
-            type="com.three.u.home.HomeViewModel" />
+            type="com.three.u.ui.home.HomeViewModel" />
 
         <variable
             name="clickHandler"
-            type="com.three.u.home.HomeFragment.ClickHandler" />
+            type="com.three.u.ui.home.HomeFragment.ClickHandler" />
 
         <variable
             name="checkListProgress"

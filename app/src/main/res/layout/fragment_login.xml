@@ -6,10 +6,10 @@
     <data>
         <variable
             name="viewModel"
-            type="com.three.u.login.LoginViewModel" />
+            type="com.three.u.ui.login.LoginViewModel" />
         <variable
             name="clickHandler"
-            type="com.three.u.login.LoginFragment.ClickHandler" />
+            type="com.three.u.ui.login.LoginFragment.ClickHandler" />
     </data>
 
     <androidx.core.widget.NestedScrollView

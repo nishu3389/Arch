@@ -3,8 +3,7 @@ package com.three.u.base
 import android.os.Bundle
 import androidx.lifecycle.MutableLiveData
 import com.three.u.model.response.MasterResponse
-import com.three.u.model.response.ResponseLogin
-import com.three.u.webservice.Api
+import com.three.u.networking.Api
 
 
 class BaseActivityViewModel(viewController : AsyncViewController) : BaseViewModel(viewController){

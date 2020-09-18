@@ -14,7 +14,6 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.core.os.bundleOf
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.fragment.findNavController
 import com.androidnetworking.AndroidNetworking
@@ -27,12 +26,10 @@ import com.phelat.navigationresult.BundleFragment
 import com.thekhaeng.pushdownanim.PushDownAnim
 import com.three.u.R
 import com.three.u.model.response.AdvModel
-import com.three.u.model.response.AdvSection
 import com.three.u.model.response.MasterResponse
-import com.three.u.model.response.ResponseLogin
 import com.three.u.util.Prefs
 import com.three.u.util.Util
-import com.three.u.webservice.Api
+import com.three.u.networking.Api
 import org.json.JSONObject
 import java.text.ParseException
 import java.text.SimpleDateFormat
@@ -366,7 +363,7 @@ open class BaseFragment : BundleFragment() {
         headers["DeviceType"] = "2"
 
         Prefs.get().loginData?.apply {
-            headers["AuthorizationToken"] = "$authToken"
+            headers["Token"] = "$token"
             headers["UserId"] = "$id"
         }
 

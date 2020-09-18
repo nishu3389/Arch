@@ -1,22 +1,19 @@
 package com.three.u.fcm
 
 import android.app.*
-import android.content.ComponentName
-import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
-import androidx.navigation.NavDeepLinkBuilder
 import com.demo.fcm.NotificationBean
 import com.demo.fcm.NotificationType
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.google.gson.Gson
 import com.three.u.R
-import com.three.u.activity.MainBoardActivity
+import com.three.u.ui.activity.HomeActivity
 import com.three.u.base.sendToServer
 import com.three.u.util.Constant
 import com.three.u.util.Prefs
@@ -62,7 +59,7 @@ class FcmService : FirebaseMessagingService() {
             notificationManager!!.createNotificationChannel(channel)
         }
 
-        val notifyIntent = Intent(this, MainBoardActivity::class.java)
+        val notifyIntent = Intent(this, HomeActivity::class.java)
         notifyIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         notifyIntent.putExtra("type", notificationBean.notificationtype)
         notifyIntent.putExtra("bean", notificationBean)

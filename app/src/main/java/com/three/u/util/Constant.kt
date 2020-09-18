@@ -13,7 +13,7 @@ object Constant {
     val ACTION_CONCIERGE_PROCESSED: String? = "ConceirgeProcessed"
     val ACTION_BUDGET: String? = "ACTION_BUDGET"
 
-    val MAIN_BOARD_ACTIVITY: String? = "com.three.u.activity.MainBoardActivity"
+    val MAIN_BOARD_ACTIVITY: String? = "com.three.u.ui.activity.MainBoardActivity"
 
     const val ITEM_PENDING = 1
     const val ITEM_ORDERED = 2

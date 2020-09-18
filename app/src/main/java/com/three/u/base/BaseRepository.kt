@@ -1,6 +1,6 @@
 package com.three.u.base
 
-import com.three.u.webservice.RestClient
+import com.three.u.networking.RestClient
 
 open class BaseRepository(asyncViewController: AsyncViewController?) {
 

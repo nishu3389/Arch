@@ -8,7 +8,7 @@
 
         <variable
             name="clickHandler"
-            type="com.three.u.googlemap.GoogleMapFragment.GoogleMapClickHandler" />
+            type="com.three.u.ui.googlemap.GoogleMapFragment.GoogleMapClickHandler" />
     </data>
 
 

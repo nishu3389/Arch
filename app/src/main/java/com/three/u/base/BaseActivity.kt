@@ -33,12 +33,11 @@ import com.akexorcist.localizationactivity.core.OnLocaleChangedListener
 import com.three.u.R
 import com.three.u.databinding.AppCustomDialogBinding
 import com.three.u.databinding.LayoutToolbarBinding
-import com.three.u.splash.SplashActivity
+import com.three.u.ui.splash.SplashActivity
 import com.three.u.util.*
 import com.three.u.util.Fusedlocation.LocationManager
 import com.three.u.util.permission.DeviceRuntimePermission
 import com.three.u.util.permission.IPermissionGranted
-import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
 abstract class BaseActivity : AnotherBaseActivity(), CommonCallbacks,
@@ -85,7 +84,7 @@ abstract class BaseActivity : AnotherBaseActivity(), CommonCallbacks,
     }
 
     fun setStatusBarColor() {
-        Util.updateStatusBarColor("#9BEEFF",this as FragmentActivity)
+        Util.updateStatusBarColor("#F5333F",this as FragmentActivity)
     }
 
     private fun setupBasics() {
@@ -284,7 +283,7 @@ abstract class BaseActivity : AnotherBaseActivity(), CommonCallbacks,
     }
 
     override fun onApiCallFailed(apiUrl: String, errCode: Int, errorMessage: String): Boolean {
-        if (errCode == 204) {
+        if (errCode == 202) {
             showAlertDialog("Your session has been expired. Please login now.", DialogInterface.OnClickListener { _, _ ->
                 onLogOutSuccess()
             })

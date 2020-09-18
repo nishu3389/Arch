@@ -5,20 +5,17 @@ import com.three.u.util.Prefs
 
 data class RequestLogin(
 
-	@field:SerializedName("PhoneNumber")
-	var PhoneNumber: String ="",
-
-	@field:SerializedName("Email")
+	@field:SerializedName("email")
 	var Email: String ="",
 
-	@field:SerializedName("Password")
+	@field:SerializedName("password")
 	var Password: String = "",
 
-	@field:SerializedName("DeviceToken")
+	@field:SerializedName("device_token")
 	val DeviceToken: String = Prefs.get().deviceToken,
 
-//	@field:SerializedName("DeviceType")
-//	val DeviceType: String = "Android",
+	@field:SerializedName("device_type")
+	val DeviceType: String = "android",
 
 	@Transient var flagRememberMe : Boolean = Prefs.get().rememberMe
 )

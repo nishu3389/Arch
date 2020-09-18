@@ -44,7 +44,6 @@
 
 
     <!--Change Password-->
-    <string name="change_password">Change Password</string>
     <string name="err_old_password_missing">Please enter old password</string>
     <string name="err_new_password_missing">Please enter new password</string>
     <string name="err_new_password_min_length">Password must be 6 characters long</string>
@@ -328,14 +327,16 @@
     <string name="order_detail">Order Detail</string>
     <string name="remove_account_title">Remove Account</string>
     <string name="login_terms_message">By proceeding you also agree to the Terms of Service and Privacy Policy.</string>
-    <string name="slider_1_msg_1"><![CDATA[Healthy, Happy & Positive Programs]]></string>
-    <string name="slider_1_msg_2">Imagine having a workplace where everyone is healthy, happy and positive.</string>
-    <string name="slider_2_msg_1">We start you lightly and build steadily</string>
-    <string name="slider_2_msg_2">With us you will reach your goal weight fast, and keep it off.</string>
-    <string name="slider_3_msg_1">Qualified and Experienced Exercise Professional</string>
-    <string name="slider_3_msg_2">Our trainers have spent a minimum of 4 years at university</string>
-    <string name="slider_4_msg_1">Qualified and Experienced Exercise Professional</string>
-    <string name="slider_4_msg_2">Our trainers have spent a minimum of 4 years at university</string>
+    <string name="slider_1_msg_1"><![CDATA[Healthy, Happy &\nPositive Programs]]></string>
+    <string name="slider_1_msg_2">Imagine having a workplace where\neveryone is healthy, happy and positive.</string>
+    <string name="slider_2_msg_1">We start you lightly\nand build steadily</string>
+    <string name="slider_2_msg_2">With us you will reach your goal\nweight fast, and keep it off.</string>
+    <string name="slider_3_msg_1">Qualified and Experienced\nExercise Professional</string>
+    <string name="slider_3_msg_2">Our trainers have spent a minimum\nof 4 years at university</string>
+    <string name="slider_4_msg_1">Qualified and Experienced\nExercise Professional</string>
+    <string name="slider_4_msg_2">Our trainers have spent a minimum\nof 4 years at university</string>
     <string name="tips_tricks"><![CDATA[Tips & Tricks]]></string>
+    <string name="change_password">Change Password</string>
+    <string name="my_profile">My Profile</string>
 
 </resources>

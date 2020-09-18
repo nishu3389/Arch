@@ -33,7 +33,7 @@
         android:usesCleartextTraffic="true" >
 
         <activity
-            android:name=".splash.SplashActivity"
+            android:name="com.three.u.ui.splash.SplashActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" >
@@ -47,17 +47,17 @@
         
 
         <activity
-            android:name=".activity.MainBoardActivity"
+            android:name="com.three.u.ui.activity.HomeActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activity.GoogleMapActivity"
+            android:name="com.three.u.ui.activity.GoogleMapActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activity.AccountHandlerActivity"
+            android:name="com.three.u.ui.activity.AccountHandlerActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
@@ -72,7 +72,7 @@
             android:value="@string/place_api" />
 
 
-        <activity android:name=".image_picker.ImagePickerActivity" />
+        <activity android:name="com.three.u.ui.image_picker.ImagePickerActivity" />
 
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
