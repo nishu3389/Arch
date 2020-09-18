@@ -35,6 +35,8 @@ class HomeActivity : BaseActivity(), NavController.OnDestinationChangedListener,
     var fromNotification : Boolean = false
     private var arrTabTextView = ArrayList<TextView>()
 
+
+
     private val TAB_HOME = 1
     private val TAB_HEALTH = 2
     private val TAB_NOTIFICATION = 3
