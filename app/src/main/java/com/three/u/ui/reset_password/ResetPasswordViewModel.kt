@@ -14,7 +14,7 @@ class ResetPasswordViewModel(controller: AsyncViewController) : BaseViewModel(co
     val request = ObservableField<RequestResetPassword>()
     val responseForgotPassword = MutableLiveData<MasterResponse<ResponseLogin>>()
 
-    val errOldPassword = ObservableField<String>("")
+    val errOTP = ObservableField<String>("")
     val errNewPassword = ObservableField<String>("")
     val errConfirmPassword = ObservableField<String>("")
 
@@ -23,7 +23,7 @@ class ResetPasswordViewModel(controller: AsyncViewController) : BaseViewModel(co
 
         val data = request.get() ?: return false
 
-        if (!Validator.validateResetPasswordForm(data!!, errOldPassword, errNewPassword, errConfirmPassword))
+        if (!Validator.validateResetPasswordForm(data!!, errOTP, errNewPassword, errConfirmPassword))
             return false
         return true
     }

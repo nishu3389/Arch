@@ -55,13 +55,11 @@ class ChangePasswordFragment : BaseFragment() {
 
     private fun setupObserver() {
         mViewModel.responseChangePassword.observe(this, Observer {
-            if (it.data != null) {
                 commonCallbacks?.showAlertDialog(
-                    it.successMsg,
+                    it.message,
                     DialogInterface.OnClickListener { _, _ ->
                         activity?.onBackPressed()
                     })
-            }
         })
     }
 

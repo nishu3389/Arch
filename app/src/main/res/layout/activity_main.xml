@@ -23,23 +23,48 @@
                 android:background="#FFFFFF"
                 android:gravity="center">
 
-                <TextView
-                    android:id="@+id/tv_title"
-                    android:layout_width="@dimen/_200sdp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:visibility="gone"
-                    android:gravity="center"
-                    android:lineSpacingExtra="3sp"
-                    android:textColor="@color/black"
-                    android:textSize="19sp" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-                <ImageView
-                    android:layout_margin="@dimen/_7sdp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/logo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"></ImageView>
+                    <ImageView
+                        android:id="@+id/img_back"
+                        android:layout_centerVertical="true"
+                        android:paddingLeft="@dimen/_10sdp"
+                        android:paddingRight="@dimen/_30sdp"
+                        android:src="@drawable/back_arrow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"/>
+
+                    <LinearLayout
+                        android:layout_centerInParent="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/img_logo"
+                            android:layout_margin="@dimen/_5sdp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/logo"
+                            android:layout_width="@dimen/_50sdp"
+                            android:layout_height="match_parent"></ImageView>
+
+                        <TextView
+                            android:id="@+id/tv_title"
+                            android:text="Title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:lineSpacingExtra="3sp"
+                            android:textColor="@color/black"
+                            android:textSize="19sp" />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+
 
             </androidx.appcompat.widget.Toolbar>
 

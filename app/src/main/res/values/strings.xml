@@ -44,6 +44,8 @@
 
 
     <!--Change Password-->
+    <string name="err_otp">Please enter OTP</string>
+    <string name="err_otp_length">OTP length must be greater than or equal to 4</string>
     <string name="err_old_password_missing">Please enter old password</string>
     <string name="err_new_password_missing">Please enter new password</string>
     <string name="err_new_password_min_length">Password must be 6 characters long</string>
@@ -55,10 +57,10 @@
     <string name="new_password">New Password</string>
     <string name="sample_email">aaa@aaa.com</string>
     <string name="submit">Submit</string>
-    <string name="forgot_password_subtitle">Enter your email or phone number below to receive your password reset instructions</string>
+    <string name="forgot_password_subtitle">Enter your registered email\naddress to receive password reset\ninstructions</string>
     <string name="otp_message">Enter OTP code sent to your number</string>
     <string name="otp_message_register">Please enter the verification code sent to your phone number to complete registration</string>
-    <string name="otp_message_forgot_password">Please enter the verification code sent to your phone number to reset your password</string>
+    <string name="otp_message_forgot_password">Please enter the verification code\nsent to your email to reset\nyour password</string>
     <string name="home">Home</string>
     <string name="my_task">My Task</string>
     <string name="document">Document</string>
@@ -123,7 +125,7 @@
     <string name="no_network_connected">No Network Connected</string>
 
     <string name="remember_me">Remember me</string>
-    <string name="forgot_your_password">Forgot your password?</string>
+    <string name="forgot_your_password">Forgot Password</string>
     <string name="reset_password">Reset password</string>
     <string name="verification_code">Verification Code</string>
     <string name="bad_response">Bad Response</string>
@@ -338,5 +340,6 @@
     <string name="tips_tricks"><![CDATA[Tips & Tricks]]></string>
     <string name="change_password">Change Password</string>
     <string name="my_profile">My Profile</string>
+    <string name="enter_your_email">Enter your email</string>
 
 </resources>

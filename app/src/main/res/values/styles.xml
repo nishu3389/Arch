@@ -273,7 +273,7 @@
         <item name="android:elevation">@dimen/_5sdp</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/_100sdp</item>
-        <item name="android:layout_marginTop">@dimen/_15sdp</item>
+        <item name="android:layout_marginTop">@dimen/_10sdp</item>
     </style>
 
     <style name="HomeMenuText">

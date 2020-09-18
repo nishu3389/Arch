@@ -261,7 +261,7 @@ class RestClient() {
                             val wrapperApiError = WrapperApiError(
                                 code,
                                 master.responseCode,
-                                master.failureMsg,
+                                master.message,
                                 master.validationErrors
                             )
                             dispatchError(wrapperApiError)
@@ -282,7 +282,7 @@ class RestClient() {
                             wrapperApiError = WrapperApiError(
                                 code,
                                 errInPojo.responseCode,
-                                errInPojo.successMsg,
+                                errInPojo.message,
                                 errInPojo.validationErrors
                             )
 

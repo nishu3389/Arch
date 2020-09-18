@@ -188,9 +188,6 @@ class Validator {
         }
 
 
-
-
-
         fun isPhoneValid(phone: String?, errMsgHolder: ObservableField<String>): Boolean {
 
             val diff = (phone!!.indexOf("-") + 1) - (phone.indexOf("+") + 1)
@@ -317,7 +314,9 @@ class Validator {
             } else errMsgHolder.set("")
 
             if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                errMsgHolder.set(MainApplication.get().getString(R.string.err_email_or_phone_invalid))
+                errMsgHolder.set(
+                    MainApplication.get().getString(R.string.err_email_or_phone_invalid)
+                )
                 errMsgHolder.get()?.showWarning()
                 return false
             } else errMsgHolder.set("")
@@ -483,57 +482,59 @@ class Validator {
 
         fun validateResetPasswordForm(
             data: RequestResetPassword,
-            errOldPassword: ObservableField<String>,
+            errOTP: ObservableField<String>,
             errNewPassword: ObservableField<String>,
             errConfirmPassword: ObservableField<String>
         ): Boolean {
 
             val context: Context = MainApplication.get().getContext()
 
-            errOldPassword.set("")
+            errOTP.set("")
             errNewPassword.set("")
             errConfirmPassword.set("")
 
-            if (data.oldPassword.isEmpty()) {
-                errOldPassword.set(context.getString(R.string.err_old_password_missing))
-//                showCustomToast(errOldPassword.get() ?: "")
+            if (data.otp.isEmpty()) {
+                errOTP.set(context.getString(R.string.err_otp))
+                errOTP.get()?.showWarning()
                 return false
             }
 
+            if (data.otp.length < 4) {
+                errOTP.set(context.getString(R.string.err_otp_length))
+                errOTP.get()?.showWarning()
+                return false
+            }
+
+
             if (data.newPassword.isEmpty()) {
                 errNewPassword.set(context.getString(R.string.err_new_password_missing))
-//                showCustomToast(errNewPassword.get() ?: "")
+                errNewPassword.get()?.showWarning()
                 return false
             }
 
             if (data.newPassword.length < 6) {
                 errNewPassword.set(context.getString(R.string.err_new_password_min_length))
-//                showCustomToast(errNewPassword.get() ?: "")
+                errNewPassword.get()?.showWarning()
                 return false
             }
 
             if (data.newPassword.length > 20) {
                 errNewPassword.set(context.getString(R.string.err_new_password_max_length))
-//                showCustomToast(errNewPassword.get() ?: "")
+                errNewPassword.get()?.showWarning()
                 return false
             }
 
             if (data.confirmPassword.isEmpty()) {
                 errConfirmPassword.set(context.getString(R.string.err_confirm_password_missing))
-//                showCustomToast(errConfirmPassword.get() ?: "")
+                errConfirmPassword.get()?.showWarning()
                 return false
             }
 
             if (data.newPassword.trim() != data.confirmPassword.trim()) {
                 errConfirmPassword.set(context.getString(R.string.err_passwords_not_same))
-//                showCustomToast(errConfirmPassword.get() ?: "")
+                errConfirmPassword.get()?.showWarning()
                 return false
             }
-
-            /*if (data.oldPassword.trim() == data.newPassword.trim()){
-                errConfirmPassword.set(context.getString(R.string.err_new_password_matches_new_password))
-                return false
-            }*/
 
             return true
         }

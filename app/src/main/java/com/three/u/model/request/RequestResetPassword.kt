@@ -5,14 +5,13 @@ import com.google.gson.annotations.SerializedName
 
 data class RequestResetPassword(
 
-    @field:SerializedName("oldPassword")
-    var oldPassword: String = "",
+    @field:SerializedName("otp")
+    var otp: String = "",
 
-    @field:SerializedName("newPassword")
+    @field:SerializedName("new_password")
     var newPassword: String = "",
 
     @field:SerializedName("confirmPassword")
     var confirmPassword: String = ""
-
 
 )

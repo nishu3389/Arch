@@ -29,13 +29,12 @@ import com.three.u.util.permission.DeviceRuntimePermission
 import com.three.u.util.permission.IPermissionGranted
 import kotlinx.android.synthetic.main.content_main.*
 
-class HomeActivity : BaseActivity(), NavController.OnDestinationChangedListener, IPermissionGranted {
+class HomeActivity : BaseActivity(), NavController.OnDestinationChangedListener,
+    IPermissionGranted {
 
-    var notificationModel : NotificationBean? = null
-    var fromNotification : Boolean = false
+    var notificationModel: NotificationBean? = null
+    var fromNotification: Boolean = false
     private var arrTabTextView = ArrayList<TextView>()
-
-
 
     private val TAB_HOME = 1
     private val TAB_HEALTH = 2
@@ -59,7 +58,6 @@ class HomeActivity : BaseActivity(), NavController.OnDestinationChangedListener,
     )
 
     private val fragmentsTabs = listOf(
-        R.id.HomeFragment,
         R.id.SettingsFragment
     )
 
@@ -68,12 +66,13 @@ class HomeActivity : BaseActivity(), NavController.OnDestinationChangedListener,
     var instance: HomeActivity? = null
 
 
-   override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         initWork()
         otherWork()
         MainApplication.setInstance(this)
+        setStatusBarColor("#ffffff")
     }
 
 
@@ -81,9 +80,44 @@ class HomeActivity : BaseActivity(), NavController.OnDestinationChangedListener,
 
     private val INTENT_AUTHENTICATE: Int = 3487
 
+    fun showLogo(show: Boolean) {
+        if (show)
+            mBinding.imgLogo.visible()
+        else
+            mBinding.imgLogo.gone()
+    }
+
+    fun showBack(show: Boolean) {
+        if (show)
+            mBinding.imgBack.visible()
+        else
+            mBinding.imgBack.gone()
+    }
+
+    fun setTitle(title: String) {
+        if (title.isEmptyy())
+            mBinding.tvTitle.gone()
+        else{
+            mBinding.tvTitle.visible()
+            mBinding.tvTitle.text = title
+        }
+    }
+
+    fun showLogoAndTitle(title: String) {
+        mBinding.imgLogo.visible()
+        mBinding.tvTitle.visible()
+        mBinding.tvTitle.text = title
+    }
 
     private fun otherWork() {
         bottomNavigationWork()
+        backPressWork()
+    }
+
+    private fun backPressWork() {
+        mBinding.imgBack.push()?.setOnClickListener {
+            onBackPressed()
+        }
     }
 
     override fun onNewIntent(intent: Intent?) {
@@ -93,15 +127,11 @@ class HomeActivity : BaseActivity(), NavController.OnDestinationChangedListener,
     }
 
 
-
-
-
-
     private fun initWork() {
         context = this
         intent?.let {
             if (intent != null && intent.extras != null && intent.extras!!.containsKey("bean")) {
-                notificationModel= intent.getParcelableExtra<NotificationBean>("bean")
+                notificationModel = intent.getParcelableExtra<NotificationBean>("bean")
                 fromNotification = true
             }
         }
@@ -110,12 +140,11 @@ class HomeActivity : BaseActivity(), NavController.OnDestinationChangedListener,
             toolbar.setTitle("")
             setSupportActionBar(toolbar)
         }
-        mBinding.tvTitle.setText(resources?.getString(R.string.home))
 
         val drawerLayout: DrawerLayout = mBinding.drawerLayout
         navController = setNavigationController()
-        if(fromNotification)
-        getDestination(notificationModel)
+        if (fromNotification)
+            getDestination(notificationModel)
     }
 
 
@@ -138,30 +167,34 @@ class HomeActivity : BaseActivity(), NavController.OnDestinationChangedListener,
             if (navController.currentDestination?.id == R.id.HomeFragment)
                 return@setOnClickListener
             navController.navigate(R.id.HomeFragment)
+            highlightTab(TAB_HOME)
         }
 
         tab_health.pushTab()?.setOnClickListener {
             if (navController.currentDestination?.id == R.id.HomeFragment)
                 return@setOnClickListener
             navController.navigate(R.id.HomeFragment)
+            highlightTab(TAB_NONE)
         }
 
         tab_notification.pushTab()?.setOnClickListener {
             if (navController.currentDestination?.id == R.id.HomeFragment)
                 return@setOnClickListener
             navController.navigate(R.id.HomeFragment)
+            highlightTab(TAB_NONE)
         }
 
         tab_settings.pushTab()?.setOnClickListener {
             if (navController.currentDestination?.id == R.id.SettingsFragment)
                 return@setOnClickListener
             navController.navigate(R.id.SettingsFragment)
+            highlightTab(TAB_SETTINGS)
         }
 
 
     }
 
-    fun highlightTabNone(){
+    fun highlightTabNone() {
         highlightTab(TAB_NONE)
     }
 
@@ -254,10 +287,14 @@ class HomeActivity : BaseActivity(), NavController.OnDestinationChangedListener,
 
         hideKeyboard()
 */
-        if (fragmentsWhereBottomTabsShouldBeShown.contains(destination.id))
+        if (fragmentsWhereBottomTabsShouldBeShown.contains(destination.id)) {
+            showBack(false)
             bottom_navigation_bar.visibility = View.VISIBLE
-        else
+        }
+        else{
             bottom_navigation_bar.visibility = View.GONE
+            showBack(true)
+        }
 
     }
 
@@ -270,13 +307,9 @@ class HomeActivity : BaseActivity(), NavController.OnDestinationChangedListener,
     }
 
 
-
     override fun setTitle(title: CharSequence?) {
         mBinding.tvTitle.setText(title)
     }
-
-
-
 
 
     @SuppressLint("MissingSuperCall")
@@ -323,10 +356,9 @@ class HomeActivity : BaseActivity(), NavController.OnDestinationChangedListener,
 
         when {
             navController.currentDestination?.id == R.id.ServicesDirectoryFragment -> {
-                if(fromChecklistToServiceDirectory) {
+                if (fromChecklistToServiceDirectory) {
                     super.onBackPressed()
-                }
-                else
+                } else
                     backToHome()
             }
 
@@ -356,7 +388,7 @@ class HomeActivity : BaseActivity(), NavController.OnDestinationChangedListener,
                     false
                 )
             }
-            TAB_HEALTH-> {
+            TAB_HEALTH -> {
                 highlightTab(tab_health, false)
             }
             TAB_NOTIFICATION -> {
@@ -383,7 +415,7 @@ class HomeActivity : BaseActivity(), NavController.OnDestinationChangedListener,
             setTvColor(textView, R.color.white)
 
         if (!clear) {
-            setTvColor(tvTab, R.color.app_green)
+            setTvColor(tvTab, R.color.black_color)
         }
 
     }
@@ -392,25 +424,43 @@ class HomeActivity : BaseActivity(), NavController.OnDestinationChangedListener,
 
         when (notification?.notificationtype) {
             NotificationType.OrderPlaced -> {
-                navController.navigate(R.id.ItemDetailFragment, bundleOf(ParcelKeys.PK_SELL_ITEM_ID to notification?.id))
+                navController.navigate(
+                    R.id.ItemDetailFragment,
+                    bundleOf(ParcelKeys.PK_SELL_ITEM_ID to notification?.id)
+                )
             }
             NotificationType.OrderCancelled -> {
-                navController.navigate(R.id.ItemDetailFragment, bundleOf(ParcelKeys.PK_SELL_ITEM_ID to notification?.id))
+                navController.navigate(
+                    R.id.ItemDetailFragment,
+                    bundleOf(ParcelKeys.PK_SELL_ITEM_ID to notification?.id)
+                )
             }
             NotificationType.ItemDelivered -> {
-                navController.navigate(R.id.MyOrderDetailFragment, bundleOf("id" to notification?.id))
+                navController.navigate(
+                    R.id.MyOrderDetailFragment,
+                    bundleOf("id" to notification?.id)
+                )
             }
             NotificationType.ChecklistUpdate -> {
-                navController.navigate(R.id.ChecklistDetailFragment, bundleOf("id" to notification?.id))
+                navController.navigate(
+                    R.id.ChecklistDetailFragment,
+                    bundleOf("id" to notification?.id)
+                )
             }
             NotificationType.BoxAllotment -> {
                 navController.navigate(R.id.RedeemFreeBoxFragment)
             }
             NotificationType.ChecklistComplete -> {
-                navController.navigate(R.id.ChecklistDetailFragment, bundleOf("id" to notification?.id))
+                navController.navigate(
+                    R.id.ChecklistDetailFragment,
+                    bundleOf("id" to notification?.id)
+                )
             }
             NotificationType.BudgetConsumed -> {
-                navController.navigate(R.id.BudgetTrackerFragment, bundleOf("id" to notification?.id))
+                navController.navigate(
+                    R.id.BudgetTrackerFragment,
+                    bundleOf("id" to notification?.id)
+                )
             }
             else -> {
 
@@ -428,9 +478,9 @@ class HomeActivity : BaseActivity(), NavController.OnDestinationChangedListener,
                 getString(R.string.no),
                 DialogInterface.OnClickListener { _, which ->
                     if (which == DialogInterface.BUTTON_POSITIVE) {
-                         mBaseViewModel.logOut().observe(MainBoardActivity@this, Observer {
-                             onLogOutSuccess()
-                         })
+                        mBaseViewModel.logOut().observe(MainBoardActivity@ this, Observer {
+                            onLogOutSuccess()
+                        })
                     }
                 })
         }
@@ -439,7 +489,12 @@ class HomeActivity : BaseActivity(), NavController.OnDestinationChangedListener,
     private fun onLogOutSuccess() {
 
         Prefs.get().clear()
-        startActivity(Intent(this, SplashActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK))
+        startActivity(
+            Intent(
+                this,
+                SplashActivity::class.java
+            ).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        )
         finish()
     }
 

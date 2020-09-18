@@ -80,11 +80,11 @@ abstract class BaseActivity : AnotherBaseActivity(), CommonCallbacks,
         super.onCreate(savedInstanceState)
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN or WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
         setupBasics()
-        setStatusBarColor()
+        setStatusBarColor("#F5333F")
     }
 
-    fun setStatusBarColor() {
-        Util.updateStatusBarColor("#F5333F",this as FragmentActivity)
+    fun setStatusBarColor(color : String) {
+        Util.updateStatusBarColor(color,this as FragmentActivity)
     }
 
     private fun setupBasics() {

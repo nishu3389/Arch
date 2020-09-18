@@ -11,7 +11,6 @@ import com.three.u.model.response.ResponseGetProfile
 
 class ProfileFragment : BaseFragment() {
 
-    var model : ResponseGetProfile? = null
     lateinit var mViewModel: ProfileViewModel
     lateinit var mBinding: FragmentProfileShowBinding
 
@@ -32,12 +31,7 @@ class ProfileFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setHasOptionsMenu(true)
-        getIntentData()
-    }
-
-    private fun getIntentData() {
-        (activity as HomeActivity).setTitle(context?.titleWithLogo(R.string.profile))
+        (activity as HomeActivity).showLogoAndTitle(getString(R.string.profile))
     }
 
     private fun setupViewModel() {

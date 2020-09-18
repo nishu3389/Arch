@@ -20,6 +20,7 @@ class SettingsFragment : BaseFragment() {
     lateinit var dialog : AlertDialog
     lateinit var mViewModel: SettingsViewModel
     lateinit var mBinding: FragmentSettingsBinding
+    var onClickHandler = ClickHandler()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,21 +30,32 @@ class SettingsFragment : BaseFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         mBinding = FragmentSettingsBinding.inflate(inflater, container, false).apply {
-            clickHandler = ClickHandler()
+            clickHandler = onClickHandler
             viewModel = mViewModel
 
         }
 
-        /*mViewModel.callAdvApi().observe(viewLifecycleOwner, Observer {
-
-        })*/
         return mBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        (activity as HomeActivity).title = context?.titleWithLogo(R.string.home)
+        (activity as HomeActivity).showLogo(true)
+        (activity as HomeActivity).setTitle("")
+        setupClicks()
+    }
+
+    private fun setupClicks() {
+        mBinding.rrMyProfile.push()?.setOnClickListener {
+            onClickHandler.myProfile()
+        }
+        mBinding.rrChangePassword.push()?.setOnClickListener {
+            onClickHandler.changePassword()
+        }
+        mBinding.rrLogout.push()?.setOnClickListener {
+            onClickHandler.logout()
+        }
     }
 
     private fun setupViewModel() {
@@ -58,7 +70,7 @@ class SettingsFragment : BaseFragment() {
         }
 
         fun changePassword(){
-
+            navigate(R.id.ChangePasswordFragment)
         }
 
         fun myProfile(){

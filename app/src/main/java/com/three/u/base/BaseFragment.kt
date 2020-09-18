@@ -45,32 +45,32 @@ open class BaseFragment : BundleFragment() {
 
     fun showSuccessOrErrorAndGoBack(it:MasterResponse<Any>){
         if (it != null && it.responseCode == 200)
-            goBack(it.successMsg)
+            goBack(it.message)
         else
-            showErrorBar(it.failureMsg)
+            showErrorBar(it.message)
     }
 
     fun showSuccessOrErrorAndGoBackk(it:MasterResponse<Boolean>){
         if (it != null && it.responseCode == 200)
-            goBack(it.successMsg)
+            goBack(it.message)
         else
-            showErrorBar(it.failureMsg)
+            showErrorBar(it.message)
     }
 
 
 
     fun showSuccessOrErrorandGoBack(it:MasterResponse<*>?){
         if (it != null && it.responseCode == 200)
-            goBack(it.successMsg)
+            goBack(it.message)
         else
-            showErrorBar(it?.failureMsg?: getString(R.string.something_went_wrong))
+            showErrorBar(it?.message?: getString(R.string.something_went_wrong))
     }
 
     fun showSuccessOrError(it:MasterResponse<*>?){
         if (it != null && it.responseCode == 200)
-            showSuccessBar(it.successMsg.nul())
+            showSuccessBar(it.message.nul())
         else
-            showErrorBar(it?.failureMsg.nul())
+            showErrorBar(it?.message.nul())
     }
 
     fun toast(str: String) {

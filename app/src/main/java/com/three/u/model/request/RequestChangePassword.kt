@@ -4,10 +4,10 @@ import com.google.gson.annotations.SerializedName
 
 data class RequestChangePassword(
 
-	@field:SerializedName("OldPassword")
+	@field:SerializedName("old_password")
 	var oldPassword: String = "",
 
-	@field:SerializedName("NewPassword")
+	@field:SerializedName("new_password")
 	var newPassword: String = "",
 
 	@field:SerializedName("ConfirmPassword")

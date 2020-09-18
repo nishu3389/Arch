@@ -9,12 +9,11 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.three.u.R
-import com.three.u.base.AsyncViewController
-import com.three.u.base.BaseFragment
-import com.three.u.base.MyViewModelProvider
-import com.three.u.databinding.FragmentForgotPasswordBinding
+import com.three.u.base.*
 import com.three.u.databinding.FragmentResetPasswordBinding
 import com.three.u.model.request.RequestResetPassword
+import com.three.u.ui.activity.AccountHandlerActivity
+import com.three.u.ui.activity.HomeActivity
 
 class ResetPasswordFragment : BaseFragment() {
 
@@ -42,9 +41,9 @@ class ResetPasswordFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        commonCallbacks?.setupToolBar(mBinding.toolbarLayout, true, "")
-        commonCallbacks?.setupActionBarWithNavController(mBinding.toolbarLayout.toolbar)
+        mBinding.imgBack.push()?.setOnClickListener {
+            back()
+        }
     }
 
     private fun setupViewModel() {
@@ -56,12 +55,16 @@ class ResetPasswordFragment : BaseFragment() {
         mViewModel.responseForgotPassword.observe(this, Observer {
            if (it.responseCode == 200) {
                 commonCallbacks?.showAlertDialog(
-                    it.successMsg,
+                    it.message,
                     DialogInterface.OnClickListener { _, _ ->
                         findNavController().popBackStack(R.id.LoginFragment,false)
                     })
             }
         })
+    }
+
+    fun back(){
+        findNavController().popBackStack(R.id.LoginFragment,false)
     }
 
     inner class ClickHandler {
@@ -72,5 +75,12 @@ class ResetPasswordFragment : BaseFragment() {
                 mViewModel.callResetPasswordApi()
             }
         }
+
+        fun back(){
+            findNavController().popBackStack(R.id.ForgotPasswordFragment,false)
+        }
+
     }
+
+
 }

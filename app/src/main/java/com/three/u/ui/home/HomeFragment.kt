@@ -35,16 +35,15 @@ class HomeFragment : BaseFragment() {
 
         }
 
-        /*mViewModel.callAdvApi().observe(viewLifecycleOwner, Observer {
-
-        })*/
         return mBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        (activity as HomeActivity).title = context?.titleWithLogo(R.string.home)
+        (activity as HomeActivity).showLogo(true)
+        (activity as HomeActivity).setTitle("")
+        (activity as HomeActivity).highlightHomeTab()
     }
 
     private fun setupViewModel() {

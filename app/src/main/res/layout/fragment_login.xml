@@ -49,23 +49,23 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_marginTop="@dimen/_30sdp"
+            <com.three.u.views.CommonTextViewSemiBold
+                android:text="User Email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:theme="@style/TilSignUp"
-                app:error="@{viewModel.errEmail}"
-                app:errorEnabled="true"
-                app:hintEnabled="true"
-                android:textColorHint="@color/grey">
+                android:textColor="@color/black"
+                android:textSize="17sp"
+                android:layout_marginLeft="@dimen/_2sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                app:layout_constraintEnd_toEndOf="@+id/guidelineEnd"
+                app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+                app:layout_constraintTop_toBottomOf="@id/tv_title" />
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edt_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/email_or_phone"
+                    android:hint="@string/enter_your_email"
                     android:imeOptions="actionNext"
                     android:inputType="textEmailAddress"
                     android:maxLength="100"
@@ -75,19 +75,19 @@
                     android:textSize="16dp"
                     android:text="@={viewModel.requestLogin.email}"
                     app:hintTextAppearance="@style/AppTheme.NoActionBarNew" />
-            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_marginTop="10dp"
+            <com.three.u.views.CommonTextViewSemiBold
+                android:text="Password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:theme="@style/TilSignUp"
-                app:error="@{viewModel.errPassword}"
-                app:errorEnabled="true"
-                app:hintEnabled="true"
-                app:passwordToggleEnabled="true"
-                android:textColorHint="@color/grey">
+                android:textColor="@color/black"
+                android:textSize="17sp"
+                android:layout_marginLeft="@dimen/_2sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                app:layout_constraintEnd_toEndOf="@+id/guidelineEnd"
+                app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+                app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edt_pass"
@@ -104,7 +104,6 @@
                     android:textSize="16dp"
                     android:text="@={viewModel.requestLogin.password}"
                     app:hintTextAppearance="@style/AppTheme.NoActionBarNew" />
-            </com.google.android.material.textfield.TextInputLayout>
 
             <androidx.appcompat.widget.AppCompatButton
                 android:textColor="@color/white"

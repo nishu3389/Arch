@@ -13,11 +13,8 @@ data class MasterResponse<T>(
 	@field:SerializedName("statusCode")
 	var responseCode: Int = 0,
 
-	@field:SerializedName("successMsg")
-	var successMsg: String = "",
-
 	@field:SerializedName("message")
-	var failureMsg: String = "",
+	var message: String = "",
 
 	@field:SerializedName("apiName")
 	var apiName: String = "",
