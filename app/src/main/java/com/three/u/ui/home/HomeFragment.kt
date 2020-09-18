@@ -44,6 +44,13 @@ class HomeFragment : BaseFragment() {
         (activity as HomeActivity).showLogo(true)
         (activity as HomeActivity).setTitle("")
         (activity as HomeActivity).highlightHomeTab()
+        manageClicks()
+    }
+
+    private fun manageClicks() {
+        mBinding.rrMeal.push()?.setOnClickListener {  }
+        mBinding.rrExercise.push()?.setOnClickListener {  }
+        mBinding.rrTips.push()?.setOnClickListener {  }
     }
 
     private fun setupViewModel() {

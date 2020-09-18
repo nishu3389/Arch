@@ -16,4 +16,9 @@
         <attr format="dimension" name="morphCornerRadius"/>
     </declare-styleable>
 
+    <declare-styleable name="NavAction">
+        <attr name="enterAnim" format="reference"/>
+        <attr name="exitAnim" format="reference"/>
+    </declare-styleable>
+
 </resources>

@@ -34,6 +34,7 @@
 
             <!--Meal Plan-->
             <RelativeLayout
+                android:id="@+id/rr_meal"
                 style="@style/HomeMenu">
 
                 <RelativeLayout
@@ -54,6 +55,7 @@
 
             <!--Tips and Tricks-->
             <RelativeLayout
+                android:id="@+id/rr_tips"
                 style="@style/HomeMenu">
 
                 <RelativeLayout
@@ -74,6 +76,7 @@
 
             <!--Exercise-->
             <RelativeLayout
+                android:id="@+id/rr_exercise"
                 style="@style/HomeMenu">
 
                 <RelativeLayout
