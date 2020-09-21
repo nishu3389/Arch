@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.three.u.ui.health.HealthViewModel" />
+
+        <variable
+            name="clickHandler"
+            type="com.three.u.ui.health.HealthFragment.ClickHandler" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <HorizontalScrollView
+            android:id="@+id/horizontal"
+            android:background="@drawable/health_tabbar_bg"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_130sdp">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:padding="@dimen/_15sdp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_60sdp">
+
+                <com.three.u.views.CommonTextView
+                    android:id="@+id/tv_weight"
+                    android:text="Weight"
+                    style="@style/HeathTabText"
+                    android:background="@drawable/health_tab_bg"
+                    android:textColor="@color/white"
+                    />
+
+                <com.three.u.views.CommonTextView
+                    android:id="@+id/tv_blood_sugar"
+                    android:text="Blood Sugar"
+                    style="@style/HeathTabText"/>
+
+                <com.three.u.views.CommonTextView
+                    android:id="@+id/tv_blood_pressure"
+                    android:text="Blood Pressure"
+                    style="@style/HeathTabText"/>
+
+            </LinearLayout>
+
+
+        </HorizontalScrollView>
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewPager"
+            android:layout_marginTop="@dimen/_60sdp"
+            android:background="@drawable/health_viewpager_bg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </RelativeLayout>
+
+
+
+</layout>

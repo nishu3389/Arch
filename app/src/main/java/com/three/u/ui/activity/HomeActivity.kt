@@ -48,17 +48,14 @@ class HomeActivity : BaseActivity(), NavController.OnDestinationChangedListener,
 
     private val fragmentsWhereBottomTabsShouldBeShown = listOf(
         R.id.HomeFragment,
-        R.id.SettingsFragment
+        R.id.SettingsFragment,
+        R.id.HealthFragment
     )
 
-    private val checklistFragments = listOf(
-        R.id.ResidentialChecklistFragment,
-        R.id.ChecklistDetailFragment,
-        R.id.MasterChecklistFragment
-    )
 
     private val fragmentsTabs = listOf(
-        R.id.SettingsFragment
+        R.id.SettingsFragment,
+        R.id.HealthFragment
     )
 
     lateinit var mBinding: ActivityMainBinding
@@ -171,10 +168,10 @@ class HomeActivity : BaseActivity(), NavController.OnDestinationChangedListener,
         }
 
         tab_health.pushTab()?.setOnClickListener {
-            if (navController.currentDestination?.id == R.id.HomeFragment)
+            if (navController.currentDestination?.id == R.id.HealthFragment)
                 return@setOnClickListener
-            navController.navigate(R.id.HomeFragment)
-            highlightTab(TAB_NONE)
+            navController.navigate(R.id.HealthFragment)
+            highlightTab(TAB_HEALTH)
         }
 
         tab_notification.pushTab()?.setOnClickListener {
@@ -195,7 +192,7 @@ class HomeActivity : BaseActivity(), NavController.OnDestinationChangedListener,
     }
 
     fun highlightTabNone() {
-        highlightTab(TAB_NONE)
+//        highlightTab(TAB_NONE)
     }
 
     fun highlightHomeTab() {
@@ -203,15 +200,15 @@ class HomeActivity : BaseActivity(), NavController.OnDestinationChangedListener,
     }
 
     fun highlightHealthTab() {
-        highlightTab(TAB_HEALTH)
+//        highlightTab(TAB_HEALTH)
     }
 
     fun highlightNotificationTab() {
-        highlightTab(TAB_NOTIFICATION)
+//        highlightTab(TAB_NOTIFICATION)
     }
 
     fun highlightSettingsTab() {
-        highlightTab(TAB_SETTINGS)
+//        highlightTab(TAB_SETTINGS)
     }
 
 
@@ -382,27 +379,16 @@ class HomeActivity : BaseActivity(), NavController.OnDestinationChangedListener,
 
     private fun highlightTab(tab: Int) {
         when (tab) {
-            TAB_HOME -> {
-                highlightTab(
-                    tab_home,
-                    false
-                )
-            }
-            TAB_HEALTH -> {
+            TAB_HOME ->
+                highlightTab(tab_home, false)
+            TAB_HEALTH ->
                 highlightTab(tab_health, false)
-            }
-            TAB_NOTIFICATION -> {
-                highlightTab(
-                    tab_notification,
-                    false
-                )
-            }
-            TAB_SETTINGS -> highlightTab(
-                tab_settings,
-                false
-            )
-
-            TAB_NONE -> highlightTab(null, true)
+            TAB_NOTIFICATION ->
+                highlightTab(tab_notification, false)
+            TAB_SETTINGS ->
+                highlightTab(tab_settings, false)
+            TAB_NONE ->
+                highlightTab(null, true)
         }
     }
 

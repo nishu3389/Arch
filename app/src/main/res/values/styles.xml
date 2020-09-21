@@ -290,13 +290,25 @@
     </style>
 
     <style name="HomeMenuImage">
-<!--        <item name="android:scaleType">centerCrop</item>-->
+        <!--        <item name="android:scaleType">centerCrop</item>-->
         <item name="android:layout_marginRight">@dimen/_2sdp</item>
         <item name="android:layout_marginBottom">@dimen/_10sdp</item>
         <item name="android:layout_alignParentTop">true</item>
         <item name="android:layout_alignParentRight">true</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="HeathTabText">
+        <!--        <item name="android:scaleType">centerCrop</item>-->
+        <item name="android:paddingRight">@dimen/_12sdp</item>
+        <item name="android:paddingLeft">@dimen/_12sdp</item>
+        <item name="android:paddingTop">@dimen/_6sdp</item>
+        <item name="android:paddingBottom">@dimen/_6sdp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">@dimen/_10sdp</item>
+        <item name="android:textSize">@dimen/_10sdp</item>
     </style>
 
 

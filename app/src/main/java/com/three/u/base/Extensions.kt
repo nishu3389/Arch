@@ -311,6 +311,29 @@ fun Context.setTvColor(tv: TextView?, color: Int?) {
 
 }
 
+fun Context.setTvBGColor(tv: TextView?, color: Int?) {
+    tv.let {
+        color.let {
+            try {
+                tv!!.setBackground(this.resources.getDrawable(color!!))
+            } catch (e: Exception) {
+            }
+        }
+    }
+
+}
+
+fun Context.setTvBGDrawable(tv: TextView?, color: Int?) {
+    tv.let {
+        color.let {
+            try {
+                tv!!.setBackground(this.resources.getDrawable(color!!))
+            } catch (e: Exception) {
+            }
+        }
+    }
+}
+
 fun View?.visible() {
     this?.visibility = View.VISIBLE
 //    YoYo.with(Techniques.SlideInUp).onStart { this?.visibility = View.VISIBLE }.playOn(this)

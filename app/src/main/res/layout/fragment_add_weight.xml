@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.three.u.ui.health.weight.add_weight.AddWeightViewModel" />
+
+        <variable
+            name="clickHandler"
+            type="com.three.u.ui.health.weight.add_weight.AddWeightFragment.ClickHandler" />
+
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:background="@color/transparent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_marginLeft="@dimen/_20sdp"
+            android:layout_marginRight="@dimen/_20sdp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <!--Meal Plan-->
+            <RelativeLayout
+                android:id="@+id/rr_meal"
+                style="@style/HomeMenu">
+
+                <RelativeLayout
+                    style="@style/HomeMenuInner">
+
+                    <com.three.u.views.CommonTextViewMedium
+                        android:text="Meal Plan"
+                        style="@style/HomeMenuText"/>
+
+                </RelativeLayout>
+
+                <ImageView
+                    style="@style/HomeMenuImage"
+                    android:src="@drawable/meal_plan"
+                    />
+
+            </RelativeLayout>
+
+            <!--Tips and Tricks-->
+            <RelativeLayout
+                android:id="@+id/rr_tips"
+                style="@style/HomeMenu">
+
+                <RelativeLayout
+                    style="@style/HomeMenuInner">
+
+                    <com.three.u.views.CommonTextViewMedium
+                        android:text="@string/tips_tricks"
+                        style="@style/HomeMenuText"/>
+
+                </RelativeLayout>
+
+                <ImageView
+                    style="@style/HomeMenuImage"
+                    android:src="@drawable/tips_trick"
+                    />
+
+            </RelativeLayout>
+
+            <!--Exercise-->
+            <RelativeLayout
+                android:id="@+id/rr_exercise"
+                style="@style/HomeMenu">
+
+                <RelativeLayout
+                    style="@style/HomeMenuInner">
+
+                    <com.three.u.views.CommonTextViewMedium
+                        android:text="Exercise"
+                        style="@style/HomeMenuText"/>
+
+                </RelativeLayout>
+
+                <ImageView
+                    style="@style/HomeMenuImage"
+                    android:src="@drawable/exercise"
+                    />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</layout>

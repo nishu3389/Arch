@@ -17,6 +17,18 @@
         tools:layout="@layout/fragment_settings" />
 
     <fragment
+        android:id="@+id/HealthFragment"
+        android:name="com.three.u.ui.health.HealthFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_settings" />
+
+    <fragment
+        android:id="@+id/AddWeightFragment"
+        android:name="com.three.u.ui.health.weight.add_weight.AddWeightFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_settings" />
+
+    <fragment
         android:id="@+id/ProfileShowFragment"
         android:name="com.three.u.ui.profile.ProfileFragment"
         android:label="@string/profile"
