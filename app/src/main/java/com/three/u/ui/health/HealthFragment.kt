@@ -181,6 +181,7 @@ class HealthFragment : BaseFragment() {
             }
         }
 
+
     }
 
     override fun onDetach() {
