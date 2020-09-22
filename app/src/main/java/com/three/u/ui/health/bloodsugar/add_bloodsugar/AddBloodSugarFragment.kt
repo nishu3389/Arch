@@ -1,28 +1,28 @@
-package com.three.u.ui.health.weight.add_weight
+package com.three.u.ui.health.bloodsugar.add_bloodsugar
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.three.u.R
 import com.three.u.ui.activity.HomeActivity
 import com.three.u.base.*
+import com.three.u.databinding.FragmentAddBloodSugarBinding
 import com.three.u.databinding.FragmentAddWeightBinding
 import com.three.u.databinding.FragmentHomeBinding
-import com.three.u.model.request.RequestAddWeight
 import com.three.u.model.request.RequestForgotPassword
 import com.three.u.util.permission.DeviceRuntimePermission
 import com.three.u.util.permission.IPermissionGranted
 
-class AddWeightFragment : BaseFragment() {
+
+class AddBloodSugarFragment : BaseFragment() {
 
     lateinit var dialog : AlertDialog
-    lateinit var mViewModel: AddWeightViewModel
-    lateinit var mBinding: FragmentAddWeightBinding
+    lateinit var mViewModel: AddBloodSugarViewModel
+    lateinit var mBinding: FragmentAddBloodSugarBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +31,7 @@ class AddWeightFragment : BaseFragment() {
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        mBinding = FragmentAddWeightBinding.inflate(inflater, container, false).apply {
+        mBinding = FragmentAddBloodSugarBinding.inflate(inflater, container, false).apply {
             clickHandler = ClickHandler()
             viewModel = mViewModel
 
@@ -49,22 +49,12 @@ class AddWeightFragment : BaseFragment() {
     }
 
     private fun manageClicks() {
-        mBinding.tvAdd.push()?.setOnClickListener {
-            if(mViewModel.validateInput()){
-                mViewModel.callAddWeightApi().observe(viewLifecycleOwner, Observer {
-                    if (it != null && it.responseCode == 200){
-                        mViewModel.requestAddWeight.set(RequestAddWeight())
-                        showSuccessBar(it.message)
-                    }
-                    else
-                        showErrorBar(it.message)
-                })
-            }
-        }
+
     }
 
     private fun setupViewModel() {
-        mViewModel = ViewModelProviders.of(this, MyViewModelProvider(commonCallbacks as AsyncViewController)).get(AddWeightViewModel::class.java)
+        mViewModel = ViewModelProviders.of(this, MyViewModelProvider(commonCallbacks as AsyncViewController)).get(AddBloodSugarViewModel::class.java)
+        mViewModel.requestForgotPassword.set(RequestForgotPassword())
     }
 
     inner class ClickHandler : IPermissionGranted {

@@ -50,6 +50,13 @@ open class BaseFragment : BundleFragment() {
             showErrorBar(it.message)
     }
 
+    fun showSuccessOrErrorAndGoBackkk(it:MasterResponse<*>){
+        if (it != null && it.responseCode == 200)
+            goBack(it.message)
+        else
+            showErrorBar(it.message)
+    }
+
     fun showSuccessOrErrorAndGoBackk(it:MasterResponse<Boolean>){
         if (it != null && it.responseCode == 200)
             goBack(it.message)

@@ -24,6 +24,12 @@ object Api {
     const val FORGOT_PASSWORD = "forgot_password"
     const val RESET_PASSWORD = "reset_password"
     const val VERIFY_OTP = ""
+    const val ADD_WEIGHT = "add_weight"
+    const val ADD_BLOOD_SUGAR = "add_blood_sugar"
+    const val ADD_BLOOD_PRESSURE = "add_blood_pressure"
+    const val LIST_WEIGHT = "list_weight"
+    const val LIST_BLOOD_SUGAR = "list_blood_sugar"
+    const val LIST_BLOOD_PRESSURE = "list_blood_pressure"
 
 
     const val ContactUsQuery = ""
@@ -109,6 +115,54 @@ object Api {
             }
 
             ContactUsQuery -> {
+                result.responseType =
+                    object : TypeToken<MasterResponse<Boolean>>() {}.type
+                result.url = BASE_URL
+                result.requestType = RequestType.POST
+                return result
+            }
+
+            ADD_WEIGHT -> {
+                result.responseType =
+                    object : TypeToken<MasterResponse<ResponseAddWeight>>() {}.type
+                result.url = BASE_URL
+                result.requestType = RequestType.POST
+                return result
+            }
+
+            ADD_BLOOD_SUGAR -> {
+                result.responseType =
+                    object : TypeToken<MasterResponse<Boolean>>() {}.type
+                result.url = BASE_URL
+                result.requestType = RequestType.POST
+                return result
+            }
+
+            ADD_BLOOD_PRESSURE -> {
+                result.responseType =
+                    object : TypeToken<MasterResponse<Boolean>>() {}.type
+                result.url = BASE_URL
+                result.requestType = RequestType.POST
+                return result
+            }
+
+            LIST_WEIGHT -> {
+                result.responseType =
+                    object : TypeToken<MasterResponse<Boolean>>() {}.type
+                result.url = BASE_URL
+                result.requestType = RequestType.POST
+                return result
+            }
+
+            LIST_BLOOD_PRESSURE -> {
+                result.responseType =
+                    object : TypeToken<MasterResponse<Boolean>>() {}.type
+                result.url = BASE_URL
+                result.requestType = RequestType.POST
+                return result
+            }
+
+            LIST_BLOOD_SUGAR -> {
                 result.responseType =
                     object : TypeToken<MasterResponse<Boolean>>() {}.type
                 result.url = BASE_URL

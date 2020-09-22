@@ -4,7 +4,9 @@ import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
 import com.three.u.base.AsyncViewController
 import com.three.u.base.BaseViewModel
-import com.three.u.model.request.RequestForgotPassword
+import com.three.u.base.isEmptyy
+import com.three.u.base.showWarning
+import com.three.u.model.request.*
 import com.three.u.model.response.*
 import com.three.u.util.Prefs
 import com.three.u.util.Validator
@@ -12,37 +14,34 @@ import com.three.u.networking.Api
 
 class AddWeightViewModel(controller: AsyncViewController) : BaseViewModel(controller) {
 
-    val requestForgotPassword = ObservableField<RequestForgotPassword>()
-    val responseForgotPassword = MutableLiveData<MasterResponse<ResponseLogin>>()
-
-    var responseAdv : MutableLiveData<MasterResponse<AdvlistResponse>>? = null
-    var responseAdvertsementStrip = ResponseAdvertsementPopup()
-
-    val errEmail = ObservableField<String>()
-    var checkListProgrss = ObservableField<Int>()
-
+    var requestAddWeight = ObservableField<RequestAddWeight>()
+    var responseAddWeight = MutableLiveData<MasterResponse<ResponseAddWeight>>()
 
     init {
-        checkListProgrss.set(Prefs.get().checkListPercent)
+        requestAddWeight.set(RequestAddWeight())
     }
 
     fun validateInput(): Boolean {
 
-        val data = requestForgotPassword.get() ?: return false
+        val data = requestAddWeight.get() ?: return false
 
-        if (!Validator.isEmailValid(data.email, errEmail)) {
+        if (data.weight.isEmptyy() || data.weight!!.toInt()<=0) {
+            "Please enter weight".showWarning()
+            return false
+        }
+
+        if (data.height.isEmptyy() || data.height!!.toInt()<=0) {
+            "Please enter height".showWarning()
             return false
         }
 
         return true
     }
 
-    fun callForgotPasswordApi() {
-        baseRepo.restClient.callApi(
-            Api.FORGOT_PASSWORD,
-            requestForgotPassword.get(),
-            responseForgotPassword
-        )
+    fun callAddWeightApi() : MutableLiveData<MasterResponse<ResponseAddWeight>> {
+        responseAddWeight = MutableLiveData<MasterResponse<ResponseAddWeight>>()
+        baseRepo.restClient.callApi(Api.ADD_WEIGHT, requestAddWeight.get(), responseAddWeight)
+        return responseAddWeight
     }
 
 

@@ -16,7 +16,6 @@
     </data>
 
     <androidx.core.widget.NestedScrollView
-        android:background="@color/transparent"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -27,68 +26,95 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <!--Meal Plan-->
-            <RelativeLayout
-                android:id="@+id/rr_meal"
-                style="@style/HomeMenu">
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/chart1"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_200sdp" />
 
-                <RelativeLayout
-                    style="@style/HomeMenuInner">
+            <com.three.u.views.CommonTextViewMedium
+                android:textSize="@dimen/_12sdp"
+                android:textColor="@color/white"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="Enter your Weight and Height"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
-                    <com.three.u.views.CommonTextViewMedium
-                        android:text="Meal Plan"
-                        style="@style/HomeMenuText"/>
+            <com.three.u.views.CommonTextViewMedium
+                android:textSize="@dimen/_12sdp"
+                android:textColor="@color/white"
+                android:text="Weight (KG)"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:gravity="center_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
-                </RelativeLayout>
+            <com.three.u.views.CommonEditTextMedium
+                android:textSize="@dimen/_12sdp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:gravity="center_horizontal"
+                android:text="@={viewModel.requestAddWeight.weight}"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@color/transparent"
+                android:inputType="numberDecimal"
+                android:maxLength="3"
+                android:textCursorDrawable="@null"
+                android:hint=""
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
-                <ImageView
-                    style="@style/HomeMenuImage"
-                    android:src="@drawable/meal_plan"
-                    />
+            <View
+                android:layout_marginTop="@dimen/_5sdp"
+                android:background="@color/colorDivider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"></View>
 
-            </RelativeLayout>
+            <com.three.u.views.CommonTextViewMedium
+                android:textSize="@dimen/_12sdp"
+                android:textColor="@color/white"
+                android:text="Height (CM)"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:gravity="center_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
-            <!--Tips and Tricks-->
-            <RelativeLayout
-                android:id="@+id/rr_tips"
-                style="@style/HomeMenu">
+            <com.three.u.views.CommonEditTextMedium
+                android:textSize="@dimen/_12sdp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@color/transparent"
+                android:inputType="number"
+                android:singleLine="true"
+                android:text="@={viewModel.requestAddWeight.height}"
+                android:textCursorDrawable="@null"
+                android:maxLength="3"
+                android:hint=""
+                android:gravity="center_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
-                <RelativeLayout
-                    style="@style/HomeMenuInner">
+            <View
+                android:layout_marginTop="@dimen/_5sdp"
+                android:background="@color/colorDivider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"></View>
 
-                    <com.three.u.views.CommonTextViewMedium
-                        android:text="@string/tips_tricks"
-                        style="@style/HomeMenuText"/>
-
-                </RelativeLayout>
-
-                <ImageView
-                    style="@style/HomeMenuImage"
-                    android:src="@drawable/tips_trick"
-                    />
-
-            </RelativeLayout>
-
-            <!--Exercise-->
-            <RelativeLayout
-                android:id="@+id/rr_exercise"
-                style="@style/HomeMenu">
-
-                <RelativeLayout
-                    style="@style/HomeMenuInner">
-
-                    <com.three.u.views.CommonTextViewMedium
-                        android:text="Exercise"
-                        style="@style/HomeMenuText"/>
-
-                </RelativeLayout>
-
-                <ImageView
-                    style="@style/HomeMenuImage"
-                    android:src="@drawable/exercise"
-                    />
-
-            </RelativeLayout>
+            <com.three.u.views.CommonTextViewMedium
+                android:id="@+id/tv_add"
+                android:textColor="@color/black"
+                android:text="ADD"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:textSize="@dimen/_12sdp"
+                android:padding="@dimen/_5sdp"
+                android:background="@drawable/rounded_button"
+                android:gravity="center_horizontal"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
         </LinearLayout>
 

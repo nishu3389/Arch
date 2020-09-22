@@ -7,11 +7,11 @@
 
         <variable
             name="viewModel"
-            type="com.three.u.ui.health.bloodsugar.add_bloodsugar.AddBloodSugarViewModel" />
+            type="com.three.u.ui.health.bloodpressure.add_bloodpressure.AddBloodPressureViewModel" />
 
         <variable
             name="clickHandler"
-            type="com.three.u.ui.health.bloodsugar.add_bloodsugar.AddBloodSugarFragment.ClickHandler" />
+            type="com.three.u.ui.health.bloodpressure.add_bloodpressure.AddBloodPressureFragment.ClickHandler" />
 
     </data>
 
@@ -35,14 +35,14 @@
                 android:textSize="@dimen/_12sdp"
                 android:textColor="@color/white"
                 android:layout_marginTop="@dimen/_10sdp"
-                android:text="Enter your sugar level"
+                android:text="Enter your blood pressure level"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
             <com.three.u.views.CommonTextViewMedium
                 android:textSize="@dimen/_12sdp"
                 android:textColor="@color/white"
-                android:text="Fasting"
+                android:text="Diastolic"
                 android:layout_marginTop="@dimen/_15sdp"
                 android:gravity="center_horizontal"
                 android:layout_width="match_parent"
@@ -54,10 +54,11 @@
                 android:textColorHint="@color/white"
                 android:gravity="center_horizontal"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="@dimen/_10sdp"
                 android:textCursorDrawable="@null"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:background="@color/transparent"
                 android:inputType="numberDecimal"
+                android:text=""
                 android:maxLength="3"
                 android:hint=""
                 android:layout_width="match_parent"
@@ -72,7 +73,7 @@
             <com.three.u.views.CommonTextViewMedium
                 android:textSize="@dimen/_12sdp"
                 android:textColor="@color/white"
-                android:text="Post Fasting"
+                android:text="Systolic"
                 android:layout_marginTop="@dimen/_20sdp"
                 android:gravity="center_horizontal"
                 android:layout_width="match_parent"
@@ -81,13 +82,13 @@
             <com.three.u.views.CommonEditTextMedium
                 android:textSize="@dimen/_12sdp"
                 android:textColor="@color/white"
+                android:textCursorDrawable="@null"
                 android:textColorHint="@color/white"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:background="@color/transparent"
                 android:inputType="number"
                 android:singleLine="true"
-                android:textCursorDrawable="@null"
                 android:maxLength="3"
                 android:hint=""
                 android:gravity="center_horizontal"

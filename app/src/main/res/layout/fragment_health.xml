@@ -56,7 +56,7 @@
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/viewPager"
-            android:layout_marginTop="@dimen/_60sdp"
+            android:layout_marginTop="@dimen/_55sdp"
             android:background="@drawable/health_viewpager_bg"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>

@@ -19,6 +19,8 @@ import com.three.u.databinding.FragmentAddWeightBinding
 import com.three.u.databinding.FragmentHealthBinding
 import com.three.u.databinding.FragmentHomeBinding
 import com.three.u.model.request.RequestForgotPassword
+import com.three.u.ui.health.bloodpressure.add_bloodpressure.AddBloodPressureFragment
+import com.three.u.ui.health.bloodsugar.add_bloodsugar.AddBloodSugarFragment
 import com.three.u.ui.health.weight.add_weight.AddWeightFragment
 import com.three.u.util.permission.DeviceRuntimePermission
 import com.three.u.util.permission.IPermissionGranted
@@ -55,6 +57,7 @@ class HealthFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         (activity as HomeActivity).showLogo(true)
+        (activity as HomeActivity).showRightLogo(true)
         (activity as HomeActivity).setTitle("")
 //        (activity as HomeActivity).highlightHomeTab()
         setupViewPager()
@@ -170,17 +173,19 @@ class HealthFragment : BaseFragment() {
                     return AddWeightFragment()
                 }
                 1 -> {
-                    return AddWeightFragment()
-                }
-                2 -> {
-                    return AddWeightFragment()
+                    return AddBloodSugarFragment()
                 }
                 else -> {
-                    return AddWeightFragment()
+                    return AddBloodPressureFragment()
                 }
             }
         }
 
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        (activity as HomeActivity).showRightLogo(false)
     }
 
 }

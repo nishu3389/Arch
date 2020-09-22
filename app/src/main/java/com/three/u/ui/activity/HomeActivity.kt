@@ -48,8 +48,7 @@ class HomeActivity : BaseActivity(), NavController.OnDestinationChangedListener,
 
     private val fragmentsWhereBottomTabsShouldBeShown = listOf(
         R.id.HomeFragment,
-        R.id.SettingsFragment,
-        R.id.HealthFragment
+        R.id.SettingsFragment
     )
 
 
@@ -76,6 +75,14 @@ class HomeActivity : BaseActivity(), NavController.OnDestinationChangedListener,
     var passwordVerified: Boolean = false
 
     private val INTENT_AUTHENTICATE: Int = 3487
+
+
+    fun showRightLogo(show: Boolean) {
+        if (show)
+            mBinding.imgRight.visible()
+        else
+            mBinding.imgRight.gone()
+    }
 
     fun showLogo(show: Boolean) {
         if (show)
