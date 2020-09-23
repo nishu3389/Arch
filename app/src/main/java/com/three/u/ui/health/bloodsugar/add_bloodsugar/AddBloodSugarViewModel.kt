@@ -4,7 +4,9 @@ import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
 import com.three.u.base.AsyncViewController
 import com.three.u.base.BaseViewModel
-import com.three.u.model.request.RequestForgotPassword
+import com.three.u.base.isEmptyy
+import com.three.u.base.showWarning
+import com.three.u.model.request.*
 import com.three.u.model.response.*
 import com.three.u.util.Prefs
 import com.three.u.util.Validator
@@ -12,37 +14,34 @@ import com.three.u.networking.Api
 
 class AddBloodSugarViewModel(controller: AsyncViewController) : BaseViewModel(controller) {
 
-    val requestForgotPassword = ObservableField<RequestForgotPassword>()
-    val responseForgotPassword = MutableLiveData<MasterResponse<ResponseLogin>>()
-
-    var responseAdv : MutableLiveData<MasterResponse<AdvlistResponse>>? = null
-    var responseAdvertsementStrip = ResponseAdvertsementPopup()
-
-    val errEmail = ObservableField<String>()
-    var checkListProgrss = ObservableField<Int>()
-
+    var requestAddBloodSugar = ObservableField<RequestAddBloodSugar>()
+    var responseAddBloodSugar = MutableLiveData<MasterResponse<ResponseAddBloodSugar>>()
 
     init {
-        checkListProgrss.set(Prefs.get().checkListPercent)
+        requestAddBloodSugar.set(RequestAddBloodSugar())
     }
 
     fun validateInput(): Boolean {
 
-        val data = requestForgotPassword.get() ?: return false
+        val data = requestAddBloodSugar.get() ?: return false
 
-        if (!Validator.isEmailValid(data.email, errEmail)) {
+        if (data.blood_sugar_fasting.isEmptyy() || data.blood_sugar_fasting!!.toDouble()<=0) {
+            "Please enter your fasting sugar level".showWarning()
+            return false
+        }
+
+        if (data.blood_sugar_postprandial.isEmptyy() || data.blood_sugar_postprandial!!.toDouble()<=0) {
+            "Please enter your postprandial sugar level".showWarning()
             return false
         }
 
         return true
     }
 
-    fun callForgotPasswordApi() {
-        baseRepo.restClient.callApi(
-            Api.FORGOT_PASSWORD,
-            requestForgotPassword.get(),
-            responseForgotPassword
-        )
+    fun callAddBloodSugarApi() : MutableLiveData<MasterResponse<ResponseAddBloodSugar>> {
+        responseAddBloodSugar = MutableLiveData<MasterResponse<ResponseAddBloodSugar>>()
+        baseRepo.restClient.callApi(Api.ADD_BLOOD_SUGAR, requestAddBloodSugar.get(), responseAddBloodSugar)
+        return responseAddBloodSugar
     }
 
 

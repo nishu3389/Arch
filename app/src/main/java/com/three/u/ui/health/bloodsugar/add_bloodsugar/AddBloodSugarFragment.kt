@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.three.u.R
@@ -13,6 +14,8 @@ import com.three.u.base.*
 import com.three.u.databinding.FragmentAddBloodSugarBinding
 import com.three.u.databinding.FragmentAddWeightBinding
 import com.three.u.databinding.FragmentHomeBinding
+import com.three.u.model.request.RequestAddBloodPressure
+import com.three.u.model.request.RequestAddBloodSugar
 import com.three.u.model.request.RequestForgotPassword
 import com.three.u.util.permission.DeviceRuntimePermission
 import com.three.u.util.permission.IPermissionGranted
@@ -49,12 +52,22 @@ class AddBloodSugarFragment : BaseFragment() {
     }
 
     private fun manageClicks() {
-
+        mBinding.tvAdd.push()?.setOnClickListener {
+            if(mViewModel.validateInput()){
+                mViewModel.callAddBloodSugarApi().observe(viewLifecycleOwner, Observer {
+                    if (it != null && it.responseCode == 200){
+                        mViewModel.requestAddBloodSugar.set(RequestAddBloodSugar())
+                        showSuccessBar(it.message)
+                    }
+                    else
+                        showErrorBar(it.message)
+                })
+            }
+        }
     }
 
     private fun setupViewModel() {
         mViewModel = ViewModelProviders.of(this, MyViewModelProvider(commonCallbacks as AsyncViewController)).get(AddBloodSugarViewModel::class.java)
-        mViewModel.requestForgotPassword.set(RequestForgotPassword())
     }
 
     inner class ClickHandler : IPermissionGranted {

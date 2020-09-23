@@ -132,7 +132,7 @@ object Api {
 
             ADD_BLOOD_SUGAR -> {
                 result.responseType =
-                    object : TypeToken<MasterResponse<Boolean>>() {}.type
+                    object : TypeToken<MasterResponse<ResponseAddBloodSugar>>() {}.type
                 result.url = BASE_URL
                 result.requestType = RequestType.POST
                 return result
@@ -140,7 +140,7 @@ object Api {
 
             ADD_BLOOD_PRESSURE -> {
                 result.responseType =
-                    object : TypeToken<MasterResponse<Boolean>>() {}.type
+                    object : TypeToken<MasterResponse<ResponseAddBloodPressure>>() {}.type
                 result.url = BASE_URL
                 result.requestType = RequestType.POST
                 return result
@@ -148,7 +148,7 @@ object Api {
 
             LIST_WEIGHT -> {
                 result.responseType =
-                    object : TypeToken<MasterResponse<Boolean>>() {}.type
+                    object : TypeToken<MasterResponse<ResponseAddWeight>>() {}.type
                 result.url = BASE_URL
                 result.requestType = RequestType.POST
                 return result
@@ -156,7 +156,7 @@ object Api {
 
             LIST_BLOOD_PRESSURE -> {
                 result.responseType =
-                    object : TypeToken<MasterResponse<Boolean>>() {}.type
+                    object : TypeToken<MasterResponse<ResponseAddBloodPressure>>() {}.type
                 result.url = BASE_URL
                 result.requestType = RequestType.POST
                 return result
@@ -164,7 +164,7 @@ object Api {
 
             LIST_BLOOD_SUGAR -> {
                 result.responseType =
-                    object : TypeToken<MasterResponse<Boolean>>() {}.type
+                    object : TypeToken<MasterResponse<ResponseAddBloodSugar>>() {}.type
                 result.url = BASE_URL
                 result.requestType = RequestType.POST
                 return result

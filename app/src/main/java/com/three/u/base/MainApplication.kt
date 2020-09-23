@@ -9,6 +9,7 @@ import androidx.lifecycle.OnLifecycleEvent
 import com.androidnetworking.AndroidNetworking
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.readystatesoftware.chuck.ChuckInterceptor
+import com.rohitss.uceh.UCEHandler
 import com.stripe.android.PaymentConfiguration
 import com.three.u.BuildConfig
 import com.three.u.util.Constant.STRIPE_PUBLISHABLE_KEY
@@ -58,6 +59,8 @@ class MainApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         instance = this
+
+        UCEHandler.Builder(applicationContext).build()
 
         var okHttpClient: OkHttpClient? = null
         if (BuildConfig.DEBUG) {

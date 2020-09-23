@@ -44,7 +44,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
+
+        <activity
+            android:name="com.rohitss.uceh.UCEDefaultActivity"
+            android:process=":error_activity"/>
 
         <activity
             android:name="com.three.u.ui.activity.HomeActivity"

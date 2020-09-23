@@ -5,6 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import com.three.u.base.AsyncViewController
 import com.three.u.base.BaseViewModel
 import com.three.u.model.request.RequestForgotPassword
+import com.three.u.model.request.ResponseAddBloodPressure
+import com.three.u.model.request.ResponseAddBloodSugar
+import com.three.u.model.request.ResponseAddWeight
 import com.three.u.model.response.*
 import com.three.u.util.Prefs
 import com.three.u.util.Validator
@@ -12,37 +15,27 @@ import com.three.u.networking.Api
 
 class HealthViewModel(controller: AsyncViewController) : BaseViewModel(controller) {
 
-    val requestForgotPassword = ObservableField<RequestForgotPassword>()
-    val responseForgotPassword = MutableLiveData<MasterResponse<ResponseLogin>>()
-
-    var responseAdv : MutableLiveData<MasterResponse<AdvlistResponse>>? = null
-    var responseAdvertsementStrip = ResponseAdvertsementPopup()
-
-    val errEmail = ObservableField<String>()
-    var checkListProgrss = ObservableField<Int>()
+    var responseAddWeight : MutableLiveData<MasterResponse<ResponseAddWeight>>? = null
+    var responseAddBloodSugar : MutableLiveData<MasterResponse<ResponseAddBloodSugar>>? = null
+    var responseAddBloodPressure : MutableLiveData<MasterResponse<ResponseAddBloodPressure>>? = null
 
 
-    init {
-        checkListProgrss.set(Prefs.get().checkListPercent)
+    fun callWeightListApi() : MutableLiveData<MasterResponse<ResponseAddWeight>> {
+        responseAddWeight = MutableLiveData<MasterResponse<ResponseAddWeight>>()
+        baseRepo.restClient.callApi(Api.LIST_WEIGHT, null, responseAddWeight!!)
+        return responseAddWeight!!
     }
 
-    fun validateInput(): Boolean {
-
-        val data = requestForgotPassword.get() ?: return false
-
-        if (!Validator.isEmailValid(data.email, errEmail)) {
-            return false
-        }
-
-        return true
+    fun callBloodSugarListApi() : MutableLiveData<MasterResponse<ResponseAddBloodSugar>> {
+        responseAddBloodSugar = MutableLiveData<MasterResponse<ResponseAddBloodSugar>>()
+        baseRepo.restClient.callApi(Api.LIST_BLOOD_SUGAR, null, responseAddBloodSugar!!)
+        return responseAddBloodSugar!!
     }
 
-    fun callForgotPasswordApi() {
-        baseRepo.restClient.callApi(
-            Api.FORGOT_PASSWORD,
-            requestForgotPassword.get(),
-            responseForgotPassword
-        )
+    fun callBloodPressureListApi() : MutableLiveData<MasterResponse<ResponseAddBloodPressure>> {
+        responseAddBloodPressure = MutableLiveData<MasterResponse<ResponseAddBloodPressure>>()
+        baseRepo.restClient.callApi(Api.LIST_BLOOD_PRESSURE, null, responseAddBloodPressure!!)
+        return responseAddBloodPressure!!
     }
 
 

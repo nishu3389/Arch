@@ -25,12 +25,12 @@ class AddWeightViewModel(controller: AsyncViewController) : BaseViewModel(contro
 
         val data = requestAddWeight.get() ?: return false
 
-        if (data.weight.isEmptyy() || data.weight!!.toInt()<=0) {
+        if (data.weight.isEmptyy() || data.weight!!.toDouble()<=0) {
             "Please enter weight".showWarning()
             return false
         }
 
-        if (data.height.isEmptyy() || data.height!!.toInt()<=0) {
+        if (data.height.isEmptyy() || data.height!!.toDouble()<=0) {
             "Please enter height".showWarning()
             return false
         }

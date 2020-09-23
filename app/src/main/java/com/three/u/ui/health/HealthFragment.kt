@@ -1,16 +1,22 @@
 package com.three.u.ui.health
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.HorizontalScrollView
+import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
+import androidx.databinding.ObservableField
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import com.three.u.R
 import com.three.u.ui.activity.HomeActivity
@@ -19,16 +25,25 @@ import com.three.u.databinding.FragmentAddWeightBinding
 import com.three.u.databinding.FragmentHealthBinding
 import com.three.u.databinding.FragmentHomeBinding
 import com.three.u.model.request.RequestForgotPassword
+import com.three.u.model.request.ResponseAddBloodPressure
+import com.three.u.model.request.ResponseAddBloodSugar
+import com.three.u.model.request.ResponseAddWeight
 import com.three.u.ui.health.bloodpressure.add_bloodpressure.AddBloodPressureFragment
 import com.three.u.ui.health.bloodsugar.add_bloodsugar.AddBloodSugarFragment
 import com.three.u.ui.health.weight.add_weight.AddWeightFragment
 import com.three.u.util.permission.DeviceRuntimePermission
 import com.three.u.util.permission.IPermissionGranted
 import com.three.u.views.CommonTextView
+import com.vistrav.pop.Pop
 
 
 class HealthFragment : BaseFragment() {
 
+    var listWeight = ObservableField<ResponseAddWeight>()
+    var listBloodSugar = ObservableField<ResponseAddBloodSugar>()
+    var listBloodPressure = ObservableField<ResponseAddBloodPressure>()
+
+    var popup : AlertDialog? = null
     lateinit var dialog: AlertDialog
     lateinit var mViewModel: HealthViewModel
     lateinit var mBinding: FragmentHealthBinding
@@ -56,11 +71,144 @@ class HealthFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initWork()
+        otherWork()
+
+    }
+
+    private fun otherWork() {
+        setupViewPager()
+        manageClicks()
+        callInitialApis()
+    }
+
+    private fun callInitialApis() {
+        mViewModel.callWeightListApi().observe(viewLifecycleOwner, Observer {
+            if(!it.data.isNullOrEmpty() && it.data!!.size>0) {
+                listWeight.set(it.data!!)
+            }
+        })
+        mViewModel.callBloodSugarListApi().observe(viewLifecycleOwner, Observer {
+            if(!it.data.isNullOrEmpty() && it.data!!.size>0) {
+                listBloodSugar.set(it.data!!)
+            }
+        })
+        mViewModel.callBloodPressureListApi().observe(viewLifecycleOwner, Observer {
+            if(!it.data.isNullOrEmpty() && it.data!!.size>0) {
+                listBloodPressure.set(it.data!!)
+            }
+        })
+    }
+
+    private fun initWork() {
         (activity as HomeActivity).showLogo(true)
         (activity as HomeActivity).showRightLogo(true)
         (activity as HomeActivity).setTitle("")
-//        (activity as HomeActivity).highlightHomeTab()
-        setupViewPager()
+    }
+
+    private fun manageClicks() {
+        (activity as HomeActivity).mBinding.imgRight.push()?.setOnClickListener {
+
+            when(mBinding.viewPager.currentItem){
+                0 -> {
+                    mViewModel.callWeightListApi().observe(viewLifecycleOwner, Observer {
+                        if(!it.data.isNullOrEmpty() && it.data!!.size>0)
+                            showWeightDialog(it.data!!)
+                        else
+                            "No records available".showWarning()
+                    })
+                }
+                1 -> {
+                    mViewModel.callBloodSugarListApi().observe(viewLifecycleOwner, Observer {
+                        if(!it.data.isNullOrEmpty() && it.data!!.size>0)
+                            showBloodSugarDialog(it.data!!)
+                        else
+                            "No records available".showWarning()
+                    })
+                }
+                2 -> {
+                    mViewModel.callBloodPressureListApi().observe(viewLifecycleOwner, Observer {
+                        if(!it.data.isNullOrEmpty() && it.data!!.size>0)
+                            showBloodPressureDialog(it.data!!)
+                        else
+                            "No records available".showWarning()
+                    })
+                }
+            }
+
+        }
+    }
+
+    private fun showBloodPressureDialog(data: ResponseAddBloodPressure) {
+        popup = Pop.on(activity)
+            .with()
+            .cancelable(false)
+            .layout(R.layout.blood_pressure_list)
+            .show {
+
+                it?.findViewById<RecyclerView>(R.id.recycler).apply {
+                    var adapter = BloodPressureListAdapter(R.layout.row_blood_pressure_list)
+                    this!!.adapter = adapter
+                    adapter.setNewItems(data)
+                }
+
+                it?.findViewById<ImageView>(R.id.img_cross).apply {
+                    this?.push()?.setOnClickListener {
+                        popup?.dismiss()
+                    }
+                }
+
+            }
+
+        popup?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+    }
+
+    private fun showBloodSugarDialog(data: ResponseAddBloodSugar) {
+        popup = Pop.on(activity)
+            .with()
+            .cancelable(false)
+            .layout(R.layout.blood_sugar_list)
+            .show {
+
+                it?.findViewById<RecyclerView>(R.id.recycler).apply {
+                    var adapter = BloodSugarListAdapter(R.layout.row_blood_sugar_list)
+                    this!!.adapter = adapter
+                    adapter.setNewItems(data)
+                }
+
+                it?.findViewById<ImageView>(R.id.img_cross).apply {
+                    this?.push()?.setOnClickListener {
+                        popup?.dismiss()
+                    }
+                }
+
+            }
+
+        popup?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+    }
+
+    private fun showWeightDialog(data: ResponseAddWeight) {
+        popup = Pop.on(activity)
+            .with()
+            .cancelable(false)
+            .layout(R.layout.weight_list)
+            .show {
+
+               it?.findViewById<RecyclerView>(R.id.recycler).apply {
+                   var adapter = WeightListAdapter(R.layout.row_weight_list)
+                   this!!.adapter = adapter
+                   adapter.setNewItems(data)
+               }
+
+                it?.findViewById<ImageView>(R.id.img_cross).apply {
+                    this?.push()?.setOnClickListener {
+                        popup?.dismiss()
+                    }
+                }
+
+            }
+
+        popup?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
     }
 
     private fun setupViewPager() {
@@ -130,10 +278,7 @@ class HealthFragment : BaseFragment() {
     }
 
     private fun setupViewModel() {
-        mViewModel =
-            ViewModelProviders.of(this, MyViewModelProvider(commonCallbacks as AsyncViewController))
-                .get(HealthViewModel::class.java)
-        mViewModel.requestForgotPassword.set(RequestForgotPassword())
+        mViewModel = ViewModelProviders.of(this, MyViewModelProvider(commonCallbacks as AsyncViewController)).get(HealthViewModel::class.java)
     }
 
     inner class ClickHandler : IPermissionGranted {
