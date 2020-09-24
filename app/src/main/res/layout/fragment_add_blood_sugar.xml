@@ -16,23 +16,39 @@
     </data>
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
             android:orientation="vertical"
-            android:layout_marginLeft="@dimen/_20sdp"
-            android:layout_marginRight="@dimen/_20sdp"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <com.github.mikephil.charting.charts.LineChart
-                android:id="@+id/chart1"
+            <androidx.cardview.widget.CardView
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginRight="@dimen/_5sdp"
+                android:layout_marginLeft="@dimen/_5sdp"
+                app:cardCornerRadius="@dimen/_5sdp"
+                app:cardUseCompatPadding="true"
+                app:contentPadding="@dimen/_5sdp"
+                app:cardElevation="@dimen/_5sdp"
+                app:cardBackgroundColor="@color/white"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_200sdp" />
+                android:layout_height="wrap_content">
+
+                <com.github.mikephil.charting.charts.LineChart
+                    android:id="@+id/chart1"
+                    android:padding="@dimen/_5sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_200sdp" />
+
+            </androidx.cardview.widget.CardView>
 
             <com.three.u.views.CommonTextViewMedium
                 android:textSize="@dimen/_12sdp"
+                android:layout_marginLeft="@dimen/_20sdp"
+                android:layout_marginRight="@dimen/_20sdp"
                 android:textColor="@color/white"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:text="Enter your sugar level"
@@ -41,8 +57,10 @@
 
             <com.three.u.views.CommonTextViewMedium
                 android:textSize="@dimen/_12sdp"
+                android:layout_marginLeft="@dimen/_20sdp"
+                android:layout_marginRight="@dimen/_20sdp"
                 android:textColor="@color/white"
-                android:text="Fasting"
+                android:text="Fasting (mg/dl)"
                 android:layout_marginTop="@dimen/_15sdp"
                 android:gravity="center_horizontal"
                 android:layout_width="match_parent"
@@ -50,11 +68,13 @@
 
             <com.three.u.views.CommonEditTextMedium
                 android:textSize="@dimen/_12sdp"
+                android:layout_marginLeft="@dimen/_20sdp"
+                android:layout_marginRight="@dimen/_20sdp"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
                 android:gravity="center_horizontal"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_5sdp"
                 android:textCursorDrawable="@null"
                 android:background="@color/transparent"
                 android:inputType="numberDecimal"
@@ -66,14 +86,18 @@
 
             <View
                 android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginLeft="@dimen/_20sdp"
+                android:layout_marginRight="@dimen/_20sdp"
                 android:background="@color/colorDivider"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"></View>
 
             <com.three.u.views.CommonTextViewMedium
                 android:textSize="@dimen/_12sdp"
+                android:layout_marginLeft="@dimen/_20sdp"
+                android:layout_marginRight="@dimen/_20sdp"
                 android:textColor="@color/white"
-                android:text="Post Fasting"
+                android:text="Post Fasting (mg/dl)"
                 android:layout_marginTop="@dimen/_20sdp"
                 android:gravity="center_horizontal"
                 android:layout_width="match_parent"
@@ -81,10 +105,12 @@
 
             <com.three.u.views.CommonEditTextMedium
                 android:textSize="@dimen/_12sdp"
+                android:layout_marginLeft="@dimen/_20sdp"
+                android:layout_marginRight="@dimen/_20sdp"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_5sdp"
                 android:background="@color/transparent"
                 android:inputType="numberDecimal"
                 android:singleLine="true"
@@ -97,6 +123,8 @@
                 android:layout_height="wrap_content"/>
 
             <View
+                android:layout_marginLeft="@dimen/_20sdp"
+                android:layout_marginRight="@dimen/_20sdp"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:background="@color/colorDivider"
                 android:layout_width="match_parent"
@@ -106,6 +134,8 @@
                 android:id="@+id/tv_add"
                 android:textColor="@color/black"
                 android:text="ADD"
+                android:layout_marginLeft="@dimen/_20sdp"
+                android:layout_marginRight="@dimen/_20sdp"
                 android:layout_marginTop="@dimen/_20sdp"
                 android:layout_marginBottom="@dimen/_10sdp"
                 android:textSize="@dimen/_12sdp"

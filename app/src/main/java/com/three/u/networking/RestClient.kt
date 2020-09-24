@@ -51,7 +51,8 @@ class RestClient() {
         headers["AppVersion"] = "1.0"
         headers["DeviceType"] = "2"
 
-        gson = Gson()
+        gson = GsonBuilder().setLenient().create()
+
         Prefs.get().loginData?.apply {
             headers["Token"] = "$token"
             headers["UserId"] = "$id"

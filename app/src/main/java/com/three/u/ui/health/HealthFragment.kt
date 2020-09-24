@@ -13,6 +13,7 @@ import androidx.databinding.ObservableField
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
@@ -39,9 +40,9 @@ import com.vistrav.pop.Pop
 
 class HealthFragment : BaseFragment() {
 
-    var listWeight = ObservableField<ResponseAddWeight>()
-    var listBloodSugar = ObservableField<ResponseAddBloodSugar>()
-    var listBloodPressure = ObservableField<ResponseAddBloodPressure>()
+    var listWeight = MutableLiveData<ResponseAddWeight>()
+    var listBloodSugar = MutableLiveData<ResponseAddBloodSugar>()
+    var listBloodPressure = MutableLiveData<ResponseAddBloodPressure>()
 
     var popup : AlertDialog? = null
     lateinit var dialog: AlertDialog
@@ -82,20 +83,20 @@ class HealthFragment : BaseFragment() {
         callInitialApis()
     }
 
-    private fun callInitialApis() {
+    fun callInitialApis() {
         mViewModel.callWeightListApi().observe(viewLifecycleOwner, Observer {
             if(!it.data.isNullOrEmpty() && it.data!!.size>0) {
-                listWeight.set(it.data!!)
+                listWeight.value = (it.data!!)
             }
         })
         mViewModel.callBloodSugarListApi().observe(viewLifecycleOwner, Observer {
             if(!it.data.isNullOrEmpty() && it.data!!.size>0) {
-                listBloodSugar.set(it.data!!)
+                listBloodSugar.value = (it.data!!)
             }
         })
         mViewModel.callBloodPressureListApi().observe(viewLifecycleOwner, Observer {
             if(!it.data.isNullOrEmpty() && it.data!!.size>0) {
-                listBloodPressure.set(it.data!!)
+                listBloodPressure.value = (it.data!!)
             }
         })
     }

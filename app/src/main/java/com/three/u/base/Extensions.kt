@@ -34,23 +34,22 @@ import com.daimajia.androidanimations.library.YoYo
 import com.squareup.picasso.Picasso
 import com.thekhaeng.pushdownanim.PushDownAnim
 import com.three.u.R
+import com.three.u.networking.Api.BASE_URL
+import com.three.u.networking.Api.UPDATE_TOKEN_TO_SERVER
 import com.three.u.util.Prefs
 import com.three.u.util.RoundedCornersTransform
 import com.three.u.util.Util
-import com.three.u.networking.Api.BASE_URL
-import com.three.u.networking.Api.UPDATE_TOKEN_TO_SERVER
 import org.json.JSONObject
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 /**
  * Returns a random element.
  */
 fun <E> List<E>.random(): E? = if (size > 0) get(Random().nextInt(size)) else null
 
-fun View.find(id:Int) : View{
+fun View.find(id: Int) : View{
     return this.findViewById(id)
 }
 
@@ -92,7 +91,7 @@ fun ImageView.set(con: Context, img: Int?) {
             .error(R.drawable.placeholder).into(this)
 }
 
-fun ImageView.set(con: Context, imgUrl: String?, placeholder:Int) {
+fun ImageView.set(con: Context, imgUrl: String?, placeholder: Int) {
     if (imgUrl.isNullOrEmpty())
         Glide.with(con).load(placeholder).into(this)
     else
@@ -100,11 +99,11 @@ fun ImageView.set(con: Context, imgUrl: String?, placeholder:Int) {
             .error(placeholder).into(this)
 }
 
-fun EditText.setGender(gender:Int?){
+fun EditText.setGender(gender: Int?){
     if(gender!=null){
         when(gender){
-            1-> this.setText("Male")
-            2-> this.setText("Female")
+            1 -> this.setText("Male")
+            2 -> this.setText("Female")
             else -> this.setText("Other")
         }
     }
@@ -134,6 +133,18 @@ fun EditText.onTextChange(view: View) {
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
     })
+}
+
+fun String.changeToLongDate() : Long{
+    try {
+        val sdf = SimpleDateFormat("yyyy-MM-dd")
+        val date = sdf.parse(this)
+        val longDate = date.time
+        return longDate
+    } catch (e: ParseException) {
+        e.printStackTrace()
+        return 0
+    }
 }
 
 fun String.changeTimeFormat(from: String?, to: String?): String? {
@@ -202,7 +213,7 @@ fun String.isBefore(date: String?, dateFormate: String): Boolean {
     return b
 }
 
-fun View.hideShow(list:List<Any>?, recyclerView:View){
+fun View.hideShow(list: List<Any>?, recyclerView: View){
     if(list!=null && list.isNotEmpty()){
         this.gone()
         recyclerView.visible()
@@ -353,7 +364,7 @@ fun Context.titleWithLogo(str: Int): Spanny? {
         .append(" ".plus(this.getString(str)), ImageSpan(this, R.drawable.logo_icon))
 }
 
-fun EditText.enable(bool:Boolean){
+fun EditText.enable(bool: Boolean){
     this.isFocusable = bool
     this.isFocusableInTouchMode = bool
     this.isCursorVisible = bool
@@ -482,9 +493,9 @@ fun String.sendToServer(){
             headers["UserId"] = "$id"
         }
 
-        AndroidNetworking.post(BASE_URL+ UPDATE_TOKEN_TO_SERVER)
+        AndroidNetworking.post(BASE_URL + UPDATE_TOKEN_TO_SERVER)
             .addHeaders(headers)
-            .addJSONObjectBody(JSONObject().put("DeviceToken",this))
+            .addJSONObjectBody(JSONObject().put("DeviceToken", this))
             .setPriority(Priority.MEDIUM)
             .build()
             .getAsJSONObject(object : JSONObjectRequestListener {

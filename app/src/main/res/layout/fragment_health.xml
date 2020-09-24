@@ -54,7 +54,7 @@
 
         </HorizontalScrollView>
 
-        <androidx.viewpager.widget.ViewPager
+        <com.three.u.util.NonSwipeableViewPager
             android:id="@+id/viewPager"
             android:layout_marginTop="@dimen/_55sdp"
             android:background="@drawable/health_viewpager_bg"
