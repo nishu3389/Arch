@@ -10,7 +10,9 @@ import android.os.Vibrator
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
+import android.text.style.ForegroundColorSpan
 import android.text.style.ImageSpan
+import android.text.style.UnderlineSpan
 import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -362,6 +364,11 @@ fun View.gone() {
 fun Context.titleWithLogo(str: Int): Spanny? {
     return Spanny("")
         .append(" ".plus(this.getString(str)), ImageSpan(this, R.drawable.logo_icon))
+}
+
+fun Context.highlight(str: String): Spanny? {
+    return Spanny("")
+        .append(str, UnderlineSpan(), ForegroundColorSpan(Color.RED))
 }
 
 fun EditText.enable(bool: Boolean){

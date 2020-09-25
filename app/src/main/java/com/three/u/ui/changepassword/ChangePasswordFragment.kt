@@ -42,7 +42,7 @@ class ChangePasswordFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (activity as HomeActivity).setTitle(resources.getString(R.string.change_password))
+        (activity as HomeActivity).setTitle("")
     }
 
 

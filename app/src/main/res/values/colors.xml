@@ -4,6 +4,8 @@
     <color name="colorPrimaryDark">#8B0000</color>
     <color name="colorAccent">#000</color>
 
+    <color name="meal_light">#eeeeee</color>
+    <color name="appDark">#e5314d</color>
     <color name="app_red">#F33341</color>
 
     <color name="grey">#8f8f8f</color>

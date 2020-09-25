@@ -35,6 +35,11 @@ class AddWeightViewModel(controller: AsyncViewController) : BaseViewModel(contro
             return false
         }
 
+        val user = Prefs.get().loginData
+        user?.height = data.height!!
+
+        Prefs.get().loginData = user
+
         return true
     }
 

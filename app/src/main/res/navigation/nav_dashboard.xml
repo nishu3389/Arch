@@ -17,6 +17,11 @@
         tools:layout="@layout/fragment_settings" />
 
     <fragment
+        android:id="@+id/MealPlanFragment"
+        android:name="com.three.u.ui.meal.MealPlanFragment"
+        tools:layout="@layout/fragment_meal_plan" />
+
+    <fragment
         android:id="@+id/HealthFragment"
         android:name="com.three.u.ui.health.HealthFragment"
         android:label="@string/menu_home"

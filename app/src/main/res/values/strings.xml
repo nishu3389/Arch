@@ -341,5 +341,6 @@
     <string name="change_password">Change Password</string>
     <string name="my_profile">My Profile</string>
     <string name="enter_your_email">Enter your email</string>
+    <string name="meal">Meal</string>
 
 </resources>

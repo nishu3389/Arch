@@ -5,13 +5,21 @@ import android.app.Dialog
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.Color
 import android.location.Location
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.TextPaint
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
+import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.lifecycle.MutableLiveData
@@ -389,6 +397,42 @@ open class BaseFragment : BundleFragment() {
                     anError?.toString()?.log()
                 }
             })
+    }
+
+
+    fun setClickable(textView: TextView, subString: String, handler: () -> Unit, drawUnderline: Boolean = false) {
+        val text = textView.text
+        val start = text.indexOf(subString)
+        val end = start + subString.length
+
+        val span = SpannableString(text)
+        span.setSpan(ClickHandler(handler, drawUnderline), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        span.setSpan(ForegroundColorSpan(Color.RED),start,end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+        textView.linksClickable = true
+        textView.isClickable = true
+        textView.movementMethod = LinkMovementMethod.getInstance()
+
+        textView.text = span
+    }
+
+    class ClickHandler(
+        private val handler: () -> Unit,
+        private val drawUnderline: Boolean
+    ) : ClickableSpan() {
+
+        override fun updateDrawState(ds: TextPaint) {
+            if (drawUnderline) {
+                super.updateDrawState(ds)
+            } else {
+                ds?.isUnderlineText = false
+            }
+        }
+
+        override fun onClick(p0: View) {
+            handler()
+        }
+
     }
 
 }

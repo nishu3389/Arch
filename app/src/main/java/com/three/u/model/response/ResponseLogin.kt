@@ -5,15 +5,15 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class ResponseLogin(
-    val created_at: String,
-    val email: String,
-    val height: String,
-    val id: String,
-    val is_active: String,
-    val is_deleted: String,
-    val name: String,
-    val mobile: String,
-    val address: String,
-    val token: String,
-    val user_name: String
+    var created_at: String,
+    var email: String,
+    var height: String,
+    var id: String,
+    var is_active: String,
+    var is_deleted: String,
+    var name: String,
+    var mobile: String,
+    var address: String,
+    var token: String,
+    var user_name: String
 ) : Parcelable

@@ -48,7 +48,9 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun manageClicks() {
-        mBinding.rrMeal.push()?.setOnClickListener {  }
+        mBinding.rrMeal.push()?.setOnClickListener {
+            navigate(R.id.MealPlanFragment)
+        }
         mBinding.rrExercise.push()?.setOnClickListener {  }
         mBinding.rrTips.push()?.setOnClickListener {  }
     }

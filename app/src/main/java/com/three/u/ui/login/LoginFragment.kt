@@ -49,6 +49,9 @@ class LoginFragment : BaseFragment(), IPermissionGranted {
         val get = mViewModel.requestLogin.get()
         get?.Email =  "participant@mailinator.com"
         get?.Password = "123456"
+
+        setClickable(mBinding.tvTerms, "Terms of Service", { "Terms Clicked".toast() })
+        setClickable(mBinding.tvTerms, "Privacy Policy", { "Privacy Clicked".toast() })
     }
 
     private fun setupViewModel() {
