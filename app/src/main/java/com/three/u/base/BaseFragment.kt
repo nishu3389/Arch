@@ -304,6 +304,22 @@ open class BaseFragment : BundleFragment() {
 
     }
 
+    fun goBack(duration : Long) {
+        try {
+            if(activity!=null) {
+                if ((activity as? BaseActivity) != null) {
+                    Handler().postDelayed(
+                        { (activity as? BaseActivity)?.forceBack() },
+                        duration
+                    )
+                }
+            }
+        } catch (e: Exception) {
+            Log.e("Error",e.message+"")
+        }
+
+    }
+
     fun <T> nullCheck(str: T?): T? {
         return str ?: "" as T
     }

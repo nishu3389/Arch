@@ -93,8 +93,7 @@ class IntroSliderFragment : BaseFragment() {
     class ViewsSliderAdapter(private var sliderViews: ArrayList<Int>?) : PagerAdapter() {
 
         override fun instantiateItem(container: ViewGroup, position: Int): Any {
-            var inflater =
-                container.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+            var inflater = container.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             val view: View = inflater.inflate(sliderViews?.get(position)!!, container, false)
             (container as ViewPager).addView(view, 0)
             return view

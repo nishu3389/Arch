@@ -1,4 +1,4 @@
-package com.three.u.ui.meal
+package com.three.u.ui.meal.meal_detail
 
 import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
@@ -12,19 +12,22 @@ import com.three.u.model.response.*
 import com.three.u.util.Prefs
 import com.three.u.util.Validator
 import com.three.u.networking.Api
+import com.three.u.ui.meal.ResponseMealInner
 
-class MealPlanViewModel(controller: AsyncViewController) : BaseViewModel(controller) {
+class MealDetailViewModel(controller: AsyncViewController) : BaseViewModel(controller) {
 
-    var responseAddWeight : MutableLiveData<MasterResponse<ResponseAddWeight>>? = null
+    var model = ResponseMealInner(
+        "Pumpkin soup 1",
+        type = "image",
+        week = "Week 01",
+        title = "Pumpkin Soup 1",
+        url = "http://lorempixel.com/800/400/"
+    )
+
+    var responseMealInner : MutableLiveData<MasterResponse<ResponseMealInner>>? = null
     var responseAddBloodSugar : MutableLiveData<MasterResponse<ResponseAddBloodSugar>>? = null
     var responseAddBloodPressure : MutableLiveData<MasterResponse<ResponseAddBloodPressure>>? = null
 
-
-    fun callWeightListApi() : MutableLiveData<MasterResponse<ResponseAddWeight>> {
-        responseAddWeight = MutableLiveData<MasterResponse<ResponseAddWeight>>()
-        baseRepo.restClient.callApi(Api.LIST_WEIGHT, null, responseAddWeight!!)
-        return responseAddWeight!!
-    }
 
     fun callBloodSugarListApi() : MutableLiveData<MasterResponse<ResponseAddBloodSugar>> {
         responseAddBloodSugar = MutableLiveData<MasterResponse<ResponseAddBloodSugar>>()

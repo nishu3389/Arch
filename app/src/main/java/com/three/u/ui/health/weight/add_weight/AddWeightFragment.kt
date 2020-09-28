@@ -162,7 +162,7 @@ class AddWeightFragment : BaseFragment(), OnChartValueSelectedListener {
         val set3: LineDataSet
 
         // create a dataset and give it a type
-        set1 = LineDataSet(values1, "Weight (kg)")
+        set1 = LineDataSet(values1, "Weight (KG)")
         set1.axisDependency = AxisDependency.LEFT
         set1.color = ColorTemplate.getHoloBlue()
         set1.setCircleColor(Color.BLACK)
@@ -178,7 +178,7 @@ class AddWeightFragment : BaseFragment(), OnChartValueSelectedListener {
         //set1.setCircleHoleColor(Color.BLACK);
 
         // create a dataset and give it a type
-       set2 = LineDataSet(values2, "Height (cm)")
+       set2 = LineDataSet(values2, "Height (CM)")
         set2.axisDependency = AxisDependency.RIGHT
         set2.color = Color.RED
         set2.setCircleColor(Color.BLACK)

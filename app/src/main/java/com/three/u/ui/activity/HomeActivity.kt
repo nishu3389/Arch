@@ -84,6 +84,13 @@ class HomeActivity : BaseActivity(), NavController.OnDestinationChangedListener,
             mBinding.imgRight.gone()
     }
 
+    fun showToolbar(show: Boolean) {
+        if (show)
+            mBinding.toolbar.visible()
+        else
+            mBinding.toolbar.gone()
+    }
+
     fun showLogo(show: Boolean) {
         if (show)
             mBinding.imgLogo.visible()

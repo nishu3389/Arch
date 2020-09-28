@@ -18,8 +18,13 @@
 
     <fragment
         android:id="@+id/MealPlanFragment"
-        android:name="com.three.u.ui.meal.MealPlanFragment"
+        android:name="com.three.u.ui.meal.MealPlanListFragment"
         tools:layout="@layout/fragment_meal_plan" />
+
+    <fragment
+        android:id="@+id/MealDetailFragment"
+        android:name="com.three.u.ui.meal.meal_detail.MealDetailFragment"
+        tools:layout="@layout/fragment_meal_detail" />
 
     <fragment
         android:id="@+id/HealthFragment"

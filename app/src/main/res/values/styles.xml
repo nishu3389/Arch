@@ -8,8 +8,8 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
 
-<!--        <item name="NavAction_enterAnim">@anim/fade_in</item>-->
-<!--        <item name="NavAction_exitAnim">@anim/fade_out</item>-->
+        <!--        <item name="NavAction_enterAnim">@anim/fade_in</item>-->
+        <!--        <item name="NavAction_exitAnim">@anim/fade_out</item>-->
 
     </style>
 
@@ -101,7 +101,6 @@
         <item name="android:ellipsize">end</item>
         <item name="android:gravity">center_vertical</item>
     </style>
-
 
 
     <style name="price">
@@ -204,11 +203,13 @@
         <item name="colorAccent">#6200ea</item>
         <item name="android:colorControlNormal">#f9a825</item>
     </style>
+
     <style name="advPopupTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
 
         <item name="android:windowMinWidthMajor">100%</item>
         <item name="android:windowMinWidthMinor">100%</item>
     </style>
+
     <style name="RatingBar" parent="Theme.AppCompat">
         <item name="colorControlNormal">@color/light_grey</item>
         <item name="colorControlActivated">@color/yellow</item>
@@ -311,9 +312,6 @@
         <item name="android:textSize">@dimen/_10sdp</item>
         <item name="android:textColor">@color/black</item>
     </style>
-
-
-
 
 
 </resources>
