@@ -51,8 +51,10 @@ class HomeFragment : BaseFragment() {
         mBinding.rrMeal.push()?.setOnClickListener {
             navigate(R.id.MealPlanFragment)
         }
+        mBinding.rrTips.push()?.setOnClickListener {
+            navigate(R.id.TipsAndTricksFragment)
+        }
         mBinding.rrExercise.push()?.setOnClickListener {  }
-        mBinding.rrTips.push()?.setOnClickListener {  }
     }
 
     private fun setupViewModel() {

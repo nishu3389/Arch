@@ -22,9 +22,19 @@
         tools:layout="@layout/fragment_meal_plan" />
 
     <fragment
+        android:id="@+id/TipsAndTricksFragment"
+        android:name="com.three.u.ui.tipsandtricks.TipsAndTricksFragment"
+        tools:layout="@layout/fragment_tips_and_tricks" />
+
+    <fragment
         android:id="@+id/MealDetailFragment"
         android:name="com.three.u.ui.meal.meal_detail.MealDetailFragment"
         tools:layout="@layout/fragment_meal_detail" />
+
+    <fragment
+        android:id="@+id/TipsDetailFragment"
+        android:name="com.three.u.ui.tipsandtricks.tips_detail.TipsDetailFragment"
+        tools:layout="@layout/fragment_tips_detail" />
 
     <fragment
         android:id="@+id/HealthFragment"
