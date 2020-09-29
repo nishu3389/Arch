@@ -24,6 +24,9 @@ class TipsDetailViewModel(controller: AsyncViewController) : BaseViewModel(contr
         url = "http://lorempixel.com/800/400/"
     )
 
+
+
+
     var responseMealInner : MutableLiveData<MasterResponse<ResponseMealInner>>? = null
     var responseAddBloodSugar : MutableLiveData<MasterResponse<ResponseAddBloodSugar>>? = null
     var responseAddBloodPressure : MutableLiveData<MasterResponse<ResponseAddBloodPressure>>? = null
