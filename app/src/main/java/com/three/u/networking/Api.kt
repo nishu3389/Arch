@@ -5,6 +5,8 @@ import com.three.u.model.request.*
 import com.three.u.model.request.ResponseGetSalesProfile
 import com.three.u.model.response.*
 import com.three.u.model.response.ResponseGetProfile
+import com.three.u.ui.tipsandtricks.ResponseTipsDetail
+import com.three.u.ui.tipsandtricks.ResponseTipsOuter
 
 object Api {
 
@@ -30,6 +32,9 @@ object Api {
     const val LIST_WEIGHT = "list_weight"
     const val LIST_BLOOD_SUGAR = "list_blood_sugar"
     const val LIST_BLOOD_PRESSURE = "list_blood_pressure"
+    const val GET_POSTS = "getPosts"
+    const val POST_DETAIL = "post_detail"
+    const val POST_TYPE_TIPS = "tips"
 
 
     const val ContactUsQuery = ""
@@ -38,7 +43,6 @@ object Api {
     /*------------------------------PHASE 2 Sales Profile---------------------------------*/
     const val GETCUSTOMERPROFILE = ""
     /*------------------------------PHASE 2 Sales Profile---------------------------------*/
-
 
 
     fun getApiRequestType(url: String): ApiRequestType {
@@ -165,6 +169,22 @@ object Api {
             LIST_BLOOD_SUGAR -> {
                 result.responseType =
                     object : TypeToken<MasterResponse<ResponseAddBloodSugar>>() {}.type
+                result.url = BASE_URL
+                result.requestType = RequestType.POST
+                return result
+            }
+
+            GET_POSTS -> {
+                result.responseType =
+                    object : TypeToken<MasterResponse<ResponseTipsOuter>>() {}.type
+                result.url = BASE_URL
+                result.requestType = RequestType.POST
+                return result
+            }
+
+            POST_DETAIL -> {
+                result.responseType =
+                    object : TypeToken<MasterResponse<ResponseTipsDetail>>() {}.type
                 result.url = BASE_URL
                 result.requestType = RequestType.POST
                 return result

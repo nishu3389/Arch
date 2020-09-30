@@ -2,37 +2,24 @@ package com.three.u.ui.tipsandtricks
 
 import com.three.u.R
 import com.three.u.base.BaseRecyclerAdapter
-import com.three.u.base.changeTimeFormat
 import com.three.u.base.push
 import com.three.u.databinding.*
 
 class TipsAdapterOuter(
     override val layoutId: Int,
-    private val onClickListener: (position : Int, model: ResponseTipsInner) -> Unit) : BaseRecyclerAdapter<RowTipsOuterBinding, ResponseTipsOuter>() {
+    private val onClickListener: (position : Int, model: ResponseTipsInner) -> Unit) : BaseRecyclerAdapter<RowTipsOuterBinding, ResponseTipsOuterItem>() {
 
-    override fun bind(holder: ViewHolder, item: ResponseTipsOuter, position: Int) {
+    override fun bind(holder: ViewHolder, item: ResponseTipsOuterItem, position: Int) {
         holder.binding.model = item
-        holder.binding.tvDate.text = item.created_at.changeTimeFormat("yyyy-MM-dd","dd MMM, yyyy")
-
-        setInnerData(holder)
+//      holder.binding.tvDate.text = item.updated_at.changeTimeFormat("yyyy-MM-dd","dd MMM, yyyy")
+        setInnerData(holder, item)
     }
 
-    private fun setInnerData(holder: ViewHolder) {
+    private fun setInnerData(holder: ViewHolder, item: ResponseTipsOuterItem) {
         var adapterInner  = TipsAdapterInner(R.layout.row_tips_inner, onClickListener)
         holder.binding.recyclerInner.adapter = adapterInner
-        var innerList = arrayListOf(
-            ResponseTipsInner("Pumpkin soup 1"),
-            ResponseTipsInner("Pumpkin soup 2"),
-            ResponseTipsInner("Pumpkin soup 3"),
-            ResponseTipsInner("Pumpkin soup 4")
-        )
-        adapterInner.setNewItems(innerList)
-
-//        adapterInner.addClickEventWithView(R.id.meal_inner, mClickHandler::mealClicked)
-
+        adapterInner.setNewItems(item.data_list)
     }
-
-
 
 }
 

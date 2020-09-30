@@ -1,22 +1,38 @@
 package com.three.u.ui.tipsandtricks
 
-class ResponseTipsOuterList : ArrayList<ResponseTipsOuter>()
+class ResponseTipsOuter : ArrayList<ResponseTipsOuterItem>()
 
-data class ResponseTipsOuter(
-    var week: String,
-    var isOpen: Boolean = false,
-    var created_at: String = "2020-09-11"
+data class ResponseTipsOuterItem(
+    val data_list: List<ResponseTipsInner>,
+    val day: String,
+    var open: Boolean,
+    val updated_at: String = "2020-09-24"
 )
 
-class ResponseTipsInnerList : ArrayList<ResponseTipsInner>()
-
 data class ResponseTipsInner(
-    var meal: String,
-    var image: String = "",
-    var url: String = "http://lorempixel.com/800/400/",
-    var week: String = "Week 01",
-    var title: String = "Pumpkin Soup",
-    var desc: String = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries.",
-    var type: String = "image",
-    var date: String = "Sunday 13 sep. 2020"
+    val description: String,
+    val id: String,
+    val media_url: String,
+    val publish_count: String,
+    val title: String,
+    val updated_at: String
+)
+
+data class RequestPosts(
+    val type: String = ""
+)
+
+data class ResponseTipsDetail(
+    val description: String = "",
+    var media: List<Media>,
+    val title: String = ""
+)
+
+data class Media(
+    val media_type: String,
+    val url: String
+)
+
+data class RequestTipsDetail(
+    val id: String
 )

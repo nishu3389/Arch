@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.three.u.R
 import com.three.u.base.AsyncViewController
@@ -15,13 +16,13 @@ import kotlinx.coroutines.*
 
 class TipsAndTricksFragment : BaseFragment() {
 
-    var adapter = TipsAdapterOuter(R.layout.row_tips_outer, onClickListener = {position, model ->
+    var adapter = TipsAdapterOuter(R.layout.row_tips_outer, onClickListener = { position, model ->
         run {
-            navigate(R.id.TipsDetailFragment)
+            navigate(R.id.TipsDetailFragment, Pair("id", model.id))
         }
     })
 
-    var mealList = arrayListOf(ResponseTipsOuter("Day 1"),ResponseTipsOuter("Day 2"),ResponseTipsOuter("Day 3"),ResponseTipsOuter("Day 4"))
+    var mealList = arrayListOf<ResponseTipsOuterItem>()
     val mClickHandler: ClickHandler by lazy { ClickHandler() }
     lateinit var mViewModel: TipsAndTricksViewModel
     lateinit var mBinding: FragmentTipsAndTricksBinding
@@ -33,10 +34,13 @@ class TipsAndTricksFragment : BaseFragment() {
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        mBinding = FragmentTipsAndTricksBinding.inflate(inflater, container, false).apply {
-            clickHandler = ClickHandler()
-            viewModel = mViewModel
-
+        if (!::mBinding.isInitialized) {
+            mBinding = FragmentTipsAndTricksBinding.inflate(inflater, container, false).apply {
+                clickHandler = ClickHandler()
+                viewModel = mViewModel
+            }
+            initWork()
+            otherWork()
         }
 
         return mBinding.root
@@ -45,39 +49,26 @@ class TipsAndTricksFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initWork()
-        otherWork()
-
     }
 
     private fun otherWork() {
-
         setupRecycler()
-        manageClicks()
         callInitialApis()
     }
 
     private fun setupRecycler() {
         mBinding.recyclerOuterMeal.adapter = adapter
-
-        val async = GlobalScope.async {
+        mViewModel.callgetPostsApi().observe(viewLifecycleOwner, Observer {
+            mealList.clear()
+            mealList = it.data as ArrayList<ResponseTipsOuterItem>
             adapter.setNewItems(mealList)
             adapter.addClickEventWithView(R.id.card, mClickHandler::mealClicked)
-        }
-
-        val launch = GlobalScope.launch {
-            async.await()
-        }
-
-        launch.invokeOnCompletion {
             GlobalScope.launch(Dispatchers.Main) {
                 delay(100)
                 mBinding.recyclerOuterMeal.visibility = View.VISIBLE
             }
-        }
-
+        })
     }
-
 
 
     fun callInitialApis() {
@@ -86,31 +77,31 @@ class TipsAndTricksFragment : BaseFragment() {
 
     private fun initWork() {
         (activity as HomeActivity).showLogo(true)
-        (activity as HomeActivity).setTitle(getString(R.string.meal))
+        (activity as HomeActivity).setTitle(getString(R.string.tips_and_tricks))
     }
 
-    private fun manageClicks() {
 
-    }
 
 
     private fun setupViewModel() {
-        mViewModel = ViewModelProviders.of(this, MyViewModelProvider(commonCallbacks as AsyncViewController)).get(TipsAndTricksViewModel::class.java)
+        mViewModel =
+            ViewModelProviders.of(this, MyViewModelProvider(commonCallbacks as AsyncViewController))
+                .get(TipsAndTricksViewModel::class.java)
     }
 
-    inner class ClickHandler  {
+    inner class ClickHandler {
 
-        fun mealClicked(position : Int, model : ResponseTipsOuter){
+        fun mealClicked(position: Int, model: ResponseTipsOuterItem) {
 
-            if(!model.isOpen){
+            if (!model.open) {
                 mealList.forEach {
-                    it.isOpen = false
+                    it.open = false
                 }
-                model.isOpen = true
+                model.open = true
                 adapter.notifyDataSetChanged()
-            }else{
+            } else {
                 mealList.forEach {
-                    it.isOpen = false
+                    it.open = false
                 }
                 adapter.notifyDataSetChanged()
             }
@@ -118,7 +109,6 @@ class TipsAndTricksFragment : BaseFragment() {
         }
 
     }
-
 
 
 }
