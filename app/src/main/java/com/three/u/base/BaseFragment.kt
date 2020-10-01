@@ -30,14 +30,16 @@ import com.androidnetworking.error.ANError
 import com.androidnetworking.interfaces.JSONObjectRequestListener
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.jarvanmo.exoplayerview.media.SimpleMediaSource
+import com.jarvanmo.exoplayerview.ui.ExoVideoView
 import com.phelat.navigationresult.BundleFragment
 import com.thekhaeng.pushdownanim.PushDownAnim
 import com.three.u.R
 import com.three.u.model.response.AdvModel
 import com.three.u.model.response.MasterResponse
+import com.three.u.networking.Api
 import com.three.u.util.Prefs
 import com.three.u.util.Util
-import com.three.u.networking.Api
 import org.json.JSONObject
 import java.text.ParseException
 import java.text.SimpleDateFormat
@@ -51,21 +53,21 @@ open class BaseFragment : BundleFragment() {
     fun getViewModelProvider(): MyViewModelProvider =
         MyViewModelProvider(commonCallbacks as AsyncViewController)
 
-    fun showSuccessOrErrorAndGoBack(it:MasterResponse<Any>){
+    fun showSuccessOrErrorAndGoBack(it: MasterResponse<Any>){
         if (it != null && it.responseCode == 200)
             goBack(it.message)
         else
             showErrorBar(it.message)
     }
 
-    fun showSuccessOrErrorAndGoBackkk(it:MasterResponse<*>){
+    fun showSuccessOrErrorAndGoBackkk(it: MasterResponse<*>){
         if (it != null && it.responseCode == 200)
             goBack(it.message)
         else
             showErrorBar(it.message)
     }
 
-    fun showSuccessOrErrorAndGoBackk(it:MasterResponse<Boolean>){
+    fun showSuccessOrErrorAndGoBackk(it: MasterResponse<Boolean>){
         if (it != null && it.responseCode == 200)
             goBack(it.message)
         else
@@ -74,14 +76,14 @@ open class BaseFragment : BundleFragment() {
 
 
 
-    fun showSuccessOrErrorandGoBack(it:MasterResponse<*>?){
+    fun showSuccessOrErrorandGoBack(it: MasterResponse<*>?){
         if (it != null && it.responseCode == 200)
             goBack(it.message)
         else
-            showErrorBar(it?.message?: getString(R.string.something_went_wrong))
+            showErrorBar(it?.message ?: getString(R.string.something_went_wrong))
     }
 
-    fun showSuccessOrError(it:MasterResponse<*>?){
+    fun showSuccessOrError(it: MasterResponse<*>?){
         if (it != null && it.responseCode == 200)
             showSuccessBar(it.message.nul())
         else
@@ -199,7 +201,11 @@ open class BaseFragment : BundleFragment() {
                 dob = formatForServer.format(date)
                 val currentDate: String = SimpleDateFormat(format).format(Date())
 
-                val isTodayOrAfterToday: Boolean = Util.isTodayOrAfterToday(currentDate, dob, format)
+                val isTodayOrAfterToday: Boolean = Util.isTodayOrAfterToday(
+                    currentDate,
+                    dob,
+                    format
+                )
 //                if (!isTodayOrAfterToday) {
 //                    showWarning(context, "Availability date cannot before present date")
 //                    toast("Availability date cannot before present date")
@@ -283,7 +289,7 @@ open class BaseFragment : BundleFragment() {
 
             }
         } catch (e: Exception) {
-            Log.e("Error",e.message+"")
+            Log.e("Error", e.message + "")
         }
 
     }
@@ -299,12 +305,12 @@ open class BaseFragment : BundleFragment() {
                 }
             }
         } catch (e: Exception) {
-            Log.e("Error",e.message+"")
+            Log.e("Error", e.message + "")
         }
 
     }
 
-    fun goBack(duration : Long) {
+    fun goBack(duration: Long) {
         try {
             if(activity!=null) {
                 if ((activity as? BaseActivity) != null) {
@@ -315,7 +321,7 @@ open class BaseFragment : BundleFragment() {
                 }
             }
         } catch (e: Exception) {
-            Log.e("Error",e.message+"")
+            Log.e("Error", e.message + "")
         }
 
     }
@@ -324,44 +330,70 @@ open class BaseFragment : BundleFragment() {
         return str ?: "" as T
     }
 
-    open fun showImageDialog(url:String) {
-        val dialog = context?.let { Dialog(it, android.R.style.Theme_DeviceDefault_Light_NoActionBar_Fullscreen) }
+    public open fun showImageDialog(url: String) {
+        val dialog = context?.let { Dialog(
+            it,
+            android.R.style.Theme_DeviceDefault_Light_NoActionBar_Fullscreen
+        ) }
         dialog?.show()
-        dialog?.setCancelable(true)
+        dialog?.setCancelable(false)
         dialog?.setContentView(R.layout.dialog_image)
 
         var img: ImageView? = dialog?.findViewById(R.id.img)
-        context?.let { img?.set(it,url) }
+        context?.let { img?.set(it, url) }
 
         val crossView: ImageView? = dialog?.findViewById(R.id.cross)
         crossView?.push()?.setOnClickListener { dialog.dismiss() }
 
     }
 
-    fun getAdvList(type:Int) : ArrayList<AdvModel?>?{
+    public open fun showVideoDialog(url: String) {
+        val dialog = context?.let { Dialog(it, android.R.style.Theme_DeviceDefault_Light_NoActionBar_Fullscreen) }
+        dialog?.show()
+        dialog?.setCancelable(false)
+        dialog?.setContentView(R.layout.dialog_video)
+
+        var videoView: ExoVideoView? = dialog?.findViewById(R.id.videoView)
+        val mediaSource = SimpleMediaSource(url) //uri also supported
+        videoView?.play(mediaSource)
+
+        videoView?.changeWidgetVisibility(R.id.exo_player_controller_back,View.INVISIBLE);
+
+        val crossView: ImageView? = dialog?.findViewById(R.id.cross)
+        crossView?.push()?.setOnClickListener {
+            videoView?.releasePlayer()
+            dialog.dismiss()
+        }
+
+    }
+
+    fun getAdvList(type: Int) : ArrayList<AdvModel?>?{
         var advData = Prefs.get().ADV_DATA
         var arrayList : List<AdvModel?>? = null
 
         if(!advData.isEmptyy()){
             val advData = Prefs.get().ADV_DATA
             if(!advData.isEmptyy()){
-                val list = Gson().fromJson<List<AdvModel?>?>(advData, object : TypeToken<List<AdvModel?>?>() {}.getType())
+                val list = Gson().fromJson<List<AdvModel?>?>(
+                    advData,
+                    object : TypeToken<List<AdvModel?>?>() {}.getType()
+                )
                 arrayList = list?.filter { it?.advertisementType == type }
             }
         }
         return arrayList as ArrayList<AdvModel?>?
     }
 
-    fun onAdClick(url:String) {
+    fun onAdClick(url: String) {
         if(url.isEmptyy())
             return
 
         val openURL = Intent(Intent.ACTION_VIEW)
         openURL.data = Uri.parse(url)
-        activity?.startActivityForResult(openURL,987)
+        activity?.startActivityForResult(openURL, 987)
     }
 
-    fun showAdv(type:Int, imageView:ImageView, sectionId:Int){
+    fun showAdv(type: Int, imageView: ImageView, sectionId: Int){
 
         var adv : AdvModel? = null
 
@@ -369,7 +401,7 @@ open class BaseFragment : BundleFragment() {
             if(it !=null && it.size>0 && it.isNotEmpty())
                 context?.let { con ->
                     adv = it.random()
-                    imageView.setAdv(con,adv?.advertisementImage)
+                    imageView.setAdv(con, adv?.advertisementImage)
                     imageView.push()?.setOnClickListener {
                         adv?.advertisementURL?.let { adUrl -> onAdClick(adUrl) }
                     }
@@ -383,7 +415,7 @@ open class BaseFragment : BundleFragment() {
         adv?.advertisementId?.let { callAdvCountApi(it, sectionId) }
     }
 
-    fun callAdvCountApi(advId : Int, advSectionId : Int){
+    fun callAdvCountApi(advId: Int, advSectionId: Int){
 
         val headers = HashMap<String, String>()
 
@@ -398,13 +430,18 @@ open class BaseFragment : BundleFragment() {
             headers["UserId"] = "$id"
         }
 
-        AndroidNetworking.post(Api.BASE_URL+"PromotionAdvertisement/UpdateAdvertisementAccess")
+        AndroidNetworking.post(Api.BASE_URL + "PromotionAdvertisement/UpdateAdvertisementAccess")
             .addHeaders(headers)
-            .addJSONObjectBody(JSONObject().put("AdvertismentId",advId).put("AdvertisementSectionId",advSectionId))
+            .addJSONObjectBody(
+                JSONObject().put("AdvertismentId", advId).put(
+                    "AdvertisementSectionId",
+                    advSectionId
+                )
+            )
             .setTag("test")
             .setPriority(Priority.MEDIUM)
             .build()
-            .getAsJSONObject(object : JSONObjectRequestListener{
+            .getAsJSONObject(object : JSONObjectRequestListener {
                 override fun onResponse(response: JSONObject?) {
                     response.toString().log()
                 }
@@ -416,14 +453,24 @@ open class BaseFragment : BundleFragment() {
     }
 
 
-    fun setClickable(textView: TextView, subString: String, handler: () -> Unit, drawUnderline: Boolean = false) {
+    fun setClickable(
+        textView: TextView,
+        subString: String,
+        handler: () -> Unit,
+        drawUnderline: Boolean = false
+    ) {
         val text = textView.text
         val start = text.indexOf(subString)
         val end = start + subString.length
 
         val span = SpannableString(text)
-        span.setSpan(ClickHandler(handler, drawUnderline), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-        span.setSpan(ForegroundColorSpan(Color.RED),start,end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        span.setSpan(
+            ClickHandler(handler, drawUnderline),
+            start,
+            end,
+            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+        span.setSpan(ForegroundColorSpan(Color.RED), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
 
         textView.linksClickable = true
         textView.isClickable = true

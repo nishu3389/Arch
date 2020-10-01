@@ -6,7 +6,7 @@ data class ResponseTipsOuterItem(
     val data_list: List<ResponseTipsInner>,
     val day: String,
     var open: Boolean,
-    val updated_at: String = "2020-09-24"
+    val date: String
 )
 
 data class ResponseTipsInner(

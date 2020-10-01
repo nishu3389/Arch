@@ -134,5 +134,6 @@ dependencies {
     implementation 'com.romandanylyk:pageindicatorview:1.0.3'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
     implementation 'com.github.RohitSurwase.UCE-Handler:uce_handler:1.4'
+    implementation 'com.github.JarvanMo:ExoVideoView:2.1.6'
 
 }

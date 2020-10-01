@@ -48,9 +48,9 @@
 
                 <com.three.u.views.CommonTextView
                     android:id="@+id/tv_date"
-                    tool:text="Sunday, 13 sep, 2020"
+                    tool:text="Wednesday, 13 sep, 2020"
                     android:textColor="@{model.open ? @color/white : @color/black}"
-                    android:gravity="center_vertical"
+                    android:gravity="center_vertical|left"
                     android:paddingLeft="@dimen/_18sdp"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"

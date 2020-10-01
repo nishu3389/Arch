@@ -252,52 +252,23 @@ class RestClient() {
                     try {
                         responseString = responseBody.string()
 
-                        val master: MasterResponse<*> = gson.fromJson(responseString, apiRequestType.responseType)
-
-                        if (master.responseCode == 200) {
-                            dataCarrier?.value = master
-                        }/* else if (master.responseCode == 202) {
-
-                        } */else {
-                            val wrapperApiError = WrapperApiError(
-                                code,
-                                master.responseCode,
-                                master.message,
-                                master.validationErrors
-                            )
-                            dispatchError(wrapperApiError)
-                        }
+                        if (responseString != null && responseString.length>1 && responseString.startsWith("{") && responseString.endsWith("}")) {
+                            val master: MasterResponse<*> = gson.fromJson(responseString, apiRequestType.responseType)
+                            if (master.responseCode == 200) {
+                                dataCarrier?.value = master
+                            }else {
+                                val wrapperApiError = WrapperApiError(code, master.responseCode, master.message, master.validationErrors)
+                                dispatchError(wrapperApiError)
+                            }
+                        }else
+                            showError(response, code)
                     } catch (e: IOException) {
                         e.printStackTrace()
                     }
 
                 } else {
 
-                    var wrapperApiError: WrapperApiError? = null
-                    val errBody = response.errorBody()
-                    if (errBody != null) {
-                        try {
-                            val errBodyStr = errBody.string()
-                            val errInPojo: MasterResponse<*> =
-                                gson.fromJson(errBodyStr, MasterResponse::class.java)
-                            wrapperApiError = WrapperApiError(
-                                code,
-                                errInPojo.responseCode,
-                                errInPojo.message,
-                                errInPojo.validationErrors
-                            )
-
-                        } catch (e: java.lang.Exception) {
-                            e.printStackTrace()
-                            hideProgressDialog()
-                            wrapperApiError = WrapperApiError(
-                                code,
-                                RESULT_UNKNOWN,
-                                MainApplication.get().getString(R.string.something_went_wrong)
-                            )
-                        }
-                    }
-                    dispatchError(wrapperApiError!!)
+                    showError(response, code)
                 }
                 hideProgressDialog()
 
@@ -317,6 +288,40 @@ class RestClient() {
         })
     }
 
+    private fun showError(response: Response<ResponseBody>, code: String) {
+        var wrapperApiError: WrapperApiError? = null
+        val errBody = response.errorBody()
+        if (errBody != null) {
+            try {
+                val errBodyStr = errBody.string()
+                val errInPojo: MasterResponse<*> = gson.fromJson(errBodyStr, MasterResponse::class.java)
+                wrapperApiError = WrapperApiError(
+                    code,
+                    errInPojo.responseCode,
+                    errInPojo.message,
+                    errInPojo.validationErrors
+                )
+
+            } catch (e: java.lang.Exception) {
+                e.printStackTrace()
+                hideProgressDialog()
+                wrapperApiError = WrapperApiError(
+                    code,
+                    RESULT_UNKNOWN,
+                    MainApplication.get().getString(R.string.something_went_wrong)
+                )
+            }
+        }else{
+            hideProgressDialog()
+            wrapperApiError = WrapperApiError(
+                code,
+                RESULT_UNKNOWN,
+                MainApplication.get().getString(R.string.something_went_wrong)
+            )
+        }
+        dispatchError(wrapperApiError!!)
+    }
+
     private fun dispatchError(apiErr: WrapperApiError) {
 
         var result = apiErr.failureMsg
@@ -329,8 +334,7 @@ class RestClient() {
             }
         }
 
-        getListener()?.onApiCallFailed(apiErr.apiName, apiErr.responseCode, result)
-            ?: asyncViewController?.onApiCallFailed(apiErr.apiName, apiErr.responseCode, result)
+        getListener()?.onApiCallFailed(apiErr.apiName, apiErr.responseCode, result) ?: asyncViewController?.onApiCallFailed(apiErr.apiName, apiErr.responseCode, result)
     }
 
 }

@@ -5,24 +5,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.three.u.R
-import com.three.u.base.AsyncViewController
-import com.three.u.base.BaseFragment
-import com.three.u.base.MyViewModelProvider
-import com.three.u.base.set
-import com.three.u.databinding.FragmentMealDetailBinding
+import com.three.u.base.*
 import com.three.u.databinding.FragmentTipsDetailBinding
 import com.three.u.databinding.MealDetailSliderBinding
 import com.three.u.ui.activity.HomeActivity
-import com.three.u.ui.meal.ResponseMealInner
 import com.three.u.ui.meal.ResponseMealOuter
 import com.three.u.ui.tipsandtricks.Media
 import com.three.u.ui.tipsandtricks.ResponseTipsDetail
@@ -78,7 +70,7 @@ class TipsDetailFragment : BaseFragment() {
     }
 
     private fun setSlider(media: List<Media>?) {
-        mAdapter = SliderAdapter(media)
+        mAdapter = SliderAdapter(media,this)
         mBinding.viewPager.adapter = mAdapter
     }
 
@@ -120,15 +112,32 @@ class TipsDetailFragment : BaseFragment() {
         mBinding.viewPager.adapter = mAdapter
     }
 
-    class SliderAdapter(private var sliderViews: List<Media>?) : PagerAdapter() {
+
+
+    class SliderAdapter(private var sliderViews: List<Media>?, var fragment: TipsDetailFragment) : PagerAdapter() {
 
         override fun instantiateItem(container: ViewGroup, position: Int): Any {
             var inflater = container.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             val binding: MealDetailSliderBinding = DataBindingUtil.inflate(inflater, R.layout.meal_detail_slider, container, false)
-            binding.imgThumb.set(container.context, sliderViews?.get(position)?.url)
+
+            setImageAndClickWork(container.context,binding,position)
 
             (container as ViewPager).addView(binding.root, 0)
             return binding.root
+        }
+
+        private fun setImageAndClickWork(binding1: Context, binding: MealDetailSliderBinding, position: Int) {
+            val model = sliderViews?.get(position)
+
+            binding.imgThumb.set(binding1, "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4")
+
+            binding.imgThumb.push()?.setOnClickListener {
+                if(model?.media_type.equals("image"))
+                    fragment.showImageDialog("http://lorempixel.com/800/400/"!!)
+                else
+                    fragment.showVideoDialog("http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"!!)
+            }
+
         }
 
         override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
