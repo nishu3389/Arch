@@ -25,7 +25,7 @@ class TipsDetailViewModel(controller: AsyncViewController) : BaseViewModel(contr
 
 
     fun callTipsDetailApi(id : String) : MutableLiveData<MasterResponse<ResponseTipsDetail>> {
-        var requestPosts = RequestTipsDetail(id = id)
+        var requestPosts = RequestTipsDetail(id = id, type = "tips")
         responseTipsDetail = MutableLiveData<MasterResponse<ResponseTipsDetail>>()
         baseRepo.restClient.callApi(Api.POST_DETAIL, requestPosts, responseTipsDetail!!)
         return responseTipsDetail!!

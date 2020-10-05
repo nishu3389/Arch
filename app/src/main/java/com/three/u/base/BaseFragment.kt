@@ -5,6 +5,7 @@ import android.app.Dialog
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.graphics.Color
 import android.location.Location
 import android.net.Uri
@@ -31,6 +32,8 @@ import com.androidnetworking.interfaces.JSONObjectRequestListener
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.jarvanmo.exoplayerview.media.SimpleMediaSource
+import com.jarvanmo.exoplayerview.orientation.OnOrientationChangedListener.SENSOR_LANDSCAPE
+import com.jarvanmo.exoplayerview.orientation.OnOrientationChangedListener.SENSOR_PORTRAIT
 import com.jarvanmo.exoplayerview.ui.ExoVideoView
 import com.phelat.navigationresult.BundleFragment
 import com.thekhaeng.pushdownanim.PushDownAnim
@@ -348,7 +351,10 @@ open class BaseFragment : BundleFragment() {
     }
 
     public open fun showVideoDialog(url: String) {
-        val dialog = context?.let { Dialog(it, android.R.style.Theme_DeviceDefault_Light_NoActionBar_Fullscreen) }
+        val dialog = context?.let { Dialog(
+            it,
+            android.R.style.Theme_DeviceDefault_Light_NoActionBar_Fullscreen
+        ) }
         dialog?.show()
         dialog?.setCancelable(false)
         dialog?.setContentView(R.layout.dialog_video)
@@ -357,7 +363,17 @@ open class BaseFragment : BundleFragment() {
         val mediaSource = SimpleMediaSource(url) //uri also supported
         videoView?.play(mediaSource)
 
-        videoView?.changeWidgetVisibility(R.id.exo_player_controller_back,View.INVISIBLE);
+        videoView?.changeWidgetVisibility(R.id.exo_player_controller_back, View.INVISIBLE);
+
+        videoView?.setOrientationListener { orientation: Int ->
+            if (orientation == SENSOR_PORTRAIT) {
+                //do something
+                activity?.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT)
+            } else if (orientation == SENSOR_LANDSCAPE) {
+                //do something
+                activity?.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE)
+            }
+        }
 
         val crossView: ImageView? = dialog?.findViewById(R.id.cross)
         crossView?.push()?.setOnClickListener {

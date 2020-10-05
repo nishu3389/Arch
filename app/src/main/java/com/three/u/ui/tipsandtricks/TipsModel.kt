@@ -25,7 +25,9 @@ data class RequestPosts(
 data class ResponseTipsDetail(
     val description: String = "",
     var media: List<Media>,
-    val title: String = ""
+    val title: String = "",
+    val day: String = "",
+    val date: String = ""
 )
 
 data class Media(
@@ -34,5 +36,6 @@ data class Media(
 )
 
 data class RequestTipsDetail(
-    val id: String
+    val id: String,
+    val type: String
 )

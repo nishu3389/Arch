@@ -1,6 +1,7 @@
 package com.three.u.ui.tipsandtricks.tips_detail
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -32,16 +33,10 @@ class TipsDetailFragment : BaseFragment() {
         setupViewModel()
     }
 
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         mBinding = FragmentTipsDetailBinding.inflate(inflater, container, false).apply {
             clickHandler = ClickHandler()
             viewModel = mViewModel
-
         }
 
         return mBinding.root
@@ -52,15 +47,13 @@ class TipsDetailFragment : BaseFragment() {
 
         initWork()
         otherWork()
-
     }
 
     private fun otherWork() {
-        manageClicks()
         callInitialApis()
     }
 
-    fun callInitialApis() {
+    private fun callInitialApis() {
         mViewModel.callTipsDetailApi(requireArguments().getString("id")!!).observe(viewLifecycleOwner, Observer {
             mViewModel.model = it.data
             mBinding.invalidateAll()
@@ -84,35 +77,15 @@ class TipsDetailFragment : BaseFragment() {
         (activity as HomeActivity).showToolbar(true)
     }
 
-    private fun manageClicks() {
-
-    }
-
-
     private fun setupViewModel() {
-        mViewModel = ViewModelProviders.of(
-            this,
-            MyViewModelProvider(commonCallbacks as AsyncViewController)
-        ).get(TipsDetailViewModel::class.java)
+        mViewModel = ViewModelProviders.of(this, MyViewModelProvider(commonCallbacks as AsyncViewController)).get(TipsDetailViewModel::class.java)
     }
 
     inner class ClickHandler  {
-        fun mealClicked(position: Int, model: ResponseMealOuter){
-
-        }
-
         fun back(){
             goBack(0)
         }
-
     }
-
-    private fun setupViewPager(listOfFiles: ResponseTipsDetail) {
-//        mAdapter = SliderAdapter(listOfFiles)
-        mBinding.viewPager.adapter = mAdapter
-    }
-
-
 
     class SliderAdapter(private var sliderViews: List<Media>?, var fragment: TipsDetailFragment) : PagerAdapter() {
 
@@ -131,11 +104,12 @@ class TipsDetailFragment : BaseFragment() {
 
             binding.imgThumb.set(binding1, "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4")
 
-            binding.imgThumb.push()?.setOnClickListener {
+            binding.imgThumb?.setOnClickListener {
                 if(model?.media_type.equals("image"))
                     fragment.showImageDialog("http://lorempixel.com/800/400/"!!)
-                else
-                    fragment.showVideoDialog("http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"!!)
+                else{
+                    fragment.startActivity(Intent(fragment.context,VideoPlayerActivity::class.java).putExtra("url","http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"))
+                }
             }
 
         }

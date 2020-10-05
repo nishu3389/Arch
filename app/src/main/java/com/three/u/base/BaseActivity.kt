@@ -40,37 +40,13 @@ import com.three.u.util.permission.DeviceRuntimePermission
 import com.three.u.util.permission.IPermissionGranted
 import java.util.*
 
-abstract class BaseActivity : AnotherBaseActivity(), CommonCallbacks,
-    OnLocaleChangedListener {
+abstract class BaseActivity : AnotherBaseActivity(), CommonCallbacks, OnLocaleChangedListener {
 
     var mediaPlayerTap: MediaPlayer? = null
-    var mediaPlayerCongrates: MediaPlayer? = null
     lateinit var mBaseViewModel: BaseActivityViewModel
     private var aD: AlertDialog? = null
-    private val localizationDelegate =
-        LocalizationActivityDelegate(this)
-    var locationManager: LocationManager? = null
-    //var iPermissionGranted: IPermissionGranted? = null
-    var isGranted = false
-
+    private val localizationDelegate = LocalizationActivityDelegate(this)
     var isSecond = false
-
-
-
-
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-//        Log.d(" lifecycle","onActivityResult")
-//        if(requestCode == INTENT_AUTHENTICATE)
-//            Prefs.get().shouldCheckSecurity = true
-//
-//        if (requestCode == INTENT_AUTHENTICATE && resultCode != RESULT_OK) {
-//            Validator.showCustomToast("Authentication failed")
-//            finish()
-//        }
-    }
 
     @SuppressLint("SourceLockedOrientationActivity")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -101,19 +77,13 @@ abstract class BaseActivity : AnotherBaseActivity(), CommonCallbacks,
     }
 
     override fun showProgressDialog() {
-        if (mBaseViewModel.progressDialogStatus.value == null || !mBaseViewModel.progressDialogStatus.value.equals(
-                "_show"
-            )
-        ) {
+        if (mBaseViewModel.progressDialogStatus.value == null || !mBaseViewModel.progressDialogStatus.value.equals("_show")) {
             mBaseViewModel.progressDialogStatus.value = "_show"
         }
     }
 
     override fun hideProgressDialog() {
-        if (mBaseViewModel.progressDialogStatus.value == null || !mBaseViewModel.progressDialogStatus.value.equals(
-                "_hide"
-            )
-        ) {
+        if (mBaseViewModel.progressDialogStatus.value == null || !mBaseViewModel.progressDialogStatus.value.equals("_hide")) {
             mBaseViewModel.progressDialogStatus.value = "_hide"
         }
     }
@@ -208,12 +178,8 @@ abstract class BaseActivity : AnotherBaseActivity(), CommonCallbacks,
         })*/
     }
 
+    override fun setupToolBar(toolbarBinding: LayoutToolbarBinding, showBack: Boolean, title: String?) {
 
-    override fun setupToolBar(
-        toolbarBinding: LayoutToolbarBinding,
-        showBack: Boolean,
-        title: String?
-    ) {
         setSupportActionBar(toolbarBinding.toolbar)
         supportActionBar?.title = ""
         supportActionBar?.setDisplayShowTitleEnabled(false)
@@ -232,8 +198,8 @@ abstract class BaseActivity : AnotherBaseActivity(), CommonCallbacks,
             supportActionBar?.setDisplayHomeAsUpEnabled(false)
             supportActionBar?.setDisplayShowHomeEnabled(false)
             toolbarBinding.toolbar.setNavigationIcon(R.drawable.menu_icon)
-
         }
+
     }
 
     override fun getSharedModel(): BaseActivityViewModel {
@@ -246,13 +212,7 @@ abstract class BaseActivity : AnotherBaseActivity(), CommonCallbacks,
         mBaseViewModel.alertDialogController.value =  if(!msg.isEmptyy()) msg.trim() else getString(R.string.something_went_wrong)
     }
 
-    override fun showAlertDialog(
-        title: String,
-        msg: String,
-        btnPosTxt: String,
-        btnNegTxt: String,
-        btnListener: DialogInterface.OnClickListener?
-    ) {
+    override fun showAlertDialog(title: String, msg: String, btnPosTxt: String, btnNegTxt: String, btnListener: DialogInterface.OnClickListener?) {
         mBaseViewModel.alertDialogSpecs = AlertDialogSpecs()
         mBaseViewModel.alertDialogSpecs.title = title
         mBaseViewModel.alertDialogSpecs.btnPos = btnPosTxt
@@ -291,7 +251,6 @@ abstract class BaseActivity : AnotherBaseActivity(), CommonCallbacks,
         //Give fragment a chance to handle api call failure
         else if (getCurrentFragment(BaseFragment::class.java)?.onApiRequestFailed(apiUrl, errCode, errorMessage) == false) {
             showAlertDialog(errorMessage, null)
-//            errorMessage.showError()
             //fragment has nothing to do with this failure, can put some logic here
         }
         return true
@@ -308,33 +267,23 @@ abstract class BaseActivity : AnotherBaseActivity(), CommonCallbacks,
         getCurrentFragment(BaseFragment::class.java)?.onFilePicked(pickedFileUri)
     }
 
-
-
-
     override fun setupActionBarWithNavController(toolbar: Toolbar) {}
-
-
-
-
 
     override fun forceBack() {
         super.onBackPressed()
     }
 
     private fun showAppCloseDialog() {
-
         if (!isSecond) {
             isSecond = true
         } else {
             finish()
         }
-
     }
 
 
     override fun isConnectedToNetwork(): Boolean {
-        val cm =
-            MainApplication.get().getContext().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val cm = MainApplication.get().getContext().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val ni = cm.activeNetworkInfo
         return ni != null
 
@@ -366,169 +315,12 @@ abstract class BaseActivity : AnotherBaseActivity(), CommonCallbacks,
 
     override fun onAfterLocaleChanged() {}
 
-
-   /* override fun requestFilePicker(actionType: Int) {
-        // fileFetcher.actionType = actionType
-        if (!checkAndRequestPermissions(
-                arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
-                Constant.REQC_PICK_IMAGE
-            )
-        ) {
-            return
-        }
-        //  fileFetcher.startAction(this) {onFilePicked(it)}
-    }
-    fun checkAndRequestPermissions(perms: Array<String>, requestCode: Int): Boolean {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            return true
-        }
-        val results = ArrayList<String>()
-        for (s in perms) {
-            if (ContextCompat.checkSelfPermission(
-                    applicationContext,
-                    s
-                ) != PackageManager.PERMISSION_GRANTED
-            ) {
-                results.add(s)
-            }
-        }
-        if (results.size == 0) {
-            return true
-        } else {
-            val arr = arrayOfNulls<String>(results.size)
-            requestPermission(results.toArray(arr), requestCode)
-            return false
-        }
-    }
-
-    override fun hasPermission(s: String): Boolean {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            return true
-        }
-
-        if (ContextCompat.checkSelfPermission(
-                applicationContext,
-                s
-            ) == PackageManager.PERMISSION_GRANTED
-        ) {
-            return true
-        }
-        return false
-    }
-
-    fun requestPermission(perms: Array<String>, requestCode: Int) {
-        ActivityCompat.requestPermissions(this@BaseActivity, perms, requestCode);
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        if (requestCode == Constant.REQC_PICK_IMAGE) {
-            if (Util.areAllPermissionsAccepted(grantResults)) {
-
-            }
-        } else if (requestCode == AppRequestCode.REQUEST_LOCATION_PERMISSION) {
-
-            if (isAllPermissionGranted(grantResults)) {
-                setupLocation()
-            } else {
-                onReceiveLocation(null)
-            }
-
-        } else super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-
-        if (isAllPermissionGranted(grantResults))
-            iPermissionGranted?.permissionGranted(requestCode)
-    }
-
-
-    fun askForPermission(
-        requestCode: Int,
-        permissions: Array<String>,
-        iPermissionGranted: IPermissionGranted?
-    ) {
-
-        if (hasPermissions(permissions)) {
-            iPermissionGranted?.permissionGranted(requestCode)
-        } else {
-            ActivityCompat.requestPermissions(
-                this,
-                permissions,
-                requestCode
-            )
-        }
-    }
-
-    fun hasPermissions(permissions: Array<String>): Boolean {
-        var isAllPermissionGranted = false
-        for (item in permissions.iterator()) {
-            isAllPermissionGranted = ActivityCompat.checkSelfPermission(this, item) ==
-                    PackageManager.PERMISSION_GRANTED
-            if (!isAllPermissionGranted)
-                break
-        }
-
-        return isAllPermissionGranted
-    }
-
-    fun askForLocationPermission(iPermissionGranted: IPermissionGranted?) {
-        askForPermission(
-            AppRequestCode.REQUEST_LOCATION_PERMISSION,
-            arrayOf(
-                Manifest.permission.ACCESS_COARSE_LOCATION,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ), iPermissionGranted
-        )
-    }
-
-
-    fun isAllPermissionGranted(grantResults: IntArray): Boolean {
-        isGranted = false
-        for (item in grantResults) {
-            isGranted = item == PackageManager.PERMISSION_GRANTED
-            if (!isGranted)
-                break
-
-        }
-        return isGranted
-    }
-
-    override fun requestLocation() {
-        if (checkAndRequestPermissions(
-                AppRequestCode.PERMISSION_LOCATION,
-                AppRequestCode.REQUEST_LOCATION_PERMISSION
-            )
-        ) {
-            setupLocation()
-        }
-    }
-
-    fun setupLocation() {
-        if (locationManager == null) {
-            locationManager = com.three.u.util.Fusedlocation.LocationManager(this)
-            subscribeLocationUpdate()
-            locationManager?.getFusedClient()
-        }
-    }
-
-    private fun subscribeLocationUpdate() {
-        locationManager?.mLocationResponse?.observe(
-            this,
-            Observer { location ->
-                location.let {
-                    onReceiveLocation(it)
-                }
-            })
-    }*/
-
-
     //permission
      var iPermissionGranted: IPermissionGranted? = null
     open fun setPermissionGranted(iPermissionGranted: IPermissionGranted?) {
         this.iPermissionGranted = iPermissionGranted
     }
+
     open fun checkAndAskPermission(runtimePermission: DeviceRuntimePermission): Boolean {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             if (iPermissionGranted != null) iPermissionGranted!!.permissionGranted(runtimePermission.requestCode)
@@ -553,12 +345,11 @@ abstract class BaseActivity : AnotherBaseActivity(), CommonCallbacks,
             false
         }
     }
-    open fun requestPermission(
-        perms: Array<String?>?,
-        requestCode: Int
-    ) {
+
+    open fun requestPermission(perms: Array<String?>?, requestCode: Int) {
         ActivityCompat.requestPermissions(this, perms!!, requestCode)
     }
+
     private  fun getPermissionDialogContent(permission: String): String? {
         var permTitle = ""
         var descKey = ""
@@ -582,12 +373,9 @@ abstract class BaseActivity : AnotherBaseActivity(), CommonCallbacks,
         }
         return getString(R.string.msg_permission_justification, permTitle, descKey)
     }
+
     @TargetApi(Build.VERSION_CODES.M)
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String>,
-        grantResults: IntArray
-    ) {
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         val grantedPermissions =
             ArrayList<String>()
         var i = 0
@@ -628,14 +416,9 @@ abstract class BaseActivity : AnotherBaseActivity(), CommonCallbacks,
             if (iPermissionGranted != null) iPermissionGranted!!.permissionGranted(requestCode)
         }
     }
+
     private var isShowRequestAlert = false
-    private  fun showRequestPermissionAlert(
-        title: String,
-        message: String,
-        isNeverAskAgainChecked: Boolean,
-        permission: String,
-        reqCode: Int
-    ) {
+    private  fun showRequestPermissionAlert(title: String, message: String, isNeverAskAgainChecked: Boolean, permission: String, reqCode: Int) {
         var btnText = ""
         btnText = if (isNeverAskAgainChecked) {
             "Go to Settings"
@@ -685,38 +468,10 @@ abstract class BaseActivity : AnotherBaseActivity(), CommonCallbacks,
         }
     }
 
-
     fun stopTap() {
         try {
             if (mediaPlayerTap != null && mediaPlayerTap!!.isPlaying)
                 mediaPlayerTap!!.stop()
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-
-    }
-
-    fun playCongratulations() {
-        try {
-            if (mediaPlayerCongrates == null) {
-                val resID = resources!!.getIdentifier("congratulations", "raw", packageName)
-                mediaPlayerCongrates = MediaPlayer.create(this, resID)
-                mediaPlayerCongrates!!.isLooping = false
-            }
-
-            if (mediaPlayerCongrates != null && !mediaPlayerCongrates!!.isPlaying) {
-                mediaPlayerCongrates!!.start()
-            }
-        } catch (e: Exception) {
-        }
-
-    }
-
-
-    fun stopCongratulations() {
-        try {
-            if (mediaPlayerCongrates != null && mediaPlayerCongrates!!.isPlaying)
-                mediaPlayerCongrates!!.stop()
         } catch (e: Exception) {
             e.printStackTrace()
         }
