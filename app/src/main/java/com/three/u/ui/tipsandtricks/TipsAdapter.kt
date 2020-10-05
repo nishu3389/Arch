@@ -4,6 +4,7 @@ import com.three.u.R
 import com.three.u.base.BaseRecyclerAdapter
 import com.three.u.base.changeTimeFormat
 import com.three.u.base.push
+import com.three.u.base.set
 import com.three.u.databinding.*
 
 class TipsAdapterOuter(
@@ -14,6 +15,7 @@ class TipsAdapterOuter(
     override fun bind(holder: ViewHolder, item: ResponseTipsOuterItem, position: Int) {
         holder.binding.model = item
         holder.binding.tvDate.text = item.date.changeTimeFormat("yyyy-MM-dd hh:mm:ss", "EEEE dd MMM, yyyy")
+
         setInnerData(holder, item)
     }
 
@@ -32,9 +34,25 @@ class TipsAdapterInner(
 
     override fun bind(holder: ViewHolder, item: ResponseTipsInner, position: Int) {
         holder.binding.model = item
+        holder.binding.imgMeal.set(holder.itemView.context,item.media_url)
         holder.binding.mealInner.push()?.setOnClickListener {
             onClickListener.invoke(position, item)
         }
+    }
+
+}
+
+class ExerciseAdapter(
+    override val layoutId: Int,
+    private val onClickListener: (position: Int, model: ResponseTipsInner) -> Unit
+) : BaseRecyclerAdapter<RowTipsInnerBinding, ResponseTipsOuterItem>() {
+
+    override fun bind(holder: ViewHolder, item: ResponseTipsOuterItem, position: Int) {
+//        holder.binding.model = item
+//        holder.binding.imgMeal.set(holder.itemView.context,item.media_url)
+//        holder.binding.mealInner.push()?.setOnClickListener {
+//            onClickListener.invoke(position, item)
+//        }
     }
 
 }

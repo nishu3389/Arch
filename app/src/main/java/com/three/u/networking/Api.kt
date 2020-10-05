@@ -5,6 +5,7 @@ import com.three.u.model.request.*
 import com.three.u.model.request.ResponseGetSalesProfile
 import com.three.u.model.response.*
 import com.three.u.model.response.ResponseGetProfile
+import com.three.u.ui.meal.ResponseMealOuter
 import com.three.u.ui.tipsandtricks.ResponseTipsDetail
 import com.three.u.ui.tipsandtricks.ResponseTipsOuter
 
@@ -32,9 +33,12 @@ object Api {
     const val LIST_WEIGHT = "list_weight"
     const val LIST_BLOOD_SUGAR = "list_blood_sugar"
     const val LIST_BLOOD_PRESSURE = "list_blood_pressure"
-    const val GET_POSTS = "getPosts"
+    const val GET_POSTS_TIPS = "getPosts"
+    const val GET_POSTS_MEAL = "getPosts"
     const val POST_DETAIL = "post_detail"
     const val POST_TYPE_TIPS = "tips"
+    const val POST_TYPE_MEAL = "meal"
+    const val POST_TYPE_EXERCISE = "excercise"
 
 
     const val ContactUsQuery = ""
@@ -174,9 +178,15 @@ object Api {
                 return result
             }
 
-            GET_POSTS -> {
-                result.responseType =
-                    object : TypeToken<MasterResponse<ResponseTipsOuter>>() {}.type
+            GET_POSTS_TIPS -> {
+                result.responseType = object : TypeToken<MasterResponse<ResponseTipsOuter>>() {}.type
+                result.url = BASE_URL
+                result.requestType = RequestType.POST
+                return result
+            }
+
+            GET_POSTS_MEAL -> {
+                result.responseType = object : TypeToken<MasterResponse<ResponseMealOuter>>() {}.type
                 result.url = BASE_URL
                 result.requestType = RequestType.POST
                 return result

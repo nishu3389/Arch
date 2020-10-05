@@ -29,6 +29,16 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerExercise"
+            tools:listitem="@layout/row_tips_inner"
+            android:padding="@dimen/_10sdp"
+            android:visibility="visible"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

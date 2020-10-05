@@ -12,6 +12,7 @@ import com.three.u.ui.activity.HomeActivity
 import com.three.u.base.*
 import com.three.u.databinding.FragmentHomeBinding
 import com.three.u.model.request.RequestForgotPassword
+import com.three.u.networking.Api
 import com.three.u.util.permission.DeviceRuntimePermission
 import com.three.u.util.permission.IPermissionGranted
 
@@ -49,12 +50,14 @@ class HomeFragment : BaseFragment() {
 
     private fun manageClicks() {
         mBinding.rrMeal.push()?.setOnClickListener {
-            navigate(R.id.MealPlanFragment)
+            navigate(R.id.TipsAndTricksFragment, Pair("type", Api.POST_TYPE_MEAL))
         }
         mBinding.rrTips.push()?.setOnClickListener {
-            navigate(R.id.TipsAndTricksFragment)
+            navigate(R.id.TipsAndTricksFragment, Pair("type", Api.POST_TYPE_TIPS))
         }
-        mBinding.rrExercise.push()?.setOnClickListener {  }
+        mBinding.rrExercise.push()?.setOnClickListener {
+            navigate(R.id.TipsAndTricksFragment, Pair("type", Api.POST_TYPE_EXERCISE))
+        }
     }
 
     private fun setupViewModel() {

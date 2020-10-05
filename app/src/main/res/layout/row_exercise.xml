@@ -7,7 +7,7 @@
 
         <variable
             name="model"
-            type="com.three.u.ui.meal.ResponseMealInner" />
+            type="com.three.u.ui.tipsandtricks.ResponseTipsOuterItem" />
 
     </data>
 
@@ -38,7 +38,7 @@
 
         <com.three.u.views.CommonTextViewMedium
             tool:text="Pumpkin Soup"
-            android:text="@{model.title}"
+            android:text="@{model.day}"
             android:textColor="@color/black"
             android:textSize="@dimen/_12sdp"
             android:paddingLeft="@dimen/_15sdp"

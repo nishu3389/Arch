@@ -21,6 +21,7 @@
 
         <androidx.core.widget.NestedScrollView
             android:fillViewport="true"
+            android:id="@+id/mainLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -78,7 +79,7 @@
                     <com.three.u.views.CommonTextViewSemiBold
                         android:id="@+id/tv_week"
                         tools:text="Week 01"
-                        android:text="@{viewModel.model.week}"
+                        android:text="@{viewModel.model.title}"
                         android:textColor="@color/offwhite"
                         android:textSize="@dimen/_13sdp"
                         app:layout_constraintTop_toTopOf="parent"
@@ -87,6 +88,7 @@
                         android:layout_height="wrap_content"/>
 
                     <com.three.u.views.CommonTextView
+                        android:id="@+id/tv_date"
                         android:textColor="@color/offwhite"
                         android:textSize="@dimen/_10sdp"
                         tools:text="Sunday 13 sep. 2020"
@@ -113,7 +115,7 @@
                         tools:text="@string/lorem_large"
                         android:textColor="@color/offwhite"
                         android:textSize="@dimen/_11sdp"
-                        android:text="@{viewModel.model.desc}"
+                        android:text="@{viewModel.model.description}"
                         android:layout_marginTop="@dimen/_20sdp"
                         app:layout_constraintTop_toBottomOf="@id/tv_title"
                         app:layout_constraintLeft_toLeftOf="parent"

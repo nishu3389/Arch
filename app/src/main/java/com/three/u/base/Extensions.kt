@@ -71,7 +71,7 @@ fun EditText.get(): String {
 
 fun ImageView.set(imgUrl: String?) {
     if (imgUrl.isNullOrEmpty())
-        Picasso.get().load(R.drawable.u3).into(this)
+        Picasso.get().load(R.drawable.placeholder).into(this)
     else
         Picasso.get().load(imgUrl).placeholder(R.drawable.placeholder).error(R.drawable.placeholder)
             .into(this)
@@ -79,7 +79,7 @@ fun ImageView.set(imgUrl: String?) {
 
 fun ImageView.set(con: Context, imgUrl: String?) {
     if (imgUrl.isNullOrEmpty())
-        Glide.with(con).load(R.drawable.u3).into(this)
+        Glide.with(con).load(R.drawable.placeholder).into(this)
     else
         Glide.with(con).load(imgUrl).placeholder(R.drawable.placeholder)
             .error(R.drawable.placeholder).into(this)
@@ -87,7 +87,7 @@ fun ImageView.set(con: Context, imgUrl: String?) {
 
 fun ImageView.set(con: Context, img: Int?) {
     if (img == 0)
-        Glide.with(con).load(R.drawable.u3).into(this)
+        Glide.with(con).load(R.drawable.placeholder).into(this)
     else
         Glide.with(con).load(img).placeholder(R.drawable.placeholder)
             .error(R.drawable.placeholder).into(this)
@@ -120,7 +120,7 @@ fun ImageView.setAdv(con: Context, imgUrl: String?) {
 
 fun ImageView.set(imgUrl: String?, tranformation: RoundedCornersTransform) {
     if (imgUrl.isNullOrEmpty())
-        Picasso.get().load(R.drawable.u3).into(this)
+        Picasso.get().load(R.drawable.placeholder).into(this)
     else
         Picasso.get().load(imgUrl).transform(tranformation).placeholder(R.drawable.placeholder)
             .error(R.drawable.placeholder).into(this)

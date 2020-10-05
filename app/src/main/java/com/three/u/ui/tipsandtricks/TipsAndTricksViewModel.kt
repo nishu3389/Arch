@@ -17,14 +17,13 @@ import com.three.u.networking.Api.POST_TYPE_TIPS
 class TipsAndTricksViewModel(controller: AsyncViewController) : BaseViewModel(controller) {
 
     var responseTipsOuter : MutableLiveData<MasterResponse<ResponseTipsOuter>>? = null
-    var requestPosts = RequestPosts(type = POST_TYPE_TIPS)
 
 
-    fun callgetPostsApi() : MutableLiveData<MasterResponse<ResponseTipsOuter>> {
+    fun callgetPostsApi(type : String) : MutableLiveData<MasterResponse<ResponseTipsOuter>> {
+        var requestPosts = RequestPosts(type = type)
         responseTipsOuter = MutableLiveData<MasterResponse<ResponseTipsOuter>>()
-        baseRepo.restClient.callApi(Api.GET_POSTS, requestPosts, responseTipsOuter!!)
+        baseRepo.restClient.callApi(Api.GET_POSTS_TIPS, requestPosts, responseTipsOuter!!)
         return responseTipsOuter!!
     }
-
 
 }

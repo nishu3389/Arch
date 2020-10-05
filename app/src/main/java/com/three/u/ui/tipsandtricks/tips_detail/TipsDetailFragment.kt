@@ -3,9 +3,11 @@ package com.three.u.ui.tipsandtricks.tips_detail
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.URLUtil
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -15,14 +17,14 @@ import com.three.u.R
 import com.three.u.base.*
 import com.three.u.databinding.FragmentTipsDetailBinding
 import com.three.u.databinding.MealDetailSliderBinding
+import com.three.u.networking.Api
 import com.three.u.ui.activity.HomeActivity
-import com.three.u.ui.meal.ResponseMealOuter
 import com.three.u.ui.tipsandtricks.Media
-import com.three.u.ui.tipsandtricks.ResponseTipsDetail
 
 
 class TipsDetailFragment : BaseFragment() {
 
+    var type : String = ""
     lateinit var mAdapter: SliderAdapter
     val mClickHandler: TipsDetailFragment.ClickHandler by lazy { ClickHandler() }
     lateinit var mViewModel: TipsDetailViewModel
@@ -54,8 +56,12 @@ class TipsDetailFragment : BaseFragment() {
     }
 
     private fun callInitialApis() {
-        mViewModel.callTipsDetailApi(requireArguments().getString("id")!!).observe(viewLifecycleOwner, Observer {
+        mBinding.mainLayout.visibility = View.INVISIBLE
+        mViewModel.callTipsDetailApi(requireArguments().getString("id")!!, type).observe(viewLifecycleOwner, Observer {
             mViewModel.model = it.data
+//          mBinding.tvDesc.setHtml(it.data!!.description)
+            mBinding.tvDesc.setText(Html.fromHtml(it.data!!.description))
+            mBinding.tvDate.text = it.data!!.date.changeTimeFormat("yyyy-MM-dd hh:mm:ss","EEEE dd MMM, yyyy")
             mBinding.invalidateAll()
             setSlider(it.data?.media)
             mBinding.mainLayout.visibility = View.VISIBLE
@@ -69,7 +75,18 @@ class TipsDetailFragment : BaseFragment() {
 
     private fun initWork() {
         (activity as HomeActivity).showToolbar(false)
-        (activity as HomeActivity).setTitle(getString(R.string.tips_and_tricks))
+
+        if(type.isEmptyy()){
+
+            type = arguments?.getString("type")!!
+
+            when(type){
+                Api.POST_TYPE_MEAL -> mViewModel.type = getString(R.string.week)
+                Api.POST_TYPE_TIPS -> mViewModel.type = getString(R.string.day)
+            }
+
+        }
+
     }
 
     override fun onDetach() {
@@ -102,14 +119,19 @@ class TipsDetailFragment : BaseFragment() {
         private fun setImageAndClickWork(binding1: Context, binding: MealDetailSliderBinding, position: Int) {
             val model = sliderViews?.get(position)
 
-            binding.imgThumb.set(binding1, "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4")
+            binding.imgThumb.set(binding1, model?.url)
 
             binding.imgThumb?.setOnClickListener {
+
+                if(model?.url.isEmptyy() || !URLUtil.isValidUrl(model?.url))
+                    return@setOnClickListener
+
                 if(model?.media_type.equals("image"))
-                    fragment.showImageDialog("http://lorempixel.com/800/400/"!!)
-                else{
-                    fragment.startActivity(Intent(fragment.context,VideoPlayerActivity::class.java).putExtra("url","http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"))
-                }
+                    fragment.showImageDialog(model?.url!!)
+
+                else
+                    fragment.startActivity(Intent(fragment.context,VideoPlayerActivity::class.java).putExtra("url",model?.url))
+//                  fragment.startActivity(Intent(fragment.context,VideoPlayerActivity::class.java).putExtra("url","http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4"))
             }
 
         }

@@ -50,7 +50,7 @@ abstract class BaseActivity : AnotherBaseActivity(), CommonCallbacks, OnLocaleCh
 
     @SuppressLint("SourceLockedOrientationActivity")
     override fun onCreate(savedInstanceState: Bundle?) {
-//        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         localizationDelegate.addOnLocaleChangedListener(this)
         localizationDelegate.onCreate(savedInstanceState)
         super.onCreate(savedInstanceState)
