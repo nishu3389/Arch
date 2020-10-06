@@ -18,12 +18,12 @@
     <string name="err_mobile_format">Contact number format should be like: +61-1234567890</string>
     <string name="err_mobile_invalid">Contact number is not valid</string>
     <!--Validation : Login-->
-    <string name="err_email_missing">Please enter an email id</string>
+    <string name="err_email_missing">Please enter your email Id.</string>
     <string name="err_email_or_phone_missing">Please enter an email id or mobile number</string>
-    <string name="err_password_missing">Please enter password</string>
+    <string name="err_password_missing">Please enter password.</string>
     <string name="err_cpassword_missing">Please enter Confirm password</string>
 
-    <string name="err_email_invalid">Please enter valid email id</string>
+    <string name="err_email_invalid">Please enter your valid email Id.</string>
     <string name="err_email_or_phone_invalid">Please enter valid email id or phone number</string>
     <string name="err_password_length_invalid">Password length should be 6 to 20</string>
     <string name="confirm_new_password">Confirm New Password</string>
@@ -46,12 +46,12 @@
     <!--Change Password-->
     <string name="err_otp">Please enter OTP</string>
     <string name="err_otp_length">OTP length must be greater than or equal to 4</string>
-    <string name="err_old_password_missing">Please enter old password</string>
-    <string name="err_new_password_missing">Please enter new password</string>
+    <string name="err_old_password_missing">Please enter old password.</string>
+    <string name="err_new_password_missing">Please enter new password.</string>
     <string name="err_new_password_min_length">Password must be 6 characters long</string>
-    <string name="err_new_password_max_length">Password length must not be greater than 16</string>
-    <string name="err_confirm_password_missing">Please enter confirm password</string>
-    <string name="err_passwords_not_same">Passwords do not match</string>
+    <string name="err_new_password_max_length">Password length must not be greater than 20</string>
+    <string name="err_confirm_password_missing">Please confirm new password.</string>
+    <string name="err_passwords_not_same">Password and confirm password does not match.</string>
     <string name="err_new_password_matches_new_password">New password is same as old password</string>
     <string name="old_password">Old Password</string>
     <string name="new_password">New Password</string>

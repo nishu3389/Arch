@@ -13,7 +13,8 @@ object Api {
 
     const val URL_DEMO_SERVER = "http://fitnesstrackerapp.projectstatus.in/api/"
 
-    const val TERMS = "http://3udemop2.projectstatus.in/termsofuse"
+    const val TERMS = "https://www.google.co.in/"
+    const val PRIVACY_POLICY = "https://www.google.co.in/"
 
     //    const val TERMS = URL_DEV + "termsofuse"
 

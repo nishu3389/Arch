@@ -11,6 +11,9 @@ import com.three.u.model.response.*
 import com.three.u.util.Prefs
 import com.three.u.util.Validator
 import com.three.u.networking.Api
+import com.three.u.util.Constant.ENTER_FASTING_SUGAR
+import com.three.u.util.Constant.ENTER_POST_FASTING_SUGAR
+import com.three.u.util.Constant.ENTER_WEIGHT
 
 class AddBloodSugarViewModel(controller: AsyncViewController) : BaseViewModel(controller) {
 
@@ -26,12 +29,12 @@ class AddBloodSugarViewModel(controller: AsyncViewController) : BaseViewModel(co
         val data = requestAddBloodSugar.get() ?: return false
 
         if (data.blood_sugar_fasting.isEmptyy() || data.blood_sugar_fasting!!.toDouble()<=0) {
-            "Please enter your fasting sugar level".showWarning()
+            ENTER_FASTING_SUGAR?.showWarning()
             return false
         }
 
         if (data.blood_sugar_postprandial.isEmptyy() || data.blood_sugar_postprandial!!.toDouble()<=0) {
-            "Please enter your postprandial sugar level".showWarning()
+            ENTER_POST_FASTING_SUGAR?.showWarning()
             return false
         }
 

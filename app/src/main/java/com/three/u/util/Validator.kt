@@ -442,6 +442,12 @@ class Validator {
                 return false
             }
 
+            if (data.oldPassword.length < 6) {
+                errOldPassword.set(context.getString(R.string.err_new_password_min_length))
+                errOldPassword.get()?.showWarning()
+                return false
+            }
+
             if (data.newPassword.isEmpty()) {
                 errNewPassword.set(context.getString(R.string.err_new_password_missing))
                 errNewPassword.get()?.showWarning()

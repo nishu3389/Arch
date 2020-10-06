@@ -4,10 +4,12 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.Html
+import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.URLUtil
+import androidx.core.text.HtmlCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -59,8 +61,8 @@ class TipsDetailFragment : BaseFragment() {
         mBinding.mainLayout.visibility = View.INVISIBLE
         mViewModel.callTipsDetailApi(requireArguments().getString("id")!!, type).observe(viewLifecycleOwner, Observer {
             mViewModel.model = it.data
-//          mBinding.tvDesc.setHtml(it.data!!.description)
-            mBinding.tvDesc.setText(Html.fromHtml(it.data!!.description))
+          mBinding.tvDesc.setHtml(it.data!!.description)
+//            mBinding.tvDesc.setText(HtmlCompat.fromHtml(it.data!!.description, HtmlCompat.FROM_HTML_MODE_LEGACY))
             mBinding.tvDate.text = it.data!!.date.changeTimeFormat("yyyy-MM-dd hh:mm:ss","EEEE dd MMM, yyyy")
             mBinding.invalidateAll()
             setSlider(it.data?.media)
@@ -83,6 +85,7 @@ class TipsDetailFragment : BaseFragment() {
             when(type){
                 Api.POST_TYPE_MEAL -> mViewModel.type = getString(R.string.week)
                 Api.POST_TYPE_TIPS -> mViewModel.type = getString(R.string.day)
+                Api.POST_TYPE_EXERCISE -> mViewModel.type = getString(R.string.day)
             }
 
         }

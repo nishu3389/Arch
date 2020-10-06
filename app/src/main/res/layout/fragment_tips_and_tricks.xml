@@ -23,13 +23,21 @@
             android:id="@+id/recyclerOuterMeal"
             tools:listitem="@layout/row_tips_outer"
             android:padding="@dimen/_10sdp"
-            android:visibility="invisible"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
-        <androidx.recyclerview.widget.RecyclerView
+        <com.three.u.views.CommonTextView
+            android:id="@+id/tv_no_data"
+            android:textSize="@dimen/_13sdp"
+            android:text="No record found"
+            android:visibility="gone"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+      <!--  <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerExercise"
             tools:listitem="@layout/row_tips_inner"
             android:padding="@dimen/_10sdp"
@@ -37,7 +45,7 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"/>-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -7,10 +7,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.three.u.R
-import com.three.u.base.AsyncViewController
-import com.three.u.base.BaseFragment
-import com.three.u.base.MyViewModelProvider
-import com.three.u.base.isEmptyy
+import com.three.u.base.*
 import com.three.u.databinding.FragmentTipsAndTricksBinding
 import com.three.u.model.response.MasterResponse
 import com.three.u.networking.Api
@@ -30,12 +27,6 @@ class TipsAndTricksFragment : BaseFragment() {
         }
     })
 
-    var adapterExercise = ExerciseAdapter(R.layout.row_tips_inner, onClickListener = { position, model ->
-        run {
-            navigate(R.id.TipsDetailFragment, Pair("id", model.id), Pair("type", type))
-        }
-    })
-
     var mealList = arrayListOf<ResponseTipsOuterItem>()
     val mClickHandler: ClickHandler by lazy { ClickHandler() }
     lateinit var mViewModel: TipsAndTricksViewModel
@@ -47,11 +38,7 @@ class TipsAndTricksFragment : BaseFragment() {
     }
 
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         if (!::mBinding.isInitialized) {
             mBinding = FragmentTipsAndTricksBinding.inflate(inflater, container, false).apply {
                 clickHandler = ClickHandler()
@@ -64,10 +51,6 @@ class TipsAndTricksFragment : BaseFragment() {
         return mBinding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-    }
 
     private fun otherWork() {
         setupRecycler()
@@ -80,32 +63,31 @@ class TipsAndTricksFragment : BaseFragment() {
 
 
     fun callInitialApis() {
-        mBinding.recyclerExercise.visibility = View.INVISIBLE
+//        mBinding.recyclerExercise.visibility = View.INVISIBLE
         mBinding.recyclerOuterMeal.visibility = View.INVISIBLE
-        mViewModel.callgetPostsApi(type).observe(viewLifecycleOwner, Observer {
-            when(type){
-                POST_TYPE_EXERCISE -> handleExerciseResponse(it)
-                else -> handleTipsOrMealResponse(it)
-            }
-        })
+        mViewModel.callgetPostsApi(type).observe(viewLifecycleOwner, Observer { handleTipsOrMealResponse(it) })
     }
 
-    private fun handleExerciseResponse(it: MasterResponse<ResponseTipsOuter>?) {
-        adapterExercise.setNewItems(it?.data as ArrayList<ResponseTipsOuterItem>)
-        GlobalScope.launch(Dispatchers.Main) {
-            delay(100)
-            mBinding.recyclerExercise.visibility = View.VISIBLE
-        }
-    }
 
     private fun handleTipsOrMealResponse(it: MasterResponse<ResponseTipsOuter>?) {
         mealList.clear()
         mealList = it?.data as ArrayList<ResponseTipsOuterItem>
+        hideShowViews()
         adapter.setNewItems(mealList)
         adapter.addClickEventWithView(R.id.card, mClickHandler::mealClicked)
         GlobalScope.launch(Dispatchers.Main) {
             delay(100)
             mBinding.recyclerOuterMeal.visibility = View.VISIBLE
+        }
+    }
+
+    private fun hideShowViews() {
+        if(mealList!=null && mealList.size>0){
+            mBinding.tvNoData.gone()
+            mBinding.recyclerOuterMeal.visible()
+        }else{
+            mBinding.tvNoData.visible()
+            mBinding.recyclerOuterMeal.gone()
         }
     }
 
@@ -116,17 +98,17 @@ class TipsAndTricksFragment : BaseFragment() {
             when (type) {
                 POST_TYPE_MEAL -> {
                     (activity as HomeActivity).setTitle(getString(R.string.meal))
-                    mBinding.recyclerExercise.visibility = View.GONE
+//                    mBinding.recyclerExercise.visibility = View.GONE
                     mBinding.recyclerOuterMeal.visibility = View.VISIBLE
                 }
                 POST_TYPE_TIPS -> {
                     (activity as HomeActivity).setTitle(getString(R.string.tips_and_tricks))
-                    mBinding.recyclerExercise.visibility = View.GONE
+//                    mBinding.recyclerExercise.visibility = View.GONE
                     mBinding.recyclerOuterMeal.visibility = View.VISIBLE
                 }
                 POST_TYPE_EXERCISE -> {
                     (activity as HomeActivity).setTitle(getString(R.string.exercise))
-                    mBinding.recyclerExercise.visibility = View.VISIBLE
+//                    mBinding.recyclerExercise.visibility = View.VISIBLE
                     mBinding.recyclerOuterMeal.visibility = View.GONE
                 }
             }
@@ -134,9 +116,7 @@ class TipsAndTricksFragment : BaseFragment() {
     }
 
     private fun setupViewModel() {
-        mViewModel =
-            ViewModelProviders.of(this, MyViewModelProvider(commonCallbacks as AsyncViewController))
-                .get(TipsAndTricksViewModel::class.java)
+        mViewModel = ViewModelProviders.of(this, MyViewModelProvider(commonCallbacks as AsyncViewController)).get(TipsAndTricksViewModel::class.java)
     }
 
     inner class ClickHandler {

@@ -11,6 +11,8 @@ import com.three.u.model.response.*
 import com.three.u.util.Prefs
 import com.three.u.util.Validator
 import com.three.u.networking.Api
+import com.three.u.util.Constant.ENTER_HEIGHT
+import com.three.u.util.Constant.ENTER_WEIGHT
 
 class AddWeightViewModel(controller: AsyncViewController) : BaseViewModel(controller) {
 
@@ -26,12 +28,12 @@ class AddWeightViewModel(controller: AsyncViewController) : BaseViewModel(contro
         val data = requestAddWeight.get() ?: return false
 
         if (data.weight.isEmptyy() || data.weight!!.toDouble()<=0) {
-            "Please enter weight".showWarning()
+            ENTER_WEIGHT?.showWarning()
             return false
         }
 
         if (data.height.isEmptyy() || data.height!!.toDouble()<=0) {
-            "Please enter height".showWarning()
+            ENTER_HEIGHT?.showWarning()
             return false
         }
 

@@ -11,6 +11,9 @@ import com.three.u.model.response.*
 import com.three.u.util.Prefs
 import com.three.u.util.Validator
 import com.three.u.networking.Api
+import com.three.u.util.Constant.ENTER_DIASTOLIC_BP
+import com.three.u.util.Constant.ENTER_SYSTOLIC_BP
+import com.three.u.util.Constant.ENTER_WEIGHT
 
 class AddBloodPressureViewModel(controller: AsyncViewController) : BaseViewModel(controller) {
 
@@ -26,12 +29,12 @@ class AddBloodPressureViewModel(controller: AsyncViewController) : BaseViewModel
         val data = requestAddBloodPressure.get() ?: return false
 
         if (data.blood_pressure_diastolic.isEmptyy() || data.blood_pressure_diastolic!!.toDouble()<=0) {
-            "Please enter your diastolic blood pressure".showWarning()
+            ENTER_DIASTOLIC_BP?.showWarning()
             return false
         }
 
         if (data.blood_pressure_systolic.isEmptyy() || data.blood_pressure_systolic!!.toDouble()<=0) {
-            "Please enter your systolic blood pressure".showWarning()
+            ENTER_SYSTOLIC_BP?.showWarning()
             return false
         }
 
