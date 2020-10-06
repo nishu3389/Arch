@@ -7,7 +7,7 @@
 
         <variable
             name="masterChecklistItems"
-            type="com.three.u.model.response.MasterChecklistItems" />
+            type="com.raykellyfitness.model.response.MasterChecklistItems" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

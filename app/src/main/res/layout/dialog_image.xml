@@ -5,7 +5,7 @@
     android:background="@color/blackFF"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.three.u.util.TouchImageView
+    <com.raykellyfitness.util.TouchImageView
         android:id="@+id/img"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

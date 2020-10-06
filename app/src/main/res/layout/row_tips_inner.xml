@@ -7,55 +7,63 @@
 
         <variable
             name="model"
-            type="com.three.u.ui.tipsandtricks.ResponseTipsInner" />
+            type="com.raykellyfitness.ui.tipsandtricks.ResponseTipsInner" />
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/meal_inner"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/card"
-            app:cardElevation="@dimen/_3sdp"
-            app:cardCornerRadius="@dimen/_5sdp"
-            app:cardUseCompatPadding="true"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/meal_inner"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/img_meal"
-                android:scaleType="centerCrop"
-                android:src="@drawable/placeholder"
-                android:layout_width="@dimen/_40sdp"
-                android:layout_height="@dimen/_40sdp"></ImageView>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card"
+                app:cardElevation="@dimen/_3sdp"
+                app:cardCornerRadius="@dimen/_5sdp"
+                app:cardUseCompatPadding="true"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
-        </androidx.cardview.widget.CardView>
+                <ImageView
+                    android:id="@+id/img_meal"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/placeholder"
+                    android:layout_width="@dimen/_40sdp"
+                    android:layout_height="@dimen/_40sdp"></ImageView>
 
-        <com.three.u.views.CommonTextViewMedium
-            tool:text="@string/lorem_large"
-            android:text="@{model.title}"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_12sdp"
-            android:padding="@dimen/_15sdp"
-            android:layout_marginLeft="@dimen/_43sdp"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toRightOf="@id/card"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            </androidx.cardview.widget.CardView>
+
+            <com.raykellyfitness.views.CommonTextViewMedium
+                tool:text="@string/lorem_short"
+                android:text="@{model.title}"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12sdp"
+                android:padding="@dimen/_15sdp"
+                android:layout_marginLeft="@dimen/_43sdp"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <View
             app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="@dimen/_5sdp"
             android:background="@color/colorDivider"
             android:layout_width="match_parent"
             android:layout_height="0.5dp"></View>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 
 </layout>

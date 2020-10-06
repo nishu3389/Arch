@@ -7,11 +7,11 @@
 
         <variable
             name="viewModel"
-            type="com.three.u.ui.home.HomeViewModel" />
+            type="com.raykellyfitness.ui.home.HomeViewModel" />
 
         <variable
             name="clickHandler"
-            type="com.three.u.ui.home.HomeFragment.ClickHandler" />
+            type="com.raykellyfitness.ui.home.HomeFragment.ClickHandler" />
 
         <variable
             name="checkListProgress"
@@ -40,7 +40,7 @@
                 <RelativeLayout
                     style="@style/HomeMenuInner">
 
-                    <com.three.u.views.CommonTextViewMedium
+                    <com.raykellyfitness.views.CommonTextViewMedium
                         android:text="Meal Plan"
                         style="@style/HomeMenuText"/>
 
@@ -61,7 +61,7 @@
                 <RelativeLayout
                     style="@style/HomeMenuInner">
 
-                    <com.three.u.views.CommonTextViewMedium
+                    <com.raykellyfitness.views.CommonTextViewMedium
                         android:text="@string/tips_tricks"
                         style="@style/HomeMenuText"/>
 
@@ -82,7 +82,7 @@
                 <RelativeLayout
                     style="@style/HomeMenuInner">
 
-                    <com.three.u.views.CommonTextViewMedium
+                    <com.raykellyfitness.views.CommonTextViewMedium
                         android:text="Exercise"
                         style="@style/HomeMenuText"/>
 

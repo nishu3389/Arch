@@ -7,7 +7,7 @@
 
         <variable
             name="model"
-            type="com.three.u.model.request.ResponseAddBloodPressureItem" />
+            type="com.raykellyfitness.model.request.ResponseAddBloodPressureItem" />
 
     </data>
 
@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.three.u.views.CommonTextViewMedium
+        <com.raykellyfitness.views.CommonTextViewMedium
             android:id="@+id/tv_date"
             android:textSize="@dimen/_11sdp"
             android:text=""
@@ -29,7 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
-        <com.three.u.views.CommonTextView
+        <com.raykellyfitness.views.CommonTextView
             android:id="@+id/tv_title_weight"
             android:text="Diastolic:"
             android:textColor="@color/white"
@@ -40,7 +40,7 @@
             app:layout_constraintWidth_percent="0.5"
             android:layout_height="wrap_content"/>
 
-        <com.three.u.views.CommonTextView
+        <com.raykellyfitness.views.CommonTextView
             android:id="@+id/tv_title_height"
             android:text="Systolic:"
             android:textColor="@color/white"
@@ -51,7 +51,7 @@
             app:layout_constraintWidth_percent="0.5"
             android:layout_height="wrap_content"/>
 
-        <com.three.u.views.CommonTextViewMedium
+        <com.raykellyfitness.views.CommonTextViewMedium
             android:id="@+id/tv_weight"
             android:text="@{model.blood_pressure_diastolic+` mmHg`}"
             tool:text="85"
@@ -62,7 +62,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
-        <com.three.u.views.CommonTextViewMedium
+        <com.raykellyfitness.views.CommonTextViewMedium
             android:id="@+id/tv_height"
             android:text="@{model.blood_pressure_systolic+` mmHg`}"
             android:textColor="@color/white"

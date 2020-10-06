@@ -6,7 +6,7 @@
     <data>
         <variable
             name="clickHandler"
-            type="com.three.u.ui.activity.GoogleMapActivity.DemoMapClickHandler" />
+            type="com.raykellyfitness.ui.activity.GoogleMapActivity.DemoMapClickHandler" />
     </data>
 
 

@@ -7,11 +7,11 @@
 
         <variable
             name="viewModel"
-            type="com.three.u.ui.health.HealthViewModel" />
+            type="com.raykellyfitness.ui.health.HealthViewModel" />
 
         <variable
             name="clickHandler"
-            type="com.three.u.ui.health.HealthFragment.ClickHandler" />
+            type="com.raykellyfitness.ui.health.HealthFragment.ClickHandler" />
 
     </data>
 
@@ -31,7 +31,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_60sdp">
 
-                <com.three.u.views.CommonTextView
+                <com.raykellyfitness.views.CommonTextView
                     android:id="@+id/tv_weight"
                     android:text="Weight"
                     style="@style/HeathTabText"
@@ -39,12 +39,12 @@
                     android:textColor="@color/white"
                     />
 
-                <com.three.u.views.CommonTextView
+                <com.raykellyfitness.views.CommonTextView
                     android:id="@+id/tv_blood_sugar"
                     android:text="Blood Sugar"
                     style="@style/HeathTabText"/>
 
-                <com.three.u.views.CommonTextView
+                <com.raykellyfitness.views.CommonTextView
                     android:id="@+id/tv_blood_pressure"
                     android:text="Blood Pressure"
                     style="@style/HeathTabText"/>
@@ -54,7 +54,7 @@
 
         </HorizontalScrollView>
 
-        <com.three.u.util.NonSwipeableViewPager
+        <com.raykellyfitness.util.NonSwipeableViewPager
             android:id="@+id/viewPager"
             android:layout_marginTop="@dimen/_55sdp"
             android:background="@drawable/health_viewpager_bg"

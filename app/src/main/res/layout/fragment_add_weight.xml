@@ -7,11 +7,11 @@
 
         <variable
             name="viewModel"
-            type="com.three.u.ui.health.weight.add_weight.AddWeightViewModel" />
+            type="com.raykellyfitness.ui.health.weight.add_weight.AddWeightViewModel" />
 
         <variable
             name="clickHandler"
-            type="com.three.u.ui.health.weight.add_weight.AddWeightFragment.ClickHandler" />
+            type="com.raykellyfitness.ui.health.weight.add_weight.AddWeightFragment.ClickHandler" />
 
     </data>
 
@@ -45,7 +45,7 @@
 
             </androidx.cardview.widget.CardView>
 
-            <com.three.u.views.CommonTextViewMedium
+            <com.raykellyfitness.views.CommonTextViewMedium
                 android:textSize="@dimen/_12sdp"
                 android:layout_marginLeft="@dimen/_20sdp"
                 android:layout_marginRight="@dimen/_20sdp"
@@ -55,7 +55,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
-            <com.three.u.views.CommonTextViewMedium
+            <com.raykellyfitness.views.CommonTextViewMedium
                 android:textSize="@dimen/_12sdp"
                 android:textColor="@color/white"
                 android:layout_marginLeft="@dimen/_20sdp"
@@ -66,7 +66,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
-            <com.three.u.views.CommonEditTextMedium
+            <com.raykellyfitness.views.CommonEditTextMedium
                 android:textSize="@dimen/_12sdp"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
@@ -92,7 +92,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"></View>
 
-            <com.three.u.views.CommonTextViewMedium
+            <com.raykellyfitness.views.CommonTextViewMedium
                 android:textSize="@dimen/_12sdp"
                 android:textColor="@color/white"
                 android:text="Height (CM)"
@@ -103,7 +103,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
-            <com.three.u.views.CommonEditTextMedium
+            <com.raykellyfitness.views.CommonEditTextMedium
                 android:textSize="@dimen/_12sdp"
                 android:layout_marginLeft="@dimen/_20sdp"
                 android:layout_marginRight="@dimen/_20sdp"
@@ -130,7 +130,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"></View>
 
-            <com.three.u.views.CommonTextViewMedium
+            <com.raykellyfitness.views.CommonTextViewMedium
                 android:id="@+id/tv_add"
                 android:textColor="@color/black"
                 android:text="ADD"

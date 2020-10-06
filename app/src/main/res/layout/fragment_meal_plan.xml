@@ -7,11 +7,11 @@
 
         <variable
             name="viewModel"
-            type="com.three.u.ui.meal.MealPlanListViewModel" />
+            type="com.raykellyfitness.ui.meal.MealPlanListViewModel" />
 
         <variable
             name="clickHandler"
-            type="com.three.u.ui.meal.MealPlanListFragment.ClickHandler" />
+            type="com.raykellyfitness.ui.meal.MealPlanListFragment.ClickHandler" />
 
     </data>
 

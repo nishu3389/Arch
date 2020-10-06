@@ -7,11 +7,11 @@
 
         <variable
             name="viewModel"
-            type="com.three.u.ui.login.LoginViewModel" />
+            type="com.raykellyfitness.ui.login.LoginViewModel" />
 
         <variable
             name="clickHandler"
-            type="com.three.u.ui.login.LoginFragment.ClickHandler" />
+            type="com.raykellyfitness.ui.login.LoginFragment.ClickHandler" />
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -52,7 +52,7 @@
                 android:textColor="@color/txt_color_dark"
                 android:textSize="18dp" />
 
-            <com.three.u.views.CommonTextViewSemiBold
+            <com.raykellyfitness.views.CommonTextViewSemiBold
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_2sdp"
@@ -79,7 +79,7 @@
                 android:textSize="16dp"
                 app:hintTextAppearance="@style/AppTheme.NoActionBarNew" />
 
-            <com.three.u.views.CommonTextViewSemiBold
+            <com.raykellyfitness.views.CommonTextViewSemiBold
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_2sdp"

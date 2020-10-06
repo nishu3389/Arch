@@ -7,50 +7,50 @@
 
     <fragment
         android:id="@+id/HomeFragment"
-        android:name="com.three.u.ui.home.HomeFragment"
+        android:name="com.raykellyfitness.ui.home.HomeFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/SettingsFragment"
-        android:name="com.three.u.ui.settings.SettingsFragment"
+        android:name="com.raykellyfitness.ui.settings.SettingsFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_settings" />
 
     <fragment
         android:id="@+id/MealPlanFragment"
-        android:name="com.three.u.ui.meal.MealPlanListFragment"
+        android:name="com.raykellyfitness.ui.meal.MealPlanListFragment"
         tools:layout="@layout/fragment_meal_plan" />
 
     <fragment
         android:id="@+id/TipsAndTricksFragment"
-        android:name="com.three.u.ui.tipsandtricks.TipsAndTricksFragment"
+        android:name="com.raykellyfitness.ui.tipsandtricks.TipsAndTricksFragment"
         tools:layout="@layout/fragment_tips_and_tricks" />
 
     <fragment
         android:id="@+id/MealDetailFragment"
-        android:name="com.three.u.ui.meal.meal_detail.MealDetailFragment"
+        android:name="com.raykellyfitness.ui.meal.meal_detail.MealDetailFragment"
         tools:layout="@layout/fragment_meal_detail" />
 
     <fragment
         android:id="@+id/TipsDetailFragment"
-        android:name="com.three.u.ui.tipsandtricks.tips_detail.TipsDetailFragment"
+        android:name="com.raykellyfitness.ui.tipsandtricks.tips_detail.TipsDetailFragment"
         tools:layout="@layout/fragment_tips_detail" />
 
     <fragment
         android:id="@+id/HealthFragment"
-        android:name="com.three.u.ui.health.HealthFragment"
+        android:name="com.raykellyfitness.ui.health.HealthFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_settings" />
 
     <fragment
         android:id="@+id/AddWeightFragment"
-        android:name="com.three.u.ui.health.weight.add_weight.AddWeightFragment"
+        android:name="com.raykellyfitness.ui.health.weight.add_weight.AddWeightFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_settings" />
 
     <fragment
         android:id="@+id/ProfileShowFragment"
-        android:name="com.three.u.ui.profile.ProfileFragment"
+        android:name="com.raykellyfitness.ui.profile.ProfileFragment"
         android:label="@string/profile"
         tools:layout="@layout/fragment_profile_show">
 
@@ -66,7 +66,7 @@
         tools:layout="@layout/fragment_sales_profile_show" />
     <fragment
         android:id="@+id/RedeemFreeBoxFragment"
-        android:name="com.three.u.redeem_freebox.RedeemFreeBoxFragment"
+        android:name="com.raykellyfitness.Redeem_freebox.RedeemFreeBoxFragment"
         android:label="@string/redeem_free_boxes"
         tools:layout="@layout/fragment_redeem_freebox" />
     <fragment
@@ -76,13 +76,13 @@
         tools:layout="@layout/fragment_u_three_agent" />
     <fragment
         android:id="@+id/ChecklistDetailFragment"
-        android:name="com.three.u.residential_checklist.checklist_detail.ChecklistDetailFragment"
+        android:name="com.raykellyfitness.Residential_checklist.checklist_detail.ChecklistDetailFragment"
         android:label="@string/checklist"
         tools:layout="@layout/fragment_u_three_agent" />
 
     <fragment
         android:id="@+id/ChangePasswordFragment"
-        android:name="com.three.u.ui.changepassword.ChangePasswordFragment"
+        android:name="com.raykellyfitness.ui.changepassword.ChangePasswordFragment"
         android:label="@string/change_password"
         tools:layout="@layout/fragment_change_password" />
     <fragment
@@ -117,7 +117,7 @@
     </fragment>
     <fragment
         android:id="@+id/MasterChecklistFragment"
-        android:name="com.three.u.residential_checklist.master_checklist.MasterChecklistFragment"
+        android:name="com.raykellyfitness.Residential_checklist.master_checklist.MasterChecklistFragment"
         tools:layout="@layout/my_checklist_fragment">
 
     </fragment>
@@ -130,7 +130,7 @@
 
     <fragment
         android:id="@+id/ResidentialChecklistFragment"
-        android:name="com.three.u.residential_checklist.ResidentialChecklistFragment"
+        android:name="com.raykellyfitness.Residential_checklist.ResidentialChecklistFragment"
         tools:layout="@layout/fragment_residentials_checklist">
 
     </fragment>
@@ -150,7 +150,7 @@
     </fragment>
     <fragment
         android:id="@+id/GoogleMapFragment"
-        android:name="com.three.u.ui.googlemap.GoogleMapFragment"
+        android:name="com.raykellyfitness.ui.googlemap.GoogleMapFragment"
         android:label="@string/select_location"
         tools:layout="@layout/fragment_google_map" />
     <fragment
@@ -180,7 +180,7 @@
 
     <fragment
         android:id="@+id/ReferAFriendFragment"
-        android:name="com.three.u.refer_a_friend.ReferAFriendFragment"
+        android:name="com.raykellyfitness.Refer_a_friend.ReferAFriendFragment"
         tools:layout="@layout/fragment_refer_a_friend" />
 
     <fragment
@@ -231,7 +231,7 @@
 
     <fragment
         android:id="@+id/WebViewFragment"
-        android:name="com.three.u.ui.webview.WebViewFragment"
+        android:name="com.raykellyfitness.ui.webview.WebViewFragment"
         tools:layout="@layout/webview_fragment" />
 
     <fragment

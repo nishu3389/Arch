@@ -7,7 +7,7 @@
 
         <variable
             name="checkListCategory"
-            type="com.three.u.model.response.CheckListCategory" />
+            type="com.raykellyfitness.model.response.CheckListCategory" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

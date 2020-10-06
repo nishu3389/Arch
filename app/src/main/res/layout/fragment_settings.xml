@@ -7,11 +7,11 @@
 
         <variable
             name="viewModel"
-            type="com.three.u.ui.settings.SettingsViewModel" />
+            type="com.raykellyfitness.ui.settings.SettingsViewModel" />
 
         <variable
             name="clickHandler"
-            type="com.three.u.ui.settings.SettingsFragment.ClickHandler" />
+            type="com.raykellyfitness.ui.settings.SettingsFragment.ClickHandler" />
 
     </data>
 
@@ -20,7 +20,7 @@
         android:layout_height="match_parent">
 
 
-            <com.three.u.views.CommonTextViewMedium
+            <com.raykellyfitness.views.CommonTextViewMedium
                 android:background="@drawable/rounded_setting_top"
                 android:gravity="top|center_horizontal"
                 android:textSize="25sp"
@@ -70,7 +70,7 @@
                         android:layout_width="@dimen/_13sdp"
                         android:layout_height="@dimen/_13sdp"></ImageView>
 
-                    <com.three.u.views.CommonTextViewMedium
+                    <com.raykellyfitness.views.CommonTextViewMedium
                         android:textSize="18sp"
                         android:textColor="@color/black"
                         android:paddingLeft="@dimen/_30sdp"
@@ -104,7 +104,7 @@
                         android:layout_width="@dimen/_13sdp"
                         android:layout_height="@dimen/_13sdp"></ImageView>
 
-                    <com.three.u.views.CommonTextViewMedium
+                    <com.raykellyfitness.views.CommonTextViewMedium
                         android:textSize="18sp"
                         android:textColor="@color/black"
                         android:paddingLeft="@dimen/_30sdp"
@@ -139,7 +139,7 @@
                         android:layout_width="@dimen/_13sdp"
                         android:layout_height="@dimen/_13sdp"></ImageView>
 
-                    <com.three.u.views.CommonTextViewMedium
+                    <com.raykellyfitness.views.CommonTextViewMedium
                         android:textSize="18sp"
                         android:textColor="@color/black"
                         android:paddingLeft="@dimen/_30sdp"
@@ -173,7 +173,7 @@
                         android:layout_width="@dimen/_13sdp"
                         android:layout_height="@dimen/_13sdp"></ImageView>
 
-                    <com.three.u.views.CommonTextViewMedium
+                    <com.raykellyfitness.views.CommonTextViewMedium
                         android:textSize="18sp"
                         android:textColor="@color/black"
                         android:paddingLeft="@dimen/_30sdp"

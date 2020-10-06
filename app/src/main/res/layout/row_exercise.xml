@@ -7,7 +7,7 @@
 
         <variable
             name="model"
-            type="com.three.u.ui.tipsandtricks.ResponseTipsOuterItem" />
+            type="com.raykellyfitness.ui.tipsandtricks.ResponseTipsOuterItem" />
 
     </data>
 
@@ -36,7 +36,7 @@
 
         </androidx.cardview.widget.CardView>
 
-        <com.three.u.views.CommonTextViewMedium
+        <com.raykellyfitness.views.CommonTextViewMedium
             tool:text="Pumpkin Soup"
             android:text="@{model.day}"
             android:textColor="@color/black"

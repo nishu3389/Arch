@@ -7,11 +7,11 @@
 
         <variable
             name="viewModel"
-            type="com.three.u.ui.tipsandtricks.tips_detail.TipsDetailViewModel" />
+            type="com.raykellyfitness.ui.tipsandtricks.tips_detail.TipsDetailViewModel" />
 
         <variable
             name="clickHandler"
-            type="com.three.u.ui.tipsandtricks.tips_detail.TipsDetailFragment.ClickHandler" />
+            type="com.raykellyfitness.ui.tipsandtricks.tips_detail.TipsDetailFragment.ClickHandler" />
 
     </data>
 
@@ -30,7 +30,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <com.three.u.views.RoundedView
+                <com.raykellyfitness.views.RoundedView
                     android:id="@+id/cl_top"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_230sdp"
@@ -68,7 +68,7 @@
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
-                </com.three.u.views.RoundedView>
+                </com.raykellyfitness.views.RoundedView>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:padding="@dimen/_15sdp"
@@ -77,7 +77,7 @@
                     app:layout_constraintTop_toBottomOf="@id/cl_top"
                     android:layout_height="wrap_content">
 
-                    <com.three.u.views.CommonTextViewSemiBold
+                    <com.raykellyfitness.views.CommonTextViewSemiBold
                         android:id="@+id/tv_week"
                         tools:text="Week 01"
                         android:text="@{viewModel.type + ` ` + viewModel.model.day}"
@@ -88,7 +88,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
-                    <com.three.u.views.CommonTextView
+                    <com.raykellyfitness.views.CommonTextView
                         android:id="@+id/tv_date"
                         android:textColor="@color/offwhite"
                         android:textSize="@dimen/_10sdp"
@@ -99,7 +99,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
-                    <com.three.u.views.CommonTextViewSemiBold
+                    <com.raykellyfitness.views.CommonTextViewSemiBold
                         android:id="@+id/tv_title"
                         tools:text="Pumpkin Soup"
                         android:text="@{viewModel.model.title}"

@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.three.u.ui.profile.ProfileViewModel" />
+            type="com.raykellyfitness.ui.profile.ProfileViewModel" />
 
         <import type="android.view.View" />
 
@@ -30,7 +30,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <com.three.u.views.CommonTextView
+                <com.raykellyfitness.views.CommonTextView
                     android:text="Name"
                     android:textSize="18sp"
                     android:layout_marginTop="@dimen/_30sdp"
@@ -39,7 +39,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
-                <com.three.u.views.CommonTextView
+                <com.raykellyfitness.views.CommonTextView
                     android:text="@{viewModel.user.name}"
                     android:textSize="18sp"
                     android:layout_gravity="center_horizontal"
@@ -47,7 +47,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
-                <com.three.u.views.CommonTextView
+                <com.raykellyfitness.views.CommonTextView
                     android:text="Email"
                     android:textSize="18sp"
                     android:layout_marginTop="@dimen/_30sdp"
@@ -56,7 +56,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
-                <com.three.u.views.CommonTextView
+                <com.raykellyfitness.views.CommonTextView
                     android:text="@{viewModel.user.email}"
                     android:textSize="18sp"
                     android:layout_gravity="center_horizontal"
@@ -64,7 +64,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
-                <com.three.u.views.CommonTextView
+                <com.raykellyfitness.views.CommonTextView
                     android:text="Height"
                     android:textSize="18sp"
                     android:layout_marginTop="@dimen/_30sdp"
@@ -73,7 +73,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
-                <com.three.u.views.CommonTextView
+                <com.raykellyfitness.views.CommonTextView
                     android:text="@{viewModel.user.height +` cm`}"
                     android:textSize="18sp"
                     android:layout_gravity="center_horizontal"
@@ -81,7 +81,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
-                <com.three.u.views.CommonTextView
+                <com.raykellyfitness.views.CommonTextView
                     android:text="Address"
                     android:textSize="18sp"
                     android:layout_marginTop="@dimen/_30sdp"
@@ -91,7 +91,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
-                <com.three.u.views.CommonTextView
+                <com.raykellyfitness.views.CommonTextView
                     android:text="@{viewModel.user.address}"
                     android:textSize="18sp"
                     android:layout_gravity="center_horizontal"

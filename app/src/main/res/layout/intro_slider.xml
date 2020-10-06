@@ -7,11 +7,11 @@
 
         <variable
             name="viewModel"
-            type="com.three.u.ui.intro_slider.IntroSliderViewModel" />
+            type="com.raykellyfitness.ui.intro_slider.IntroSliderViewModel" />
 
         <variable
             name="clickHandler"
-            type="com.three.u.ui.intro_slider.IntroSliderFragment.ClickHandler" />
+            type="com.raykellyfitness.ui.intro_slider.IntroSliderFragment.ClickHandler" />
 
     </data>
 
@@ -29,7 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp" />
 
-        <com.three.u.views.CommonTextView
+        <com.raykellyfitness.views.CommonTextView
             android:id="@+id/tv_skip"
             android:textSize="20sp"
             android:text="Skip"
@@ -41,7 +41,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"></com.three.u.views.CommonTextView>
+            android:layout_height="wrap_content"></com.raykellyfitness.views.CommonTextView>
 
 
         <com.rd.PageIndicatorView

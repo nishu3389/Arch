@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.three.u">
+    package="com.raykellyfitness">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -19,7 +19,7 @@
         android:required="true" />
 
     <application
-        android:name=".base.MainApplication"
+        android:name="com.raykellyfitness.base.MainApplication"
         android:allowBackup="false"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/launcher"
@@ -33,11 +33,11 @@
         tools:replace="android:allowBackup">
 
         <activity
-            android:name=".ui.tipsandtricks.tips_detail.VideoPlayerActivity"
+            android:name="com.raykellyfitness.ui.tipsandtricks.tips_detail.VideoPlayerActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"/>
 
         <activity
-            android:name=".ui.splash.SplashActivity"
+            android:name="com.raykellyfitness.ui.splash.SplashActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
@@ -52,16 +52,16 @@
             android:name="com.rohitss.uceh.UCEDefaultActivity"
             android:process=":error_activity" />
         <activity
-            android:name=".ui.activity.HomeActivity"
+            android:name="com.raykellyfitness.ui.activity.HomeActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ui.activity.GoogleMapActivity"
+            android:name="com.raykellyfitness.ui.activity.GoogleMapActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".ui.activity.AccountHandlerActivity"
+            android:name="com.raykellyfitness.ui.activity.AccountHandlerActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden|adjustResize" />
@@ -74,7 +74,7 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/place_api" />
 
-        <activity android:name=".ui.image_picker.ImagePickerActivity" />
+        <activity android:name="com.raykellyfitness.ui.image_picker.ImagePickerActivity" />
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait"
@@ -90,7 +90,7 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <service android:name=".fcm.FcmService">
+        <service android:name="com.raykellyfitness.fcm.FcmService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>

@@ -7,11 +7,11 @@
 
         <variable
             name="viewModel"
-            type="com.three.u.ui.tipsandtricks.TipsAndTricksViewModel" />
+            type="com.raykellyfitness.ui.tipsandtricks.TipsAndTricksViewModel" />
 
         <variable
             name="clickHandler"
-            type="com.three.u.ui.tipsandtricks.TipsAndTricksFragment.ClickHandler" />
+            type="com.raykellyfitness.ui.tipsandtricks.TipsAndTricksFragment.ClickHandler" />
 
     </data>
 
@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
-        <com.three.u.views.CommonTextView
+        <com.raykellyfitness.views.CommonTextView
             android:id="@+id/tv_no_data"
             android:textSize="@dimen/_13sdp"
             android:text="No record found"

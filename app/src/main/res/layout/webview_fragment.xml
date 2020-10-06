@@ -7,11 +7,11 @@
 
         <variable
             name="viewModel"
-            type="com.three.u.ui.webview.WebviewViewModel" />
+            type="com.raykellyfitness.ui.webview.WebviewViewModel" />
 
         <variable
             name="clickHandler"
-            type="com.three.u.ui.webview.WebViewFragment.ClickHandler" />
+            type="com.raykellyfitness.ui.webview.WebViewFragment.ClickHandler" />
     </data>
 
     <LinearLayout

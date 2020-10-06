@@ -9,7 +9,7 @@
 
         <variable
             name="model"
-            type="com.three.u.ui.meal.ResponseMealOuter" />
+            type="com.raykellyfitness.ui.meal.ResponseMealOuter" />
 
 
 
@@ -34,7 +34,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <com.three.u.views.CommonTextViewSemiBold
+                <com.raykellyfitness.views.CommonTextViewSemiBold
                     android:id="@+id/tv_week"
                     android:text="@{model.day}"
                     tool:text="Week 05"
@@ -46,7 +46,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
-                <com.three.u.views.CommonTextView
+                <com.raykellyfitness.views.CommonTextView
                     android:id="@+id/tv_date"
                     tool:text="Sunday, 13 sep, 2020"
                     android:textColor="@{model.open ? @color/white : @color/black}"

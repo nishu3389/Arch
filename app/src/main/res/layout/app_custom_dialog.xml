@@ -5,7 +5,7 @@
 
         <variable
             name="specs"
-            type="com.three.u.base.AlertDialogSpecs" />
+            type="com.raykellyfitness.base.AlertDialogSpecs" />
 
         <import type="android.view.View" />
     </data>

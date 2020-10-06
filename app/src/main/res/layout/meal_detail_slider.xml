@@ -8,7 +8,7 @@
 
                 <variable
                     name="model"
-                    type="com.three.u.ui.meal.ResponseMealInner" />
+                    type="com.raykellyfitness.ui.meal.ResponseMealInner" />
 
         </data>
 
@@ -29,6 +29,7 @@
 
                 <ImageView
                     android:id="@+id/img_play"
+                    android:visibility="gone"
                     android:background="@drawable/play_bg"
                     android:paddingTop="@dimen/_6sdp"
                     android:paddingBottom="@dimen/_6sdp"
