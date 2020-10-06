@@ -20,6 +20,10 @@ object Constant {
     val ENTER_FASTING_SUGAR: String? = "Please enter your Fasting blood sugar level."
     val ENTER_POST_FASTING_SUGAR: String? = "Please enter your Post Fasting blood sugar level."
 
+    val IMAGE: String? = "image"
+    val VIDEO: String? = "video"
+        val URL: String? = "url"
+
 
     val MAIN_BOARD_ACTIVITY: String? = "com.three.u.ui.activity.MainBoardActivity"
 

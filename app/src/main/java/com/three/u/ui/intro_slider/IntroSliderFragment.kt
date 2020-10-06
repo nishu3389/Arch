@@ -16,6 +16,7 @@ import com.three.u.base.MyViewModelProvider
 import com.three.u.base.push
 import com.three.u.databinding.IntroSliderBinding
 import com.three.u.model.request.RequestChangePassword
+import com.three.u.util.Prefs
 
 
 class IntroSliderFragment : BaseFragment() {
@@ -44,6 +45,7 @@ class IntroSliderFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        Prefs.get().isIntroShown = true
         setupViewPager(
             arrayListOf(
                 R.layout.row_slider1,

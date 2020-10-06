@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.three.u.R
 import com.three.u.base.BaseActivity
 import com.three.u.base.BaseFragment
@@ -25,9 +26,10 @@ class AccountHandlerActivity : BaseActivity() {
         navController = setNavigationController()
 
         MainApplication.setInstance(this)
-        if (!Prefs.get().isIntroShown){
+        if (!Prefs.get().isIntroShown)
             navController.navigate(R.id.IntroSliderFragment)
-        }
+        else
+            navController.navigate(R.id.LoginFragment)
 
     }
 

@@ -128,4 +128,9 @@ class LoginFragment : BaseFragment(), IPermissionGranted {
 
     }
 
+    override fun handlingBackPress(): Boolean {
+        activity?.finish()
+        return true
+    }
+
 }

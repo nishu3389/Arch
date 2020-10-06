@@ -3,13 +3,10 @@ package com.three.u.ui.tipsandtricks.tips_detail
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.text.Html
-import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.URLUtil
-import androidx.core.text.HtmlCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -22,6 +19,10 @@ import com.three.u.databinding.MealDetailSliderBinding
 import com.three.u.networking.Api
 import com.three.u.ui.activity.HomeActivity
 import com.three.u.ui.tipsandtricks.Media
+import com.three.u.util.Constant.ENTER_WEIGHT
+import com.three.u.util.Constant.IMAGE
+import com.three.u.util.Constant.URL
+import com.three.u.util.Constant.VIDEO
 
 
 class TipsDetailFragment : BaseFragment() {
@@ -124,19 +125,30 @@ class TipsDetailFragment : BaseFragment() {
 
             binding.imgThumb.set(binding1, model?.url)
 
-            binding.imgThumb?.setOnClickListener {
-
-                if(model?.url.isEmptyy() || !URLUtil.isValidUrl(model?.url))
-                    return@setOnClickListener
-
-                if(model?.media_type.equals("image"))
-                    fragment.showImageDialog(model?.url!!)
-
-                else
-                    fragment.startActivity(Intent(fragment.context,VideoPlayerActivity::class.java).putExtra("url",model?.url))
-//                  fragment.startActivity(Intent(fragment.context,VideoPlayerActivity::class.java).putExtra("url","http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4"))
+            when(model?.media_type){
+                IMAGE -> binding.imgPlay.gone()
+                else -> binding.imgPlay.visible()
             }
 
+            binding.imgThumb?.setOnClickListener {
+                clickWork(model)
+            }
+
+            binding.imgPlay?.setOnClickListener {
+                clickWork(model)
+            }
+
+        }
+
+        fun clickWork(model: Media?) {
+            if(model?.url.isEmptyy() || !URLUtil.isValidUrl(model?.url))
+                return
+
+            if(model?.media_type.equals(IMAGE))
+                fragment.showImageDialog(model?.url!!)
+
+            else
+                fragment.startActivity(Intent(fragment.context,VideoPlayerActivity::class.java).putExtra(URL,model?.url))
         }
 
         override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
