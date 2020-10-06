@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.PorterDuff
+import android.net.Uri
 import android.os.Build
 import android.os.VibrationEffect
 import android.os.Vibrator
@@ -51,7 +52,7 @@ import java.util.*
  */
 fun <E> List<E>.random(): E? = if (size > 0) get(Random().nextInt(size)) else null
 
-fun View.find(id: Int) : View{
+fun View.find(id: Int): View {
     return this.findViewById(id)
 }
 
@@ -71,7 +72,7 @@ fun EditText.get(): String {
 
 fun ImageView.set(imgUrl: String?) {
     if (imgUrl.isNullOrEmpty())
-        Picasso.get().load(R.drawable.u3).into(this)
+        Picasso.get().load(R.drawable.placeholder).into(this)
     else
         Picasso.get().load(imgUrl).placeholder(R.drawable.placeholder).error(R.drawable.placeholder)
             .into(this)
@@ -79,7 +80,7 @@ fun ImageView.set(imgUrl: String?) {
 
 fun ImageView.set(con: Context, imgUrl: String?) {
     if (imgUrl.isNullOrEmpty())
-        Glide.with(con).load(R.drawable.u3).into(this)
+        Glide.with(con).load(R.drawable.placeholder).into(this)
     else
         Glide.with(con).load(imgUrl).placeholder(R.drawable.placeholder)
             .error(R.drawable.placeholder).into(this)
@@ -87,7 +88,7 @@ fun ImageView.set(con: Context, imgUrl: String?) {
 
 fun ImageView.set(con: Context, img: Int?) {
     if (img == 0)
-        Glide.with(con).load(R.drawable.u3).into(this)
+        Glide.with(con).load(R.drawable.placeholder).into(this)
     else
         Glide.with(con).load(img).placeholder(R.drawable.placeholder)
             .error(R.drawable.placeholder).into(this)
@@ -101,9 +102,9 @@ fun ImageView.set(con: Context, imgUrl: String?, placeholder: Int) {
             .error(placeholder).into(this)
 }
 
-fun EditText.setGender(gender: Int?){
-    if(gender!=null){
-        when(gender){
+fun EditText.setGender(gender: Int?) {
+    if (gender != null) {
+        when (gender) {
             1 -> this.setText("Male")
             2 -> this.setText("Female")
             else -> this.setText("Other")
@@ -120,7 +121,7 @@ fun ImageView.setAdv(con: Context, imgUrl: String?) {
 
 fun ImageView.set(imgUrl: String?, tranformation: RoundedCornersTransform) {
     if (imgUrl.isNullOrEmpty())
-        Picasso.get().load(R.drawable.u3).into(this)
+        Picasso.get().load(R.drawable.placeholder).into(this)
     else
         Picasso.get().load(imgUrl).transform(tranformation).placeholder(R.drawable.placeholder)
             .error(R.drawable.placeholder).into(this)
@@ -137,7 +138,7 @@ fun EditText.onTextChange(view: View) {
     })
 }
 
-fun String.changeToLongDate() : Long{
+fun String.changeToLongDate(): Long {
     try {
         val sdf = SimpleDateFormat("yyyy-MM-dd")
         val date = sdf.parse(this)
@@ -215,11 +216,11 @@ fun String.isBefore(date: String?, dateFormate: String): Boolean {
     return b
 }
 
-fun View.hideShow(list: List<Any>?, recyclerView: View){
-    if(list!=null && list.isNotEmpty()){
+fun View.hideShow(list: List<Any>?, recyclerView: View) {
+    if (list != null && list.isNotEmpty()) {
         this.gone()
         recyclerView.visible()
-    }else{
+    } else {
         this.visible()
         recyclerView.gone()
     }
@@ -262,7 +263,8 @@ fun ImageView.loadImage(con: Context, url: String?) {
 
 fun String.toast() {
     MainApplication.getActivityInstance().runOnUiThread {
-        val inflater = MainApplication.get().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val inflater = MainApplication.get()
+            .getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val layout = inflater.inflate(R.layout.layout_toast_custom, null, false)
         val tv = layout.findViewById(R.id.txtvw) as TextView
         tv.text = this
@@ -371,7 +373,7 @@ fun Context.highlight(str: String): Spanny? {
         .append(str, UnderlineSpan(), ForegroundColorSpan(Color.RED))
 }
 
-fun EditText.enable(bool: Boolean){
+fun EditText.enable(bool: Boolean) {
     this.isFocusable = bool
     this.isFocusableInTouchMode = bool
     this.isCursorVisible = bool
@@ -433,6 +435,11 @@ fun String.isNotEmptyy(): Boolean {
     return true
 }
 
+fun String.openInBrowser() {
+    val intent = Intent(Intent.ACTION_VIEW).setData(Uri.parse(this))
+    MainApplication.getActivityInstance().startActivity(intent)
+}
+
 fun String.isNumber(): Boolean {
     return try {
         if (!this.isEmptyy())
@@ -484,7 +491,7 @@ fun <F : Fragment> AppCompatActivity.getCurrentFragment(fragmentClass: Class<F>)
     return null
 }
 
-fun String.sendToServer(){
+fun String.sendToServer() {
 
     if (Prefs.get().loginData != null) {
         val headers = HashMap<String, String>()

@@ -12,32 +12,21 @@ import com.three.u.model.response.*
 import com.three.u.util.Prefs
 import com.three.u.util.Validator
 import com.three.u.networking.Api
+import com.three.u.networking.Api.POST_TYPE_MEAL
+import com.three.u.ui.tipsandtricks.RequestPosts
+import com.three.u.ui.tipsandtricks.ResponseTipsOuter
 
 class MealPlanListViewModel(controller: AsyncViewController) : BaseViewModel(controller) {
 
-    var responseAddWeight : MutableLiveData<MasterResponse<ResponseAddWeight>>? = null
-    var responseAddBloodSugar : MutableLiveData<MasterResponse<ResponseAddBloodSugar>>? = null
-    var responseAddBloodPressure : MutableLiveData<MasterResponse<ResponseAddBloodPressure>>? = null
+    var responseTipsOuter : MutableLiveData<MasterResponse<ResponseMealOuter>>? = null
+    var requestPosts = RequestPosts(type = POST_TYPE_MEAL)
 
 
-    fun callWeightListApi() : MutableLiveData<MasterResponse<ResponseAddWeight>> {
-        responseAddWeight = MutableLiveData<MasterResponse<ResponseAddWeight>>()
-        baseRepo.restClient.callApi(Api.LIST_WEIGHT, null, responseAddWeight!!)
-        return responseAddWeight!!
+    fun callgetPostsApi() : MutableLiveData<MasterResponse<ResponseMealOuter>> {
+        responseTipsOuter = MutableLiveData<MasterResponse<ResponseMealOuter>>()
+        baseRepo.restClient.callApi(Api.GET_POSTS_MEAL, requestPosts, responseTipsOuter!!)
+        return responseTipsOuter!!
     }
-
-    fun callBloodSugarListApi() : MutableLiveData<MasterResponse<ResponseAddBloodSugar>> {
-        responseAddBloodSugar = MutableLiveData<MasterResponse<ResponseAddBloodSugar>>()
-        baseRepo.restClient.callApi(Api.LIST_BLOOD_SUGAR, null, responseAddBloodSugar!!)
-        return responseAddBloodSugar!!
-    }
-
-    fun callBloodPressureListApi() : MutableLiveData<MasterResponse<ResponseAddBloodPressure>> {
-        responseAddBloodPressure = MutableLiveData<MasterResponse<ResponseAddBloodPressure>>()
-        baseRepo.restClient.callApi(Api.LIST_BLOOD_PRESSURE, null, responseAddBloodPressure!!)
-        return responseAddBloodPressure!!
-    }
-
 
 
 }

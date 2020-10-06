@@ -38,7 +38,7 @@
 
         <com.three.u.views.CommonTextViewMedium
             tool:text="Pumpkin Soup"
-            android:text="@{model.meal}"
+            android:text="@{model.title}"
             android:textColor="@color/black"
             android:textSize="@dimen/_12sdp"
             android:paddingLeft="@dimen/_15sdp"

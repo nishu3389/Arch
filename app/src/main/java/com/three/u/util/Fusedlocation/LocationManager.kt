@@ -1,5 +1,6 @@
 package com.three.u.util.Fusedlocation
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
@@ -58,6 +59,7 @@ class LocationManager(private val mContext: Context) : DialogInterface.OnClickLi
         }
     }
 
+    @SuppressLint("MissingPermission")
     private fun getLastLocation() {
         fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
             // Got last known location. In some rare situations this can be null.
@@ -71,6 +73,7 @@ class LocationManager(private val mContext: Context) : DialogInterface.OnClickLi
     }
 
 
+    @SuppressLint("MissingPermission")
     private fun getLocationUpdate() {
         fusedLocationClient.requestLocationUpdates(createLocationRequest(), locationCallback, Looper.myLooper())
     }

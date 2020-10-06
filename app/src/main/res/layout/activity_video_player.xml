@@ -19,7 +19,7 @@
             android:tint="@color/white"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            android:padding="@dimen/_5sdp"
+            android:padding="@dimen/_8sdp"
             android:layout_width="@dimen/_40sdp"
             android:layout_height="@dimen/_40sdp"></ImageView>
 

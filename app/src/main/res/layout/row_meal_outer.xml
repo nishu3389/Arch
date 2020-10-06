@@ -36,7 +36,7 @@
 
                 <com.three.u.views.CommonTextViewSemiBold
                     android:id="@+id/tv_week"
-                    android:text="@{model.week}"
+                    android:text="@{model.day}"
                     tool:text="Week 05"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"

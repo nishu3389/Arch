@@ -1,7 +1,9 @@
 package com.three.u.ui.meal.meal_detail
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,25 +11,28 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.three.u.R
-import com.three.u.base.AsyncViewController
-import com.three.u.base.BaseFragment
-import com.three.u.base.MyViewModelProvider
-import com.three.u.base.set
+import com.three.u.base.*
 import com.three.u.databinding.FragmentMealDetailBinding
+import com.three.u.databinding.FragmentTipsDetailBinding
 import com.three.u.databinding.MealDetailSliderBinding
 import com.three.u.ui.activity.HomeActivity
 import com.three.u.ui.meal.ResponseMealInner
 import com.three.u.ui.meal.ResponseMealOuter
+import com.three.u.ui.tipsandtricks.Media
+import com.three.u.ui.tipsandtricks.tips_detail.TipsDetailFragment
+import com.three.u.ui.tipsandtricks.tips_detail.TipsDetailViewModel
+import com.three.u.ui.tipsandtricks.tips_detail.VideoPlayerActivity
 
 
 class MealDetailFragment : BaseFragment() {
 
     lateinit var mAdapter: SliderAdapter
-    val mClickHandler: MealDetailFragment.ClickHandler by lazy { ClickHandler() }
+    val mClickHandler: ClickHandler by lazy { ClickHandler() }
     lateinit var mViewModel: MealDetailViewModel
     lateinit var mBinding: FragmentMealDetailBinding
 
@@ -36,16 +41,10 @@ class MealDetailFragment : BaseFragment() {
         setupViewModel()
     }
 
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         mBinding = FragmentMealDetailBinding.inflate(inflater, container, false).apply {
             clickHandler = ClickHandler()
             viewModel = mViewModel
-
         }
 
         return mBinding.root
@@ -56,60 +55,32 @@ class MealDetailFragment : BaseFragment() {
 
         initWork()
         otherWork()
-
     }
 
     private fun otherWork() {
-        setupViewPager(
-            arrayListOf(
-                ResponseMealInner(
-                    "Pumpkin soup 1",
-                    type = "image",
-                    week = "Week 01",
-                    title = "Pumpkin Soup 1",
-                    url = "http://lorempixel.com/800/400/"
-                ),
-                ResponseMealInner(
-                    "Pumpkin soup 2",
-                    type = "video",
-                    week = "Week 02",
-                    title = "Pumpkin Soup 2",
-                    url = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
-                ),
-                ResponseMealInner(
-                    "Pumpkin soup 3",
-                    type = "image",
-                    week = "Week 03",
-                    title = "Pumpkin Soup 3",
-                    url = "http://lorempixel.com/820/420/"
-                ),
-                ResponseMealInner(
-                    "Pumpkin soup 4",
-                    type = "image",
-                    week = "Week 04",
-                    title = "Pumpkin Soup 4",
-                    url = "http://lorempixel.com/850/450/"
-                )
-            )
-        )
-        manageClicks()
         callInitialApis()
     }
 
+    private fun callInitialApis() {
+        mBinding.mainLayout.visibility = View.INVISIBLE
+        mViewModel.callTipsDetailApi(requireArguments().getString("id")!!).observe(viewLifecycleOwner, Observer {
+            mViewModel.model = it.data
+            mBinding.tvDesc.setText(Html.fromHtml(it.data!!.description))
+            mBinding.tvDate.text = it.data!!.date.changeTimeFormat("yyyy-MM-dd hh:mm:ss","EEEE dd MMM, yyyy")
+            mBinding.invalidateAll()
+            setSlider(it.data?.media)
+            mBinding.mainLayout.visibility = View.VISIBLE
+        })
+    }
 
-
-    fun callInitialApis() {
-        mViewModel.model = ResponseMealInner(
-            "Pumpkin soup 1",
-            type = "image",
-            week = "Week 01",
-            title = "Pumpkin Soup 1",
-            url = "http://lorempixel.com/800/400/"
-        )
+    private fun setSlider(media: List<Media>?) {
+        mAdapter = SliderAdapter(media,this)
+        mBinding.viewPager.adapter = mAdapter
     }
 
     private fun initWork() {
         (activity as HomeActivity).showToolbar(false)
+        (activity as HomeActivity).setTitle(getString(R.string.tips_and_tricks))
     }
 
     override fun onDetach() {
@@ -117,43 +88,46 @@ class MealDetailFragment : BaseFragment() {
         (activity as HomeActivity).showToolbar(true)
     }
 
-    private fun manageClicks() {
-
-    }
-
-
     private fun setupViewModel() {
-        mViewModel = ViewModelProviders.of(
-            this,
-            MyViewModelProvider(commonCallbacks as AsyncViewController)
-        ).get(MealDetailViewModel::class.java)
+        mViewModel = ViewModelProviders.of(this, MyViewModelProvider(commonCallbacks as AsyncViewController)).get(MealDetailViewModel::class.java)
     }
 
     inner class ClickHandler  {
-        fun mealClicked(position: Int, model: ResponseMealOuter){
-
-        }
-
         fun back(){
             goBack(0)
         }
-
     }
 
-    private fun setupViewPager(listOfFiles: ArrayList<ResponseMealInner>) {
-        mAdapter = SliderAdapter(listOfFiles)
-        mBinding.viewPager.adapter = mAdapter
-    }
-
-    class SliderAdapter(private var sliderViews: ArrayList<ResponseMealInner>?) : PagerAdapter() {
+    class SliderAdapter(private var sliderViews: List<Media>?, var fragment: MealDetailFragment) : PagerAdapter() {
 
         override fun instantiateItem(container: ViewGroup, position: Int): Any {
             var inflater = container.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             val binding: MealDetailSliderBinding = DataBindingUtil.inflate(inflater, R.layout.meal_detail_slider, container, false)
-            binding.imgThumb.set(container.context, sliderViews?.get(position)?.url)
+
+            setImageAndClickWork(container.context,binding,position)
 
             (container as ViewPager).addView(binding.root, 0)
             return binding.root
+        }
+
+        private fun setImageAndClickWork(binding1: Context, binding: MealDetailSliderBinding, position: Int) {
+            val model = sliderViews?.get(position)
+
+            binding.imgThumb.set(binding1, model?.url)
+
+            binding.imgThumb?.setOnClickListener {
+                if(model?.media_type.equals("image")){
+//                    fragment.showImageDialog(model?.url!!)
+                    fragment.showImageDialog(model?.url!!)
+                }
+                else{
+//                    fragment.startActivity(Intent(fragment.context,VideoPlayerActivity::class.java).putExtra("url",model?.url))
+                    fragment.startActivity(
+                        Intent(fragment.context,
+                            VideoPlayerActivity::class.java).putExtra("url","http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4"))
+                }
+            }
+
         }
 
         override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
@@ -169,5 +143,6 @@ class MealDetailFragment : BaseFragment() {
         }
 
     }
+
 
 }

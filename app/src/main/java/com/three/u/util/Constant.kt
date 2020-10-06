@@ -13,6 +13,14 @@ object Constant {
     val ACTION_CONCIERGE_PROCESSED: String? = "ConceirgeProcessed"
     val ACTION_BUDGET: String? = "ACTION_BUDGET"
 
+    val ENTER_WEIGHT: String? = "Please enter your weight."
+    val ENTER_HEIGHT: String? = "Please enter your height."
+    val ENTER_DIASTOLIC_BP: String? = "Please enter your Diastolic blood pressure."
+    val ENTER_SYSTOLIC_BP: String? = "Please enter your Systolic blood pressure."
+    val ENTER_FASTING_SUGAR: String? = "Please enter your Fasting blood sugar level."
+    val ENTER_POST_FASTING_SUGAR: String? = "Please enter your Post Fasting blood sugar level."
+
+
     val MAIN_BOARD_ACTIVITY: String? = "com.three.u.ui.activity.MainBoardActivity"
 
     const val ITEM_PENDING = 1

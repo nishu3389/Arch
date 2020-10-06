@@ -1,27 +1,25 @@
 package com.three.u.ui.tipsandtricks.tips_detail
 
 import android.content.res.Configuration
-import android.graphics.Color
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.os.Handler
-import android.text.SpannableString
-import android.text.Spanned
-import android.text.style.ForegroundColorSpan
 import android.view.KeyEvent
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import com.jarvanmo.exoplayerview.media.ExoMediaSource.Quality
+import com.google.android.exoplayer2.Player
+import com.google.android.exoplayer2.analytics.AnalyticsListener
+import com.google.android.exoplayer2.analytics.AnalyticsListener.EventTime
+import com.google.android.exoplayer2.source.MediaSourceEventListener
+import com.google.android.exoplayer2.util.RepeatModeUtil
 import com.jarvanmo.exoplayerview.media.SimpleMediaSource
-import com.jarvanmo.exoplayerview.media.SimpleQuality
 import com.jarvanmo.exoplayerview.orientation.OnOrientationChangedListener.SENSOR_LANDSCAPE
 import com.jarvanmo.exoplayerview.orientation.OnOrientationChangedListener.SENSOR_PORTRAIT
 import com.three.u.R
 import com.three.u.base.push
+import com.three.u.base.toast
 import com.three.u.databinding.ActivityVideoPlayerBinding
 import kotlinx.android.synthetic.main.activity_video_player.*
 
@@ -65,6 +63,20 @@ class VideoPlayerActivity : AppCompatActivity() {
 
         val mediaSource = SimpleMediaSource(intent.getStringExtra("url"))
         videoView.play(mediaSource, false)
+
+        videoView?.player?.addListener(object : Player.EventListener{
+            override fun onPlayerStateChanged(playWhenReady: Boolean, playbackState: Int) {
+                when (playbackState) {
+                    Player.STATE_IDLE -> {}
+                    Player.STATE_BUFFERING -> {}
+                    Player.STATE_READY -> {}
+                    Player.STATE_ENDED -> {
+                        finish()
+                    }
+                }
+            }
+        })
+
     }
 
     private fun changeToPortrait() {

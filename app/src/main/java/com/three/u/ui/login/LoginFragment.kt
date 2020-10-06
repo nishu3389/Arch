@@ -13,6 +13,8 @@ import com.three.u.R
 import com.three.u.ui.activity.HomeActivity
 import com.three.u.base.*
 import com.three.u.databinding.FragmentLoginBinding
+import com.three.u.networking.Api.PRIVACY_POLICY
+import com.three.u.networking.Api.TERMS
 import com.three.u.util.Prefs
 import com.three.u.util.Validator
 import com.three.u.util.permission.DeviceRuntimePermission
@@ -50,8 +52,8 @@ class LoginFragment : BaseFragment(), IPermissionGranted {
         get?.Email =  "participant@mailinator.com"
         get?.Password = "123456"
 
-        setClickable(mBinding.tvTerms, "Terms of Service", { "Terms Clicked".toast() })
-        setClickable(mBinding.tvTerms, "Privacy Policy", { "Privacy Clicked".toast() })
+        setClickable(mBinding.tvTerms, "Terms of Service", { TERMS.openInBrowser() })
+        setClickable(mBinding.tvTerms, "Privacy Policy", { PRIVACY_POLICY.openInBrowser() })
     }
 
     private fun setupViewModel() {

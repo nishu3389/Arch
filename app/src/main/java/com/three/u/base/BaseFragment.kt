@@ -19,6 +19,7 @@ import android.text.style.ClickableSpan
 import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.view.View
+import android.webkit.URLUtil
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -339,7 +340,7 @@ open class BaseFragment : BundleFragment() {
             android.R.style.Theme_DeviceDefault_Light_NoActionBar_Fullscreen
         ) }
         dialog?.show()
-        dialog?.setCancelable(false)
+        dialog?.setCancelable(true)
         dialog?.setContentView(R.layout.dialog_image)
 
         var img: ImageView? = dialog?.findViewById(R.id.img)

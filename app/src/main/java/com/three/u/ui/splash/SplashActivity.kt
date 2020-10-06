@@ -23,7 +23,7 @@ import com.three.u.util.Util
 
 
 class SplashActivity : BaseActivity() {
-    private val SPLASH_DURATION: Long = 100
+    private val SPLASH_DURATION: Long = 200
     lateinit var mViewModel: SplashViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {

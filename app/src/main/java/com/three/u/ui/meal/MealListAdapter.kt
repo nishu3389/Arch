@@ -12,24 +12,15 @@ class MealOuterAdapter(
 
     override fun bind(holder: ViewHolder, item: ResponseMealOuter, position: Int) {
         holder.binding.model = item
-        holder.binding.tvDate.text = item.created_at.changeTimeFormat("yyyy-MM-dd","dd MMM, yyyy")
+        holder.binding.tvDate.text = item.date.changeTimeFormat("yyyy-MM-dd","EEEE dd MMM, yyyy")
 
-        setInnerData(holder)
+        setInnerData(holder, item)
     }
 
-    private fun setInnerData(holder: ViewHolder) {
+    private fun setInnerData(holder: ViewHolder, item:ResponseMealOuter) {
         var adapterInner  = MealInnerAdapter(R.layout.row_meal_inner, onClickListener)
         holder.binding.recyclerInner.adapter = adapterInner
-        var innerList = arrayListOf(
-            ResponseMealInner("Pumpkin soup 1"),
-            ResponseMealInner("Pumpkin soup 2"),
-            ResponseMealInner("Pumpkin soup 3"),
-            ResponseMealInner("Pumpkin soup 4")
-        )
-        adapterInner.setNewItems(innerList)
-
-//        adapterInner.addClickEventWithView(R.id.meal_inner, mClickHandler::mealClicked)
-
+        adapterInner.setNewItems(item.data)
     }
 
 
