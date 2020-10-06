@@ -24,6 +24,8 @@ class TipsAndTricksFragment : BaseFragment() {
 
 
 
+
+
     var mealList = arrayListOf<ResponseTipsOuterItem>()
     val mClickHandler: ClickHandler by lazy { ClickHandler() }
     lateinit var mViewModel: TipsAndTricksViewModel
