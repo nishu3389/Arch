@@ -1,6 +1,7 @@
 package com.raykellyfitness.ui.tipsandtricks.tips_detail
 
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -69,6 +70,15 @@ class TipsDetailFragment : BaseFragment() {
         })
     }
 
+    override fun onApiRequestFailed(apiUrl: String, errCode: Int, errorMessage: String): Boolean {
+        commonCallbacks?.showAlertDialog(
+            errorMessage,
+            DialogInterface.OnClickListener { _, _ ->
+                activity?.onBackPressed()
+            })
+        return true
+    }
+
     private fun setSlider(media: List<Media>?) {
         mAdapter = SliderAdapter(media,this)
         mBinding.viewPager.adapter = mAdapter
@@ -80,12 +90,13 @@ class TipsDetailFragment : BaseFragment() {
         if(type.isEmptyy()){
 
             type = arguments?.getString("type")!!
+            mViewModel.type = arguments?.getString("typeName")!!
 
-            when(type){
+           /* when(type){
                 Api.POST_TYPE_MEAL -> mViewModel.type = getString(R.string.week)
                 Api.POST_TYPE_TIPS -> mViewModel.type = getString(R.string.day)
                 Api.POST_TYPE_EXERCISE -> mViewModel.type = getString(R.string.day)
-            }
+            }*/
 
         }
 

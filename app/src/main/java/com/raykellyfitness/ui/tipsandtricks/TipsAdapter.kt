@@ -10,7 +10,7 @@ import com.raykellyfitness.databinding.RowTipsOuterBinding
 
 class TipsAdapterOuter(
     override val layoutId: Int,
-    private val onClickListener: (position: Int, model: ResponseTipsInner) -> Unit
+    private val onClickListener: (model: ResponseTipsInner, item: ResponseTipsOuterItem) -> Unit
 ) : BaseRecyclerAdapter<RowTipsOuterBinding, ResponseTipsOuterItem>() {
 
     override fun bind(holder: ViewHolder, item: ResponseTipsOuterItem, position: Int) {
@@ -21,7 +21,7 @@ class TipsAdapterOuter(
     }
 
     private fun setInnerData(holder: ViewHolder, item: ResponseTipsOuterItem) {
-        var adapterInner = TipsAdapterInner(R.layout.row_tips_inner, onClickListener)
+        var adapterInner = TipsAdapterInner(R.layout.row_tips_inner, onClickListener = onClickListener, modelOuter = item)
         holder.binding.recyclerInner.adapter = adapterInner
         adapterInner.setNewItems(item.data_list)
     }
@@ -30,14 +30,15 @@ class TipsAdapterOuter(
 
 class TipsAdapterInner(
     override val layoutId: Int,
-    private val onClickListener: (position: Int, model: ResponseTipsInner) -> Unit
+    private val onClickListener: (model: ResponseTipsInner, modelOuter: ResponseTipsOuterItem) -> Unit,
+    var modelOuter: ResponseTipsOuterItem
 ) : BaseRecyclerAdapter<RowTipsInnerBinding, ResponseTipsInner>() {
 
     override fun bind(holder: ViewHolder, item: ResponseTipsInner, position: Int) {
         holder.binding.model = item
         holder.binding.imgMeal.set(holder.itemView.context,item.media_url)
         holder.binding.mealInner.push()?.setOnClickListener {
-            onClickListener.invoke(position, item)
+            onClickListener.invoke(item, modelOuter)
         }
     }
 

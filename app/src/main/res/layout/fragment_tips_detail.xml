@@ -47,6 +47,7 @@
 
                         <androidx.viewpager.widget.ViewPager
                             android:id="@+id/view_pager"
+                            android:background="@drawable/placeholder"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"/>
 
@@ -80,7 +81,7 @@
                     <com.raykellyfitness.views.CommonTextViewSemiBold
                         android:id="@+id/tv_week"
                         tools:text="Week 01"
-                        android:text="@{viewModel.type + ` ` + viewModel.model.day}"
+                        android:text="@{viewModel.type}"
                         android:textColor="@color/offwhite"
                         android:textSize="@dimen/_13sdp"
                         app:layout_constraintTop_toTopOf="parent"

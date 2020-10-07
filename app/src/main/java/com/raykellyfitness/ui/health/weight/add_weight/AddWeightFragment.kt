@@ -3,6 +3,7 @@ package com.raykellyfitness.ui.health.weight.add_weight
 import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
+import android.os.SystemClock
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -27,9 +28,14 @@ import com.raykellyfitness.model.request.RequestAddWeight
 import com.raykellyfitness.model.request.ResponseAddWeight
 import com.raykellyfitness.ui.activity.HomeActivity
 import com.raykellyfitness.ui.health.HealthFragment
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
+import com.raykellyfitness.base.touch
 
 class AddWeightFragment : BaseFragment(), OnChartValueSelectedListener {
 
@@ -208,7 +214,12 @@ class AddWeightFragment : BaseFragment(), OnChartValueSelectedListener {
         // set data
         mBinding.chart1.setData(data)
 
+        GlobalScope.launch(Dispatchers.Main) {
+            delay(1000)
+            mBinding.chart1.touch()
+        }
     }
+
 
     fun handleTouch(){
 

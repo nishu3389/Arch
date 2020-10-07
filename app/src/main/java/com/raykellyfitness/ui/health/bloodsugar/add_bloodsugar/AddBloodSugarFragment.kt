@@ -31,6 +31,10 @@ import com.raykellyfitness.model.request.*
 import com.raykellyfitness.ui.health.HealthFragment
 import com.raykellyfitness.util.permission.DeviceRuntimePermission
 import com.raykellyfitness.util.permission.IPermissionGranted
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -237,7 +241,10 @@ class AddBloodSugarFragment : BaseFragment(), OnChartValueSelectedListener {
 
         // set data
         mBinding.chart1.setData(data)
-
+        GlobalScope.launch(Dispatchers.Main) {
+            delay(1000)
+            mBinding.chart1.touch()
+        }
     }
 
 

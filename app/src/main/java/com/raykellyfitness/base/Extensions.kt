@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.graphics.PorterDuff
 import android.net.Uri
 import android.os.Build
+import android.os.SystemClock
 import android.os.VibrationEffect
 import android.os.Vibrator
 import android.text.Editable
@@ -17,6 +18,7 @@ import android.text.style.UnderlineSpan
 import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
@@ -522,10 +524,23 @@ fun String.sendToServer() {
                 }
             })
     }
+}
 
-    fun View.disable() {
-        getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY)
-        setClickable(false)
-    }
+fun View.touch() {
+    val downTime: Long = SystemClock.uptimeMillis()
+    val eventTime: Long = SystemClock.uptimeMillis() + 100
 
+    val x = this.getX() + this.getWidth()  / 2
+    val y = this.getY() + this.getHeight() / 2
+
+    val metaState = 0
+    val motionEvent = MotionEvent.obtain(
+        downTime,
+        eventTime,
+        MotionEvent.ACTION_UP,
+        x,
+        y,
+        metaState
+    )
+    this.dispatchTouchEvent(motionEvent)
 }

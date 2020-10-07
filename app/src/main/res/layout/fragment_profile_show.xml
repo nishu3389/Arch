@@ -74,7 +74,7 @@
                     android:layout_height="wrap_content"/>
 
                 <com.raykellyfitness.views.CommonTextView
-                    android:text="@{viewModel.user.height +` cm`}"
+                    android:text="@{viewModel.user.height == null ? `N/A` : viewModel.user.height +` cm`}"
                     android:textSize="18sp"
                     android:layout_gravity="center_horizontal"
                     android:textColor="@color/white"

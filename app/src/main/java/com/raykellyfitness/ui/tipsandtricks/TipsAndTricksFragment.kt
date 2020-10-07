@@ -20,9 +20,9 @@ class TipsAndTricksFragment : BaseFragment() {
 
     var type: String = ""
 
-    var adapter = TipsAdapterOuter(R.layout.row_tips_outer, onClickListener = { position, model ->
+    var adapter = TipsAdapterOuter(R.layout.row_tips_outer, onClickListener = { model, modelOuter ->
         run {
-            navigate(R.id.TipsDetailFragment, Pair("id", model.id), Pair("type", type))
+            navigate(R.id.TipsDetailFragment, Pair("id", model.id), Pair("type", type), Pair("typeName", modelOuter.day))
         }
     })
 
@@ -63,7 +63,6 @@ class TipsAndTricksFragment : BaseFragment() {
 
 
     fun callInitialApis() {
-//        mBinding.recyclerExercise.visibility = View.INVISIBLE
         mBinding.recyclerOuterMeal.visibility = View.INVISIBLE
         mViewModel.callgetPostsApi(type).observe(viewLifecycleOwner, Observer { handleTipsOrMealResponse(it) })
     }
@@ -72,12 +71,11 @@ class TipsAndTricksFragment : BaseFragment() {
     private fun handleTipsOrMealResponse(it: MasterResponse<ResponseTipsOuter>?) {
         mealList.clear()
         mealList = it?.data as ArrayList<ResponseTipsOuterItem>
-        hideShowViews()
         adapter.setNewItems(mealList)
         adapter.addClickEventWithView(R.id.card, mClickHandler::mealClicked)
         GlobalScope.launch(Dispatchers.Main) {
             delay(100)
-            mBinding.recyclerOuterMeal.visibility = View.VISIBLE
+            hideShowViews()
         }
     }
 
