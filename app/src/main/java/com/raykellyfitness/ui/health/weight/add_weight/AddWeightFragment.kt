@@ -3,7 +3,6 @@ package com.raykellyfitness.ui.health.weight.add_weight
 import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
-import android.os.SystemClock
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -35,7 +34,6 @@ import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
-import com.raykellyfitness.base.touch
 
 class AddWeightFragment : BaseFragment(), OnChartValueSelectedListener {
 
@@ -80,15 +78,30 @@ class AddWeightFragment : BaseFragment(), OnChartValueSelectedListener {
         })
     }
 
-    fun setupChart(){
+    fun floatToStringDate(date: Float): String {
+        val mFormat = SimpleDateFormat("dd MMM hh:mm:ss", Locale.getDefault())
+        val millis = TimeUnit.MINUTES.toMillis(date.toLong())
+        val dateString = mFormat.format(Date(millis))
+        val trim = dateString.substring(0, 6).trim()
+
+        return trim
+    }
+
+    fun stringToFloatDate(date: String): Float {
+        val longDate = date.plus(" 06:00:00").changeToLongDate()
+        val now = TimeUnit.MILLISECONDS.toMinutes(longDate)
+        return now.toFloat()
+    }
+
+    fun setupChart() {
         chart = mBinding.chart1
         chart!!.setOnChartValueSelectedListener(this)
 
         chart!!.description.isEnabled = false
-        chart!!.setTouchEnabled(true)
+        chart!!.setTouchEnabled(false)
         chart!!.dragDecelerationFrictionCoef = 0.9f
         chart!!.isDragEnabled = true
-        chart!!.setScaleEnabled(true)
+        chart!!.setScaleEnabled(false)
         chart!!.setDrawGridBackground(false)
         chart!!.isHighlightPerDragEnabled = true
         chart!!.setPinchZoom(false)
@@ -117,10 +130,8 @@ class AddWeightFragment : BaseFragment(), OnChartValueSelectedListener {
         xAxis.setDrawGridLines(false)
         xAxis.setDrawAxisLine(false)
         xAxis.valueFormatter = object : ValueFormatter() {
-            private val mFormat = SimpleDateFormat("dd MMM", Locale.ENGLISH)
             override fun getFormattedValue(value: Float): String {
-                val millis = TimeUnit.HOURS.toMillis(value.toLong())
-                return mFormat.format(Date(millis))
+                return floatToStringDate(value)
             }
         }
 
@@ -148,6 +159,7 @@ class AddWeightFragment : BaseFragment(), OnChartValueSelectedListener {
         rightAxis.setDrawGridLines(true)
         rightAxis.isGranularityEnabled = true
     }
+
     private fun setChartData(listWeight: ResponseAddWeight?) {
 
         if (mBinding.chart1.data != null && mBinding.chart1.data.dataSetCount > 0)
@@ -157,10 +169,9 @@ class AddWeightFragment : BaseFragment(), OnChartValueSelectedListener {
         val values2 = ArrayList<Entry>()
 
         listWeight?.forEach {
-            val longDate = it.created_at.changeToLongDate()
-            val now = TimeUnit.MILLISECONDS.toHours(longDate)
-            values1.add(Entry(now.toFloat(), it.weight.toFloat()))
-            values2.add(Entry(now.toFloat(), it.height.toFloat()))
+            val date = stringToFloatDate(it.created_at)
+            values1.add(Entry(date, it.weight.toFloat()))
+            values2.add(Entry(date, it.height.toFloat()))
         }
 
         val set1: LineDataSet
@@ -184,7 +195,7 @@ class AddWeightFragment : BaseFragment(), OnChartValueSelectedListener {
         //set1.setCircleHoleColor(Color.BLACK);
 
         // create a dataset and give it a type
-       set2 = LineDataSet(values2, "Height (CM)")
+        set2 = LineDataSet(values2, "Height (CM)")
         set2.axisDependency = AxisDependency.RIGHT
         set2.color = Color.RED
         set2.setCircleColor(Color.BLACK)
@@ -213,15 +224,20 @@ class AddWeightFragment : BaseFragment(), OnChartValueSelectedListener {
 
         // set data
         mBinding.chart1.setData(data)
+        touchGraph(1000)
+        touchGraph(2000)
+        touchGraph(3000)
+    }
 
+    private fun touchGraph(time: Long) {
         GlobalScope.launch(Dispatchers.Main) {
-            delay(1000)
+            delay(time)
             mBinding.chart1.touch()
         }
     }
 
 
-    fun handleTouch(){
+    fun handleTouch() {
 
         mBinding.chart1.setOnTouchListener(View.OnTouchListener { v, event ->
             val action = event.action

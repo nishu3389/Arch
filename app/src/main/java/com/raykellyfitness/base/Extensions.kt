@@ -7,7 +7,6 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
-import android.graphics.PorterDuff
 import android.net.Uri
 import android.os.Build
 import android.os.SystemClock
@@ -43,8 +42,6 @@ import com.binaryfork.spanny.Spanny
 import com.bumptech.glide.Glide
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
-import com.squareup.picasso.Picasso
-import com.thekhaeng.pushdownanim.PushDownAnim
 import com.raykellyfitness.R
 import com.raykellyfitness.networking.Api.BASE_URL
 import com.raykellyfitness.networking.Api.UPDATE_TOKEN_TO_SERVER
@@ -52,6 +49,8 @@ import com.raykellyfitness.ui.activity.HomeActivity
 import com.raykellyfitness.util.Prefs
 import com.raykellyfitness.util.RoundedCornersTransform
 import com.raykellyfitness.util.Util
+import com.squareup.picasso.Picasso
+import com.thekhaeng.pushdownanim.PushDownAnim
 import org.json.JSONObject
 import java.text.ParseException
 import java.text.SimpleDateFormat
@@ -150,7 +149,7 @@ fun EditText.onTextChange(view: View) {
 
 fun String.changeToLongDate(): Long {
     try {
-        val sdf = SimpleDateFormat("yyyy-MM-dd")
+        val sdf = SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.getDefault())
         val date = sdf.parse(this)
         val longDate = date.time
         return longDate
@@ -559,27 +558,45 @@ fun String.sendNotification() {
         val name = MainApplication.getActivityInstance().getString(R.string.channel_name)
         val description = MainApplication.getActivityInstance().getString(R.string.channel_description)
         val importance = NotificationManager.IMPORTANCE_DEFAULT
-        val channel = NotificationChannel(MainApplication.getActivityInstance().getString(R.string.channel_id), name, importance)
+        val channel = NotificationChannel(
+            MainApplication.getActivityInstance().getString(R.string.channel_id), name, importance
+        )
         channel.description = description
         // Register the channel with the system; you can't change the importance
         // or other notification behaviors after this
-        val notificationManager = MainApplication.getActivityInstance().getSystemService(NotificationManager::class.java)
+        val notificationManager = MainApplication.getActivityInstance().getSystemService(
+            NotificationManager::class.java
+        )
         notificationManager!!.createNotificationChannel(channel)
     }
 
     val notifyIntent = Intent(MainApplication.getActivityInstance(), HomeActivity::class.java)
     notifyIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-    var notifyPendingIntent = PendingIntent.getActivity(MainApplication.getActivityInstance(), 0, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+    var notifyPendingIntent = PendingIntent.getActivity(
+        MainApplication.getActivityInstance(),
+        0,
+        notifyIntent,
+        PendingIntent.FLAG_UPDATE_CURRENT
+    )
 
 
-    val mBuilder = NotificationCompat.Builder(MainApplication.getActivityInstance(), MainApplication.getActivityInstance().getString(R.string.channel_id))
+    val mBuilder = NotificationCompat.Builder(
+        MainApplication.getActivityInstance(), MainApplication.getActivityInstance().getString(
+            R.string.channel_id
+        )
+    )
         .setSmallIcon(R.drawable.logo_icon)
         .setContentTitle(this)
         .setContentText(this)
         .setContentIntent(notifyPendingIntent)
         .setAutoCancel(true)
         //.setLargeIcon(bmp)
-        .setColor(ContextCompat.getColor(MainApplication.getActivityInstance(), R.color.colorPrimary))
+        .setColor(
+            ContextCompat.getColor(
+                MainApplication.getActivityInstance(),
+                R.color.colorPrimary
+            )
+        )
         .setPriority(NotificationCompat.PRIORITY_DEFAULT).build()
 
 
