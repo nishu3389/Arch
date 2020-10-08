@@ -141,7 +141,7 @@
                 android:gravity="center_horizontal"
                 android:text="@string/login_terms_message"
                 android:textColor="@color/txt_color_dark"
-                android:textSize="18dp" />
+                android:textSize="16dp" />
 
 
         </LinearLayout>
