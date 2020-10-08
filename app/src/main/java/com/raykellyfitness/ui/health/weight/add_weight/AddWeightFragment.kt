@@ -11,9 +11,11 @@ import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.github.mikephil.charting.charts.LineChart
+import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.Legend.LegendForm
 import com.github.mikephil.charting.components.YAxis.AxisDependency
+import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
@@ -21,6 +23,7 @@ import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import com.github.mikephil.charting.utils.ColorTemplate
+import com.github.mikephil.charting.utils.ViewPortHandler
 import com.raykellyfitness.base.*
 import com.raykellyfitness.databinding.FragmentAddWeightBinding
 import com.raykellyfitness.model.request.RequestAddWeight
@@ -37,6 +40,7 @@ import java.util.concurrent.TimeUnit
 
 class AddWeightFragment : BaseFragment(), OnChartValueSelectedListener {
 
+    var map = HashMap<Float,String>()
     private var chart: LineChart? = null
     lateinit var dialog: AlertDialog
     lateinit var mViewModel: AddWeightViewModel
@@ -79,12 +83,12 @@ class AddWeightFragment : BaseFragment(), OnChartValueSelectedListener {
     }
 
     fun floatToStringDate(date: Float): String {
-        val mFormat = SimpleDateFormat("dd MMM hh:mm:ss", Locale.getDefault())
-        val millis = TimeUnit.MINUTES.toMillis(date.toLong())
-        val dateString = mFormat.format(Date(millis))
-        val trim = dateString.substring(0, 6).trim()
-
-        return trim
+//        val mFormat = SimpleDateFormat("dd MMM hh:mm:ss", Locale.getDefault())
+//        val millis = TimeUnit.MINUTES.toMillis(date.toLong())
+//        val dateString = mFormat.format(Date(millis))
+//        val trim = dateString.substring(0, 6).trim()
+        val get = map?.get(date)
+        return get?:""
     }
 
     fun stringToFloatDate(date: String): Float {
@@ -98,11 +102,11 @@ class AddWeightFragment : BaseFragment(), OnChartValueSelectedListener {
         chart!!.setOnChartValueSelectedListener(this)
 
         chart!!.description.isEnabled = false
-        chart!!.setTouchEnabled(false)
+        chart!!.setTouchEnabled(true)
         chart!!.dragDecelerationFrictionCoef = 0.9f
         chart!!.isDragEnabled = true
-        chart!!.setScaleEnabled(false)
-        chart!!.setDrawGridBackground(false)
+        chart!!.setScaleEnabled(true)
+        chart!!.setDrawGridBackground(true)
         chart!!.isHighlightPerDragEnabled = true
         chart!!.setPinchZoom(false)
         chart!!.setBackgroundColor(Color.WHITE)
@@ -129,8 +133,10 @@ class AddWeightFragment : BaseFragment(), OnChartValueSelectedListener {
         xAxis.xOffset = 20f
         xAxis.setDrawGridLines(false)
         xAxis.setDrawAxisLine(false)
+        xAxis.granularity = 100.0f
         xAxis.valueFormatter = object : ValueFormatter() {
             override fun getFormattedValue(value: Float): String {
+                value.toString().log()
                 return floatToStringDate(value)
             }
         }
@@ -160,7 +166,7 @@ class AddWeightFragment : BaseFragment(), OnChartValueSelectedListener {
         rightAxis.isGranularityEnabled = true
     }
 
-    private fun setChartData(listWeight: ResponseAddWeight?) {
+        private fun setChartData(listWeight: ResponseAddWeight?) {
 
         if (mBinding.chart1.data != null && mBinding.chart1.data.dataSetCount > 0)
             mBinding.chart1.clear()
@@ -168,10 +174,13 @@ class AddWeightFragment : BaseFragment(), OnChartValueSelectedListener {
         val values1 = ArrayList<Entry>()
         val values2 = ArrayList<Entry>()
 
+        var i = 100.0f
         listWeight?.forEach {
-            val date = stringToFloatDate(it.created_at)
-            values1.add(Entry(date, it.weight.toFloat()))
-            values2.add(Entry(date, it.height.toFloat()))
+             i += 100
+            map.put(i,it.created_at.changeTimeFormat("yyyy-MM-dd","dd MMM")!!)
+//            val date = stringToFloatDate(it.created_at)
+            values1.add(Entry(i, it.weight.toFloat()))
+            values2.add(Entry(i, it.height.toFloat()))
         }
 
         val set1: LineDataSet
