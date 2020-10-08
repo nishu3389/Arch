@@ -38,6 +38,7 @@ class LoginFragment : BaseFragment(), IPermissionGranted {
         return mBinding.root
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (activity as BaseActivity).setPermissionGranted(this)
