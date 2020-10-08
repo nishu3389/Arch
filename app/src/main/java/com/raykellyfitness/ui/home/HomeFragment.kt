@@ -13,6 +13,7 @@ import com.raykellyfitness.base.*
 import com.raykellyfitness.databinding.FragmentHomeBinding
 import com.raykellyfitness.model.request.RequestForgotPassword
 import com.raykellyfitness.networking.Api
+import com.raykellyfitness.util.Prefs
 import com.raykellyfitness.util.permission.DeviceRuntimePermission
 import com.raykellyfitness.util.permission.IPermissionGranted
 
@@ -50,6 +51,8 @@ class HomeFragment : BaseFragment() {
 
     private fun manageClicks() {
         mBinding.rrMeal.push()?.setOnClickListener {
+
+            Prefs.get().SHUTDOWN = ""
             navigate(R.id.TipsAndTricksFragment, Pair("type", Api.POST_TYPE_MEAL))
         }
         mBinding.rrTips.push()?.setOnClickListener {

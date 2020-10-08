@@ -12,18 +12,15 @@ import com.google.firebase.iid.FirebaseInstanceId
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import com.raykellyfitness.R
+import com.raykellyfitness.base.*
 import com.raykellyfitness.ui.activity.AccountHandlerActivity
 import com.raykellyfitness.ui.activity.HomeActivity
-import com.raykellyfitness.base.BaseActivity
-import com.raykellyfitness.base.MainApplication
-import com.raykellyfitness.base.sendToServer
-import com.raykellyfitness.base.toast
 import com.raykellyfitness.util.Prefs
 import com.raykellyfitness.util.Util
 
 
 class SplashActivity : BaseActivity() {
-    private val SPLASH_DURATION: Long = 200
+    private val SPLASH_DURATION: Long = 2000
     lateinit var mViewModel: SplashViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,6 +31,11 @@ class SplashActivity : BaseActivity() {
         setContentView(R.layout.activity_splash)
         Util.updateStatusBarColor("#F5333F",this as FragmentActivity)
         mViewModel = ViewModelProviders.of(this).get(SplashViewModel::class.java)
+
+       /* if(Prefs.get().SHUTDOWN.isEmptyy())
+            "Sorry...not recieved  - FROM SPLASH".sendNotification()
+        else
+            Prefs.get().SHUTDOWN+" - FROM SPLASH".sendNotification()*/
 
         mViewModel.proceedAhead.observe(this, Observer {
             if (it) {

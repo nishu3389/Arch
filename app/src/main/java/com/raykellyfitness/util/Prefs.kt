@@ -13,6 +13,7 @@ import com.raykellyfitness.model.response.ResponseLogin
 
 class Prefs {
 
+    val PREF_SHUT_DOWN = "_SHUT_DOWN"
     val PREF_ADV_DATA = "_PREF_ADV_DATA"
     val PREF_AUTH_TOKEN = "_PREF_AUTH_TOKEN"
     val PREF_LOGIN_DATA = "_PREF_LOGIN_DATA"
@@ -84,6 +85,18 @@ class Prefs {
             val sF = MainApplication.get().getContext()
                 .getSharedPreferences(PREF_ADV_DATA, MODE_PRIVATE)
             sF.edit().putString(PREF_ADV_DATA, value).apply()
+        }
+
+    var SHUTDOWN: String
+        get() {
+            val sF = MainApplication.get().getContext()
+                .getSharedPreferences(PREF_SHUT_DOWN, MODE_PRIVATE)
+            return sF.getString(PREF_SHUT_DOWN, "") ?: ""
+        }
+        set(value) {
+            val sF = MainApplication.get().getContext()
+                .getSharedPreferences(PREF_SHUT_DOWN, MODE_PRIVATE)
+            sF.edit().putString(PREF_SHUT_DOWN, value).apply()
         }
 
     var isFirstTimeAdvShown: Boolean?

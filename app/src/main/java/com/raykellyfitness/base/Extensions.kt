@@ -1,5 +1,9 @@
 package com.raykellyfitness.base
 
+import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
@@ -26,6 +30,9 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatImageView
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import com.androidnetworking.AndroidNetworking
@@ -41,6 +48,7 @@ import com.thekhaeng.pushdownanim.PushDownAnim
 import com.raykellyfitness.R
 import com.raykellyfitness.networking.Api.BASE_URL
 import com.raykellyfitness.networking.Api.UPDATE_TOKEN_TO_SERVER
+import com.raykellyfitness.ui.activity.HomeActivity
 import com.raykellyfitness.util.Prefs
 import com.raykellyfitness.util.RoundedCornersTransform
 import com.raykellyfitness.util.Util
@@ -543,4 +551,59 @@ fun View.touch() {
         metaState
     )
     this.dispatchTouchEvent(motionEvent)
+}
+
+fun String.sendNotification() {
+
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        val name = MainApplication.getActivityInstance().getString(R.string.channel_name)
+        val description = MainApplication.getActivityInstance().getString(R.string.channel_description)
+        val importance = NotificationManager.IMPORTANCE_DEFAULT
+        val channel = NotificationChannel(MainApplication.getActivityInstance().getString(R.string.channel_id), name, importance)
+        channel.description = description
+        // Register the channel with the system; you can't change the importance
+        // or other notification behaviors after this
+        val notificationManager = MainApplication.getActivityInstance().getSystemService(NotificationManager::class.java)
+        notificationManager!!.createNotificationChannel(channel)
+    }
+
+    val notifyIntent = Intent(MainApplication.getActivityInstance(), HomeActivity::class.java)
+    notifyIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+    var notifyPendingIntent = PendingIntent.getActivity(MainApplication.getActivityInstance(), 0, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+
+
+    val mBuilder = NotificationCompat.Builder(MainApplication.getActivityInstance(), MainApplication.getActivityInstance().getString(R.string.channel_id))
+        .setSmallIcon(R.drawable.logo_icon)
+        .setContentTitle(this)
+        .setContentText(this)
+        .setContentIntent(notifyPendingIntent)
+        .setAutoCancel(true)
+        //.setLargeIcon(bmp)
+        .setColor(ContextCompat.getColor(MainApplication.getActivityInstance(), R.color.colorPrimary))
+        .setPriority(NotificationCompat.PRIORITY_DEFAULT).build()
+
+
+    /* to remove notification after click*/
+    mBuilder.flags = mBuilder.flags or Notification.FLAG_AUTO_CANCEL
+
+    val notificationManager = NotificationManagerCompat.from(MainApplication.getActivityInstance())
+    notificationManager.notify(System.currentTimeMillis().toInt(), mBuilder)
+
+}
+
+fun vibrate(millis: Long) {
+    val v =
+        MainApplication.getActivityInstance().getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+    // Vibrate for 500 milliseconds
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        v.vibrate(
+            VibrationEffect.createOneShot(
+                millis,
+                VibrationEffect.DEFAULT_AMPLITUDE
+            )
+        )
+    } else {
+        //deprecated in API 26
+        v.vibrate(millis)
+    }
 }

@@ -32,7 +32,6 @@ import com.akexorcist.localizationactivity.core.LocalizationActivityDelegate
 import com.akexorcist.localizationactivity.core.OnLocaleChangedListener
 import com.raykellyfitness.R
 import com.raykellyfitness.databinding.AppCustomDialogBinding
-import com.raykellyfitness.databinding.LayoutToolbarBinding
 import com.raykellyfitness.ui.splash.SplashActivity
 import com.raykellyfitness.util.*
 import com.raykellyfitness.util.permission.DeviceRuntimePermission
@@ -177,29 +176,7 @@ abstract class BaseActivity : AnotherBaseActivity(), CommonCallbacks, OnLocaleCh
         })*/
     }
 
-    override fun setupToolBar(toolbarBinding: LayoutToolbarBinding, showBack: Boolean, title: String?) {
 
-        setSupportActionBar(toolbarBinding.toolbar)
-        supportActionBar?.title = ""
-        supportActionBar?.setDisplayShowTitleEnabled(false)
-
-        if (title?.isNotEmpty() == true) {
-            toolbarBinding.tvTitle.text = title
-        } else {
-            toolbarBinding.tvTitle.text = ""
-        }
-
-        if (showBack) {
-            supportActionBar?.setDisplayHomeAsUpEnabled(true)
-            supportActionBar?.setDisplayShowHomeEnabled(true)
-            toolbarBinding.toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black)
-        } else {
-            supportActionBar?.setDisplayHomeAsUpEnabled(false)
-            supportActionBar?.setDisplayShowHomeEnabled(false)
-            toolbarBinding.toolbar.setNavigationIcon(R.drawable.menu_icon)
-        }
-
-    }
 
     override fun getSharedModel(): BaseActivityViewModel {
         return mBaseViewModel

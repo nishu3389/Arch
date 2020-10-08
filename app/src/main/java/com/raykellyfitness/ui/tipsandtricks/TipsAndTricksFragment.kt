@@ -20,11 +20,14 @@ class TipsAndTricksFragment : BaseFragment() {
 
     var type: String = ""
 
-    var adapter = TipsAdapterOuter(R.layout.row_tips_outer, onClickListener = { model, modelOuter ->
-        run {
-            navigate(R.id.TipsDetailFragment, Pair("id", model.id), Pair("type", type), Pair("typeName", modelOuter.day))
-        }
-    })
+    var adapter = TipsAdapterOuter(R.layout.row_tips_outer) { model, modelOuter ->
+            navigate(
+                R.id.TipsDetailFragment,
+                Pair("id", model.id),
+                Pair("type", type),
+                Pair("typeName", modelOuter.day)
+            )
+    }
 
 
     var mealList = arrayListOf<ResponseTipsOuterItem>()

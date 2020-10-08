@@ -1,5 +1,6 @@
 package com.raykellyfitness.ui.health
 
+import android.content.DialogInterface
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -27,6 +28,7 @@ import com.raykellyfitness.databinding.FragmentHomeBinding
 import com.raykellyfitness.model.request.ResponseAddBloodPressure
 import com.raykellyfitness.model.request.ResponseAddBloodSugar
 import com.raykellyfitness.model.request.ResponseAddWeight
+import com.raykellyfitness.networking.Api
 import com.raykellyfitness.ui.health.bloodpressure.add_bloodpressure.AddBloodPressureFragment
 import com.raykellyfitness.ui.health.bloodsugar.add_bloodsugar.AddBloodSugarFragment
 import com.raykellyfitness.ui.health.weight.add_weight.AddWeightFragment
@@ -39,11 +41,12 @@ import com.vistrav.pop.Pop
 
 class HealthFragment : BaseFragment() {
 
+    var callByClick = false
     var listWeight = MutableLiveData<ResponseAddWeight>()
     var listBloodSugar = MutableLiveData<ResponseAddBloodSugar>()
     var listBloodPressure = MutableLiveData<ResponseAddBloodPressure>()
 
-    var popup : AlertDialog? = null
+    var popup: AlertDialog? = null
     lateinit var dialog: AlertDialog
     lateinit var mViewModel: HealthViewModel
     lateinit var mBinding: FragmentHealthBinding
@@ -82,37 +85,47 @@ class HealthFragment : BaseFragment() {
         callInitialApis()
     }
 
+    override fun onApiRequestFailed(apiUrl: String, errCode: Int, errorMessage: String): Boolean {
+        if ((apiUrl.equals(Api.LIST_WEIGHT) || apiUrl.equals(Api.LIST_BLOOD_PRESSURE) || apiUrl.equals(Api.LIST_BLOOD_SUGAR)) && !callByClick)
+            return true
+        else
+            return super.onApiRequestFailed(apiUrl, errCode, errorMessage)
+    }
+
     fun callInitialApis() {
         mViewModel.callWeightListApi().observe(viewLifecycleOwner, Observer {
-            if(!it.data.isNullOrEmpty() && it.data!!.size>0) {
+            if (!it.data.isNullOrEmpty() && it.data!!.size > 0) {
                 listWeight.value = (it.data!!)
             }
         })
         mViewModel.callBloodSugarListApi().observe(viewLifecycleOwner, Observer {
-            if(!it.data.isNullOrEmpty() && it.data!!.size>0) {
+            if (!it.data.isNullOrEmpty() && it.data!!.size > 0) {
                 listBloodSugar.value = (it.data!!)
             }
         })
         mViewModel.callBloodPressureListApi().observe(viewLifecycleOwner, Observer {
-            if(!it.data.isNullOrEmpty() && it.data!!.size>0) {
+            if (!it.data.isNullOrEmpty() && it.data!!.size > 0) {
                 listBloodPressure.value = (it.data!!)
             }
         })
     }
 
     private fun initWork() {
+        callByClick = false
         (activity as HomeActivity).showLogo(true)
         (activity as HomeActivity).showRightLogo(true)
         (activity as HomeActivity).setTitle("")
     }
 
+
     private fun manageClicks() {
         (activity as HomeActivity).mBinding.imgRight.push()?.setOnClickListener {
 
-            when(mBinding.viewPager.currentItem){
+            callByClick = true
+            when (mBinding.viewPager.currentItem) {
                 0 -> {
                     mViewModel.callWeightListApi().observe(viewLifecycleOwner, Observer {
-                        if(!it.data.isNullOrEmpty() && it.data!!.size>0)
+                        if (!it.data.isNullOrEmpty() && it.data!!.size > 0)
                             showWeightDialog(it.data!!)
                         else
                             NO_RECORD_AVAILABLE?.showWarning()
@@ -120,7 +133,7 @@ class HealthFragment : BaseFragment() {
                 }
                 1 -> {
                     mViewModel.callBloodSugarListApi().observe(viewLifecycleOwner, Observer {
-                        if(!it.data.isNullOrEmpty() && it.data!!.size>0)
+                        if (!it.data.isNullOrEmpty() && it.data!!.size > 0)
                             showBloodSugarDialog(it.data!!)
                         else
                             NO_RECORD_AVAILABLE?.showWarning()
@@ -128,7 +141,7 @@ class HealthFragment : BaseFragment() {
                 }
                 2 -> {
                     mViewModel.callBloodPressureListApi().observe(viewLifecycleOwner, Observer {
-                        if(!it.data.isNullOrEmpty() && it.data!!.size>0)
+                        if (!it.data.isNullOrEmpty() && it.data!!.size > 0)
                             showBloodPressureDialog(it.data!!)
                         else
                             NO_RECORD_AVAILABLE?.showWarning()
@@ -194,11 +207,11 @@ class HealthFragment : BaseFragment() {
             .layout(R.layout.weight_list)
             .show {
 
-               it?.findViewById<RecyclerView>(R.id.recycler).apply {
-                   var adapter = WeightListAdapter(R.layout.row_weight_list)
-                   this!!.adapter = adapter
-                   adapter.setNewItems(data)
-               }
+                it?.findViewById<RecyclerView>(R.id.recycler).apply {
+                    var adapter = WeightListAdapter(R.layout.row_weight_list)
+                    this!!.adapter = adapter
+                    adapter.setNewItems(data)
+                }
 
                 it?.findViewById<ImageView>(R.id.img_cross).apply {
                     this?.push()?.setOnClickListener {
@@ -229,7 +242,11 @@ class HealthFragment : BaseFragment() {
         }
 
         mBinding.viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+            override fun onPageScrolled(
+                position: Int,
+                positionOffset: Float,
+                positionOffsetPixels: Int
+            ) {
             }
 
             override fun onPageSelected(position: Int) {
@@ -268,7 +285,9 @@ class HealthFragment : BaseFragment() {
     }
 
     private fun setupViewModel() {
-        mViewModel = ViewModelProviders.of(this, MyViewModelProvider(commonCallbacks as AsyncViewController)).get(HealthViewModel::class.java)
+        mViewModel =
+            ViewModelProviders.of(this, MyViewModelProvider(commonCallbacks as AsyncViewController))
+                .get(HealthViewModel::class.java)
     }
 
     inner class ClickHandler : IPermissionGranted {

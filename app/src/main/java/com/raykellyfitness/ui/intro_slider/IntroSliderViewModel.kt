@@ -10,7 +10,6 @@ import com.raykellyfitness.model.response.ResponseChangePassword
 import com.raykellyfitness.util.Validator
 import com.raykellyfitness.networking.Api
 
-
 class IntroSliderViewModel(controller : AsyncViewController) : BaseViewModel(controller){
 
     val requestChangePassword = ObservableField<RequestChangePassword>(RequestChangePassword())

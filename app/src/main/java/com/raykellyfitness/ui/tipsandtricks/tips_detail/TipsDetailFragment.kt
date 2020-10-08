@@ -13,11 +13,12 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.raykellyfitness.R
 import com.raykellyfitness.base.*
 import com.raykellyfitness.databinding.FragmentTipsDetailBinding
 import com.raykellyfitness.databinding.MealDetailSliderBinding
-import com.raykellyfitness.networking.Api
 import com.raykellyfitness.ui.activity.HomeActivity
 import com.raykellyfitness.ui.tipsandtricks.Media
 import com.raykellyfitness.util.Constant.IMAGE
@@ -37,7 +38,11 @@ class TipsDetailFragment : BaseFragment() {
         setupViewModel()
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         mBinding = FragmentTipsDetailBinding.inflate(inflater, container, false).apply {
             clickHandler = ClickHandler()
             viewModel = mViewModel
@@ -59,15 +64,20 @@ class TipsDetailFragment : BaseFragment() {
 
     private fun callInitialApis() {
         mBinding.mainLayout.visibility = View.INVISIBLE
-        mViewModel.callTipsDetailApi(requireArguments().getString("id")!!, type).observe(viewLifecycleOwner, Observer {
-            mViewModel.model = it.data
-          mBinding.tvDesc.setHtml(it.data!!.description)
+        mViewModel.callTipsDetailApi(requireArguments().getString("id")!!, type).observe(
+            viewLifecycleOwner,
+            Observer {
+                mViewModel.model = it.data
+                mBinding.tvDesc.setHtml(it.data!!.description)
 //            mBinding.tvDesc.setText(HtmlCompat.fromHtml(it.data!!.description, HtmlCompat.FROM_HTML_MODE_LEGACY))
-            mBinding.tvDate.text = it.data!!.date.changeTimeFormat("yyyy-MM-dd hh:mm:ss","EEEE dd MMM, yyyy")
-            mBinding.invalidateAll()
-            setSlider(it.data?.media)
-            mBinding.mainLayout.visibility = View.VISIBLE
-        })
+                mBinding.tvDate.text = it.data!!.date.changeTimeFormat(
+                    "yyyy-MM-dd hh:mm:ss",
+                    "EEEE dd MMM, yyyy"
+                )
+                mBinding.invalidateAll()
+                setSlider(it.data?.media)
+                mBinding.mainLayout.visibility = View.VISIBLE
+            })
     }
 
     override fun onApiRequestFailed(apiUrl: String, errCode: Int, errorMessage: String): Boolean {
@@ -80,7 +90,7 @@ class TipsDetailFragment : BaseFragment() {
     }
 
     private fun setSlider(media: List<Media>?) {
-        mAdapter = SliderAdapter(media,this)
+        mAdapter = SliderAdapter(media, this)
         mBinding.viewPager.adapter = mAdapter
     }
 
@@ -108,7 +118,10 @@ class TipsDetailFragment : BaseFragment() {
     }
 
     private fun setupViewModel() {
-        mViewModel = ViewModelProviders.of(this, MyViewModelProvider(commonCallbacks as AsyncViewController)).get(TipsDetailViewModel::class.java)
+        mViewModel = ViewModelProviders.of(
+            this,
+            MyViewModelProvider(commonCallbacks as AsyncViewController)
+        ).get(TipsDetailViewModel::class.java)
     }
 
     inner class ClickHandler  {
@@ -121,16 +134,34 @@ class TipsDetailFragment : BaseFragment() {
 
         override fun instantiateItem(container: ViewGroup, position: Int): Any {
             var inflater = container.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            val binding: MealDetailSliderBinding = DataBindingUtil.inflate(inflater, R.layout.meal_detail_slider, container, false)
+            val binding: MealDetailSliderBinding = DataBindingUtil.inflate(
+                inflater,
+                R.layout.meal_detail_slider,
+                container,
+                false
+            )
 
-            setImageAndClickWork(container.context,binding,position)
+            setImageAndClickWork(container.context, binding, position)
 
             (container as ViewPager).addView(binding.root, 0)
             return binding.root
         }
 
-        private fun setImageAndClickWork(binding1: Context, binding: MealDetailSliderBinding, position: Int) {
+        private fun setImageAndClickWork(
+            binding1: Context,
+            binding: MealDetailSliderBinding,
+            position: Int
+        ) {
             val model = sliderViews?.get(position)
+
+          /*  val myOptions = RequestOptions().centerCrop().override(300,300)
+
+            Glide.with(binding1)
+                .asBitmap()
+                .placeholder(R.drawable.placeholder)
+                .apply(myOptions)
+                .load(model?.url)
+                .into(binding.imgThumb)*/
 
             binding.imgThumb.set(binding1, model?.url)
 
@@ -158,7 +189,12 @@ class TipsDetailFragment : BaseFragment() {
                 fragment.showImageDialog(model?.url!!)
 
             else
-                fragment.startActivity(Intent(fragment.context,VideoPlayerActivity::class.java).putExtra(URL,model?.url))
+                fragment.startActivity(
+                    Intent(fragment.context, VideoPlayerActivity::class.java).putExtra(
+                        URL,
+                        model?.url
+                    )
+                )
         }
 
         override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
