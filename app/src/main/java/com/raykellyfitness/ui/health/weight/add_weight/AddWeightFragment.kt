@@ -11,19 +11,17 @@ import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.github.mikephil.charting.charts.LineChart
-import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.Legend.LegendForm
 import com.github.mikephil.charting.components.YAxis.AxisDependency
-import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener
+import com.github.mikephil.charting.renderer.XAxisRenderer
 import com.github.mikephil.charting.utils.ColorTemplate
-import com.github.mikephil.charting.utils.ViewPortHandler
 import com.raykellyfitness.base.*
 import com.raykellyfitness.databinding.FragmentAddWeightBinding
 import com.raykellyfitness.model.request.RequestAddWeight
@@ -36,10 +34,10 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
-import java.util.concurrent.TimeUnit
 
 class AddWeightFragment : BaseFragment(), OnChartValueSelectedListener {
 
+    var range = 10.0f
     var map = HashMap<Float, String>()
     private var chart: LineChart? = null
     lateinit var dialog: AlertDialog
@@ -124,7 +122,9 @@ class AddWeightFragment : BaseFragment(), OnChartValueSelectedListener {
         xAxis.xOffset = 20f
         xAxis.setDrawGridLines(false)
         xAxis.setDrawAxisLine(false)
-        xAxis.granularity = 100.0f
+        xAxis.granularity = range
+        xAxis.labelCount = 6
+        xAxis.setAvoidFirstLastClipping(true)
         xAxis.valueFormatter = object : ValueFormatter() {
             override fun getFormattedValue(value: Float): String {
                 value.toString().log()
@@ -138,8 +138,8 @@ class AddWeightFragment : BaseFragment(), OnChartValueSelectedListener {
             "fonts/poppins_regular.ttf"
         )
         leftAxis.textColor = ColorTemplate.getHoloBlue()
-        leftAxis.axisMaximum = 350f
-        leftAxis.axisMinimum = 10f
+        leftAxis.axisMaximum = 1100f
+        leftAxis.axisMinimum = 1f
         leftAxis.needsOffset()
         leftAxis.setDrawGridLines(true)
         leftAxis.isGranularityEnabled = true
@@ -150,8 +150,8 @@ class AddWeightFragment : BaseFragment(), OnChartValueSelectedListener {
             "fonts/poppins_regular.ttf"
         )
         rightAxis.textColor = ColorTemplate.getHoloBlue()
-        rightAxis.axisMaximum = 350f
-        rightAxis.axisMinimum = 10f
+        rightAxis.axisMaximum = 1100f
+        rightAxis.axisMinimum = 1f
         rightAxis.needsOffset()
         rightAxis.setDrawGridLines(true)
         rightAxis.isGranularityEnabled = true
@@ -170,15 +170,22 @@ class AddWeightFragment : BaseFragment(), OnChartValueSelectedListener {
             values1.add(Entry(0.0f, 0.0f))
             values2.add(Entry(0.0f, 0.0f))
         }else{
-            var i = 100.0f
+            var i = range
+
+//            if(!listWeight?.first()?.created_at.isEmptyy())
+//            addPreviousDate(i,map, listWeight?.first()?.created_at!!, values1, values2)
+
             listWeight?.forEach {
                 if(!it.created_at.isEmptyy() && !it.weight.isEmptyy() &&  !it.height.isEmptyy()){
-                    i += 100
+                    i += range
                     map.put(i, it.created_at.changeTimeFormat("yyyy-MM-dd", "dd MMM")!!)
                     values1.add(Entry(i, it.weight.toFloat()))
                     values2.add(Entry(i, it.height.toFloat()))
                 }
             }
+
+//            addNextDate(i+100,map, listWeight?.last()?.created_at!!, values1, values2)
+
         }
 
         val set1: LineDataSet
@@ -195,11 +202,6 @@ class AddWeightFragment : BaseFragment(), OnChartValueSelectedListener {
         set1.fillColor = ColorTemplate.getHoloBlue()
         set1.highLightColor = Color.rgb(244, 117, 117)
         set1.setDrawCircleHole(false)
-        //set1.setFillFormatter(new MyFillFormatter(0f));
-        //set1.setDrawHorizontalHighlightIndicator(false);
-        //set1.setVisible(false);
-        //set1.setCircleHoleColor(Color.BLACK);
-
         // create a dataset and give it a type
         set2 = LineDataSet(values2, "Height (CM)")
         set2.axisDependency = AxisDependency.RIGHT
@@ -215,13 +217,73 @@ class AddWeightFragment : BaseFragment(), OnChartValueSelectedListener {
         // create a data object with the data sets
         val data = LineData(set1, set2/*, set3*/)
         data.setValueTextColor(Color.BLACK)
-        data.setValueTextSize(7f)
+        data.setValueTextSize(9f)
 
         // set data
         mBinding.chart1.setData(data)
         touchGraph(1000)
         touchGraph(2000)
         touchGraph(3000)
+
+//        chart!!.setVisibleXRangeMaximum(5)
+    }
+
+    private fun addNextDate(
+        i: Float,
+        map: HashMap<Float, String>,
+        date: String,
+        values1: ArrayList<Entry>,
+        values2: ArrayList<Entry>
+    ) {
+        val nextDate = getNextDate(date)
+        map.put(i, nextDate)
+        values1.add(Entry(i, 0.0f))
+        values2.add(Entry(i, 0.0f))
+    }
+
+    private fun addPreviousDate(
+        i: Float,
+        map: HashMap<Float, String>,
+        date: String,
+        values1: ArrayList<Entry>,
+        values2: ArrayList<Entry>
+    ) {
+        val nextDate = getPreviousDate(date)
+        map.put(i, nextDate)
+        values1.add(Entry(i, 0.0f))
+        values2.add(Entry(i, 0.0f))
+    }
+
+    private fun getNextDate(date: String?) : String {
+        val dateToIncr = date
+        var nextDate = ""
+        val sdf = SimpleDateFormat("yyyy-MM-dd")
+        val c = Calendar.getInstance()
+        try {
+            c.time = sdf.parse(dateToIncr)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        c.add(Calendar.DAY_OF_MONTH, 1) // number of days to add
+
+        nextDate = SimpleDateFormat("dd MMM").format(c.time)
+        return nextDate
+    }
+
+    private fun getPreviousDate(date: String?) : String {
+        val dateToIncr = date
+        var nextDate = ""
+        val sdf = SimpleDateFormat("yyyy-MM-dd")
+        val c = Calendar.getInstance()
+        try {
+            c.time = sdf.parse(dateToIncr)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        c.add(Calendar.DAY_OF_MONTH, -1) // number of days to add
+
+        nextDate = SimpleDateFormat("dd MMM").format(c.time)
+        return nextDate
     }
 
     private fun touchGraph(time: Long) {

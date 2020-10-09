@@ -41,6 +41,7 @@ import java.util.concurrent.TimeUnit
 
 class AddBloodPressureFragment : BaseFragment(), OnChartValueSelectedListener {
 
+    var range = 10.0f
     var map = HashMap<Float,String>()
     private var chart: LineChart? = null
     lateinit var dialog: AlertDialog
@@ -162,7 +163,9 @@ class AddBloodPressureFragment : BaseFragment(), OnChartValueSelectedListener {
         xAxis.xOffset = 20f
         xAxis.setDrawGridLines(false)
         xAxis.setDrawAxisLine(false)
-        xAxis.granularity = 100.0f
+        xAxis.granularity = range
+        xAxis.labelCount = 6
+        xAxis.setAvoidFirstLastClipping(true)
         xAxis.valueFormatter = object : ValueFormatter() {
             override fun getFormattedValue(value: Float): String {
                 value.toString().log()
@@ -176,8 +179,8 @@ class AddBloodPressureFragment : BaseFragment(), OnChartValueSelectedListener {
             "fonts/poppins_regular.ttf"
         )
         leftAxis.textColor = ColorTemplate.getHoloBlue()
-        leftAxis.axisMaximum = 350f
-        leftAxis.axisMinimum = 10f
+        leftAxis.axisMaximum = 1100f
+        leftAxis.axisMinimum = 1f
         leftAxis.needsOffset()
         leftAxis.setDrawGridLines(true)
         leftAxis.isGranularityEnabled = true
@@ -188,8 +191,8 @@ class AddBloodPressureFragment : BaseFragment(), OnChartValueSelectedListener {
             "fonts/poppins_regular.ttf"
         )
         rightAxis.textColor = ColorTemplate.getHoloBlue()
-        rightAxis.axisMaximum = 350f
-        rightAxis.axisMinimum = 10f
+        rightAxis.axisMaximum = 1100f
+        rightAxis.axisMinimum = 1f
         rightAxis.needsOffset()
         rightAxis.setDrawGridLines(true)
         rightAxis.isGranularityEnabled = true
@@ -207,10 +210,10 @@ class AddBloodPressureFragment : BaseFragment(), OnChartValueSelectedListener {
             values1.add(Entry(0.0f, 0.0f))
             values2.add(Entry(0.0f, 0.0f))
         }else{
-            var i = 100.0f
+            var i = range
             list?.forEach {
                 if(!it.created_at.isEmptyy() && !it.blood_pressure_diastolic.isEmptyy() &&  !it.blood_pressure_systolic.isEmptyy()){
-                    i += 100
+                    i += range
                     map.put(i,it.created_at.changeTimeFormat("yyyy-MM-dd","dd MMM")!!)
                     values1.add(Entry(i, it.blood_pressure_diastolic.toFloat()))
                     values2.add(Entry(i, it.blood_pressure_systolic.toFloat()))
@@ -236,10 +239,6 @@ class AddBloodPressureFragment : BaseFragment(), OnChartValueSelectedListener {
         set1.fillColor = ColorTemplate.getHoloBlue()
         set1.highLightColor = Color.rgb(244, 117, 117)
         set1.setDrawCircleHole(false)
-        //set1.setFillFormatter(new MyFillFormatter(0f));
-        //set1.setDrawHorizontalHighlightIndicator(false);
-        //set1.setVisible(false);
-        //set1.setCircleHoleColor(Color.BLACK);
 
         // create a dataset and give it a type
         set2 = LineDataSet(values2, "Systolic (mmHg)")
@@ -252,19 +251,7 @@ class AddBloodPressureFragment : BaseFragment(), OnChartValueSelectedListener {
         set2.fillColor = Color.RED
         set2.setDrawCircleHole(false)
         set2.highLightColor = Color.rgb(244, 117, 117)
-        //set2.setFillFormatter(new MyFillFormatter(900f));
-        /*set3 = LineDataSet(values3, "DataSet 3")
-       set3.axisDependency = AxisDependency.RIGHT
-       set3.color = Color.YELLOW
-       set3.setCircleColor(Color.BLACK)
-       set3.lineWidth = 2f
-       set3.circleRadius = 3f
-       set3.fillAlpha = 65
-       set3.fillColor = ColorTemplate.colorWithAlpha(Color.YELLOW, 200)
-       set3.setDrawCircleHole(false)
-       set3.highLightColor = Color.rgb(244, 117, 117)
-*/
-        // create a data object with the data sets
+
         val data = LineData(set1, set2/*, set3*/)
         data.setValueTextColor(Color.BLACK)
         data.setValueTextSize(9f)

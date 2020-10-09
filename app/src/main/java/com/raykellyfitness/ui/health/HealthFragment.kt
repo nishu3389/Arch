@@ -37,6 +37,7 @@ import com.raykellyfitness.util.permission.DeviceRuntimePermission
 import com.raykellyfitness.util.permission.IPermissionGranted
 import com.raykellyfitness.views.CommonTextView
 import com.vistrav.pop.Pop
+import java.util.*
 
 
 class HealthFragment : BaseFragment() {
@@ -125,24 +126,30 @@ class HealthFragment : BaseFragment() {
             when (mBinding.viewPager.currentItem) {
                 0 -> {
                     mViewModel.callWeightListApi().observe(viewLifecycleOwner, Observer {
-                        if (!it.data.isNullOrEmpty() && it.data!!.size > 0)
+                        if (!it.data.isNullOrEmpty() && it.data!!.size > 0) {
+                            Collections.reverse(it.data!!)
                             showWeightDialog(it.data!!)
+                        }
                         else
                             NO_RECORD_AVAILABLE?.showWarning()
                     })
                 }
                 1 -> {
                     mViewModel.callBloodSugarListApi().observe(viewLifecycleOwner, Observer {
-                        if (!it.data.isNullOrEmpty() && it.data!!.size > 0)
+                        if (!it.data.isNullOrEmpty() && it.data!!.size > 0) {
+                            Collections.reverse(it.data!!)
                             showBloodSugarDialog(it.data!!)
+                        }
                         else
                             NO_RECORD_AVAILABLE?.showWarning()
                     })
                 }
                 2 -> {
                     mViewModel.callBloodPressureListApi().observe(viewLifecycleOwner, Observer {
-                        if (!it.data.isNullOrEmpty() && it.data!!.size > 0)
+                        if (!it.data.isNullOrEmpty() && it.data!!.size > 0) {
+                            Collections.reverse(it.data!!)
                             showBloodPressureDialog(it.data!!)
+                        }
                         else
                             NO_RECORD_AVAILABLE?.showWarning()
                     })

@@ -42,6 +42,7 @@ import java.util.concurrent.TimeUnit
 
 class AddBloodSugarFragment : BaseFragment(), OnChartValueSelectedListener {
 
+    var range = 10.0f
     var map = HashMap<Float,String>()
     private var chart: LineChart? = null
     lateinit var dialog : AlertDialog
@@ -157,7 +158,9 @@ class AddBloodSugarFragment : BaseFragment(), OnChartValueSelectedListener {
         xAxis.xOffset = 20f
         xAxis.setDrawGridLines(false)
         xAxis.setDrawAxisLine(false)
-        xAxis.granularity = 100.0f
+        xAxis.granularity = range
+        xAxis.labelCount = 6
+        xAxis.setAvoidFirstLastClipping(true)
         xAxis.valueFormatter = object : ValueFormatter() {
             override fun getFormattedValue(value: Float): String {
                 value.toString().log()
@@ -171,8 +174,8 @@ class AddBloodSugarFragment : BaseFragment(), OnChartValueSelectedListener {
             "fonts/poppins_regular.ttf"
         )
         leftAxis.textColor = ColorTemplate.getHoloBlue()
-        leftAxis.axisMaximum = 350f
-        leftAxis.axisMinimum = 10f
+        leftAxis.axisMaximum = 1100f
+        leftAxis.axisMinimum = 1f
         leftAxis.needsOffset()
         leftAxis.setDrawGridLines(true)
         leftAxis.isGranularityEnabled = true
@@ -183,8 +186,8 @@ class AddBloodSugarFragment : BaseFragment(), OnChartValueSelectedListener {
             "fonts/poppins_regular.ttf"
         )
         rightAxis.textColor = ColorTemplate.getHoloBlue()
-        rightAxis.axisMaximum = 350f
-        rightAxis.axisMinimum = 10f
+        rightAxis.axisMaximum = 1100f
+        rightAxis.axisMinimum = 1f
         rightAxis.needsOffset()
         rightAxis.setDrawGridLines(true)
         rightAxis.isGranularityEnabled = true
@@ -202,10 +205,10 @@ class AddBloodSugarFragment : BaseFragment(), OnChartValueSelectedListener {
             values1.add(Entry(0.0f, 0.0f))
             values2.add(Entry(0.0f, 0.0f))
         }else{
-            var i = 100.0f
+            var i = range
             listWeight?.forEach {
                 if(!it.created_at.isEmptyy() && !it.blood_sugar_fasting.isEmptyy() &&  !it.blood_sugar_postprandial.isEmptyy()){
-                    i += 100
+                    i += range
                     map.put(i,it.created_at.changeTimeFormat("yyyy-MM-dd","dd MMM")!!)
                     values1.add(Entry(i, it.blood_sugar_fasting.toFloat()))
                     values2.add(Entry(i, it.blood_sugar_postprandial.toFloat()))
