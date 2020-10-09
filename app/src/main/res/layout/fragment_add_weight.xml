@@ -9,9 +9,6 @@
             name="viewModel"
             type="com.raykellyfitness.ui.health.weight.add_weight.AddWeightViewModel" />
 
-        <variable
-            name="clickHandler"
-            type="com.raykellyfitness.ui.health.weight.add_weight.AddWeightFragment.ClickHandler" />
 
     </data>
 

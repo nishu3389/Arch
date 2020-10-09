@@ -20,8 +20,14 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
+import com.github.mikephil.charting.data.Entry
 import com.raykellyfitness.R
 import com.raykellyfitness.base.MainApplication
+import com.raykellyfitness.base.touch
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.security.MessageDigest
@@ -35,6 +41,66 @@ import java.util.concurrent.TimeUnit
 class Util {
 
     companion object {
+
+        private fun addNextDate(
+            i: Float,
+            map: HashMap<Float, String>,
+            date: String,
+            values1: ArrayList<Entry>,
+            values2: ArrayList<Entry>
+        ) {
+            val nextDate = getNextDate(date)
+            map.put(i, nextDate)
+            values1.add(Entry(i, 0.0f))
+            values2.add(Entry(i, 0.0f))
+        }
+
+        private fun addPreviousDate(
+            i: Float,
+            map: HashMap<Float, String>,
+            date: String,
+            values1: ArrayList<Entry>,
+            values2: ArrayList<Entry>
+        ) {
+            val nextDate = getPreviousDate(date)
+            map.put(i, nextDate)
+            values1.add(Entry(i, 0.0f))
+            values2.add(Entry(i, 0.0f))
+        }
+
+        private fun getNextDate(date: String?) : String {
+            val dateToIncr = date
+            var nextDate = ""
+            val sdf = SimpleDateFormat("yyyy-MM-dd")
+            val c = Calendar.getInstance()
+            try {
+                c.time = sdf.parse(dateToIncr)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+            c.add(Calendar.DAY_OF_MONTH, 1) // number of days to add
+
+            nextDate = SimpleDateFormat("dd MMM").format(c.time)
+            return nextDate
+        }
+
+        private fun getPreviousDate(date: String?) : String {
+            val dateToIncr = date
+            var nextDate = ""
+            val sdf = SimpleDateFormat("yyyy-MM-dd")
+            val c = Calendar.getInstance()
+            try {
+                c.time = sdf.parse(dateToIncr)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+            c.add(Calendar.DAY_OF_MONTH, -1) // number of days to add
+
+            nextDate = SimpleDateFormat("dd MMM").format(c.time)
+            return nextDate
+        }
+
+
 
         fun changeTimeFormat(
             d: String?,

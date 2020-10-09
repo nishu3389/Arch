@@ -9,9 +9,6 @@
             name="viewModel"
             type="com.raykellyfitness.ui.health.bloodpressure.add_bloodpressure.AddBloodPressureViewModel" />
 
-        <variable
-            name="clickHandler"
-            type="com.raykellyfitness.ui.health.bloodpressure.add_bloodpressure.AddBloodPressureFragment.ClickHandler" />
 
     </data>
 

@@ -1,15 +1,17 @@
 package com.raykellyfitness.ui.health
 
-import android.content.DialogInterface
 import android.graphics.Color
+import android.graphics.Typeface
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.HorizontalScrollView
 import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
+import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
@@ -19,12 +21,18 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
+import com.github.mikephil.charting.charts.LineChart
+import com.github.mikephil.charting.components.Legend
+import com.github.mikephil.charting.components.YAxis
+import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.data.LineData
+import com.github.mikephil.charting.data.LineDataSet
+import com.github.mikephil.charting.formatter.ValueFormatter
+import com.github.mikephil.charting.utils.ColorTemplate
 import com.raykellyfitness.R
 import com.raykellyfitness.ui.activity.HomeActivity
 import com.raykellyfitness.base.*
-import com.raykellyfitness.databinding.FragmentAddWeightBinding
 import com.raykellyfitness.databinding.FragmentHealthBinding
-import com.raykellyfitness.databinding.FragmentHomeBinding
 import com.raykellyfitness.model.request.ResponseAddBloodPressure
 import com.raykellyfitness.model.request.ResponseAddBloodSugar
 import com.raykellyfitness.model.request.ResponseAddWeight
@@ -37,11 +45,23 @@ import com.raykellyfitness.util.permission.DeviceRuntimePermission
 import com.raykellyfitness.util.permission.IPermissionGranted
 import com.raykellyfitness.views.CommonTextView
 import com.vistrav.pop.Pop
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.util.*
+import kotlin.collections.HashMap
 
 
 class HealthFragment : BaseFragment() {
 
+    var WEIGHT = 1
+    var BLOOD_SUGAR = 2
+    var BLOOD_PRESSURE = 3
+
+    var graphType = mapOf(1 to "weight", BLOOD_SUGAR to "bs" , BLOOD_PRESSURE to "bp")
+
+    var range = 10.0f
     var callByClick = false
     var listWeight = MutableLiveData<ResponseAddWeight>()
     var listBloodSugar = MutableLiveData<ResponseAddBloodSugar>()
@@ -348,6 +368,227 @@ class HealthFragment : BaseFragment() {
     override fun onDetach() {
         super.onDetach()
         (activity as HomeActivity).showRightLogo(false)
+    }
+
+    fun floatToStringDate(date: Float, map: HashMap<Float, String>): String {
+        val get = map?.get(date)
+        return get ?: ""
+    }
+
+    fun setupChart(chart : LineChart,  map : HashMap<Float, String>) {
+        chart!!.description.isEnabled = false
+        chart!!.setTouchEnabled(true)
+        chart!!.dragDecelerationFrictionCoef = 0.9f
+        chart!!.isDragEnabled = true
+        chart!!.setScaleEnabled(true)
+        chart!!.setDrawGridBackground(true)
+        chart!!.isHighlightPerDragEnabled = true
+        chart!!.setPinchZoom(false)
+        chart!!.setBackgroundColor(Color.WHITE)
+        chart!!.animateX(1500)
+        val l = chart!!.legend
+
+        // modify the legend ...
+        l.form = Legend.LegendForm.LINE
+        l.typeface = Typeface.createFromAsset(context?.getAssets(), "fonts/poppins_regular.ttf")
+        l.textSize = 11f
+        l.textColor = Color.BLACK
+        l.verticalAlignment = Legend.LegendVerticalAlignment.BOTTOM
+        l.horizontalAlignment = Legend.LegendHorizontalAlignment.LEFT
+        l.orientation = Legend.LegendOrientation.HORIZONTAL
+        l.setDrawInside(false)
+        l.yOffset = 10f
+        l.xOffset = 10f
+
+        val xAxis = chart!!.xAxis
+        xAxis.typeface = Typeface.createFromAsset(context?.getAssets(), "fonts/poppins_regular.ttf")
+        xAxis.textSize = 8f
+        xAxis.textColor = Color.BLACK
+        xAxis.yOffset = -3f
+        xAxis.xOffset = 20f
+        xAxis.setDrawGridLines(false)
+        xAxis.setDrawAxisLine(false)
+        xAxis.granularity = range
+        xAxis.labelCount = 6
+        xAxis.setAvoidFirstLastClipping(true)
+        xAxis.valueFormatter = object : ValueFormatter() {
+            override fun getFormattedValue(value: Float): String {
+                value.toString().log()
+                return floatToStringDate(value,map)
+            }
+        }
+
+        val leftAxis = chart!!.axisLeft
+        leftAxis.typeface = Typeface.createFromAsset(
+            context?.getAssets(),
+            "fonts/poppins_regular.ttf"
+        )
+        leftAxis.textColor = ColorTemplate.getHoloBlue()
+        leftAxis.axisMaximum = 1100f
+        leftAxis.axisMinimum = 1f
+        leftAxis.textSize = 10f
+        leftAxis.needsOffset()
+        leftAxis.setDrawGridLines(true)
+        leftAxis.isGranularityEnabled = true
+
+        val rightAxis = chart!!.axisRight
+        rightAxis.typeface = Typeface.createFromAsset(
+            context?.getAssets(),
+            "fonts/poppins_regular.ttf"
+        )
+        rightAxis.textColor = ColorTemplate.getHoloBlue()
+        rightAxis.axisMaximum = 1100f
+        rightAxis.axisMinimum = 1f
+        rightAxis.textSize = 10f
+        rightAxis.needsOffset()
+        rightAxis.setDrawGridLines(true)
+        rightAxis.isGranularityEnabled = true
+    }
+
+    fun setChartData(listWeight: ResponseAddWeight?, listBS: ResponseAddBloodSugar?, listBP: ResponseAddBloodPressure?, chart : LineChart, map : HashMap<Float, String>, graphType : Int) {
+
+        var lable1 = ""
+        var lable2 = ""
+
+        if (chart.data != null && chart.data.dataSetCount > 0)
+            chart.clear()
+
+        val values1 = ArrayList<Entry>()
+        val values2 = ArrayList<Entry>()
+
+        when(graphType){
+                WEIGHT -> {
+                    if(listWeight?.isEmpty()?:true){
+                        values1.add(Entry(0.0f, 0.0f))
+                        values2.add(Entry(0.0f, 0.0f))
+                    }else{
+                        var i = range
+                        lable1 = "Weight (KG)"
+                        lable2 = "Height (CM)"
+
+                        listWeight?.forEach {
+                            if(!it.created_at.isEmptyy() && !it.weight.isEmptyy() &&  !it.height.isEmptyy()){
+                                i += range
+                                map.put(i, it.created_at.changeTimeFormat("yyyy-MM-dd", "dd MMM")!!)
+                                values1.add(Entry(i, it.weight.toFloat()))
+                                values2.add(Entry(i, it.height.toFloat()))
+                            }
+                        }
+                    }
+
+                }
+
+                BLOOD_SUGAR -> {
+
+                    if(listBS?.isEmpty()?:true){
+                        values1.add(Entry(0.0f, 0.0f))
+                        values2.add(Entry(0.0f, 0.0f))
+                    }else{
+                        var i = range
+                        lable1 = "Fasting (mmol/L)"
+                        lable2 = "Post fasting (mmol/L)"
+
+                        listBS?.forEach {
+                            if(!it.created_at.isEmptyy() && !it.blood_sugar_fasting.isEmptyy() &&  !it.blood_sugar_postprandial.isEmptyy()){
+                                i += range
+                                map.put(i, it.created_at.changeTimeFormat("yyyy-MM-dd", "dd MMM")!!)
+                                values1.add(Entry(i, it.blood_sugar_fasting.toFloat()))
+                                values2.add(Entry(i, it.blood_sugar_postprandial.toFloat()))
+                            }
+                        }
+                    }
+
+                }
+
+                BLOOD_PRESSURE -> {
+
+                    if(listBP?.isEmpty()?:true){
+                        values1.add(Entry(0.0f, 0.0f))
+                        values2.add(Entry(0.0f, 0.0f))
+                    }else{
+                        var i = range
+                        lable1 = "Diastolic (mmHg)"
+                        lable2 = "Systolic (mmHg)"
+
+                        listBP?.forEach {
+                            if(!it.created_at.isEmptyy() && !it.blood_pressure_diastolic.isEmptyy() &&  !it.blood_pressure_systolic.isEmptyy()){
+                                i += range
+                                map.put(i, it.created_at.changeTimeFormat("yyyy-MM-dd", "dd MMM")!!)
+                                values1.add(Entry(i, it.blood_pressure_diastolic.toFloat()))
+                                values2.add(Entry(i, it.blood_pressure_systolic.toFloat()))
+                            }
+                        }
+                    }
+
+                }
+
+            }
+
+        val set1: LineDataSet
+        val set2: LineDataSet
+
+        // create a dataset and give it a type
+        set1 = LineDataSet(values1, lable1)
+        set1.axisDependency = YAxis.AxisDependency.LEFT
+        set1.color = ColorTemplate.getHoloBlue()
+        set1.setCircleColor(Color.BLACK)
+        set1.lineWidth = 2f
+        set1.circleRadius = 3f
+        set1.fillAlpha = 65
+        set1.fillColor = ColorTemplate.getHoloBlue()
+        set1.highLightColor = Color.rgb(244, 117, 117)
+        set1.setDrawCircleHole(false)
+        // create a dataset and give it a type
+        set2 = LineDataSet(values2, lable2)
+        set2.axisDependency = YAxis.AxisDependency.RIGHT
+        set2.color = Color.RED
+        set2.setCircleColor(Color.BLACK)
+        set2.lineWidth = 2f
+        set2.circleRadius = 3f
+        set2.fillAlpha = 65
+        set2.fillColor = Color.RED
+        set2.setDrawCircleHole(false)
+        set2.highLightColor = Color.rgb(244, 117, 117)
+
+        // create a data object with the data sets
+        val data = LineData(set1, set2/*, set3*/)
+        data.setValueTextColor(Color.BLACK)
+        data.setValueTextSize(9f)
+
+        // set data
+        chart.setData(data)
+        touchGraph(1000,chart)
+        touchGraph(2000,chart)
+        touchGraph(3000,chart)
+    }
+
+    private fun touchGraph(time: Long, chart: LineChart) {
+        GlobalScope.launch(Dispatchers.Main) {
+            delay(time)
+            chart.touch()
+        }
+    }
+
+    fun handleTouch(chart: LineChart, nestedScrollView: NestedScrollView) {
+
+        chart.setOnTouchListener(View.OnTouchListener { v, event ->
+            val action = event.action
+            when (action) {
+                MotionEvent.ACTION_DOWN -> {
+                    // Disallow ScrollView to intercept touch events.
+                    nestedScrollView.requestDisallowInterceptTouchEvent(true)
+                }
+                MotionEvent.ACTION_UP -> {
+                    // Allow ScrollView to intercept touch events.
+                    nestedScrollView.requestDisallowInterceptTouchEvent(false)
+                }
+                /* MotionEvent.ACTION_MOVE -> {
+                    mBinding.scrollview.requestDisallowInterceptTouchEvent(true)
+                }*/
+            }
+
+            false
+        })
     }
 
 }

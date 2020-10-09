@@ -9,9 +9,6 @@
             name="viewModel"
             type="com.raykellyfitness.ui.health.bloodsugar.add_bloodsugar.AddBloodSugarViewModel" />
 
-        <variable
-            name="clickHandler"
-            type="com.raykellyfitness.ui.health.bloodsugar.add_bloodsugar.AddBloodSugarFragment.ClickHandler" />
 
     </data>
 

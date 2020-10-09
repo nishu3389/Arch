@@ -60,7 +60,6 @@ class AddBloodPressureFragment : BaseFragment(), OnChartValueSelectedListener {
         savedInstanceState: Bundle?
     ): View? {
         mBinding = FragmentAddBloodPressureBinding.inflate(inflater, container, false).apply {
-            clickHandler = ClickHandler()
             viewModel = mViewModel
 
         }
@@ -74,7 +73,7 @@ class AddBloodPressureFragment : BaseFragment(), OnChartValueSelectedListener {
         (activity as HomeActivity).showLogo(true)
         (activity as HomeActivity).setTitle("")
         manageClicks()
-        handleTouch()
+        (this.parentFragment as HealthFragment).handleTouch(mBinding.chart1, mBinding.scrollview)
         setupChart()
         (this.parentFragment as HealthFragment).listBloodPressure.observe(
             viewLifecycleOwner,
@@ -100,178 +99,17 @@ class AddBloodPressureFragment : BaseFragment(), OnChartValueSelectedListener {
 
 
 
-    fun handleTouch(){
-
-        mBinding.chart1.setOnTouchListener(View.OnTouchListener { v, event ->
-            val action = event.action
-            when (action) {
-                MotionEvent.ACTION_DOWN -> {
-                    // Disallow ScrollView to intercept touch events.
-                    mBinding.scrollview.requestDisallowInterceptTouchEvent(true)
-                }
-                MotionEvent.ACTION_UP -> {
-                    // Allow ScrollView to intercept touch events.
-                    mBinding.scrollview.requestDisallowInterceptTouchEvent(false)
-                }
-                /* MotionEvent.ACTION_MOVE -> {
-                    mBinding.scrollview.requestDisallowInterceptTouchEvent(true)
-                }*/
-            }
-
-            false
-        })
-    }
-
-    fun floatToStringDate(date: Float): String {
-        val get = map?.get(date)
-        return get?:""
-    }
 
     fun setupChart() {
+        (this.parentFragment as HealthFragment).setupChart(mBinding.chart1, map)
         chart = mBinding.chart1
         chart!!.setOnChartValueSelectedListener(this)
-
-        chart!!.description.isEnabled = false
-        chart!!.setTouchEnabled(true)
-        chart!!.dragDecelerationFrictionCoef = 0.9f
-        chart!!.isDragEnabled = true
-        chart!!.setScaleEnabled(true)
-        chart!!.setDrawGridBackground(true)
-        chart!!.isHighlightPerDragEnabled = true
-        chart!!.setPinchZoom(false)
-        chart!!.setBackgroundColor(Color.WHITE)
-        chart!!.animateX(1500)
-        val l = chart!!.legend
-
-        // modify the legend ...
-        l.form = Legend.LegendForm.LINE
-        l.typeface = Typeface.createFromAsset(context?.getAssets(), "fonts/poppins_regular.ttf")
-        l.textSize = 11f
-        l.textColor = Color.BLACK
-        l.verticalAlignment = Legend.LegendVerticalAlignment.BOTTOM
-        l.horizontalAlignment = Legend.LegendHorizontalAlignment.LEFT
-        l.orientation = Legend.LegendOrientation.HORIZONTAL
-        l.setDrawInside(false)
-        l.yOffset = 10f
-        l.xOffset = 10f
-
-        val xAxis = chart!!.xAxis
-        xAxis.typeface = Typeface.createFromAsset(context?.getAssets(), "fonts/poppins_regular.ttf")
-        xAxis.textSize = 8f
-        xAxis.textColor = Color.BLACK
-        xAxis.yOffset = -3f
-        xAxis.xOffset = 20f
-        xAxis.setDrawGridLines(false)
-        xAxis.setDrawAxisLine(false)
-        xAxis.granularity = range
-        xAxis.labelCount = 6
-        xAxis.setAvoidFirstLastClipping(true)
-        xAxis.valueFormatter = object : ValueFormatter() {
-            override fun getFormattedValue(value: Float): String {
-                value.toString().log()
-                return floatToStringDate(value)
-            }
-        }
-
-        val leftAxis = chart!!.axisLeft
-        leftAxis.typeface = Typeface.createFromAsset(
-            context?.getAssets(),
-            "fonts/poppins_regular.ttf"
-        )
-        leftAxis.textColor = ColorTemplate.getHoloBlue()
-        leftAxis.axisMaximum = 1100f
-        leftAxis.axisMinimum = 1f
-        leftAxis.textSize = 10f
-        leftAxis.needsOffset()
-        leftAxis.setDrawGridLines(true)
-        leftAxis.isGranularityEnabled = true
-
-        val rightAxis = chart!!.axisRight
-        rightAxis.typeface = Typeface.createFromAsset(
-            context?.getAssets(),
-            "fonts/poppins_regular.ttf"
-        )
-        rightAxis.textColor = ColorTemplate.getHoloBlue()
-        rightAxis.axisMaximum = 1100f
-        rightAxis.axisMinimum = 1f
-        rightAxis.textSize = 10f
-        rightAxis.needsOffset()
-        rightAxis.setDrawGridLines(true)
-        rightAxis.isGranularityEnabled = true
     }
 
     private fun setChartData(list: ResponseAddBloodPressure?) {
-
-        if (mBinding.chart1.data != null && mBinding.chart1.data.dataSetCount > 0)
-            mBinding.chart1.clear()
-
-        val values1 = ArrayList<Entry>()
-        val values2 = ArrayList<Entry>()
-
-        if(list?.isEmpty()?:true){
-            values1.add(Entry(0.0f, 0.0f))
-            values2.add(Entry(0.0f, 0.0f))
-        }else{
-            var i = range
-            list?.forEach {
-                if(!it.created_at.isEmptyy() && !it.blood_pressure_diastolic.isEmptyy() &&  !it.blood_pressure_systolic.isEmptyy()){
-                    i += range
-                    map.put(i,it.created_at.changeTimeFormat("yyyy-MM-dd","dd MMM")!!)
-                    values1.add(Entry(i, it.blood_pressure_diastolic.toFloat()))
-                    values2.add(Entry(i, it.blood_pressure_systolic.toFloat()))
-                }
-            }
-        }
-
-
-
-
-        val set1: LineDataSet
-        val set2: LineDataSet
-        val set3: LineDataSet
-
-        // create a dataset and give it a type
-        set1 = LineDataSet(values1, "Diastolic (mmHg)")
-        set1.axisDependency = YAxis.AxisDependency.LEFT
-        set1.color = ColorTemplate.getHoloBlue()
-        set1.setCircleColor(Color.BLACK)
-        set1.lineWidth = 2f
-        set1.circleRadius = 3f
-        set1.fillAlpha = 65
-        set1.fillColor = ColorTemplate.getHoloBlue()
-        set1.highLightColor = Color.rgb(244, 117, 117)
-        set1.setDrawCircleHole(false)
-
-        // create a dataset and give it a type
-        set2 = LineDataSet(values2, "Systolic (mmHg)")
-        set2.axisDependency = YAxis.AxisDependency.RIGHT
-        set2.color = Color.RED
-        set2.setCircleColor(Color.BLACK)
-        set2.lineWidth = 2f
-        set2.circleRadius = 3f
-        set2.fillAlpha = 65
-        set2.fillColor = Color.RED
-        set2.setDrawCircleHole(false)
-        set2.highLightColor = Color.rgb(244, 117, 117)
-
-        val data = LineData(set1, set2/*, set3*/)
-        data.setValueTextColor(Color.BLACK)
-        data.setValueTextSize(9f)
-
-        // set data
-        mBinding.chart1.setData(data)
-
-        touchGraph(1000)
-        touchGraph(2000)
-        touchGraph(3000)
+        (this.parentFragment as HealthFragment).setChartData(null, null,list, mBinding.chart1, map, (this.parentFragment as HealthFragment).BLOOD_PRESSURE)
     }
 
-    private fun touchGraph(time: Long) {
-        GlobalScope.launch(Dispatchers.Main) {
-            delay(time)
-            mBinding.chart1.touch()
-        }
-    }
 
     private fun setupViewModel() {
         mViewModel =
@@ -279,30 +117,6 @@ class AddBloodPressureFragment : BaseFragment(), OnChartValueSelectedListener {
                 .get(AddBloodPressureViewModel::class.java)
     }
 
-    inner class ClickHandler : IPermissionGranted {
-
-
-        override fun permissionGranted(requestCode: Int) {
-            when (requestCode) {
-
-                DeviceRuntimePermission.REQUEST_PERMISSION_ACCESS_COARSE__FINE_LOCATION_CAMERA -> {
-                    findNavController().navigate(R.id.ScanQRCodeFragment)
-                }
-            }
-        }
-
-        override fun permissionDenied(requestCode: Int) {
-            when (requestCode) {
-
-                DeviceRuntimePermission.REQUEST_PERMISSION_ACCESS_COARSE__FINE_LOCATION_CAMERA -> (activity as BaseActivity).checkAndAskPermission(
-                    DeviceRuntimePermission(
-                        DeviceRuntimePermission.REQUEST_PERMISSION_ACCESS_COARSE__FINE_LOCATION_CAMERA,
-                        null
-                    )
-                )
-            }
-        }
-    }
 
     override fun onValueSelected(e: Entry?, h: Highlight?) {
         mBinding.chart1.centerViewToAnimated(
