@@ -15,26 +15,28 @@
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.core.widget.NestedScrollView
-            android:fillViewport="true"
+        <LinearLayout
             android:id="@+id/mainLayout"
+            android:orientation="vertical"
+            android:background="@color/appDark"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:background="@color/appDark"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <com.raykellyfitness.views.RoundedView
                     android:id="@+id/cl_top"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_230sdp"
-                    app:layout_constraintHeight_percent=".45"
+                    app:layout_constraintDimensionRatio="1:0.85"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
                     app:bottomLeftCornerRadius="@dimen/_25sdp"
                     app:bottomRightCornerRadius="@dimen/_25sdp"
                     app:layout_constraintTop_toTopOf="parent">
@@ -71,67 +73,77 @@
 
                 </com.raykellyfitness.views.RoundedView>
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:padding="@dimen/_15sdp"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:layout_width="match_parent"
-                    app:layout_constraintTop_toBottomOf="@id/cl_top"
-                    android:layout_height="wrap_content">
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    <com.raykellyfitness.views.CommonTextViewSemiBold
-                        android:id="@+id/tv_week"
-                        tools:text="Week 01"
-                        android:text="@{viewModel.type}"
-                        android:textColor="@color/offwhite"
-                        android:textSize="@dimen/_13sdp"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:padding="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_width="match_parent"
+                app:layout_constraintVertical_weight="1"
+                app:layout_constraintTop_toBottomOf="@id/cl_top"
+                android:layout_height="wrap_content">
 
-                    <com.raykellyfitness.views.CommonTextView
-                        android:id="@+id/tv_date"
-                        android:textColor="@color/offwhite"
-                        android:textSize="@dimen/_10sdp"
-                        tools:text="Sunday 13 sep. 2020"
-                        android:layout_marginTop="@dimen/_1sdp"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                <com.raykellyfitness.views.CommonTextViewSemiBold
+                    android:id="@+id/tv_week"
+                    tools:text="Week 01"
+                    android:text="@{viewModel.type}"
+                    android:textColor="@color/offwhite"
+                    android:textSize="@dimen/_13sdp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
 
-                    <com.raykellyfitness.views.CommonTextViewSemiBold
-                        android:id="@+id/tv_title"
-                        tools:text="Pumpkin Soup"
-                        android:text="@{viewModel.model.title}"
-                        android:textColor="@color/offwhite"
-                        android:textSize="@dimen/_13sdp"
-                        android:layout_marginTop="@dimen/_20sdp"
-                        app:layout_constraintTop_toBottomOf="@id/tv_week"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                <com.raykellyfitness.views.CommonTextView
+                    android:id="@+id/tv_date"
+                    android:textColor="@color/offwhite"
+                    android:textSize="@dimen/_10sdp"
+                    tools:text="Sunday 13 sep. 2020"
+                    android:layout_marginTop="@dimen/_1sdp"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
 
-                    <org.sufficientlysecure.htmltextview.HtmlTextView
-                        android:id="@+id/tv_desc"
-                        tools:text="@string/lorem_large"
-                        android:textColor="@color/offwhite"
-                        android:textSize="@dimen/_11sdp"
-                        android:layout_marginTop="@dimen/_20sdp"
-                        android:autoLink="all"
-                        android:textColorLink="@color/off_white"
-                        android:fontFamily="@font/poppins_regular"
-                        app:layout_constraintTop_toBottomOf="@id/tv_title"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                <com.raykellyfitness.views.CommonTextViewSemiBold
+                    android:id="@+id/tv_title"
+                    tools:text="Pumpkin Soup"
+                    android:text="@{viewModel.model.title}"
+                    android:textColor="@color/offwhite"
+                    android:textSize="@dimen/_13sdp"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    app:layout_constraintTop_toBottomOf="@id/tv_week"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </androidx.core.widget.NestedScrollView>
+            <androidx.core.widget.NestedScrollView
+                android:fillViewport="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <org.sufficientlysecure.htmltextview.HtmlTextView
+                    android:id="@+id/tv_desc"
+                    tools:text="@string/lorem_large"
+                    android:textColor="@color/offwhite"
+                    android:textSize="@dimen/_11sdp"
+                    android:paddingLeft="@dimen/_15sdp"
+                    android:paddingRight="@dimen/_15sdp"
+                    android:autoLink="all"
+                    android:textColorLink="@color/off_white"
+                    android:fontFamily="@font/poppins_regular"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </androidx.core.widget.NestedScrollView>
+
+        </LinearLayout>
 
         <ImageView
             android:onClick="@{()-> clickHandler.back()}"
@@ -143,7 +155,7 @@
             android:layout_width="@dimen/_40sdp"
             android:layout_height="@dimen/_40sdp"></ImageView>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </RelativeLayout>
 
 
 </layout>

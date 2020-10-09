@@ -54,7 +54,7 @@
 
         <com.raykellyfitness.views.CommonTextViewMedium
             android:id="@+id/tv_weight"
-            android:text="@{model.blood_sugar_fasting+` mg/dl`}"
+            android:text="@{model.blood_sugar_fasting+` mmol/L`}"
             tool:text="85"
             android:textSize="@dimen/_11sdp"
             android:textColor="@color/white"
@@ -66,7 +66,7 @@
 
         <com.raykellyfitness.views.CommonTextViewMedium
             android:id="@+id/tv_height"
-            android:text="@{model.blood_sugar_postprandial+` mg/dl`}"
+            android:text="@{model.blood_sugar_postprandial+` mmol/L`}"
             android:textColor="@color/white"
             android:textSize="@dimen/_11sdp"
             tool:text="175"

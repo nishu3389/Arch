@@ -41,6 +41,7 @@ import java.util.concurrent.TimeUnit
 
 class AddBloodPressureFragment : BaseFragment(), OnChartValueSelectedListener {
 
+    var map = HashMap<Float,String>()
     private var chart: LineChart? = null
     lateinit var dialog: AlertDialog
     lateinit var mViewModel: AddBloodPressureViewModel
@@ -119,7 +120,13 @@ class AddBloodPressureFragment : BaseFragment(), OnChartValueSelectedListener {
             false
         })
     }
-    fun setupChart(/*min: ResponseAddBloodPressureItem?, max: ResponseAddBloodPressureItem?*/) {
+
+    fun floatToStringDate(date: Float): String {
+        val get = map?.get(date)
+        return get?:""
+    }
+
+    fun setupChart() {
         chart = mBinding.chart1
         chart!!.setOnChartValueSelectedListener(this)
 
@@ -128,7 +135,7 @@ class AddBloodPressureFragment : BaseFragment(), OnChartValueSelectedListener {
         chart!!.dragDecelerationFrictionCoef = 0.9f
         chart!!.isDragEnabled = true
         chart!!.setScaleEnabled(true)
-        chart!!.setDrawGridBackground(false)
+        chart!!.setDrawGridBackground(true)
         chart!!.isHighlightPerDragEnabled = true
         chart!!.setPinchZoom(false)
         chart!!.setBackgroundColor(Color.WHITE)
@@ -149,35 +156,39 @@ class AddBloodPressureFragment : BaseFragment(), OnChartValueSelectedListener {
 
         val xAxis = chart!!.xAxis
         xAxis.typeface = Typeface.createFromAsset(context?.getAssets(), "fonts/poppins_regular.ttf")
-        xAxis.textSize = 10f
+        xAxis.textSize = 8f
         xAxis.textColor = Color.BLACK
         xAxis.yOffset = -3f
         xAxis.xOffset = 20f
         xAxis.setDrawGridLines(false)
         xAxis.setDrawAxisLine(false)
+        xAxis.granularity = 100.0f
         xAxis.valueFormatter = object : ValueFormatter() {
-            private val mFormat = SimpleDateFormat("dd MMM", Locale.ENGLISH)
             override fun getFormattedValue(value: Float): String {
-                val millis = TimeUnit.HOURS.toMillis(value.toLong())
-                return mFormat.format(Date(millis))
+                value.toString().log()
+                return floatToStringDate(value)
             }
         }
 
         val leftAxis = chart!!.axisLeft
-        leftAxis.typeface =
-            Typeface.createFromAsset(context?.getAssets(), "fonts/poppins_regular.ttf")
+        leftAxis.typeface = Typeface.createFromAsset(
+            context?.getAssets(),
+            "fonts/poppins_regular.ttf"
+        )
         leftAxis.textColor = ColorTemplate.getHoloBlue()
-        leftAxis.axisMaximum = 200f
+        leftAxis.axisMaximum = 350f
         leftAxis.axisMinimum = 10f
         leftAxis.needsOffset()
         leftAxis.setDrawGridLines(true)
         leftAxis.isGranularityEnabled = true
 
         val rightAxis = chart!!.axisRight
-        rightAxis.typeface =
-            Typeface.createFromAsset(context?.getAssets(), "fonts/poppins_regular.ttf")
+        rightAxis.typeface = Typeface.createFromAsset(
+            context?.getAssets(),
+            "fonts/poppins_regular.ttf"
+        )
         rightAxis.textColor = ColorTemplate.getHoloBlue()
-        rightAxis.axisMaximum = 200f
+        rightAxis.axisMaximum = 350f
         rightAxis.axisMinimum = 10f
         rightAxis.needsOffset()
         rightAxis.setDrawGridLines(true)
@@ -192,23 +203,23 @@ class AddBloodPressureFragment : BaseFragment(), OnChartValueSelectedListener {
         val values1 = ArrayList<Entry>()
         val values2 = ArrayList<Entry>()
 
-//        val minBy1 = list?.minBy { it.blood_pressure_systolic }
-//        val maxBy1 = list?.maxBy { it.blood_pressure_systolic }
-//        val minBy2 = list?.minBy { it.blood_pressure_diastolic }
-//        val maxBy2 = list?.maxBy { it.blood_pressure_diastolic }
-//
-//        var min = if(minBy1<minBy2) minBy1 else minBy2
-//        var max = if(maxBy1<maxBy2) maxBy1 else maxBy2
-//
-//        setupChart(min, max)
-
-
-        list?.forEach {
-            val longDate = it.created_at.changeToLongDate()
-            val now = TimeUnit.MILLISECONDS.toHours(longDate)
-            values1.add(Entry(now.toFloat(), it.blood_pressure_diastolic.toFloat()))
-            values2.add(Entry(now.toFloat(), it.blood_pressure_systolic.toFloat()))
+        if(list?.isEmpty()?:true){
+            values1.add(Entry(0.0f, 0.0f))
+            values2.add(Entry(0.0f, 0.0f))
+        }else{
+            var i = 100.0f
+            list?.forEach {
+                if(!it.created_at.isEmptyy() && !it.blood_pressure_diastolic.isEmptyy() &&  !it.blood_pressure_systolic.isEmptyy()){
+                    i += 100
+                    map.put(i,it.created_at.changeTimeFormat("yyyy-MM-dd","dd MMM")!!)
+                    values1.add(Entry(i, it.blood_pressure_diastolic.toFloat()))
+                    values2.add(Entry(i, it.blood_pressure_systolic.toFloat()))
+                }
+            }
         }
+
+
+
 
         val set1: LineDataSet
         val set2: LineDataSet
@@ -260,12 +271,18 @@ class AddBloodPressureFragment : BaseFragment(), OnChartValueSelectedListener {
 
         // set data
         mBinding.chart1.setData(data)
+
+        touchGraph(1000)
+        touchGraph(2000)
+        touchGraph(3000)
+    }
+
+    private fun touchGraph(time: Long) {
         GlobalScope.launch(Dispatchers.Main) {
-            delay(1000)
+            delay(time)
             mBinding.chart1.touch()
         }
     }
-
 
     private fun setupViewModel() {
         mViewModel =

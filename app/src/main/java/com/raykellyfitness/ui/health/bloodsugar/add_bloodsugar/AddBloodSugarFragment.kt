@@ -42,6 +42,7 @@ import java.util.concurrent.TimeUnit
 
 class AddBloodSugarFragment : BaseFragment(), OnChartValueSelectedListener {
 
+    var map = HashMap<Float,String>()
     private var chart: LineChart? = null
     lateinit var dialog : AlertDialog
     lateinit var mViewModel: AddBloodSugarViewModel
@@ -114,7 +115,13 @@ class AddBloodSugarFragment : BaseFragment(), OnChartValueSelectedListener {
             false
         })
     }
-    fun setupChart(){
+
+    fun floatToStringDate(date: Float): String {
+        val get = map?.get(date)
+        return get?:""
+    }
+
+    fun setupChart() {
         chart = mBinding.chart1
         chart!!.setOnChartValueSelectedListener(this)
 
@@ -123,7 +130,7 @@ class AddBloodSugarFragment : BaseFragment(), OnChartValueSelectedListener {
         chart!!.dragDecelerationFrictionCoef = 0.9f
         chart!!.isDragEnabled = true
         chart!!.setScaleEnabled(true)
-        chart!!.setDrawGridBackground(false)
+        chart!!.setDrawGridBackground(true)
         chart!!.isHighlightPerDragEnabled = true
         chart!!.setPinchZoom(false)
         chart!!.setBackgroundColor(Color.WHITE)
@@ -144,38 +151,45 @@ class AddBloodSugarFragment : BaseFragment(), OnChartValueSelectedListener {
 
         val xAxis = chart!!.xAxis
         xAxis.typeface = Typeface.createFromAsset(context?.getAssets(), "fonts/poppins_regular.ttf")
-        xAxis.textSize = 10f
+        xAxis.textSize = 8f
         xAxis.textColor = Color.BLACK
         xAxis.yOffset = -3f
         xAxis.xOffset = 20f
         xAxis.setDrawGridLines(false)
         xAxis.setDrawAxisLine(false)
+        xAxis.granularity = 100.0f
         xAxis.valueFormatter = object : ValueFormatter() {
-            private val mFormat = SimpleDateFormat("dd MMM", Locale.ENGLISH)
             override fun getFormattedValue(value: Float): String {
-                val millis = TimeUnit.HOURS.toMillis(value.toLong())
-                return mFormat.format(Date(millis))
+                value.toString().log()
+                return floatToStringDate(value)
             }
         }
 
         val leftAxis = chart!!.axisLeft
-        leftAxis.typeface = Typeface.createFromAsset(context?.getAssets(), "fonts/poppins_regular.ttf")
+        leftAxis.typeface = Typeface.createFromAsset(
+            context?.getAssets(),
+            "fonts/poppins_regular.ttf"
+        )
         leftAxis.textColor = ColorTemplate.getHoloBlue()
-        leftAxis.axisMaximum = 200f
+        leftAxis.axisMaximum = 350f
         leftAxis.axisMinimum = 10f
         leftAxis.needsOffset()
         leftAxis.setDrawGridLines(true)
         leftAxis.isGranularityEnabled = true
 
         val rightAxis = chart!!.axisRight
-        rightAxis.typeface = Typeface.createFromAsset(context?.getAssets(), "fonts/poppins_regular.ttf")
+        rightAxis.typeface = Typeface.createFromAsset(
+            context?.getAssets(),
+            "fonts/poppins_regular.ttf"
+        )
         rightAxis.textColor = ColorTemplate.getHoloBlue()
-        rightAxis.axisMaximum = 200f
+        rightAxis.axisMaximum = 350f
         rightAxis.axisMinimum = 10f
         rightAxis.needsOffset()
         rightAxis.setDrawGridLines(true)
         rightAxis.isGranularityEnabled = true
     }
+
     private fun setChartData(listWeight: ResponseAddBloodSugar?) {
 
         if (mBinding.chart1.data != null && mBinding.chart1.data.dataSetCount > 0)
@@ -184,19 +198,29 @@ class AddBloodSugarFragment : BaseFragment(), OnChartValueSelectedListener {
         val values1 = ArrayList<Entry>()
         val values2 = ArrayList<Entry>()
 
-        listWeight?.forEach {
-            val longDate = it.created_at.changeToLongDate()
-            val now = TimeUnit.MILLISECONDS.toHours(longDate)
-            values1.add(Entry(now.toFloat(), it.blood_sugar_fasting.toFloat()))
-            values2.add(Entry(now.toFloat(), it.blood_sugar_postprandial.toFloat()))
+        if(listWeight?.isEmpty()?:true){
+            values1.add(Entry(0.0f, 0.0f))
+            values2.add(Entry(0.0f, 0.0f))
+        }else{
+            var i = 100.0f
+            listWeight?.forEach {
+                if(!it.created_at.isEmptyy() && !it.blood_sugar_fasting.isEmptyy() &&  !it.blood_sugar_postprandial.isEmptyy()){
+                    i += 100
+                    map.put(i,it.created_at.changeTimeFormat("yyyy-MM-dd","dd MMM")!!)
+                    values1.add(Entry(i, it.blood_sugar_fasting.toFloat()))
+                    values2.add(Entry(i, it.blood_sugar_postprandial.toFloat()))
+                }
+            }
         }
+
+
 
         val set1: LineDataSet
         val set2: LineDataSet
         val set3: LineDataSet
 
         // create a dataset and give it a type
-        set1 = LineDataSet(values1, "Fasting (mg/dl)")
+        set1 = LineDataSet(values1, "Fasting (mmol/L)")
         set1.axisDependency = YAxis.AxisDependency.LEFT
         set1.color = ColorTemplate.getHoloBlue()
         set1.setCircleColor(Color.BLACK)
@@ -212,7 +236,7 @@ class AddBloodSugarFragment : BaseFragment(), OnChartValueSelectedListener {
         //set1.setCircleHoleColor(Color.BLACK);
 
         // create a dataset and give it a type
-        set2 = LineDataSet(values2, "Postprandial (mg/dl)")
+        set2 = LineDataSet(values2, "Post fasting (mmol/L)")
         set2.axisDependency = YAxis.AxisDependency.RIGHT
         set2.color = Color.RED
         set2.setCircleColor(Color.BLACK)
@@ -222,31 +246,24 @@ class AddBloodSugarFragment : BaseFragment(), OnChartValueSelectedListener {
         set2.fillColor = Color.RED
         set2.setDrawCircleHole(false)
         set2.highLightColor = Color.rgb(244, 117, 117)
-        //set2.setFillFormatter(new MyFillFormatter(900f));
-        /*set3 = LineDataSet(values3, "DataSet 3")
-       set3.axisDependency = AxisDependency.RIGHT
-       set3.color = Color.YELLOW
-       set3.setCircleColor(Color.BLACK)
-       set3.lineWidth = 2f
-       set3.circleRadius = 3f
-       set3.fillAlpha = 65
-       set3.fillColor = ColorTemplate.colorWithAlpha(Color.YELLOW, 200)
-       set3.setDrawCircleHole(false)
-       set3.highLightColor = Color.rgb(244, 117, 117)
-*/
-        // create a data object with the data sets
         val data = LineData(set1, set2/*, set3*/)
         data.setValueTextColor(Color.BLACK)
         data.setValueTextSize(9f)
 
         // set data
         mBinding.chart1.setData(data)
+
+        touchGraph(1000)
+        touchGraph(2000)
+        touchGraph(3000)
+    }
+
+    private fun touchGraph(time: Long) {
         GlobalScope.launch(Dispatchers.Main) {
-            delay(1000)
+            delay(time)
             mBinding.chart1.touch()
         }
     }
-
 
     private fun setupViewModel() {
         mViewModel = ViewModelProviders.of(this, MyViewModelProvider(commonCallbacks as AsyncViewController)).get(AddBloodSugarViewModel::class.java)

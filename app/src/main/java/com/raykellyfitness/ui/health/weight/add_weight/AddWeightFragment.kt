@@ -40,7 +40,7 @@ import java.util.concurrent.TimeUnit
 
 class AddWeightFragment : BaseFragment(), OnChartValueSelectedListener {
 
-    var map = HashMap<Float,String>()
+    var map = HashMap<Float, String>()
     private var chart: LineChart? = null
     lateinit var dialog: AlertDialog
     lateinit var mViewModel: AddWeightViewModel
@@ -83,19 +83,10 @@ class AddWeightFragment : BaseFragment(), OnChartValueSelectedListener {
     }
 
     fun floatToStringDate(date: Float): String {
-//        val mFormat = SimpleDateFormat("dd MMM hh:mm:ss", Locale.getDefault())
-//        val millis = TimeUnit.MINUTES.toMillis(date.toLong())
-//        val dateString = mFormat.format(Date(millis))
-//        val trim = dateString.substring(0, 6).trim()
         val get = map?.get(date)
-        return get?:""
+        return get ?: ""
     }
 
-    fun stringToFloatDate(date: String): Float {
-        val longDate = date.plus(" 06:00:00").changeToLongDate()
-        val now = TimeUnit.MILLISECONDS.toMinutes(longDate)
-        return now.toFloat()
-    }
 
     fun setupChart() {
         chart = mBinding.chart1
@@ -127,7 +118,7 @@ class AddWeightFragment : BaseFragment(), OnChartValueSelectedListener {
 
         val xAxis = chart!!.xAxis
         xAxis.typeface = Typeface.createFromAsset(context?.getAssets(), "fonts/poppins_regular.ttf")
-        xAxis.textSize = 10f
+        xAxis.textSize = 8f
         xAxis.textColor = Color.BLACK
         xAxis.yOffset = -3f
         xAxis.xOffset = 20f
@@ -166,7 +157,7 @@ class AddWeightFragment : BaseFragment(), OnChartValueSelectedListener {
         rightAxis.isGranularityEnabled = true
     }
 
-        private fun setChartData(listWeight: ResponseAddWeight?) {
+    private fun setChartData(listWeight: ResponseAddWeight?) {
 
         if (mBinding.chart1.data != null && mBinding.chart1.data.dataSetCount > 0)
             mBinding.chart1.clear()
@@ -174,18 +165,24 @@ class AddWeightFragment : BaseFragment(), OnChartValueSelectedListener {
         val values1 = ArrayList<Entry>()
         val values2 = ArrayList<Entry>()
 
-        var i = 100.0f
-        listWeight?.forEach {
-             i += 100
-            map.put(i,it.created_at.changeTimeFormat("yyyy-MM-dd","dd MMM")!!)
-//            val date = stringToFloatDate(it.created_at)
-            values1.add(Entry(i, it.weight.toFloat()))
-            values2.add(Entry(i, it.height.toFloat()))
+
+        if(listWeight?.isEmpty()?:true){
+            values1.add(Entry(0.0f, 0.0f))
+            values2.add(Entry(0.0f, 0.0f))
+        }else{
+            var i = 100.0f
+            listWeight?.forEach {
+                if(!it.created_at.isEmptyy() && !it.weight.isEmptyy() &&  !it.height.isEmptyy()){
+                    i += 100
+                    map.put(i, it.created_at.changeTimeFormat("yyyy-MM-dd", "dd MMM")!!)
+                    values1.add(Entry(i, it.weight.toFloat()))
+                    values2.add(Entry(i, it.height.toFloat()))
+                }
+            }
         }
 
         val set1: LineDataSet
         val set2: LineDataSet
-        val set3: LineDataSet
 
         // create a dataset and give it a type
         set1 = LineDataSet(values1, "Weight (KG)")
@@ -214,22 +211,11 @@ class AddWeightFragment : BaseFragment(), OnChartValueSelectedListener {
         set2.fillColor = Color.RED
         set2.setDrawCircleHole(false)
         set2.highLightColor = Color.rgb(244, 117, 117)
-        //set2.setFillFormatter(new MyFillFormatter(900f));
-        /*set3 = LineDataSet(values3, "DataSet 3")
-       set3.axisDependency = AxisDependency.RIGHT
-       set3.color = Color.YELLOW
-       set3.setCircleColor(Color.BLACK)
-       set3.lineWidth = 2f
-       set3.circleRadius = 3f
-       set3.fillAlpha = 65
-       set3.fillColor = ColorTemplate.colorWithAlpha(Color.YELLOW, 200)
-       set3.setDrawCircleHole(false)
-       set3.highLightColor = Color.rgb(244, 117, 117)
-*/
+
         // create a data object with the data sets
         val data = LineData(set1, set2/*, set3*/)
         data.setValueTextColor(Color.BLACK)
-        data.setValueTextSize(9f)
+        data.setValueTextSize(7f)
 
         // set data
         mBinding.chart1.setData(data)
