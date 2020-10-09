@@ -140,6 +140,7 @@ class AddWeightFragment : BaseFragment(), OnChartValueSelectedListener {
         leftAxis.textColor = ColorTemplate.getHoloBlue()
         leftAxis.axisMaximum = 1100f
         leftAxis.axisMinimum = 1f
+        leftAxis.textSize = 10f
         leftAxis.needsOffset()
         leftAxis.setDrawGridLines(true)
         leftAxis.isGranularityEnabled = true
@@ -152,6 +153,7 @@ class AddWeightFragment : BaseFragment(), OnChartValueSelectedListener {
         rightAxis.textColor = ColorTemplate.getHoloBlue()
         rightAxis.axisMaximum = 1100f
         rightAxis.axisMinimum = 1f
+        rightAxis.textSize = 10f
         rightAxis.needsOffset()
         rightAxis.setDrawGridLines(true)
         rightAxis.isGranularityEnabled = true
