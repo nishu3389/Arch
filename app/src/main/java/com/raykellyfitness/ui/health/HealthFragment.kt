@@ -52,7 +52,6 @@ import kotlinx.coroutines.launch
 import java.util.*
 import kotlin.collections.HashMap
 
-
 class HealthFragment : BaseFragment() {
 
     var WEIGHT = 1
