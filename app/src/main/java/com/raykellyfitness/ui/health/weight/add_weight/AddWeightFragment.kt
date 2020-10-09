@@ -1,43 +1,29 @@
 package com.raykellyfitness.ui.health.weight.add_weight
 
-import android.graphics.Color
-import android.graphics.Typeface
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.github.mikephil.charting.charts.LineChart
-import com.github.mikephil.charting.components.Legend
-import com.github.mikephil.charting.components.Legend.LegendForm
-import com.github.mikephil.charting.components.YAxis.AxisDependency
 import com.github.mikephil.charting.data.Entry
-import com.github.mikephil.charting.data.LineData
-import com.github.mikephil.charting.data.LineDataSet
-import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener
-import com.github.mikephil.charting.renderer.XAxisRenderer
-import com.github.mikephil.charting.utils.ColorTemplate
-import com.raykellyfitness.base.*
+import com.raykellyfitness.base.AsyncViewController
+import com.raykellyfitness.base.BaseFragment
+import com.raykellyfitness.base.MyViewModelProvider
+import com.raykellyfitness.base.push
 import com.raykellyfitness.databinding.FragmentAddWeightBinding
 import com.raykellyfitness.model.request.RequestAddWeight
 import com.raykellyfitness.model.request.ResponseAddWeight
 import com.raykellyfitness.ui.activity.HomeActivity
 import com.raykellyfitness.ui.health.HealthFragment
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
 import java.util.*
 
 class AddWeightFragment : BaseFragment(), OnChartValueSelectedListener {
 
-    var range = 10.0f
     var map = HashMap<Float, String>()
     private var chart: LineChart? = null
     lateinit var dialog: AlertDialog

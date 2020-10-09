@@ -342,28 +342,6 @@ class HealthFragment : BaseFragment() {
         }
     }
 
-    class HealthPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
-
-        override fun getCount(): Int {
-            return 3
-        }
-
-        override fun getItem(position: Int): Fragment {
-            when (position) {
-                0 -> {
-                    return AddWeightFragment()
-                }
-                1 -> {
-                    return AddBloodSugarFragment()
-                }
-                else -> {
-                    return AddBloodPressureFragment()
-                }
-            }
-        }
-
-
-    }
 
     override fun onDetach() {
         super.onDetach()
@@ -589,6 +567,31 @@ class HealthFragment : BaseFragment() {
 
             false
         })
+    }
+
+
+
+    class HealthPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
+
+        override fun getCount(): Int {
+            return 3
+        }
+
+        override fun getItem(position: Int): Fragment {
+            when (position) {
+                0 -> {
+                    return AddWeightFragment()
+                }
+                1 -> {
+                    return AddBloodSugarFragment()
+                }
+                else -> {
+                    return AddBloodPressureFragment()
+                }
+            }
+        }
+
+
     }
 
 }

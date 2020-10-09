@@ -1,48 +1,30 @@
 package com.raykellyfitness.ui.health.bloodsugar.add_bloodsugar
 
-import android.graphics.Color
-import android.graphics.Typeface
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.fragment.findNavController
 import com.github.mikephil.charting.charts.LineChart
-import com.github.mikephil.charting.components.Legend
-import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.Entry
-import com.github.mikephil.charting.data.LineData
-import com.github.mikephil.charting.data.LineDataSet
-import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener
-import com.github.mikephil.charting.utils.ColorTemplate
-import com.raykellyfitness.R
-import com.raykellyfitness.ui.activity.HomeActivity
-import com.raykellyfitness.base.*
+import com.raykellyfitness.base.AsyncViewController
+import com.raykellyfitness.base.BaseFragment
+import com.raykellyfitness.base.MyViewModelProvider
+import com.raykellyfitness.base.push
 import com.raykellyfitness.databinding.FragmentAddBloodSugarBinding
-import com.raykellyfitness.databinding.FragmentAddWeightBinding
-import com.raykellyfitness.databinding.FragmentHomeBinding
-import com.raykellyfitness.model.request.*
+import com.raykellyfitness.model.request.RequestAddBloodSugar
+import com.raykellyfitness.model.request.ResponseAddBloodSugar
+import com.raykellyfitness.ui.activity.HomeActivity
 import com.raykellyfitness.ui.health.HealthFragment
-import com.raykellyfitness.util.permission.DeviceRuntimePermission
-import com.raykellyfitness.util.permission.IPermissionGranted
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
 import java.util.*
-import java.util.concurrent.TimeUnit
 
 
 class AddBloodSugarFragment : BaseFragment(), OnChartValueSelectedListener {
 
-    var range = 10.0f
     var map = HashMap<Float,String>()
     private var chart: LineChart? = null
     lateinit var dialog : AlertDialog
