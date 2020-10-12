@@ -139,6 +139,10 @@ open class BaseFragment : BundleFragment() {
         return false
     }
 
+    open fun onSubscriptionExpired() {
+        findNavController().navigate(R.id.SubscriptionFragment)
+    }
+
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,

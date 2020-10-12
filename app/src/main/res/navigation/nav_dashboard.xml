@@ -17,6 +17,11 @@
         tools:layout="@layout/fragment_settings" />
 
     <fragment
+        android:id="@+id/SubscriptionFragment"
+        android:name="com.raykellyfitness.ui.subscription.SubscriptionFragment"
+        tools:layout="@layout/fragment_subscription" />
+
+    <fragment
         android:id="@+id/MealPlanFragment"
         android:name="com.raykellyfitness.ui.meal.MealPlanListFragment"
         tools:layout="@layout/fragment_meal_plan" />

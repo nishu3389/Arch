@@ -11,6 +11,7 @@ import com.google.gson.JsonParser
 import com.raykellyfitness.R
 import com.raykellyfitness.base.AsyncViewController
 import com.raykellyfitness.base.MainApplication
+import com.raykellyfitness.base.SUBSCRIPTION_EXPIRED
 import com.raykellyfitness.base.isEmptyy
 import com.raykellyfitness.model.request.WrapperMultiPartRequest
 import com.raykellyfitness.model.response.MasterResponse
@@ -254,6 +255,7 @@ class RestClient() {
 
                         if (responseString != null && responseString.length>1 && responseString.startsWith("{") && responseString.endsWith("}")) {
                             val master: MasterResponse<*> = gson.fromJson(responseString, apiRequestType.responseType)
+                            master.responseCode = SUBSCRIPTION_EXPIRED
                             if (master.responseCode == 200) {
                                 dataCarrier?.value = master
                             }else {

@@ -28,6 +28,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.findNavController
 import com.akexorcist.localizationactivity.core.LocalizationActivityDelegate
 import com.akexorcist.localizationactivity.core.OnLocaleChangedListener
 import com.raykellyfitness.R
@@ -37,6 +38,11 @@ import com.raykellyfitness.util.*
 import com.raykellyfitness.util.permission.DeviceRuntimePermission
 import com.raykellyfitness.util.permission.IPermissionGranted
 import java.util.*
+
+var API_SUCCESS = 200
+var API_ERROR = 201
+var SUBSCRIPTION_EXPIRED = 202
+var SESSION_EXPIRED = 203
 
 abstract class BaseActivity : AnotherBaseActivity(), CommonCallbacks, OnLocaleChangedListener {
 
@@ -219,16 +225,16 @@ abstract class BaseActivity : AnotherBaseActivity(), CommonCallbacks, OnLocaleCh
     }
 
     override fun onApiCallFailed(apiUrl: String, errCode: Int, errorMessage: String): Boolean {
-        if (errCode == 202) {
-            showAlertDialog("Your session has been expired. Please login now.", DialogInterface.OnClickListener { _, _ ->
-                onLogOutSuccess()
-            })
+
+        when(errCode){
+            SESSION_EXPIRED -> showAlertDialog("Your session has been expired. Please login now.", DialogInterface.OnClickListener { _, _ -> onLogOutSuccess() })
+
+            SUBSCRIPTION_EXPIRED -> getCurrentFragment(BaseFragment::class.java)?.onSubscriptionExpired()
+
+            else -> if (getCurrentFragment(BaseFragment::class.java)?.onApiRequestFailed(apiUrl, errCode, errorMessage) == false)
+                    showAlertDialog(errorMessage, null)
         }
-        //Give fragment a chance to handle api call failure
-        else if (getCurrentFragment(BaseFragment::class.java)?.onApiRequestFailed(apiUrl, errCode, errorMessage) == false) {
-            showAlertDialog(errorMessage, null)
-            //fragment has nothing to do with this failure, can put some logic here
-        }
+
         return true
     }
 
