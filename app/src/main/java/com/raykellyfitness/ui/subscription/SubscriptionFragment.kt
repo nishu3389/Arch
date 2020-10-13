@@ -19,9 +19,10 @@ import com.raykellyfitness.util.permission.DeviceRuntimePermission
 import com.raykellyfitness.util.permission.IPermissionGranted
 
 class SubscriptionFragment : BaseFragment(), PurchasesUpdatedListener {
-    var sku = "product1"
+//    var sku = "product1"
+    var sku = "android.test.purchased"
     private lateinit var billingClient: BillingClient
-    private val skuList = listOf(sku/*,""android.test.purchased", "android.test.canceled"*/)
+    private val skuList = listOf(sku, "android.test.canceled")
 
     lateinit var mViewModel: SubscriptionViewModel
     lateinit var mBinding: FragmentSubscriptionBinding
@@ -47,6 +48,7 @@ class SubscriptionFragment : BaseFragment(), PurchasesUpdatedListener {
             }
 
             override fun onBillingServiceDisconnected() {
+                "onBillingServiceDisconnected".toast()
                 // Try to restart the connection on the next request to
                 // Google Play by calling the startConnection() method.
 
@@ -80,6 +82,31 @@ class SubscriptionFragment : BaseFragment(), PurchasesUpdatedListener {
 
     } else {
         println("Billing Client not ready")
+    }
+
+    override fun onPurchasesUpdated(billingResult: BillingResult?, purchases: MutableList<Purchase>?) {
+        if (billingResult?.responseCode == BillingClient.BillingResponseCode.OK && purchases != null) {
+            for (purchase in purchases) {
+                acknowledgePurchase(purchase.purchaseToken)
+            }
+        } else if (billingResult?.responseCode == BillingClient.BillingResponseCode.USER_CANCELED) {
+            // Handle an error caused by a user cancelling the purchase flow.
+            "USER_CANCELED".toast()
+        } else {
+            "Handle any other error codes".toast()
+            // Handle any other error codes.
+        }
+    }
+
+    private fun acknowledgePurchase(purchaseToken: String) {
+        val params = AcknowledgePurchaseParams.newBuilder()
+            .setPurchaseToken(purchaseToken)
+            .build()
+        billingClient.acknowledgePurchase(params) { billingResult ->
+            val responseCode = billingResult.responseCode
+            val debugMessage = billingResult.debugMessage
+            responseCode.toString().plus(", ").plus(debugMessage).toast()
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -125,26 +152,6 @@ class SubscriptionFragment : BaseFragment(), PurchasesUpdatedListener {
 
     }
 
-    override fun onPurchasesUpdated(billingResult: BillingResult?, purchases: MutableList<Purchase>?) {
-        if (billingResult?.responseCode == BillingClient.BillingResponseCode.OK && purchases != null) {
-            for (purchase in purchases) {
-                acknowledgePurchase(purchase.purchaseToken)
-            }
-        } else if (billingResult?.responseCode == BillingClient.BillingResponseCode.USER_CANCELED) {
-            // Handle an error caused by a user cancelling the purchase flow.
-        } else {
-            // Handle any other error codes.
-        }
-    }
 
-    private fun acknowledgePurchase(purchaseToken: String) {
-        val params = AcknowledgePurchaseParams.newBuilder()
-            .setPurchaseToken(purchaseToken)
-            .build()
-        billingClient.acknowledgePurchase(params) { billingResult ->
-            val responseCode = billingResult.responseCode
-            val debugMessage = billingResult.debugMessage
-        }
-    }
 
 }
