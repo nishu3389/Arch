@@ -11,10 +11,8 @@ import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener
-import com.raykellyfitness.base.AsyncViewController
-import com.raykellyfitness.base.BaseFragment
-import com.raykellyfitness.base.MyViewModelProvider
-import com.raykellyfitness.base.push
+import com.raykellyfitness.R
+import com.raykellyfitness.base.*
 import com.raykellyfitness.databinding.FragmentAddWeightBinding
 import com.raykellyfitness.model.request.RequestAddWeight
 import com.raykellyfitness.model.request.ResponseAddWeight
@@ -62,7 +60,24 @@ class AddWeightFragment : BaseFragment(), OnChartValueSelectedListener {
         (this.parentFragment as HealthFragment).handleTouch(mBinding.chart1, mBinding.scrollview)
         (this.parentFragment as HealthFragment).listWeight.observe(viewLifecycleOwner, Observer {
             setChartData(it)
+            setBMI(it)
         })
+    }
+
+    private fun setBMI(list: ResponseAddWeight?) {
+        if(!list.isEmptyy(mBinding.tvBmi)){
+            val last = list?.last()
+
+            if(last?.height.isEmptyy() || last?.weight.isEmptyy()){
+                mBinding.tvBmi.gone()
+                return
+            }
+
+            val bmi = calculateBMI(last?.weight?.toDouble()!!, last?.height?.toDouble()!!)
+            val interpretBMI = bmi?.let { interpretBMI(it) }
+
+            mBinding.tvBmi.text = "BMI = $bmi ($interpretBMI)"
+        }
     }
 
 
@@ -73,7 +88,14 @@ class AddWeightFragment : BaseFragment(), OnChartValueSelectedListener {
     }
 
     private fun setChartData(listWeight: ResponseAddWeight?) {
-        (this.parentFragment as HealthFragment).setChartData(listWeight, null,null, mBinding.chart1, map, (this.parentFragment as HealthFragment).WEIGHT)
+        (this.parentFragment as HealthFragment).setChartData(
+            listWeight,
+            null,
+            null,
+            mBinding.chart1,
+            map,
+            (this.parentFragment as HealthFragment).WEIGHT
+        )
     }
 
     private fun initWork() {
@@ -117,5 +139,22 @@ class AddWeightFragment : BaseFragment(), OnChartValueSelectedListener {
 
     }
 
+    private fun calculateBMI(weight: Double, height: Double): Double? {
+        val heightMM = height?.div(100)
+        val bmi = weight?.div((heightMM * heightMM))
+        return String.format("%.2f", bmi).toDouble()
+    }
+
+    private fun interpretBMI(bmiValue: Double): String? {
+        return when {
+            bmiValue < 18.5 -> getString(R.string.underweight)
+
+            bmiValue < 25 -> getString(R.string.normal)
+
+            bmiValue < 30 -> getString(R.string.overweight)
+
+            else -> getString(R.string.obese)
+        }
+    }
 
 }

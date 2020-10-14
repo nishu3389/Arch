@@ -135,5 +135,9 @@
     <string name="meal">Meal</string>
     <string name="tips_and_tricks">Tips and Tricks</string>
     <string name="exercise">Exercise</string>
+    <string name="underweight">Underweight</string>
+    <string name="normal">Normal</string>
+    <string name="overweight">Overweight</string>
+    <string name="obese">Obese</string>
 
 </resources>

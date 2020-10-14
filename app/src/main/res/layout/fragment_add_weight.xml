@@ -14,6 +14,7 @@
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollview"
+        android:background="@color/colorPrimary"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -41,6 +42,19 @@
                     android:layout_height="@dimen/_200sdp" />
 
             </androidx.cardview.widget.CardView>
+
+            <com.raykellyfitness.views.CommonTextViewMedium
+                android:id="@+id/tv_bmi"
+                android:textSize="@dimen/_12sdp"
+                android:layout_marginLeft="@dimen/_20sdp"
+                android:layout_marginRight="@dimen/_20sdp"
+                android:textColor="@color/white"
+                android:visibility="gone"
+                android:layout_marginBottom="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="BMI = 27.8 (Overweight)"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
             <com.raykellyfitness.views.CommonTextViewMedium
                 android:textSize="@dimen/_12sdp"

@@ -400,6 +400,31 @@ fun String?.isEmptyy(): Boolean {
     return false
 }
 
+fun List<Any>?.isEmptyy(): Boolean {
+
+    if (this == null)
+        return true
+    else if (this.isEmpty())
+        return true
+
+    return false
+}
+
+fun List<Any>?.isEmptyy(view : View): Boolean {
+
+    if (this == null){
+        view.gone()
+        return true
+    }
+    else if (this.isEmpty()){
+        view.gone()
+        return true
+    }
+
+    view.visible()
+    return false
+}
+
 fun ArrayList<String>.toCommaSeparated(): String {
     var builder = StringBuilder("")
 

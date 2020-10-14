@@ -69,7 +69,7 @@
 
                 <ImageView
                     style="@style/HomeMenuImage"
-                    android:src="@drawable/tips_trick"
+                    android:src="@drawable/bhaisahab"
                     />
 
             </RelativeLayout>

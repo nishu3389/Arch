@@ -84,13 +84,25 @@
                 android:layout_height="wrap_content">
 
                 <com.raykellyfitness.views.CommonTextViewSemiBold
+                    android:id="@+id/tv_title"
+                    tools:text="Pumpkin Soup"
+                    android:text="@{viewModel.model.title}"
+                    android:textColor="@color/offwhite"
+                    android:textSize="@dimen/_13sdp"
+                    android:paddingBottom="@dimen/_15sdp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <com.raykellyfitness.views.CommonTextViewSemiBold
                     android:id="@+id/tv_week"
                     tools:text="Week 01"
                     android:text="@{viewModel.type}"
                     android:textColor="@color/offwhite"
                     android:textSize="@dimen/_13sdp"
-                    app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
@@ -100,22 +112,11 @@
                     android:textSize="@dimen/_10sdp"
                     tools:text="Sunday 13 sep. 2020"
                     android:layout_marginTop="@dimen/_1sdp"
+                    app:layout_constraintTop_toBottomOf="@id/tv_title"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
-                <com.raykellyfitness.views.CommonTextViewSemiBold
-                    android:id="@+id/tv_title"
-                    tools:text="Pumpkin Soup"
-                    android:text="@{viewModel.model.title}"
-                    android:textColor="@color/offwhite"
-                    android:textSize="@dimen/_13sdp"
-                    android:layout_marginTop="@dimen/_20sdp"
-                    app:layout_constraintTop_toBottomOf="@id/tv_week"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
