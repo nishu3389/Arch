@@ -47,12 +47,14 @@ class HomeFragment : BaseFragment() {
         (activity as HomeActivity).setTitle("")
         (activity as HomeActivity).highlightHomeTab()
         manageClicks()
-        navigate(R.id.SubscriptionFragment)
     }
 
     private fun manageClicks() {
+        mBinding.rrMeal.setOnLongClickListener {
+            navigate(R.id.SubscriptionFragment)
+            false
+        }
         mBinding.rrMeal.push()?.setOnClickListener {
-
             Prefs.get().SHUTDOWN = ""
             navigate(R.id.TipsAndTricksFragment, Pair("type", Api.POST_TYPE_MEAL))
         }
