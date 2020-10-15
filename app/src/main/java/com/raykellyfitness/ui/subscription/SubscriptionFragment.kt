@@ -4,25 +4,24 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.android.billingclient.api.*
+import com.android.billingclient.api.Purchase.PurchasesResult
 import com.raykellyfitness.R
-import com.raykellyfitness.ui.activity.HomeActivity
 import com.raykellyfitness.base.*
-import com.raykellyfitness.databinding.FragmentSettingsBinding
 import com.raykellyfitness.databinding.FragmentSubscriptionBinding
 import com.raykellyfitness.model.request.RequestForgotPassword
-import com.raykellyfitness.ui.settings.SettingsViewModel
-import com.raykellyfitness.util.permission.DeviceRuntimePermission
-import com.raykellyfitness.util.permission.IPermissionGranted
+import com.raykellyfitness.ui.activity.HomeActivity
 
-class SubscriptionFragment : BaseFragment(), PurchasesUpdatedListener {
-//    var sku = "product1"
-    var sku = "android.test.purchased"
+
+class SubscriptionFragment : BaseFragment() {
+    var sku = "product_subscription"
+//    var sku = "android.test.purchased"
+//    var sku = "android.test.canceled"
+
     private lateinit var billingClient: BillingClient
-    private val skuList = listOf(sku, "android.test.canceled")
+    private val skuList = listOf(sku)
 
     lateinit var mViewModel: SubscriptionViewModel
     lateinit var mBinding: FragmentSubscriptionBinding
@@ -31,18 +30,39 @@ class SubscriptionFragment : BaseFragment(), PurchasesUpdatedListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupViewModel()
-        setupBillingClient()
     }
 
     private fun setupBillingClient() {
+
         billingClient = BillingClient.newBuilder(requireContext())
             .enablePendingPurchases()
-            .setListener(this)
+            .setListener { billingResult, purchases ->
+
+                when {
+                    billingResult?.responseCode == BillingClient.BillingResponseCode.OK && purchases != null ->{
+
+                        purchases.toString().toast()
+
+                        for (purchase in purchases)
+                            acknowledgePurchase(purchase.purchaseToken)
+                    }
+
+                    billingResult?.responseCode == BillingClient.BillingResponseCode.USER_CANCELED -> "USER_CANCELED".toast()
+                    else -> {
+                        if(billingResult.debugMessage.equals("Item is already owned.", true)){
+                            clearPurchases()
+                            billingResult.debugMessage.toast()
+                        }
+                    }
+                }
+            }
             .build()
+
         billingClient.startConnection(object : BillingClientStateListener {
             override fun onBillingSetupFinished(billingResult: BillingResult) {
                 if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
                     // The BillingClient is setup successfully
+                    clearPurchases()
                     loadAllSKUs()
                 }
             }
@@ -61,7 +81,7 @@ class SubscriptionFragment : BaseFragment(), PurchasesUpdatedListener {
         val params = SkuDetailsParams
             .newBuilder()
             .setSkusList(skuList)
-            .setType(BillingClient.SkuType.INAPP)
+            .setType(BillingClient.SkuType.SUBS)
             .build()
         billingClient.querySkuDetailsAsync(params) { billingResult, skuDetailsList ->
             // Process the result.
@@ -84,17 +104,20 @@ class SubscriptionFragment : BaseFragment(), PurchasesUpdatedListener {
         println("Billing Client not ready")
     }
 
-    override fun onPurchasesUpdated(billingResult: BillingResult?, purchases: MutableList<Purchase>?) {
-        if (billingResult?.responseCode == BillingClient.BillingResponseCode.OK && purchases != null) {
-            for (purchase in purchases) {
-                acknowledgePurchase(purchase.purchaseToken)
+    fun clearPurchases(){
+        val purchasesResult: PurchasesResult = billingClient.queryPurchases(BillingClient.SkuType.INAPP)
+        for (sourcePurchase in purchasesResult.purchasesList) {
+            if (sourcePurchase != null) {
+                val listener: ConsumeResponseListener = object : ConsumeResponseListener {
+                    override fun onConsumeResponse(billingResult: BillingResult?, purchaseToken: String?) {
+                        billingResult.toString().toast()
+                    }
+                }
+                val build = ConsumeParams.newBuilder().setPurchaseToken(sourcePurchase.purchaseToken).setDeveloperPayload(sourcePurchase.developerPayload).build()
+                billingClient.consumeAsync(build, listener)
+            } else {
+                println("null")
             }
-        } else if (billingResult?.responseCode == BillingClient.BillingResponseCode.USER_CANCELED) {
-            // Handle an error caused by a user cancelling the purchase flow.
-            "USER_CANCELED".toast()
-        } else {
-            "Handle any other error codes".toast()
-            // Handle any other error codes.
         }
     }
 
@@ -105,11 +128,14 @@ class SubscriptionFragment : BaseFragment(), PurchasesUpdatedListener {
         billingClient.acknowledgePurchase(params) { billingResult ->
             val responseCode = billingResult.responseCode
             val debugMessage = billingResult.debugMessage
-            responseCode.toString().plus(", ").plus(debugMessage).toast()
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         mBinding = FragmentSubscriptionBinding.inflate(inflater, container, false).apply {
             clickHandler = onClickHandler
             viewModel = mViewModel
@@ -127,6 +153,7 @@ class SubscriptionFragment : BaseFragment(), PurchasesUpdatedListener {
         (activity as HomeActivity).showBack(false)
         (activity as HomeActivity).showRightLogo(false)
         setupClicks()
+        setupBillingClient()
     }
 
     override fun handlingBackPress(): Boolean {
@@ -140,7 +167,10 @@ class SubscriptionFragment : BaseFragment(), PurchasesUpdatedListener {
     }
 
     private fun setupViewModel() {
-        mViewModel = ViewModelProviders.of(this, MyViewModelProvider(commonCallbacks as AsyncViewController)).get(SubscriptionViewModel::class.java)
+        mViewModel = ViewModelProviders.of(
+            this,
+            MyViewModelProvider(commonCallbacks as AsyncViewController)
+        ).get(SubscriptionViewModel::class.java)
         mViewModel.requestForgotPassword.set(RequestForgotPassword())
     }
 

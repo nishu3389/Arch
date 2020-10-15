@@ -47,6 +47,7 @@ class HomeFragment : BaseFragment() {
         (activity as HomeActivity).setTitle("")
         (activity as HomeActivity).highlightHomeTab()
         manageClicks()
+        navigate(R.id.SubscriptionFragment)
     }
 
     private fun manageClicks() {

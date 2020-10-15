@@ -99,7 +99,7 @@ class RestClient() {
             httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.HEADERS
             httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
             okClientBuilder.addInterceptor(httpLoggingInterceptor)
-            okClientBuilder.addInterceptor(ChuckerInterceptor(MainApplication.get().getContext()))
+//            okClientBuilder.addInterceptor(ChuckerInterceptor(MainApplication.get().getContext()))
 //            }
             return okClientBuilder.build()
         } catch (e: Exception) {
@@ -255,7 +255,7 @@ class RestClient() {
 
                         if (responseString != null && responseString.length>1 && responseString.startsWith("{") && responseString.endsWith("}")) {
                             val master: MasterResponse<*> = gson.fromJson(responseString, apiRequestType.responseType)
-//                            master.responseCode = SUBSCRIPTION_EXPIRED
+                            master.responseCode = SUBSCRIPTION_EXPIRED
                             if (master.responseCode == 200) {
                                 dataCarrier?.value = master
                             }else {

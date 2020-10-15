@@ -1,20 +1,18 @@
 {
-  "version": 1,
+  "version": 2,
   "artifactType": {
     "type": "APK",
     "kind": "Directory"
   },
   "applicationId": "com.raykellyfitness",
-  "variantName": "release",
+  "variantName": "processReleaseResources",
   "elements": [
     {
       "type": "SINGLE",
       "filters": [],
-      "properties": [],
       "versionCode": 1,
       "versionName": "1.0",
-      "enabled": true,
-      "outputFile": "Allocate_release_12-Oct-20_16\\49_v1.apk"
+      "outputFile": "Allocate_release_15-Oct-20_17/34_v1.apk"
     }
   ]
 }
