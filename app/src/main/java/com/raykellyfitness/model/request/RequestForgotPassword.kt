@@ -1,5 +1,23 @@
 package com.raykellyfitness.model.request
 
+import com.google.gson.JsonObject
+
+data class RequestSavePayment(
+    var receiptData : ReceiptData?,
+    var product_id: String? = "",
+    var method: String? = "save_payment"
+)
+
+data class ReceiptData(
+    val acknowledged: Boolean,
+    val autoRenewing: Boolean,
+    val orderId: String,
+    val packageName: String,
+    val productId: String,
+    val purchaseState: Int,
+    val purchaseTime: Long,
+    val purchaseToken: String
+)
 
 data class RequestForgotPassword(
 	var email: String? = "",

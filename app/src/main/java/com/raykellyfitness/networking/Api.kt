@@ -40,9 +40,9 @@ object Api {
     const val POST_TYPE_MEAL = "meal"
     const val POST_TYPE_EXERCISE = "excercise"
 
-
     const val ContactUsQuery = ""
     const val ChangePassword = "change_password"
+    const val SAVE_PAYMENT = "Authentication"
 
     /*------------------------------PHASE 2 Sales Profile---------------------------------*/
     const val GETCUSTOMERPROFILE = ""
@@ -83,96 +83,84 @@ object Api {
             }
 
             GETCUSTOMERPROFILE -> {
-                result.responseType =
-                    object : TypeToken<MasterResponse<ResponseGetProfile>>() {}.type
+                result.responseType = object : TypeToken<MasterResponse<ResponseGetProfile>>() {}.type
                 result.url = BASE_URL
                 result.requestType = RequestType.POST
                 return result
             }
 
             LOGOUT -> {
-                result.responseType =
-                    object : TypeToken<MasterResponse<Boolean>>() {}.type
+                result.responseType = object : TypeToken<MasterResponse<Boolean>>() {}.type
                 result.url = BASE_URL
                 result.requestType = RequestType.POST
                 return result
             }
 
             FORGOT_PASSWORD -> {
-                result.responseType =
-                    object : TypeToken<MasterResponse<Boolean>>() {}.type
+                result.responseType = object : TypeToken<MasterResponse<Boolean>>() {}.type
                 result.url = BASE_URL
                 result.requestType = RequestType.POST
                 return result
             }
 
             RESET_PASSWORD -> {
-                result.responseType =
-                    object : TypeToken<MasterResponse<Boolean>>() {}.type
+                result.responseType = object : TypeToken<MasterResponse<Boolean>>() {}.type
                 result.url = BASE_URL
                 result.requestType = RequestType.POST
                 return result
             }
 
             ChangePassword -> {
-                result.responseType =
-                    object : TypeToken<MasterResponse<Boolean>>() {}.type
+                result.responseType = object : TypeToken<MasterResponse<Boolean>>() {}.type
                 result.url = BASE_URL
                 result.requestType = RequestType.POST
                 return result
             }
 
             ContactUsQuery -> {
-                result.responseType =
-                    object : TypeToken<MasterResponse<Boolean>>() {}.type
+                result.responseType = object : TypeToken<MasterResponse<Boolean>>() {}.type
                 result.url = BASE_URL
                 result.requestType = RequestType.POST
                 return result
             }
 
             ADD_WEIGHT -> {
-                result.responseType =
-                    object : TypeToken<MasterResponse<ResponseAddWeight>>() {}.type
+                result.responseType = object : TypeToken<MasterResponse<ResponseAddWeight>>() {}.type
                 result.url = BASE_URL
                 result.requestType = RequestType.POST
                 return result
             }
 
             ADD_BLOOD_SUGAR -> {
-                result.responseType =
-                    object : TypeToken<MasterResponse<ResponseAddBloodSugar>>() {}.type
+                result.responseType = object : TypeToken<MasterResponse<ResponseAddBloodSugar>>() {}.type
                 result.url = BASE_URL
                 result.requestType = RequestType.POST
                 return result
             }
 
             ADD_BLOOD_PRESSURE -> {
-                result.responseType =
-                    object : TypeToken<MasterResponse<ResponseAddBloodPressure>>() {}.type
+                result.responseType = object : TypeToken<MasterResponse<ResponseAddBloodPressure>>() {}.type
                 result.url = BASE_URL
                 result.requestType = RequestType.POST
                 return result
             }
 
             LIST_WEIGHT -> {
-                result.responseType =
-                    object : TypeToken<MasterResponse<ResponseAddWeight>>() {}.type
+                result.responseType = object : TypeToken<MasterResponse<ResponseAddWeight>>() {}.type
                 result.url = BASE_URL
                 result.requestType = RequestType.POST
                 return result
             }
 
             LIST_BLOOD_PRESSURE -> {
-                result.responseType =
-                    object : TypeToken<MasterResponse<ResponseAddBloodPressure>>() {}.type
+                result.responseType = object : TypeToken<MasterResponse<ResponseAddBloodPressure>>() {}.type
                 result.url = BASE_URL
                 result.requestType = RequestType.POST
                 return result
             }
 
             LIST_BLOOD_SUGAR -> {
-                result.responseType =
-                    object : TypeToken<MasterResponse<ResponseAddBloodSugar>>() {}.type
+                result.responseType = object : TypeToken<MasterResponse<ResponseAddBloodSugar>>() {}.type
                 result.url = BASE_URL
                 result.requestType = RequestType.POST
                 return result
@@ -193,8 +181,14 @@ object Api {
             }
 
             POST_DETAIL -> {
-                result.responseType =
-                    object : TypeToken<MasterResponse<ResponseTipsDetail>>() {}.type
+                result.responseType = object : TypeToken<MasterResponse<ResponseTipsDetail>>() {}.type
+                result.url = BASE_URL
+                result.requestType = RequestType.POST
+                return result
+            }
+
+            SAVE_PAYMENT -> {
+                result.responseType = object : TypeToken<MasterResponse<Boolean>>() {}.type
                 result.url = BASE_URL
                 result.requestType = RequestType.POST
                 return result

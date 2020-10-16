@@ -50,12 +50,12 @@ class RestClient() {
         headers["ApiServiceToken"] = "U3System@2020"
         headers["Offset"] = "1"
         headers["AppVersion"] = "1.0"
-        headers["DeviceType"] = "2"
+        headers["Devicetype"] = "android"
 
         gson = GsonBuilder().setLenient().create()
 
         Prefs.get().loginData?.apply {
-            headers["Token"] = "$token"
+            headers["Devicetoken"] = "$token"
             headers["UserId"] = "$id"
         }
     }
@@ -99,7 +99,7 @@ class RestClient() {
             httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.HEADERS
             httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
             okClientBuilder.addInterceptor(httpLoggingInterceptor)
-//            okClientBuilder.addInterceptor(ChuckerInterceptor(MainApplication.get().getContext()))
+            okClientBuilder.addInterceptor(ChuckerInterceptor(MainApplication.get().getContext()))
 //            }
             return okClientBuilder.build()
         } catch (e: Exception) {
@@ -237,6 +237,7 @@ class RestClient() {
 
         }
 
+        if(!code.equals(Api.SAVE_PAYMENT))
         jsonRequest?.addProperty("method", code)
 
         if (showProgressDialog) {
@@ -255,7 +256,7 @@ class RestClient() {
 
                         if (responseString != null && responseString.length>1 && responseString.startsWith("{") && responseString.endsWith("}")) {
                             val master: MasterResponse<*> = gson.fromJson(responseString, apiRequestType.responseType)
-                            master.responseCode = SUBSCRIPTION_EXPIRED
+//                            master.responseCode = SUBSCRIPTION_EXPIRED
                             if (master.responseCode == 200) {
                                 dataCarrier?.value = master
                             }else {

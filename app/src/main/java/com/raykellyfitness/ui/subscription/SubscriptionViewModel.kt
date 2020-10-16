@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.raykellyfitness.base.AsyncViewController
 import com.raykellyfitness.base.BaseViewModel
 import com.raykellyfitness.model.request.RequestForgotPassword
+import com.raykellyfitness.model.request.RequestSavePayment
 import com.raykellyfitness.model.response.*
 import com.raykellyfitness.util.Prefs
 import com.raykellyfitness.util.Validator
@@ -12,39 +13,13 @@ import com.raykellyfitness.networking.Api
 
 class SubscriptionViewModel(controller: AsyncViewController) : BaseViewModel(controller) {
 
-    val requestForgotPassword = ObservableField<RequestForgotPassword>()
-    val responseForgotPassword = MutableLiveData<MasterResponse<ResponseLogin>>()
+    val requestSavePayment = ObservableField<RequestSavePayment>()
+    var responseSavePayment = MutableLiveData<MasterResponse<Boolean>>()
 
-    var responseAdv : MutableLiveData<MasterResponse<AdvlistResponse>>? = null
-    var responseAdvertsementStrip = ResponseAdvertsementPopup()
-
-    val errEmail = ObservableField<String>()
-    var checkListProgrss = ObservableField<Int>()
-
-
-    init {
-        checkListProgrss.set(Prefs.get().checkListPercent)
+    fun callSavePaymentApi() : MutableLiveData<MasterResponse<Boolean>> {
+        responseSavePayment = MutableLiveData<MasterResponse<Boolean>>()
+        baseRepo.restClient.callApi(Api.SAVE_PAYMENT, requestSavePayment.get(), responseSavePayment)
+        return responseSavePayment
     }
-
-    fun validateInput(): Boolean {
-
-        val data = requestForgotPassword.get() ?: return false
-
-        if (!Validator.isEmailValid(data.email, errEmail)) {
-            return false
-        }
-
-        return true
-    }
-
-    fun callForgotPasswordApi() {
-        baseRepo.restClient.callApi(
-            Api.FORGOT_PASSWORD,
-            requestForgotPassword.get(),
-            responseForgotPassword
-        )
-    }
-
-
 
 }
