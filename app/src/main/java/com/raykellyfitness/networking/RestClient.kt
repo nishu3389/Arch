@@ -55,7 +55,8 @@ class RestClient() {
         gson = GsonBuilder().setLenient().create()
 
         Prefs.get().loginData?.apply {
-            headers["Devicetoken"] = "$token"
+            headers["Devicetoken"] = Prefs.get().deviceToken
+            headers["Token"] = "$token"
             headers["UserId"] = "$id"
         }
     }

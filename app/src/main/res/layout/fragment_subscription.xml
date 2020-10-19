@@ -27,7 +27,7 @@
             android:background="@drawable/rounded_subs_top"
             android:gravity="top|center_horizontal"
             android:padding="@dimen/_15sdp"
-            android:text="Purchase Subscriptions"
+            android:text="@string/purchase_subscriptions"
             android:textColor="@color/black"
             android:textSize="@dimen/_14sdp"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -54,14 +54,14 @@
                 <com.raykellyfitness.views.CommonTextViewBold
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="$500"
+                    android:text="@string/subscription_price"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_17sdp" />
 
                 <com.raykellyfitness.views.CommonTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="/ 70 Day"
+                    android:text="@string/monthly"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_15sdp" />
 
@@ -72,7 +72,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/_20sdp"
-                android:text="Whats Included:"
+                android:text="@string/whats_included"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_13sdp" />
 
@@ -81,7 +81,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/_15sdp"
-                android:text="Weekely Recipes Videos"
+                android:text="@string/weekely_recipes_videos"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_12sdp" />
 
@@ -90,7 +90,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/_8sdp"
-                android:text="Weekely Exercise Videos"
+                android:text="@string/weekely_exercise_videos"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_12sdp" />
 
@@ -99,7 +99,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/_8sdp"
-                android:text="10 days meal plan"
+                android:text="@string/_10_days_meal_plan"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_12sdp" />
 
@@ -112,7 +112,7 @@
             android:layout_marginTop="@dimen/_25sdp"
             android:layout_marginLeft="@dimen/_15sdp"
             android:layout_marginRight="@dimen/_15sdp"
-            android:text="Continue to purchase"
+            android:text="@string/continue_to_purchase"
             android:textColor="@color/white"
             android:gravity="center"
             android:padding="@dimen/_10sdp"

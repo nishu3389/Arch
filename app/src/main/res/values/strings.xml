@@ -135,9 +135,19 @@
     <string name="meal">Meal</string>
     <string name="tips_and_tricks">Tips and Tricks</string>
     <string name="exercise">Exercise</string>
+    <string name="motivation">Motivation</string>
+    <string name="blogs">Blogs</string>
     <string name="underweight">Underweight</string>
     <string name="normal">Normal</string>
     <string name="overweight">Overweight</string>
     <string name="obese">Obese</string>
+    <string name="subscription_price">$19.99</string>
+    <string name="monthly">/ Monthly</string>
+    <string name="whats_included">Whats Included:</string>
+    <string name="weekely_recipes_videos">Weekely Recipes Videos</string>
+    <string name="weekely_exercise_videos">Weekely Exercise Videos</string>
+    <string name="_10_days_meal_plan">10 days meal plan</string>
+    <string name="purchase_subscriptions">Purchase Subscriptions</string>
+    <string name="continue_to_purchase">Continue to purchase</string>
 
 </resources>

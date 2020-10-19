@@ -48,13 +48,15 @@ class HomeActivity : BaseActivity(), NavController.OnDestinationChangedListener,
 
     private val fragmentsWhereBottomTabsShouldBeShown = listOf(
         R.id.HomeFragment,
-        R.id.SettingsFragment
+        R.id.SettingsFragment,
+        R.id.NotificationsFragment
     )
 
 
     private val fragmentsTabs = listOf(
         R.id.SettingsFragment,
-        R.id.HealthFragment
+        R.id.HealthFragment,
+        R.id.NotificationsFragment
     )
 
     lateinit var mBinding: ActivityMainBinding
@@ -189,10 +191,10 @@ class HomeActivity : BaseActivity(), NavController.OnDestinationChangedListener,
         }
 
         tab_notification.pushTab()?.setOnClickListener {
-            if (navController.currentDestination?.id == R.id.HomeFragment)
+            if (navController.currentDestination?.id == R.id.NotificationsFragment)
                 return@setOnClickListener
-            navController.navigate(R.id.HomeFragment)
-            highlightTab(TAB_NONE)
+            navController.navigate(R.id.NotificationsFragment)
+            highlightTab(TAB_NOTIFICATION)
         }
 
         tab_settings.pushTab()?.setOnClickListener {
@@ -238,66 +240,7 @@ class HomeActivity : BaseActivity(), NavController.OnDestinationChangedListener,
         destination: NavDestination,
         arguments: Bundle?
     ) {
-        /*when (destination.id) {
-            R.id.HomeFragment -> {
-                supportActionBar!!.setBackgroundDrawable(
-                    ContextCompat.getDrawable(this, R.drawable.bg_home_toolbar_gradient)
-                )
-            }
 
-            R.id.ProfileShowFragment -> {
-                supportActionBar!!.setBackgroundDrawable(
-                    ContextCompat.getDrawable(this, R.drawable.bg_profile_toolbar_gradient)
-                )
-            }
-            R.id.ProfileEditFragment -> {
-
-                if (Prefs.get().isPRofileComplete) {
-                    supportActionBar!!.setBackgroundDrawable(
-                        ContextCompat.getDrawable(this, R.drawable.bg_profile_toolbar_gradient)
-                    )
-                } else {
-
-                    supportActionBar!!.setBackgroundDrawable(
-                        ColorDrawable(Color.parseColor("#FFFFFF"))
-                    )
-
-                }
-
-            }
-            R.id.SalesProfileShowFragment -> {
-                supportActionBar!!.setBackgroundDrawable(
-                    ContextCompat.getDrawable(
-                        this,
-                        R.drawable.bg_profile_toolbar_gradient
-                    )
-                )
-            }
-            R.id.SalesProfileEditFragment -> {
-
-                var drawable = if (Prefs.get().isPRofileComplete)
-                    ContextCompat.getDrawable(this, R.drawable.bg_profile_toolbar_gradient)
-                else
-                    ColorDrawable(Color.parseColor("#FFFFFF"))
-
-                supportActionBar!!.setBackgroundDrawable(drawable)
-
-            }
-            else -> {
-                supportActionBar!!.setBackgroundDrawable(
-                    ColorDrawable(Color.parseColor("#FFFFFF"))
-                )
-            }
-
-
-        }
-
-        if(checklistFragments.contains(destination.id)){
-            highlightTabNone()
-        }
-
-        hideKeyboard()
-*/
         if (fragmentsWhereBottomTabsShouldBeShown.contains(destination.id)) {
             showBack(false)
             bottom_navigation_bar.visibility = View.VISIBLE

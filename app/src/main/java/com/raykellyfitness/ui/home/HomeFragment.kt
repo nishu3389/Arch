@@ -1,17 +1,22 @@
 package com.raykellyfitness.ui.home
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import com.google.gson.Gson
 import com.raykellyfitness.R
 import com.raykellyfitness.ui.activity.HomeActivity
 import com.raykellyfitness.base.*
 import com.raykellyfitness.databinding.FragmentHomeBinding
+import com.raykellyfitness.model.request.ReceiptData
 import com.raykellyfitness.model.request.RequestForgotPassword
+import com.raykellyfitness.model.request.RequestSavePayment
 import com.raykellyfitness.networking.Api
 import com.raykellyfitness.util.Prefs
 import com.raykellyfitness.util.permission.DeviceRuntimePermission
@@ -47,6 +52,20 @@ class HomeFragment : BaseFragment() {
         (activity as HomeActivity).setTitle("")
         (activity as HomeActivity).highlightHomeTab()
         manageClicks()
+        checkSubsData()
+    }
+
+    private fun checkSubsData() {
+        if(!Prefs.get().SUBS_DATA.isEmptyy()){
+            val receiptData = Gson().fromJson(Prefs.get().SUBS_DATA, ReceiptData::class.java)
+            mViewModel.requestSavePayment.set(RequestSavePayment(receiptData, receiptData.productId))
+            mViewModel.callSavePaymentApi().observe(viewLifecycleOwner, Observer {
+                Prefs.get().SUBS_DATA = ""
+                commonCallbacks?.showAlertDialog(
+                    it.message,
+                    DialogInterface.OnClickListener { _, _ -> })
+            })
+        }
     }
 
     private fun manageClicks() {
@@ -64,11 +83,16 @@ class HomeFragment : BaseFragment() {
         mBinding.rrExercise.push()?.setOnClickListener {
             navigate(R.id.TipsAndTricksFragment, Pair("type", Api.POST_TYPE_EXERCISE))
         }
+       mBinding.rrMotivation.push()?.setOnClickListener {
+            navigate(R.id.TipsAndTricksFragment, Pair("type", Api.POST_TYPE_MOTIVATION))
+        }
+       mBinding.rrBlogs.push()?.setOnClickListener {
+            navigate(R.id.TipsAndTricksFragment, Pair("type", Api.POST_TYPE_BLOG))
+        }
     }
 
     private fun setupViewModel() {
         mViewModel = ViewModelProviders.of(this, MyViewModelProvider(commonCallbacks as AsyncViewController)).get(HomeViewModel::class.java)
-        mViewModel.requestForgotPassword.set(RequestForgotPassword())
     }
 
     inner class ClickHandler : IPermissionGranted {

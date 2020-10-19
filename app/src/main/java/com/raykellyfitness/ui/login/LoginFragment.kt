@@ -47,7 +47,7 @@ class LoginFragment : BaseFragment(), IPermissionGranted {
 
         // TODO: 24-06-2020 temp code by avinash 
         val get = mViewModel.requestLogin.get()
-        get?.Email =  "participant@mailinator.com"
+        get?.Email =  "androiduser@mailinator.com"
         get?.Password = "123456"
 
         setClickable(mBinding.tvTerms, "Terms of Service", { TERMS.openInBrowser() })

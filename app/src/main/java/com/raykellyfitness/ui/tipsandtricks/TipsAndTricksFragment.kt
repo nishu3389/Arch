@@ -10,8 +10,10 @@ import com.raykellyfitness.R
 import com.raykellyfitness.base.*
 import com.raykellyfitness.databinding.FragmentTipsAndTricksBinding
 import com.raykellyfitness.model.response.MasterResponse
+import com.raykellyfitness.networking.Api.POST_TYPE_BLOG
 import com.raykellyfitness.networking.Api.POST_TYPE_EXERCISE
 import com.raykellyfitness.networking.Api.POST_TYPE_MEAL
+import com.raykellyfitness.networking.Api.POST_TYPE_MOTIVATION
 import com.raykellyfitness.networking.Api.POST_TYPE_TIPS
 import com.raykellyfitness.ui.activity.HomeActivity
 import kotlinx.coroutines.*
@@ -21,12 +23,12 @@ class TipsAndTricksFragment : BaseFragment() {
     var type: String = ""
 
     var adapter = TipsAdapterOuter(R.layout.row_tips_outer) { model, modelOuter ->
-            navigate(
-                R.id.TipsDetailFragment,
-                Pair("id", model.id),
-                Pair("type", type),
-                Pair("typeName", modelOuter.day)
-            )
+        navigate(
+            R.id.TipsDetailFragment,
+            Pair("id", model.id),
+            Pair("type", type),
+            Pair("typeName", modelOuter.day)
+        )
     }
 
 
@@ -41,7 +43,11 @@ class TipsAndTricksFragment : BaseFragment() {
     }
 
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         if (!::mBinding.isInitialized) {
             mBinding = FragmentTipsAndTricksBinding.inflate(inflater, container, false).apply {
                 clickHandler = ClickHandler()
@@ -67,7 +73,8 @@ class TipsAndTricksFragment : BaseFragment() {
 
     fun callInitialApis() {
         mBinding.recyclerOuterMeal.visibility = View.INVISIBLE
-        mViewModel.callgetPostsApi(type).observe(viewLifecycleOwner, Observer { handleTipsOrMealResponse(it) })
+        mViewModel.callgetPostsApi(type)
+            .observe(viewLifecycleOwner, Observer { handleTipsOrMealResponse(it) })
     }
 
 
@@ -83,10 +90,10 @@ class TipsAndTricksFragment : BaseFragment() {
     }
 
     private fun hideShowViews() {
-        if(mealList!=null && mealList.size>0){
+        if (mealList != null && mealList.size > 0) {
             mBinding.tvNoData.gone()
             mBinding.recyclerOuterMeal.visible()
-        }else{
+        } else {
             mBinding.tvNoData.visible()
             mBinding.recyclerOuterMeal.gone()
         }
@@ -112,12 +119,24 @@ class TipsAndTricksFragment : BaseFragment() {
 //                    mBinding.recyclerExercise.visibility = View.VISIBLE
                     mBinding.recyclerOuterMeal.visibility = View.GONE
                 }
+                POST_TYPE_MOTIVATION -> {
+                    (activity as HomeActivity).setTitle(getString(R.string.motivation))
+//                    mBinding.recyclerExercise.visibility = View.VISIBLE
+                    mBinding.recyclerOuterMeal.visibility = View.GONE
+                }
+                POST_TYPE_BLOG -> {
+                    (activity as HomeActivity).setTitle(getString(R.string.blogs))
+//                    mBinding.recyclerExercise.visibility = View.VISIBLE
+                    mBinding.recyclerOuterMeal.visibility = View.GONE
+                }
             }
         }
     }
 
     private fun setupViewModel() {
-        mViewModel = ViewModelProviders.of(this, MyViewModelProvider(commonCallbacks as AsyncViewController)).get(TipsAndTricksViewModel::class.java)
+        mViewModel =
+            ViewModelProviders.of(this, MyViewModelProvider(commonCallbacks as AsyncViewController))
+                .get(TipsAndTricksViewModel::class.java)
     }
 
     inner class ClickHandler {

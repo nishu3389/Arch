@@ -1,5 +1,6 @@
 package com.raykellyfitness.ui.subscription
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +18,7 @@ import com.raykellyfitness.model.request.ReceiptData
 import com.raykellyfitness.model.request.RequestForgotPassword
 import com.raykellyfitness.model.request.RequestSavePayment
 import com.raykellyfitness.ui.activity.HomeActivity
+import com.raykellyfitness.util.Prefs
 
 
 class SubscriptionFragment : BaseFragment() {
@@ -43,10 +45,10 @@ class SubscriptionFragment : BaseFragment() {
             .setListener { billingResult, purchases ->
 
                 when {
-                    billingResult?.responseCode == BillingClient.BillingResponseCode.OK && !purchases.isEmptyy() ->{
-                        val data = purchases?.get(0)
-//                        data.toString().toast()
-                        acknowledgePurchase(data!!)
+                    billingResult?.responseCode == BillingClient.BillingResponseCode.OK && !purchases.isEmptyy() -> {
+                        val purchaseData = purchases?.get(0)
+                        Prefs.get().SUBS_DATA = purchaseData?.originalJson.toString()
+                        acknowledgePurchase()
                     }
 
                     billingResult?.responseCode == BillingClient.BillingResponseCode.USER_CANCELED -> {
@@ -54,7 +56,7 @@ class SubscriptionFragment : BaseFragment() {
                     }
 
                     else -> {
-                        if(billingResult?.responseCode == BillingClient.BillingResponseCode.ITEM_ALREADY_OWNED){
+                        if (billingResult?.responseCode == BillingClient.BillingResponseCode.ITEM_ALREADY_OWNED) {
                             clearPurchases()
                             billingResult.debugMessage.toast()
                         }
@@ -110,16 +112,22 @@ class SubscriptionFragment : BaseFragment() {
         println("Billing Client not ready")
     }
 
-    fun clearPurchases(){
-        val purchasesResult: PurchasesResult = billingClient.queryPurchases(BillingClient.SkuType.SUBS)
+    fun clearPurchases() {
+        val purchasesResult: PurchasesResult =
+            billingClient.queryPurchases(BillingClient.SkuType.SUBS)
         for (sourcePurchase in purchasesResult.purchasesList) {
             if (sourcePurchase != null) {
                 val listener: ConsumeResponseListener = object : ConsumeResponseListener {
-                    override fun onConsumeResponse(billingResult: BillingResult?, purchaseToken: String?) {
+                    override fun onConsumeResponse(
+                        billingResult: BillingResult?,
+                        purchaseToken: String?
+                    ) {
 //                        billingResult.toString().toast()
                     }
                 }
-                val build = ConsumeParams.newBuilder().setPurchaseToken(sourcePurchase.purchaseToken).setDeveloperPayload(sourcePurchase.developerPayload).build()
+                val build =
+                    ConsumeParams.newBuilder().setPurchaseToken(sourcePurchase.purchaseToken)
+                        .setDeveloperPayload(sourcePurchase.developerPayload).build()
                 billingClient.consumeAsync(build, listener)
             } else {
                 println("null")
@@ -127,20 +135,23 @@ class SubscriptionFragment : BaseFragment() {
         }
     }
 
-    private fun acknowledgePurchase(purchase: Purchase) {
-
-        val params = AcknowledgePurchaseParams.newBuilder().setPurchaseToken(purchase.purchaseToken).build()
+    private fun acknowledgePurchase() {
+        val receiptData = Gson().fromJson(Prefs.get().SUBS_DATA, ReceiptData::class.java)
+        val params = AcknowledgePurchaseParams.newBuilder().setPurchaseToken(receiptData.purchaseToken).build()
 
         billingClient.acknowledgePurchase(params) { _ ->
-
-            val receiptData = Gson().fromJson(purchase.originalJson, ReceiptData::class.java)
-
-            mViewModel.requestSavePayment.set(RequestSavePayment(receiptData,sku))
+//          val receiptData = Gson().fromJson(purchase.originalJson, ReceiptData::class.java)
+            mViewModel.requestSavePayment.set(RequestSavePayment(receiptData, sku))
             mViewModel.callSavePaymentApi().observe(viewLifecycleOwner, Observer {
-                goBack(it.message)
+                Prefs.get().SUBS_DATA = ""
+                commonCallbacks?.showAlertDialog(
+                    it.message,
+                    DialogInterface.OnClickListener { _, _ ->
+                        activity?.onBackPressed()
+                    })
             })
-
         }
+
     }
 
     override fun onCreateView(
@@ -179,13 +190,14 @@ class SubscriptionFragment : BaseFragment() {
     }
 
     private fun setupViewModel() {
-        mViewModel = ViewModelProviders.of(this, MyViewModelProvider(commonCallbacks as AsyncViewController)).get(SubscriptionViewModel::class.java)
+        mViewModel =
+            ViewModelProviders.of(this, MyViewModelProvider(commonCallbacks as AsyncViewController))
+                .get(SubscriptionViewModel::class.java)
     }
 
     inner class ClickHandler {
 
     }
-
 
 
 }

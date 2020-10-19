@@ -15,6 +15,7 @@ class Prefs {
 
     val PREF_SHUT_DOWN = "_SHUT_DOWN"
     val PREF_ADV_DATA = "_PREF_ADV_DATA"
+    val PREF_SUBS_DATA = "_PREF_SUBS_DATA"
     val PREF_AUTH_TOKEN = "_PREF_AUTH_TOKEN"
     val PREF_LOGIN_DATA = "_PREF_LOGIN_DATA"
     val PREF_PROFILE_DATA = "_PREF_PROFILE_DATA"
@@ -85,6 +86,18 @@ class Prefs {
             val sF = MainApplication.get().getContext()
                 .getSharedPreferences(PREF_ADV_DATA, MODE_PRIVATE)
             sF.edit().putString(PREF_ADV_DATA, value).apply()
+        }
+
+    var SUBS_DATA: String
+        get() {
+            val sF = MainApplication.get().getContext()
+                .getSharedPreferences(PREF_SUBS_DATA, MODE_PRIVATE)
+            return sF.getString(PREF_SUBS_DATA, "") ?: ""
+        }
+        set(value) {
+            val sF = MainApplication.get().getContext()
+                .getSharedPreferences(PREF_SUBS_DATA, MODE_PRIVATE)
+            sF.edit().putString(PREF_SUBS_DATA, value).apply()
         }
 
     var SHUTDOWN: String

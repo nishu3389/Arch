@@ -47,6 +47,12 @@
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_settings" />
 
+     <fragment
+        android:id="@+id/NotificationsFragment"
+        android:name="com.raykellyfitness.ui.notifications.NotificationsFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_notifications" />
+
     <fragment
         android:id="@+id/AddWeightFragment"
         android:name="com.raykellyfitness.ui.health.weight.add_weight.AddWeightFragment"

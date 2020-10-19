@@ -21,35 +21,33 @@
     </data>
 
     <androidx.core.widget.NestedScrollView
-        android:background="@color/white"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/white">
 
         <LinearLayout
-            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_marginLeft="@dimen/_20sdp"
             android:layout_marginRight="@dimen/_20sdp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:orientation="vertical">
 
             <!--Meal Plan-->
             <RelativeLayout
                 android:id="@+id/rr_meal"
                 style="@style/HomeMenu">
 
-                <RelativeLayout
-                    style="@style/HomeMenuInner">
+                <RelativeLayout style="@style/HomeMenuInner">
 
                     <com.raykellyfitness.views.CommonTextViewMedium
-                        android:text="Meal Plan"
-                        style="@style/HomeMenuText"/>
+                        style="@style/HomeMenuText"
+                        android:text="Meal Plan" />
 
                 </RelativeLayout>
 
                 <ImageView
                     style="@style/HomeMenuImage"
-                    android:src="@drawable/meal_plan"
-                    />
+                    android:src="@drawable/meal_plan" />
 
             </RelativeLayout>
 
@@ -58,19 +56,17 @@
                 android:id="@+id/rr_tips"
                 style="@style/HomeMenu">
 
-                <RelativeLayout
-                    style="@style/HomeMenuInner">
+                <RelativeLayout style="@style/HomeMenuInner">
 
                     <com.raykellyfitness.views.CommonTextViewMedium
-                        android:text="@string/tips_tricks"
-                        style="@style/HomeMenuText"/>
+                        style="@style/HomeMenuText"
+                        android:text="@string/tips_tricks" />
 
                 </RelativeLayout>
 
                 <ImageView
                     style="@style/HomeMenuImage"
-                    android:src="@drawable/bhaisahab"
-                    />
+                    android:src="@drawable/bhaisahab" />
 
             </RelativeLayout>
 
@@ -79,21 +75,61 @@
                 android:id="@+id/rr_exercise"
                 style="@style/HomeMenu">
 
-                <RelativeLayout
-                    style="@style/HomeMenuInner">
+                <RelativeLayout style="@style/HomeMenuInner">
 
                     <com.raykellyfitness.views.CommonTextViewMedium
-                        android:text="Exercise"
-                        style="@style/HomeMenuText"/>
+                        style="@style/HomeMenuText"
+                        android:text="Exercise" />
 
                 </RelativeLayout>
 
                 <ImageView
                     style="@style/HomeMenuImage"
-                    android:src="@drawable/exercise"
-                    />
+                    android:src="@drawable/exercise" />
 
             </RelativeLayout>
+
+            <!--Motivation-->
+            <RelativeLayout
+                android:id="@+id/rr_motivation"
+                style="@style/HomeMenu">
+
+                <RelativeLayout style="@style/HomeMenuInner">
+
+                    <com.raykellyfitness.views.CommonTextViewMedium
+                        style="@style/HomeMenuText"
+                        android:text="Motivation" />
+
+                </RelativeLayout>
+
+                <ImageView
+                    style="@style/HomeMenuImage"
+                    android:src="@drawable/success" />
+
+            </RelativeLayout>
+
+            <!--Blogs-->
+            <RelativeLayout
+                android:id="@+id/rr_blogs"
+                style="@style/HomeMenu">
+
+                <RelativeLayout style="@style/HomeMenuInner">
+
+                    <com.raykellyfitness.views.CommonTextViewMedium
+                        style="@style/HomeMenuText"
+                        android:text="Blogs" />
+
+                </RelativeLayout>
+
+                <ImageView
+                    style="@style/HomeMenuImage"
+                    android:src="@drawable/blog" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40sdp"></View>
 
         </LinearLayout>
 

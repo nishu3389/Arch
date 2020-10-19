@@ -36,9 +36,12 @@ object Api {
     const val GET_POSTS_TIPS = "getPosts"
     const val GET_POSTS_MEAL = "getPosts"
     const val POST_DETAIL = "post_detail"
+
     const val POST_TYPE_TIPS = "tips"
     const val POST_TYPE_MEAL = "meal"
     const val POST_TYPE_EXERCISE = "excercise"
+    const val POST_TYPE_MOTIVATION = "daily_motivation"
+    const val POST_TYPE_BLOG = "blog"
 
     const val ContactUsQuery = ""
     const val ChangePassword = "change_password"

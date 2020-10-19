@@ -11,7 +11,7 @@ import com.raykellyfitness.ui.tipsandtricks.RequestPosts
 class MealPlanListViewModel(controller: AsyncViewController) : BaseViewModel(controller) {
 
     var responseTipsOuter : MutableLiveData<MasterResponse<ResponseMealOuter>>? = null
-    var requestPosts = RequestPosts(type = POST_TYPE_MEAL)
+    var requestPosts = RequestPosts(type = "")
 
 
     fun callgetPostsApi() : MutableLiveData<MasterResponse<ResponseMealOuter>> {
