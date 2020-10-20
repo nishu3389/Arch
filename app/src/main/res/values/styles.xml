@@ -100,6 +100,16 @@
         <item name="android:layout_marginTop">@dimen/_10sdp</item>
     </style>
 
+    <style name="slider_text">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/_12sdp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:paddingLeft">@dimen/_20sdp</item>
+        <item name="android:paddingRight">@dimen/_20sdp</item>
+        <item name="android:gravity">left|center_vertical</item>
+    </style>
+
     <style name="HomeMenuText">
         <item name="android:textSize">20sp</item>
         <item name="android:textColor">@color/white</item>

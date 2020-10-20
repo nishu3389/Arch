@@ -46,9 +46,9 @@ class LoginFragment : BaseFragment(), IPermissionGranted {
         permissionDenied(DeviceRuntimePermission.REQUEST_ACCESS_COARSE__FINE_LOCATION_PERMISSION)
 
         // TODO: 24-06-2020 temp code by avinash 
-        val get = mViewModel.requestLogin.get()
-        get?.Email =  "androiduser@mailinator.com"
-        get?.Password = "123456"
+//        val get = mViewModel.requestLogin.get()
+//        get?.Email =  "androiduser@mailinator.com"
+//        get?.Password = "123456"
 
         setClickable(mBinding.tvTerms, "Terms of Service", { TERMS.openInBrowser() })
         setClickable(mBinding.tvTerms, "Privacy Policy", { PRIVACY_POLICY.openInBrowser() })

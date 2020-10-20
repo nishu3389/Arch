@@ -120,14 +120,14 @@
     <string name="lorem_large">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries.</string>
     <string name="lorem_short">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</string>
     <string name="login_terms_message">By proceeding you also agree to the Terms of Service and Privacy Policy.</string>
-    <string name="slider_1_msg_1"><![CDATA[Healthy, Happy &\nPositive Programs]]></string>
-    <string name="slider_1_msg_2">Imagine having a workplace where\neveryone is healthy, happy and positive.</string>
+    <string name="slider_1_msg_1"><![CDATA[Welcome!\nFollow the meal plan to the letter for best results. Most people lose 12kg to 17kg over the 10 weeks!]]></string>
+    <string name="slider_1_msg_2"><![CDATA[Welcome!\nFollow the meal plan to the letter for best results. Most people lose 12kg to 17kg over the 10 weeks!]]></string>
     <string name="slider_2_msg_1">We start you lightly\nand build steadily</string>
-    <string name="slider_2_msg_2">With us you will reach your goal\nweight fast, and keep it off.</string>
+
     <string name="slider_3_msg_1">Qualified and Experienced\nExercise Professional</string>
-    <string name="slider_3_msg_2">Our trainers have spent a minimum\nof 4 years at university</string>
+    <string name="slider_3_msg_2">If you are taking glucose lowering medications (such as insulin) you will need your dose reduced.\nPlease consult your doctor if you are unsure of how to do this.</string>
     <string name="slider_4_msg_1">Qualified and Experienced\nExercise Professional</string>
-    <string name="slider_4_msg_2">Our trainers have spent a minimum\nof 4 years at university</string>
+    <string name="slider_4_msg_2">If you ever get to the point where you are struggling, please let us know. We want to help!</string>
     <string name="tips_tricks"><![CDATA[Tips & Tricks]]></string>
     <string name="change_password">Change Password</string>
     <string name="my_profile">My Profile</string>
@@ -149,5 +149,6 @@
     <string name="_10_days_meal_plan">10 days meal plan</string>
     <string name="purchase_subscriptions">Purchase Subscriptions</string>
     <string name="continue_to_purchase">Continue to purchase</string>
+    <string name="slider_2_msg_2">If you haven\'t been exercising recently, just start with 20-30 minutes of walking each day.</string>
 
 </resources>

@@ -1,22 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
+
+<LinearLayout
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        xmlns:tools="http://schemas.android.com/tools">
-
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline_top"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.5" />
+        android:layout_height="match_parent">
 
 
         <ImageView
@@ -29,7 +22,15 @@
             app:layout_constraintTop_toTopOf="parent"
             android:src="@drawable/onboarding_1_pic"/>
 
-        <LinearLayout
+        <com.raykellyfitness.views.CommonTextView
+            android:id="@+id/tv_2"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imv_item"
+            android:text="@string/slider_1_msg_2"
+            style="@style/slider_text"
+            />
+
+       <!-- <LinearLayout
             app:layout_constraintTop_toBottomOf="@id/imv_item"
             app:layout_constraintBottom_toBottomOf="parent"
             android:gravity="center"
@@ -47,24 +48,21 @@
                 android:layout_gravity="center"
                 android:textColor="@color/white"
                 android:gravity="left"
+                android:visibility="gone"
                 android:text="@string/slider_1_msg_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
+
             <com.raykellyfitness.views.CommonTextView
                 android:id="@+id/tv_2"
-                android:textSize="14sp"
-                android:textColor="@color/white"
-                android:paddingLeft="@dimen/_20sdp"
-                android:paddingRight="@dimen/_20sdp"
-                android:layout_gravity="center"
                 android:text="@string/slider_1_msg_2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                style="@style/slider_text"
+                />
 
-        </LinearLayout>
+        </LinearLayout>-->
 
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.core.widget.NestedScrollView>
+</LinearLayout>

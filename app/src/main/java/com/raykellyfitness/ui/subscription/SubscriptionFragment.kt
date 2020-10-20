@@ -20,7 +20,6 @@ import com.raykellyfitness.model.request.RequestSavePayment
 import com.raykellyfitness.ui.activity.HomeActivity
 import com.raykellyfitness.util.Prefs
 
-
 class SubscriptionFragment : BaseFragment() {
     var sku = "product_subscription"
 //    var sku = "android.test.purchased"
@@ -147,7 +146,7 @@ class SubscriptionFragment : BaseFragment() {
                 commonCallbacks?.showAlertDialog(
                     it.message,
                     DialogInterface.OnClickListener { _, _ ->
-                        activity?.onBackPressed()
+        findNavController().popBackStack(R.id.HomeFragment, false)
                     })
             })
         }
@@ -181,7 +180,7 @@ class SubscriptionFragment : BaseFragment() {
 
     override fun handlingBackPress(): Boolean {
 //        activity?.finish()
-        findNavController().popBackStack(R.id.HomeFragment, false)
+//        findNavController().popBackStack(R.id.HomeFragment, false)
         return true
     }
 
