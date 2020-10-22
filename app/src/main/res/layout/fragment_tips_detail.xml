@@ -86,7 +86,6 @@
                 <com.raykellyfitness.views.CommonTextViewSemiBold
                     android:id="@+id/tv_title"
                     tools:text="Pumpkin Soup"
-                    android:text="@{viewModel.model.title}"
                     android:textColor="@color/offwhite"
                     android:textSize="@dimen/_13sdp"
                     android:paddingBottom="@dimen/_15sdp"
@@ -98,7 +97,6 @@
                 <com.raykellyfitness.views.CommonTextViewSemiBold
                     android:id="@+id/tv_week"
                     tools:text="Week 01"
-                    android:text="@{viewModel.type}"
                     android:textColor="@color/offwhite"
                     android:textSize="@dimen/_13sdp"
                     app:layout_constraintLeft_toLeftOf="parent"
@@ -135,6 +133,7 @@
                     android:textSize="@dimen/_11sdp"
                     android:paddingLeft="@dimen/_15sdp"
                     android:paddingRight="@dimen/_15sdp"
+                    android:paddingBottom="@dimen/_10sdp"
                     android:autoLink="all"
                     android:textColorLink="@color/off_white"
                     android:fontFamily="@font/poppins_regular"

@@ -1,19 +1,22 @@
 package com.raykellyfitness.ui.tipsandtricks
 
 import com.raykellyfitness.R
-import com.raykellyfitness.base.BaseRecyclerAdapter
-import com.raykellyfitness.base.changeTimeFormat
-import com.raykellyfitness.base.push
-import com.raykellyfitness.base.set
+import com.raykellyfitness.base.*
 import com.raykellyfitness.databinding.RowTipsInnerBinding
 import com.raykellyfitness.databinding.RowTipsOuterBinding
+import com.raykellyfitness.networking.Api
 
 class TipsAdapterOuter(
+    val type : String,
     override val layoutId: Int,
     private val onClickListener: (model: ResponseTipsInner, item: ResponseTipsOuterItem) -> Unit
 ) : BaseRecyclerAdapter<RowTipsOuterBinding, ResponseTipsOuterItem>() {
 
     override fun bind(holder: ViewHolder, item: ResponseTipsOuterItem, position: Int) {
+        if(type.equals(Api.POST_TYPE_BLOG,true)){
+            item.open = true
+            holder.binding.card.gone()
+        }
         holder.binding.model = item
         holder.binding.tvDate.text = item.date.changeTimeFormat("yyyy-MM-dd hh:mm:ss", "EEEE dd MMM, yyyy")
 

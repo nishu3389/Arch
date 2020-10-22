@@ -37,16 +37,29 @@
         </androidx.cardview.widget.CardView>
 
         <com.raykellyfitness.views.CommonTextViewMedium
-            tool:text="Pumpkin Soup"
+            tool:text="Pumpkin Soup dfdg dggg dght t r r t"
             android:text="@{model.title}"
             android:textColor="@color/black"
             android:textSize="@dimen/_12sdp"
             android:paddingLeft="@dimen/_15sdp"
+            android:paddingRight="@dimen/_30sdp"
+            android:layout_marginRight="@dimen/_35sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginLeft="@dimen/_45sdp"
             app:layout_constraintLeft_toRightOf="@id/card"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:id="@+id/img_right_arrow"
+            android:layout_marginRight="@dimen/_15sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:src="@drawable/arrow_right"
+            android:layout_width="@dimen/_10sdp"
+            android:layout_height="@dimen/_10sdp"></ImageView>
 
         <View
             android:layout_marginTop="@dimen/_15sdp"

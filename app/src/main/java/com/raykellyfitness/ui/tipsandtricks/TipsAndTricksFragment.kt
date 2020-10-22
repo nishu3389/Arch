@@ -10,6 +10,7 @@ import com.raykellyfitness.R
 import com.raykellyfitness.base.*
 import com.raykellyfitness.databinding.FragmentTipsAndTricksBinding
 import com.raykellyfitness.model.response.MasterResponse
+import com.raykellyfitness.networking.Api
 import com.raykellyfitness.networking.Api.POST_TYPE_BLOG
 import com.raykellyfitness.networking.Api.POST_TYPE_EXERCISE
 import com.raykellyfitness.networking.Api.POST_TYPE_MEAL
@@ -22,7 +23,7 @@ class TipsAndTricksFragment : BaseFragment() {
 
     var type: String = ""
 
-    var adapter = TipsAdapterOuter(R.layout.row_tips_outer) { model, modelOuter ->
+    var adapter = TipsAdapterOuter(type,R.layout.row_tips_outer) { model, modelOuter ->
         navigate(
             R.id.TipsDetailFragment,
             Pair("id", model.id),
@@ -73,14 +74,28 @@ class TipsAndTricksFragment : BaseFragment() {
 
     fun callInitialApis() {
         mBinding.recyclerOuterMeal.visibility = View.INVISIBLE
-        mViewModel.callgetPostsApi(type)
-            .observe(viewLifecycleOwner, Observer { handleTipsOrMealResponse(it) })
+        mViewModel.callgetPostsApi(type).observe(viewLifecycleOwner, Observer { handleTipsOrMealResponse(it) })
     }
 
 
     private fun handleTipsOrMealResponse(it: MasterResponse<ResponseTipsOuter>?) {
+
+
         mealList.clear()
         mealList = it?.data as ArrayList<ResponseTipsOuterItem>
+
+        if(type.equals(Api.POST_TYPE_BLOG)){
+            adapter = TipsAdapterOuter(type,R.layout.row_tips_outer) { model, modelOuter ->
+                navigate(
+                    R.id.TipsDetailFragment,
+                    Pair("id", model.id),
+                    Pair("type", type),
+                    Pair("typeName", modelOuter.day)
+                )
+            }
+            mBinding.recyclerOuterMeal.adapter = adapter
+        }
+
         adapter.setNewItems(mealList)
         adapter.addClickEventWithView(R.id.card, mClickHandler::mealClicked)
         GlobalScope.launch(Dispatchers.Main) {

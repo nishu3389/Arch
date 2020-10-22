@@ -18,7 +18,6 @@ import com.raykellyfitness.databinding .IntroSliderBinding
 import com.raykellyfitness.model.request.RequestChangePassword
 import com.raykellyfitness.util.Prefs
 
-
 class IntroSliderFragment : BaseFragment() {
 
     lateinit var mAdapter: ViewsSliderAdapter

@@ -22,25 +22,26 @@
             app:layout_constraintTop_toTopOf="parent"
             android:src="@drawable/onboarding_1_pic"/>
 
-        <com.raykellyfitness.views.CommonTextView
+       <!-- <com.raykellyfitness.views.CommonTextView
             android:id="@+id/tv_2"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/imv_item"
             android:text="@string/slider_1_msg_2"
             style="@style/slider_text"
-            />
+            />-->
 
-       <!-- <LinearLayout
-            app:layout_constraintTop_toBottomOf="@id/imv_item"
-            app:layout_constraintBottom_toBottomOf="parent"
+        <LinearLayout
             android:gravity="center"
+            android:foregroundGravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imv_item"
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="0dp">
 
             <com.raykellyfitness.views.CommonTextViewMedium
                 android:id="@+id/tv_1"
-                android:textSize="17sp"
+                android:textSize="@dimen/_13sdp"
                 android:paddingLeft="@dimen/_20sdp"
                 android:paddingRight="@dimen/_20sdp"
                 android:paddingBottom="@dimen/_15sdp"
@@ -48,18 +49,21 @@
                 android:layout_gravity="center"
                 android:textColor="@color/white"
                 android:gravity="left"
-                android:visibility="gone"
-                android:text="@string/slider_1_msg_1"
+                android:visibility="visible"
+                android:text="Welcome!"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
             <com.raykellyfitness.views.CommonTextView
                 android:id="@+id/tv_2"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/imv_item"
                 android:text="@string/slider_1_msg_2"
+                android:layout_height="wrap_content"
                 style="@style/slider_text"
                 />
 
-        </LinearLayout>-->
+        </LinearLayout>
 
 
 

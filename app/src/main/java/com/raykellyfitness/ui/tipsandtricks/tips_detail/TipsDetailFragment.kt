@@ -19,11 +19,11 @@ import com.raykellyfitness.R
 import com.raykellyfitness.base.*
 import com.raykellyfitness.databinding.FragmentTipsDetailBinding
 import com.raykellyfitness.databinding.MealDetailSliderBinding
+import com.raykellyfitness.networking.Api
 import com.raykellyfitness.ui.activity.HomeActivity
 import com.raykellyfitness.ui.tipsandtricks.Media
 import com.raykellyfitness.util.Constant.IMAGE
 import com.raykellyfitness.util.Constant.URL
-
 
 class TipsDetailFragment : BaseFragment() {
 
@@ -74,7 +74,16 @@ class TipsDetailFragment : BaseFragment() {
                     "yyyy-MM-dd hh:mm:ss",
                     "EEEE dd MMM, yyyy"
                 )
-                mBinding.invalidateAll()
+
+                if(type.equals(Api.POST_TYPE_BLOG)){
+                    mBinding.tvTitle.gone()
+                    mBinding.tvWeek.text = mViewModel.model?.title
+                }else{
+                    mBinding.tvTitle.visible()
+                    mBinding.tvTitle.text = mViewModel.model?.title
+                    mBinding.tvWeek.text = mViewModel.type
+                }
+
                 setSlider(it.data?.media)
                 mBinding.mainLayout.visibility = View.VISIBLE
             })
@@ -100,6 +109,7 @@ class TipsDetailFragment : BaseFragment() {
         if(type.isEmptyy()){
 
             type = arguments?.getString("type")!!
+            if(!type.equals(Api.POST_TYPE_BLOG))
             mViewModel.type = arguments?.getString("typeName")!!
 
            /* when(type){
