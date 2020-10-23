@@ -22,7 +22,11 @@ import com.raykellyfitness.R
 import com.raykellyfitness.base.*
 import com.raykellyfitness.databinding.ActivityMainBinding
 import com.raykellyfitness.ui.splash.SplashActivity
+import com.raykellyfitness.util.Constant
 import com.raykellyfitness.util.ParcelKeys
+import com.raykellyfitness.util.ParcelKeys.PK_POST_DAY
+import com.raykellyfitness.util.ParcelKeys.PK_POST_ID
+import com.raykellyfitness.util.ParcelKeys.PK_POST_TYPE
 import com.raykellyfitness.util.Prefs
 import com.raykellyfitness.util.Validator
 import com.raykellyfitness.util.permission.DeviceRuntimePermission
@@ -46,23 +50,15 @@ class HomeActivity : BaseActivity(), NavController.OnDestinationChangedListener,
     private lateinit var appBarConfiguration: AppBarConfiguration
     lateinit var navController: NavController
 
-    private val fragmentsWhereBottomTabsShouldBeShown = listOf(
-        R.id.HomeFragment,
-        R.id.SettingsFragment,
-        R.id.NotificationsFragment
-    )
+    private val fragmentsWhereBottomTabsShouldBeShown =
+        listOf(R.id.HomeFragment, R.id.SettingsFragment, R.id.NotificationsFragment)
 
-
-    private val fragmentsTabs = listOf(
-        R.id.SettingsFragment,
-        R.id.HealthFragment,
-        R.id.NotificationsFragment
-    )
+    private val fragmentsTabs =
+        listOf(R.id.SettingsFragment, R.id.HealthFragment, R.id.NotificationsFragment)
 
     lateinit var mBinding: ActivityMainBinding
 
     var instance: HomeActivity? = null
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,44 +69,33 @@ class HomeActivity : BaseActivity(), NavController.OnDestinationChangedListener,
         setStatusBarColor("#ffffff")
     }
 
-
     var passwordVerified: Boolean = false
 
     private val INTENT_AUTHENTICATE: Int = 3487
 
-
     fun showRightLogo(show: Boolean) {
-        if (show)
-            mBinding.imgRight.visible()
-        else
-            mBinding.imgRight.gone()
+        if (show) mBinding.imgRight.visible()
+        else mBinding.imgRight.gone()
     }
 
     fun showToolbar(show: Boolean) {
-        if (show)
-            mBinding.toolbar.visible()
-        else
-            mBinding.toolbar.gone()
+        if (show) mBinding.toolbar.visible()
+        else mBinding.toolbar.gone()
     }
 
     fun showLogo(show: Boolean) {
-        if (show)
-            mBinding.imgLogo.visible()
-        else
-            mBinding.imgLogo.gone()
+        if (show) mBinding.imgLogo.visible()
+        else mBinding.imgLogo.gone()
     }
 
     fun showBack(show: Boolean) {
-        if (show)
-            mBinding.imgBack.visible()
-        else
-            mBinding.imgBack.gone()
+        if (show) mBinding.imgBack.visible()
+        else mBinding.imgBack.gone()
     }
 
     fun setTitle(title: String) {
-        if (title.isEmptyy())
-            mBinding.tvTitle.gone()
-        else{
+        if (title.isEmptyy()) mBinding.tvTitle.gone()
+        else {
             mBinding.tvTitle.visible()
             mBinding.tvTitle.text = title
         }
@@ -139,12 +124,11 @@ class HomeActivity : BaseActivity(), NavController.OnDestinationChangedListener,
         Log.d(" lifecycle", "onNewIntent")
     }
 
-
     private fun initWork() {
         context = this
         intent?.let {
-            if (intent != null && intent.extras != null && intent.extras!!.containsKey("bean")) {
-                notificationModel = intent.getParcelableExtra<NotificationBean>("bean")
+            if (intent != null && intent.extras != null && intent.extras!!.containsKey(Constant.BEAN)) {
+                notificationModel = intent.getParcelableExtra(Constant.BEAN)
                 fromNotification = true
             }
         }
@@ -156,50 +140,38 @@ class HomeActivity : BaseActivity(), NavController.OnDestinationChangedListener,
 
         val drawerLayout: DrawerLayout = mBinding.drawerLayout
         navController = setNavigationController()
-        if (fromNotification)
-            getDestination(notificationModel)
+        if (fromNotification) getDestination(notificationModel)
     }
-
 
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
-
     private fun bottomNavigationWork() {
 
-        arrTabTextView = arrayListOf(
-            tab_home,
-            tab_health,
-            tab_notification,
-            tab_settings
-        )
+        arrTabTextView = arrayListOf(tab_home, tab_health, tab_notification, tab_settings)
 
         tab_home.pushTab()?.setOnClickListener {
-            if (navController.currentDestination?.id == R.id.HomeFragment)
-                return@setOnClickListener
+            if (navController.currentDestination?.id == R.id.HomeFragment) return@setOnClickListener
             navController.navigate(R.id.HomeFragment)
             highlightTab(TAB_HOME)
         }
 
         tab_health.pushTab()?.setOnClickListener {
-            if (navController.currentDestination?.id == R.id.HealthFragment)
-                return@setOnClickListener
+            if (navController.currentDestination?.id == R.id.HealthFragment) return@setOnClickListener
             navController.navigate(R.id.HealthFragment)
             highlightTab(TAB_HEALTH)
         }
 
         tab_notification.pushTab()?.setOnClickListener {
-            if (navController.currentDestination?.id == R.id.NotificationsFragment)
-                return@setOnClickListener
+            if (navController.currentDestination?.id == R.id.NotificationsFragment) return@setOnClickListener
             navController.navigate(R.id.NotificationsFragment)
             highlightTab(TAB_NOTIFICATION)
         }
 
         tab_settings.pushTab()?.setOnClickListener {
-            if (navController.currentDestination?.id == R.id.SettingsFragment)
-                return@setOnClickListener
+            if (navController.currentDestination?.id == R.id.SettingsFragment) return@setOnClickListener
             navController.navigate(R.id.SettingsFragment)
             highlightTab(TAB_SETTINGS)
         }
@@ -208,7 +180,7 @@ class HomeActivity : BaseActivity(), NavController.OnDestinationChangedListener,
     }
 
     fun highlightTabNone() {
-//        highlightTab(TAB_NONE)
+        //        highlightTab(TAB_NONE)
     }
 
     fun highlightHomeTab() {
@@ -216,17 +188,16 @@ class HomeActivity : BaseActivity(), NavController.OnDestinationChangedListener,
     }
 
     fun highlightHealthTab() {
-//        highlightTab(TAB_HEALTH)
+        //        highlightTab(TAB_HEALTH)
     }
 
     fun highlightNotificationTab() {
-//        highlightTab(TAB_NOTIFICATION)
+        //        highlightTab(TAB_NOTIFICATION)
     }
 
     fun highlightSettingsTab() {
-//        highlightTab(TAB_SETTINGS)
+        //        highlightTab(TAB_SETTINGS)
     }
-
 
     private fun setNavigationController(): NavController {
         val navController = Navigation.findNavController(this, R.id.nav_host_fragment)
@@ -235,17 +206,14 @@ class HomeActivity : BaseActivity(), NavController.OnDestinationChangedListener,
         return navController
     }
 
-    override fun onDestinationChanged(
-        controller: NavController,
-        destination: NavDestination,
-        arguments: Bundle?
-    ) {
+    override fun onDestinationChanged(controller: NavController,
+                                      destination: NavDestination,
+                                      arguments: Bundle?) {
 
         if (fragmentsWhereBottomTabsShouldBeShown.contains(destination.id)) {
             showBack(false)
             bottom_navigation_bar.visibility = View.VISIBLE
-        }
-        else{
+        } else {
             bottom_navigation_bar.visibility = View.GONE
             showBack(true)
         }
@@ -260,11 +228,9 @@ class HomeActivity : BaseActivity(), NavController.OnDestinationChangedListener,
         bottom_navigation_bar.visibility = View.GONE
     }
 
-
     override fun setTitle(title: CharSequence?) {
         mBinding.tvTitle.setText(title)
     }
-
 
     @SuppressLint("MissingSuperCall")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -297,11 +263,8 @@ class HomeActivity : BaseActivity(), NavController.OnDestinationChangedListener,
         when (requestCode) {
 
             DeviceRuntimePermission.REQUEST_PERMISSION_ACCESS_COARSE__FINE_LOCATION_CAMERA -> checkAndAskPermission(
-                DeviceRuntimePermission(
-                    DeviceRuntimePermission.REQUEST_PERMISSION_ACCESS_COARSE__FINE_LOCATION_CAMERA,
-                    null
-                )
-            )
+                DeviceRuntimePermission(DeviceRuntimePermission.REQUEST_PERMISSION_ACCESS_COARSE__FINE_LOCATION_CAMERA,
+                                        null))
         }
     }
 
@@ -309,13 +272,6 @@ class HomeActivity : BaseActivity(), NavController.OnDestinationChangedListener,
     override fun onBackPressed() {
 
         when {
-            navController.currentDestination?.id == R.id.ServicesDirectoryFragment -> {
-                if (fromChecklistToServiceDirectory) {
-                    super.onBackPressed()
-                } else
-                    backToHome()
-            }
-
             fragmentsTabs.contains(navController.currentDestination?.id) -> {
                 backToHome()
                 return
@@ -333,29 +289,19 @@ class HomeActivity : BaseActivity(), NavController.OnDestinationChangedListener,
         navController.popBackStack(R.id.HomeFragment, false)
     }
 
-
     private fun highlightTab(tab: Int) {
         when (tab) {
-            TAB_HOME ->
-                highlightTab(tab_home, false)
-            TAB_HEALTH ->
-                highlightTab(tab_health, false)
-            TAB_NOTIFICATION ->
-                highlightTab(tab_notification, false)
-            TAB_SETTINGS ->
-                highlightTab(tab_settings, false)
-            TAB_NONE ->
-                highlightTab(null, true)
+            TAB_HOME -> highlightTab(tab_home, false)
+            TAB_HEALTH -> highlightTab(tab_health, false)
+            TAB_NOTIFICATION -> highlightTab(tab_notification, false)
+            TAB_SETTINGS -> highlightTab(tab_settings, false)
+            TAB_NONE -> highlightTab(null, true)
         }
     }
 
-    private fun highlightTab(
-        tvTab: TextView?,
-        clear: Boolean
-    ) {
+    private fun highlightTab(tvTab: TextView?, clear: Boolean) {
 
-        for (textView in arrTabTextView)
-            setTvColor(textView, R.color.white)
+        for (textView in arrTabTextView) setTvColor(textView, R.color.white)
 
         if (!clear) {
             setTvColor(tvTab, R.color.black_color)
@@ -364,80 +310,34 @@ class HomeActivity : BaseActivity(), NavController.OnDestinationChangedListener,
     }
 
     private fun getDestination(notification: NotificationBean?) {
-
-        when (notification?.notificationtype) {
-            NotificationType.OrderPlaced -> {
-                navController.navigate(
-                    R.id.ItemDetailFragment,
-                    bundleOf(ParcelKeys.PK_SELL_ITEM_ID to notification?.id)
-                )
-            }
-            NotificationType.OrderCancelled -> {
-                navController.navigate(
-                    R.id.ItemDetailFragment,
-                    bundleOf(ParcelKeys.PK_SELL_ITEM_ID to notification?.id)
-                )
-            }
-            NotificationType.ItemDelivered -> {
-                navController.navigate(
-                    R.id.MyOrderDetailFragment,
-                    bundleOf("id" to notification?.id)
-                )
-            }
-            NotificationType.ChecklistUpdate -> {
-                navController.navigate(
-                    R.id.ChecklistDetailFragment,
-                    bundleOf("id" to notification?.id)
-                )
-            }
-            NotificationType.BoxAllotment -> {
-                navController.navigate(R.id.RedeemFreeBoxFragment)
-            }
-            NotificationType.ChecklistComplete -> {
-                navController.navigate(
-                    R.id.ChecklistDetailFragment,
-                    bundleOf("id" to notification?.id)
-                )
-            }
-            NotificationType.BudgetConsumed -> {
-                navController.navigate(
-                    R.id.BudgetTrackerFragment,
-                    bundleOf("id" to notification?.id)
-                )
-            }
-            else -> {
-
-            }
-        }
-
+        navController.navigate(R.id.TipsDetailFragment,
+                               bundleOf(PK_POST_ID to notification?.id,
+                                        PK_POST_TYPE to notification?.notificationtype,
+                                        PK_POST_DAY to notification?.day))
     }
 
     override fun requestLogout() {
         Prefs.get().loginData?.user_name?.let {
-            showAlertDialog(
-                it,
-                getString(R.string.msg_app_logout_confirmation),
-                getString(R.string.yes),
-                getString(R.string.no),
-                DialogInterface.OnClickListener { _, which ->
-                    if (which == DialogInterface.BUTTON_POSITIVE) {
-                        mBaseViewModel.logOut().observe(MainBoardActivity@ this, Observer {
-                            onLogOutSuccess()
-                        })
-                    }
-                })
+            showAlertDialog(it,
+                            getString(R.string.msg_app_logout_confirmation),
+                            getString(R.string.yes),
+                            getString(R.string.no),
+                            DialogInterface.OnClickListener { _, which ->
+                                if (which == DialogInterface.BUTTON_POSITIVE) {
+                                    mBaseViewModel.logOut()
+                                        .observe(MainBoardActivity@ this, Observer {
+                                            onLogOutSuccess()
+                                        })
+                                }
+                            })
         }
     }
 
     private fun onLogOutSuccess() {
 
         Prefs.get().clear()
-        startActivity(
-            Intent(
-                this,
-                SplashActivity::class.java
-            ).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-        )
+        startActivity(Intent(this,
+                             SplashActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK))
         finish()
     }
 

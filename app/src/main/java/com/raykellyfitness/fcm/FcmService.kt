@@ -18,7 +18,7 @@ import com.raykellyfitness.base.sendToServer
 import com.raykellyfitness.util.Constant
 import com.raykellyfitness.util.Prefs
 
-// Dummy Notification linnk
+// Dummy Notification link
 // http://3uwebtest.projectstatus.in/TermsOfUse
 class FcmService : FirebaseMessagingService() {
 
@@ -61,8 +61,8 @@ class FcmService : FirebaseMessagingService() {
 
         val notifyIntent = Intent(this, HomeActivity::class.java)
         notifyIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        notifyIntent.putExtra("type", notificationBean.notificationtype)
-        notifyIntent.putExtra("bean", notificationBean)
+        notifyIntent.putExtra(Constant.TYPE, notificationBean.notificationtype)
+        notifyIntent.putExtra(Constant.BEAN, notificationBean)
         var notifyPendingIntent = PendingIntent.getActivity(this, 0, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT)
 
 
@@ -88,38 +88,31 @@ class FcmService : FirebaseMessagingService() {
 
     private fun sendBroadCast(notification: NotificationBean?) {
         var intent: Intent? = null
+        intent = Intent(Constant.ACTION_ORDER_PLACED)
 
+/*
         when (notification?.notificationtype) {
 
-            NotificationType.OrderPlaced -> {
+            NotificationType.MealReceived -> {
                 intent = Intent(Constant.ACTION_ORDER_PLACED)
             }
-            NotificationType.OrderCancelled -> {
+            NotificationType.TipsReceived -> {
                 intent = Intent(Constant.ACTION_ORDER_CANCELLED)
             }
-            NotificationType.ItemDelivered -> {
+            NotificationType.ExerciseReceived -> {
                 intent = Intent(Constant.ACTION_ITEM_DELIVERED)
             }
-            NotificationType.ChecklistUpdate -> {
+            NotificationType.MotivationReceived -> {
                 intent = Intent(Constant.ACTION_CHECKLIST_UPDATE)
             }
-            NotificationType.ChecklistComplete -> {
+            NotificationType.BlogReceived -> {
                 intent = Intent(Constant.ACTION_CHECKLIST_UPDATE)
-            }
-             NotificationType.BudgetConsumed -> {
-                intent = Intent(Constant.ACTION_BUDGET)
-            }
-            NotificationType.BoxAllotment -> {
-                intent = Intent(Constant.ACTION_BOX_ALLOTMENT)
-            }
-            NotificationType.ConceirgeProcessed -> {
-                intent = Intent(Constant.ACTION_CONCIERGE_PROCESSED)
             }
             else -> {
                 intent = Intent(Constant.ACTION_NAVIGATION)
             }
-
         }
+*/
 
         intent.putExtra("bean", notification)
         sendBroadcast(intent)

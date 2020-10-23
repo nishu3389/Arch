@@ -46,6 +46,7 @@ object Api {
     const val ContactUsQuery = ""
     const val ChangePassword = "change_password"
     const val SAVE_PAYMENT = "Authentication"
+    const val Notifications = "notifications"
 
     /*------------------------------PHASE 2 Sales Profile---------------------------------*/
     const val GETCUSTOMERPROFILE = ""
@@ -192,6 +193,13 @@ object Api {
 
             SAVE_PAYMENT -> {
                 result.responseType = object : TypeToken<MasterResponse<Boolean>>() {}.type
+                result.url = BASE_URL
+                result.requestType = RequestType.POST
+                return result
+            }
+
+            Notifications -> {
+                result.responseType = object : TypeToken<MasterResponse<ResponseNotifications>>() {}.type
                 result.url = BASE_URL
                 result.requestType = RequestType.POST
                 return result

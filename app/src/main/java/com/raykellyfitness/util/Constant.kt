@@ -51,6 +51,9 @@ object Constant {
     const val PROFILE_SALES = 2
     const val KEY_PROFILE_TYPE= "key_profile_type"
 
+    const val BEAN= "bean"
+    const val TYPE= "type"
+
     const val REGISTER = "REGISTER"
     const val FORGOT_PASSWORD = "FORGOT_PASSWORD"
 

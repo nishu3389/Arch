@@ -65,7 +65,7 @@ class AddWeightFragment : BaseFragment(), OnChartValueSelectedListener {
     }
 
     private fun setBMI(list: ResponseAddWeight?) {
-        if(!list.isEmptyy(mBinding.tvBmi)){
+        if(!list.isEmptyyThenShow(mBinding.tvBmi)){
             val last = list?.last()
 
             if(last?.height.isEmptyy() || last?.weight.isEmptyy()){

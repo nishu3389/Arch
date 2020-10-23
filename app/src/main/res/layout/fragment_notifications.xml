@@ -21,7 +21,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler"
-            tools:listitem="@layout/row_tips_outer"
+            tools:listitem="@layout/row_notification"
             android:padding="@dimen/_10sdp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:orientation="vertical"

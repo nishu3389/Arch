@@ -9,8 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 
-abstract class BaseRecyclerAdapter<T : ViewDataBinding, R> :
-    RecyclerView.Adapter<BaseRecyclerAdapter<T, R>.ViewHolder>() {
+abstract class BaseRecyclerAdapter<T : ViewDataBinding, R> : RecyclerView.Adapter<BaseRecyclerAdapter<T, R>.ViewHolder>() {
 
     var list: ArrayList<R> = ArrayList()
 

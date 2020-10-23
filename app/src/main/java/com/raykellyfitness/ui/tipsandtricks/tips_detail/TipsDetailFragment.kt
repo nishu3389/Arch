@@ -24,6 +24,8 @@ import com.raykellyfitness.ui.activity.HomeActivity
 import com.raykellyfitness.ui.tipsandtricks.Media
 import com.raykellyfitness.util.Constant.IMAGE
 import com.raykellyfitness.util.Constant.URL
+import com.raykellyfitness.util.ParcelKeys
+import com.raykellyfitness.util.ParcelKeys.PK_POST_ID
 
 class TipsDetailFragment : BaseFragment() {
 
@@ -64,16 +66,12 @@ class TipsDetailFragment : BaseFragment() {
 
     private fun callInitialApis() {
         mBinding.mainLayout.visibility = View.INVISIBLE
-        mViewModel.callTipsDetailApi(requireArguments().getString("id")!!, type).observe(
+        mViewModel.callTipsDetailApi(requireArguments().getString(PK_POST_ID)!!, type).observe(
             viewLifecycleOwner,
             Observer {
                 mViewModel.model = it.data
                 mBinding.tvDesc.setHtml(it.data!!.description)
-//            mBinding.tvDesc.setText(HtmlCompat.fromHtml(it.data!!.description, HtmlCompat.FROM_HTML_MODE_LEGACY))
-                mBinding.tvDate.text = it.data!!.date.changeTimeFormat(
-                    "yyyy-MM-dd hh:mm:ss",
-                    "EEEE dd MMM, yyyy"
-                )
+                mBinding.tvDate.text = it.data!!.date.changeTimeFormat(getString(R.string.from_date), getString(R.string.to_date))
 
                 if(type.equals(Api.POST_TYPE_BLOG)){
                     mBinding.tvTitle.gone()
@@ -107,17 +105,9 @@ class TipsDetailFragment : BaseFragment() {
         (activity as HomeActivity).showToolbar(false)
 
         if(type.isEmptyy()){
-
-            type = arguments?.getString("type")!!
+            type = arguments?.getString(ParcelKeys.PK_POST_TYPE)!!
             if(!type.equals(Api.POST_TYPE_BLOG))
-            mViewModel.type = arguments?.getString("typeName")!!
-
-           /* when(type){
-                Api.POST_TYPE_MEAL -> mViewModel.type = getString(R.string.week)
-                Api.POST_TYPE_TIPS -> mViewModel.type = getString(R.string.day)
-                Api.POST_TYPE_EXERCISE -> mViewModel.type = getString(R.string.day)
-            }*/
-
+            mViewModel.type = arguments?.getString(ParcelKeys.PK_POST_DAY)!!
         }
 
     }

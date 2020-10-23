@@ -8,32 +8,17 @@ import kotlinx.android.parcel.Parcelize
 data class NotificationBean(
 
 	@field:SerializedName("id")
-	val id: Int? = null,
+	val id: String? = "1",
 
-	@field:SerializedName("notificationtype")
-	val notificationtype: Int? = null,
+	@field:SerializedName("type")
+	val notificationtype: String? = "meal",
+
+	@field:SerializedName("day")
+	val day: String? = "Day 1",
 
 	@field:SerializedName("title")
-	val title: String? = null,
+	val title: String? = "",
 
 	@field:SerializedName("body")
-	val body: String? = null
+	val body: String? = ""
 ) : Parcelable
-
-
-class NotificationType{
-	companion object {
-		val None: Int? = 0
-		val OrderPlaced: Int? = 1
-		val OrderCancelled: Int? = 2
-		val ItemDelivered: Int? = 3
-		val ChecklistUpdate: Int? = 4
-		val BoxAllotment: Int? = 5
-		val ConceirgeProcessed: Int? = 6
-
-		val ChecklistComplete: Int? = 8
-		val BudgetConsumed: Int? = 9
-
-
-	}
-}

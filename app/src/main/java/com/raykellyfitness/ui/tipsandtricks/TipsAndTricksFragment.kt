@@ -17,6 +17,7 @@ import com.raykellyfitness.networking.Api.POST_TYPE_MEAL
 import com.raykellyfitness.networking.Api.POST_TYPE_MOTIVATION
 import com.raykellyfitness.networking.Api.POST_TYPE_TIPS
 import com.raykellyfitness.ui.activity.HomeActivity
+import com.raykellyfitness.util.ParcelKeys
 import kotlinx.coroutines.*
 
 class TipsAndTricksFragment : BaseFragment() {
@@ -26,9 +27,9 @@ class TipsAndTricksFragment : BaseFragment() {
     var adapter = TipsAdapterOuter(type,R.layout.row_tips_outer) { model, modelOuter ->
         navigate(
             R.id.TipsDetailFragment,
-            Pair("id", model.id),
-            Pair("type", type),
-            Pair("typeName", modelOuter.day)
+            Pair(ParcelKeys.PK_POST_ID, model.id),
+            Pair(ParcelKeys.PK_POST_TYPE, type),
+            Pair(ParcelKeys.PK_POST_DAY, modelOuter.day)
         )
     }
 

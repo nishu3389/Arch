@@ -1,6 +1,8 @@
 package com.raykellyfitness.model.request
 
+import android.os.Parcelable
 import com.google.gson.JsonObject
+import kotlinx.android.parcel.Parcelize
 
 data class RequestSavePayment(
     var receiptData : ReceiptData?,
@@ -63,4 +65,20 @@ data class ResponseAddBloodPressureItem(
     val blood_pressure_systolic: String,
     val dayno: String,
     val created_at: String = "2020-09-11"
+)
+
+class ResponseNotifications : ArrayList<Notification>()
+
+@Parcelize
+data class Notification(
+    val id: String = "1",
+    val day: String = "Day 1",
+    val message: String = "New chest workout available to try, we hope you may like it, click here to have a look on it.",
+    val type: String = "meal",
+    val created_at: String = "2020-09-11 00:00:00"
+) : Parcelable
+
+data class RequestNotifications(
+    var type: String? = "",
+    var method: String? = ""
 )

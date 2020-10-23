@@ -410,7 +410,38 @@ fun List<Any>?.isEmptyy(): Boolean {
     return false
 }
 
+
+fun List<Any>?.isEmptyyThenShow(view : View): Boolean {
+
+    if (this == null){
+        view.gone()
+        return true
+    }
+    else if (this.isEmpty()){
+        view.gone()
+        return true
+    }
+
+    view.visible()
+    return false
+}
+
 fun List<Any>?.isEmptyy(view : View): Boolean {
+
+    if (this == null){
+        view.visible()
+        return true
+    }
+    else if (this.isEmpty()){
+        view.visible()
+        return true
+    }
+
+    view.gone()
+    return false
+}
+
+fun List<Any>?.populate(view : View): Boolean {
 
     if (this == null){
         view.gone()

@@ -150,5 +150,8 @@
     <string name="purchase_subscriptions">Purchase Subscriptions</string>
     <string name="continue_to_purchase">Continue to purchase</string>
     <string name="slider_2_msg_2">If you haven\'t been exercising recently, just start with 20-30 minutes of walking each day.</string>
+    <string name="from_date">yyyy-MM-dd hh:mm:ss</string>
+    <string name="to_date">EEEE dd MMM, yyyy</string>
+    <string name="bean">bean</string>
 
 </resources>

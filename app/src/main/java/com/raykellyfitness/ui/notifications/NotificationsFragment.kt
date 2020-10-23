@@ -4,48 +4,82 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.fragment.findNavController
 import com.raykellyfitness.R
-import com.raykellyfitness.ui.activity.HomeActivity
-import com.raykellyfitness.base.*
+import com.raykellyfitness.base.AsyncViewController
+import com.raykellyfitness.base.BaseFragment
+import com.raykellyfitness.base.MyViewModelProvider
+import com.raykellyfitness.base.isEmptyy
 import com.raykellyfitness.databinding.FragmentNotificationsBinding
-import com.raykellyfitness.databinding.FragmentSettingsBinding
-import com.raykellyfitness.model.request.RequestForgotPassword
-import com.raykellyfitness.util.permission.DeviceRuntimePermission
-import com.raykellyfitness.util.permission.IPermissionGranted
+import com.raykellyfitness.model.request.Notification
+import com.raykellyfitness.model.request.ResponseNotifications
+import com.raykellyfitness.ui.activity.HomeActivity
 
 class NotificationsFragment : BaseFragment() {
 
-    lateinit var dialog : AlertDialog
     lateinit var mViewModel: NotificationsViewModel
     lateinit var mBinding: FragmentNotificationsBinding
     var onClickHandler = ClickHandler()
+
+
+    var adapter = NotificationsAdapter(R.layout.row_notification) { model ->
+        navigate(
+            R.id.TipsDetailFragment,
+            Pair("id", model.id),
+            Pair("type", model.type),
+            Pair("typeName", model.day)
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupViewModel()
     }
 
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        mBinding = FragmentNotificationsBinding.inflate(inflater, container, false).apply {
-            clickHandler = onClickHandler
-            viewModel = mViewModel
-
+        if (!::mBinding.isInitialized) {
+            mBinding = FragmentNotificationsBinding.inflate(inflater, container, false).apply {
+                clickHandler = onClickHandler
+                viewModel = mViewModel
+            }
+            initWork()
+            otherWork()
         }
-
         return mBinding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    private fun otherWork() {
+        setupRecycler()
+        callInitialApi()
+    }
 
+    private fun initWork() {
         (activity as HomeActivity).showBack(false)
         (activity as HomeActivity).showLogo(true)
         (activity as HomeActivity).setTitle("Notifications")
-        setupClicks()
+    }
+
+    private fun callInitialApi() {
+
+        var list = ResponseNotifications()
+        for(i in 0..10)
+            list.add(Notification())
+
+        handleResponse(list)
+
+        mViewModel.callNotificationsApi().observe(viewLifecycleOwner, Observer {
+                handleResponse(it.data)
+        })
+    }
+
+    private fun handleResponse(data: ResponseNotifications?) {
+        if(!data.isEmptyy(mBinding.tvNoData))
+            adapter.setNewItems(data!!)
+    }
+
+    private fun setupRecycler() {
+        mBinding.recycler.adapter = adapter
     }
 
     private fun setupClicks() {
@@ -54,12 +88,10 @@ class NotificationsFragment : BaseFragment() {
 
     private fun setupViewModel() {
         mViewModel = ViewModelProviders.of(this, MyViewModelProvider(commonCallbacks as AsyncViewController)).get(NotificationsViewModel::class.java)
-        mViewModel.requestForgotPassword.set(RequestForgotPassword())
     }
 
     inner class ClickHandler {
 
     }
-
 
 }
