@@ -57,7 +57,8 @@ class SubscriptionFragment : BaseFragment() {
                     else -> {
                         if (billingResult?.responseCode == BillingClient.BillingResponseCode.ITEM_ALREADY_OWNED) {
                             clearPurchases()
-                            billingResult.debugMessage.toast()
+                            if(!billingResult.debugMessage.isEmptyy())
+                                billingResult.debugMessage.toast()
                         }
                     }
 

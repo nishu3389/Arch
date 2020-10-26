@@ -8,7 +8,6 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import com.demo.fcm.NotificationBean
-import com.demo.fcm.NotificationType
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.google.gson.Gson
@@ -42,7 +41,7 @@ class FcmService : FirebaseMessagingService() {
         Log.e("message receive", "receive " + remoteMessage?.data)
 
         val notificationBean = Gson().run {
-            fromJson(remoteMessage?.data?.get("custom_notification"), NotificationBean::class.java)
+            fromJson(remoteMessage?.data?.get("body"), NotificationBean::class.java)
         }
 
         sendBroadCast(notificationBean)
@@ -61,7 +60,7 @@ class FcmService : FirebaseMessagingService() {
 
         val notifyIntent = Intent(this, HomeActivity::class.java)
         notifyIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        notifyIntent.putExtra(Constant.TYPE, notificationBean.notificationtype)
+        notifyIntent.putExtra(Constant.TYPE, notificationBean.notificationType)
         notifyIntent.putExtra(Constant.BEAN, notificationBean)
         var notifyPendingIntent = PendingIntent.getActivity(this, 0, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT)
 
@@ -69,8 +68,8 @@ class FcmService : FirebaseMessagingService() {
         notificationBean?.let {
             val mBuilder = NotificationCompat.Builder(this, getString(R.string.channel_id))
                 .setSmallIcon(R.drawable.logo_icon)
-                .setContentTitle(notificationBean.title)
-                .setContentText(notificationBean.body)
+                .setContentTitle(notificationBean.message)
+                .setContentText(notificationBean.message)
                 .setContentIntent(notifyPendingIntent)
                 .setAutoCancel(true)
                 //.setLargeIcon(bmp)

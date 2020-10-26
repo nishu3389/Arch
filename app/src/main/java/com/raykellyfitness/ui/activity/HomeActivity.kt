@@ -17,7 +17,6 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import com.demo.fcm.NotificationBean
-import com.demo.fcm.NotificationType
 import com.raykellyfitness.R
 import com.raykellyfitness.base.*
 import com.raykellyfitness.databinding.ActivityMainBinding
@@ -311,8 +310,8 @@ class HomeActivity : BaseActivity(), NavController.OnDestinationChangedListener,
 
     private fun getDestination(notification: NotificationBean?) {
         navController.navigate(R.id.TipsDetailFragment,
-                               bundleOf(PK_POST_ID to notification?.id,
-                                        PK_POST_TYPE to notification?.notificationtype,
+                               bundleOf(PK_POST_ID to notification?.postId,
+                                        PK_POST_TYPE to notification?.type,
                                         PK_POST_DAY to notification?.day))
     }
 

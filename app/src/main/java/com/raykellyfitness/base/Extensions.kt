@@ -272,8 +272,7 @@ fun ImageView.loadImage(con: Context, url: String?) {
 
 fun String.toast() {
     MainApplication.getActivityInstance().runOnUiThread {
-        val inflater = MainApplication.get()
-            .getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val inflater = MainApplication.get().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val layout = inflater.inflate(R.layout.layout_toast_custom, null, false)
         val tv = layout.findViewById(R.id.txtvw) as TextView
         tv.text = this

@@ -7,18 +7,19 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class NotificationBean(
 
-	@field:SerializedName("id")
-	val id: String? = "1",
+	@field:SerializedName("post_id")
+	val postId: String? = "",
 
 	@field:SerializedName("type")
-	val notificationtype: String? = "meal",
+	val type: String? = "",
+
+	@field:SerializedName("notification_type")
+	val notificationType: String? = "",
 
 	@field:SerializedName("day")
-	val day: String? = "Day 1",
+	val day: String? = "",
 
-	@field:SerializedName("title")
-	val title: String? = "",
+	@field:SerializedName("message")
+	val message: String? = ""
 
-	@field:SerializedName("body")
-	val body: String? = ""
 ) : Parcelable
