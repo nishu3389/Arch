@@ -32,8 +32,7 @@ import com.raykellyfitness.util.permission.DeviceRuntimePermission
 import com.raykellyfitness.util.permission.IPermissionGranted
 import kotlinx.android.synthetic.main.content_main.*
 
-class HomeActivity : BaseActivity(), NavController.OnDestinationChangedListener,
-    IPermissionGranted {
+class HomeActivity : BaseActivity(), NavController.OnDestinationChangedListener, IPermissionGranted {
 
     var notificationModel: NotificationBean? = null
     var fromNotification: Boolean = false
