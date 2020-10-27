@@ -103,6 +103,19 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/_12sdp" />
 
+            <com.raykellyfitness.views.CommonTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{() -> clickHandler.manageSubs()}"
+                android:layout_gravity="center"
+                android:padding="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:text="@string/manage_subscriptions"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_13sdp" />
+
+
+
 
         </LinearLayout>
         

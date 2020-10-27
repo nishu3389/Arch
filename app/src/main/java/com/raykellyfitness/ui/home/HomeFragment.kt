@@ -9,6 +9,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import com.android.billingclient.api.*
 import com.google.gson.Gson
 import com.raykellyfitness.R
 import com.raykellyfitness.ui.activity.HomeActivity
@@ -18,12 +19,14 @@ import com.raykellyfitness.model.request.ReceiptData
 import com.raykellyfitness.model.request.RequestForgotPassword
 import com.raykellyfitness.model.request.RequestSavePayment
 import com.raykellyfitness.networking.Api
+import com.raykellyfitness.ui.subscription.SubsCompleteListener
+import com.raykellyfitness.util.Constant.SKU
 import com.raykellyfitness.util.Prefs
 import com.raykellyfitness.util.permission.DeviceRuntimePermission
 import com.raykellyfitness.util.permission.IPermissionGranted
 
 
-class HomeFragment : BaseFragment() {
+class HomeFragment : BaseFragment(), SubsCompleteListener {
 
     lateinit var dialog : AlertDialog
     lateinit var mViewModel: HomeViewModel
@@ -66,6 +69,19 @@ class HomeFragment : BaseFragment() {
                     DialogInterface.OnClickListener { _, _ -> })
             })
         }
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        checkIfSubscribed()
+    }
+
+    private var billingClient: BillingClient? = null
+
+    private fun checkIfSubscribed() {
+        billingClient = MainApplication.get().getInAppBillingClient(this)
     }
 
     private fun manageClicks() {
@@ -118,6 +134,32 @@ class HomeFragment : BaseFragment() {
                 )
             }
         }
+    }
+
+    override fun onSubsCompleted(var1: BillingResult, var2: List<Purchase>?) {
+
+    }
+
+    override fun onConnected(var1: BillingResult) {
+        billingClient?.queryPurchaseHistoryAsync(BillingClient.SkuType.INAPP) { p0, purchasesList ->
+            if (!purchasesList.isEmptyy()) {
+                var isPurchased = false
+                purchasesList?.forEach {
+                    if (it.sku.equals(SKU)) isPurchased = true
+                }
+
+                if (!isPurchased) navigate(R.id.SubscriptionFragment)
+            }
+        }
+
+        val purchasesList = billingClient?.queryPurchases(BillingClient.SkuType.INAPP)?.purchasesList
+        val billingResult = billingClient?.queryPurchases(BillingClient.SkuType.INAPP)?.billingResult
+        val responseCode = billingResult?.responseCode
+        val debugMessage = billingResult?.debugMessage
+    }
+
+    override fun onDisconnected() {
+
     }
 
 

@@ -22,6 +22,7 @@ import com.raykellyfitness.base.*
 import com.raykellyfitness.databinding.ActivityMainBinding
 import com.raykellyfitness.ui.splash.SplashActivity
 import com.raykellyfitness.util.Constant
+import com.raykellyfitness.util.Constant.NOTIFICATION_TYPE_POST
 import com.raykellyfitness.util.ParcelKeys
 import com.raykellyfitness.util.ParcelKeys.PK_POST_DAY
 import com.raykellyfitness.util.ParcelKeys.PK_POST_ID
@@ -32,7 +33,8 @@ import com.raykellyfitness.util.permission.DeviceRuntimePermission
 import com.raykellyfitness.util.permission.IPermissionGranted
 import kotlinx.android.synthetic.main.content_main.*
 
-class HomeActivity : BaseActivity(), NavController.OnDestinationChangedListener, IPermissionGranted {
+class HomeActivity : BaseActivity(), NavController.OnDestinationChangedListener,
+    IPermissionGranted {
 
     var notificationModel: NotificationBean? = null
     var fromNotification: Boolean = false
@@ -308,10 +310,12 @@ class HomeActivity : BaseActivity(), NavController.OnDestinationChangedListener,
     }
 
     private fun getDestination(notification: NotificationBean?) {
-        navController.navigate(R.id.TipsDetailFragment,
-                               bundleOf(PK_POST_ID to notification?.postId,
-                                        PK_POST_TYPE to notification?.type,
-                                        PK_POST_DAY to notification?.day))
+        if (notification?.notificationType.equals(NOTIFICATION_TYPE_POST)) navController.navigate(R.id.TipsDetailFragment,
+                                                                                                  bundleOf(
+                                                                                                      PK_POST_ID to notification?.postId,
+                                                                                                      PK_POST_TYPE to notification?.type,
+                                                                                                      PK_POST_DAY to notification?.day))
+        else navController.navigate(R.id.NotificationsFragment)
     }
 
     override fun requestLogout() {

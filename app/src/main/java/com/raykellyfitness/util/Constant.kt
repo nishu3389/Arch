@@ -3,6 +3,9 @@ package com.raykellyfitness.util
 object Constant {
 
     //const val AMZ_BASE_URL = "https://hookup-user-profile.s3.ap-south-1.amazonaws.com/"
+    var SKU = "product_subscription"
+    val NOTIFICATION_TYPE_SUBSCRIPTION: String? = "subscription"
+    val NOTIFICATION_TYPE_POST: String? = "post"
 
     val ACTION_NAVIGATION: String? = "navigation"
     val ACTION_ORDER_PLACED: String? = "OrderPlaced"

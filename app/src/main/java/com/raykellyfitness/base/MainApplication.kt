@@ -5,11 +5,17 @@ import android.content.Context
 import android.content.res.Resources
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.OnLifecycleEvent
+import com.android.billingclient.api.BillingClient
+import com.android.billingclient.api.BillingClientStateListener
+import com.android.billingclient.api.BillingResult
 import com.androidnetworking.AndroidNetworking
 import com.rohitss.uceh.UCEHandler
 import com.stripe.android.PaymentConfiguration
 import com.raykellyfitness.BuildConfig
+import com.raykellyfitness.ui.subscription.SubsCompleteListener
+import com.raykellyfitness.ui.subscription.SubscriptionFragment
 import com.raykellyfitness.util.Constant.STRIPE_PUBLISHABLE_KEY
+import com.raykellyfitness.util.Prefs
 import dagger.hilt.android.HiltAndroidApp
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -26,8 +32,9 @@ class MainApplication : Application() {
     val twitter_CONSUMER_KEY = "c6PW2wpERjAGAReMFVdRjgKtC"
     val twitter_CONSUMER_SECRET = "fan32fs7n4cVdKWhojFPLda8sDYM8aIEVIzUeidaP9SiQnul9P"
 
-    companion object {
+    var billingClient: BillingClient? = null
 
+    companion object {
         private var width = Resources.getSystem().getDisplayMetrics().widthPixels;
         private var height = Resources.getSystem().getDisplayMetrics().heightPixels;
 
@@ -77,6 +84,30 @@ class MainApplication : Application() {
             STRIPE_PUBLISHABLE_KEY
         )
 
+    }
+
+    fun getInAppBillingClient(listener: SubsCompleteListener?) : BillingClient?{
+//        if(billingClient!=null)
+//        return billingClient
+//        else{
+            billingClient = BillingClient.newBuilder(getContext())
+                .enablePendingPurchases()
+                .setListener{ billingResult, purchases -> listener?.onSubsCompleted(billingResult, purchases) }
+                .build()
+
+            billingClient?.startConnection(object : BillingClientStateListener {
+                override fun onBillingSetupFinished(billingResult: BillingResult) {
+                    if (billingResult.responseCode == BillingClient.BillingResponseCode.OK)
+                       listener?.onConnected(billingResult)
+                }
+
+                override fun onBillingServiceDisconnected() {
+                    listener?.onDisconnected()
+                }
+            })
+
+            return billingClient
+//        }
     }
 
     fun getContext(): Context {

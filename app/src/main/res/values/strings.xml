@@ -153,5 +153,6 @@
     <string name="from_date">yyyy-MM-dd hh:mm:ss</string>
     <string name="to_date">EEEE dd MMM, yyyy</string>
     <string name="bean">bean</string>
+    <string name="manage_subscriptions"><u>Manage Subscriptions</u></string>
 
 </resources>

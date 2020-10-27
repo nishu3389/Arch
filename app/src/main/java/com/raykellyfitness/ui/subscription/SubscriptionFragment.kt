@@ -15,18 +15,18 @@ import com.raykellyfitness.R
 import com.raykellyfitness.base.*
 import com.raykellyfitness.databinding.FragmentSubscriptionBinding
 import com.raykellyfitness.model.request.ReceiptData
-import com.raykellyfitness.model.request.RequestForgotPassword
 import com.raykellyfitness.model.request.RequestSavePayment
 import com.raykellyfitness.ui.activity.HomeActivity
+import com.raykellyfitness.util.Constant.SKU
 import com.raykellyfitness.util.Prefs
 
-class SubscriptionFragment : BaseFragment() {
-    var sku = "product_subscription"
-//    var sku = "android.test.purchased"
-//    var sku = "android.test.canceled"
+class SubscriptionFragment() : BaseFragment(), SubsCompleteListener {
 
-    private lateinit var billingClient: BillingClient
-    private val skuList = listOf(sku)
+    //    var sku = "android.test.purchased"
+    //    var sku = "android.test.canceled"
+
+    private var billingClient: BillingClient? = null
+    private val skuList = listOf(SKU)
 
     lateinit var mViewModel: SubscriptionViewModel
     lateinit var mBinding: FragmentSubscriptionBinding
@@ -38,72 +38,23 @@ class SubscriptionFragment : BaseFragment() {
     }
 
     private fun setupBillingClient() {
-
-        billingClient = BillingClient.newBuilder(requireContext())
-            .enablePendingPurchases()
-            .setListener { billingResult, purchases ->
-
-                when {
-                    billingResult?.responseCode == BillingClient.BillingResponseCode.OK && !purchases.isEmptyy() -> {
-                        val purchaseData = purchases?.get(0)
-                        Prefs.get().SUBS_DATA = purchaseData?.originalJson.toString()
-                        acknowledgePurchase()
-                    }
-
-                    billingResult?.responseCode == BillingClient.BillingResponseCode.USER_CANCELED -> {
-                        /*"USER_CANCELED".toast()*/
-                    }
-
-                    else -> {
-                        if (billingResult?.responseCode == BillingClient.BillingResponseCode.ITEM_ALREADY_OWNED) {
-                            clearPurchases()
-                            if(!billingResult.debugMessage.isEmptyy())
-                                billingResult.debugMessage.toast()
-                        }
-                    }
-
-                }
-            }
-            .build()
-
-        billingClient.startConnection(object : BillingClientStateListener {
-            override fun onBillingSetupFinished(billingResult: BillingResult) {
-                if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
-                    // The BillingClient is setup successfully
-                    clearPurchases()
-                    loadAllSKUs()
-                }
-            }
-
-            override fun onBillingServiceDisconnected() {
-//                "onBillingServiceDisconnected".toast()
-                // Try to restart the connection on the next request to
-                // Google Play by calling the startConnection() method.
-
-            }
-        })
-
+        billingClient = MainApplication.get().getInAppBillingClient(this)
     }
 
-    private fun loadAllSKUs() = if (billingClient.isReady) {
-        val params = SkuDetailsParams
-            .newBuilder()
-            .setSkusList(skuList)
-            .setType(BillingClient.SkuType.SUBS)
-            .build()
-        billingClient.querySkuDetailsAsync(params) { billingResult, skuDetailsList ->
+    private fun loadAllSKUs() = if (billingClient?.isReady!!) {
+        val params =
+            SkuDetailsParams.newBuilder().setSkusList(skuList).setType(BillingClient.SkuType.SUBS)
+                .build()
+        billingClient?.querySkuDetailsAsync(params) { billingResult, skuDetailsList ->
             // Process the result.
-            if (billingResult.responseCode == BillingClient.BillingResponseCode.OK && skuDetailsList.isNotEmpty()) {
+            if (billingResult.responseCode == BillingClient.BillingResponseCode.OK && skuDetailsList != null && skuDetailsList?.isNotEmpty()) {
                 for (skuDetails in skuDetailsList) {
                     //this will return both the SKUs from Google Play Console
-                    if (skuDetails.sku == sku)
-                        mBinding.tvPurchase?.push()?.setOnClickListener {
-                            val billingFlowParams = BillingFlowParams
-                                .newBuilder()
-                                .setSkuDetails(skuDetails)
-                                .build()
-                            billingClient.launchBillingFlow(activity, billingFlowParams)
-                        }
+                    if (skuDetails.sku == SKU) mBinding.tvPurchase?.push()?.setOnClickListener {
+                        val billingFlowParams =
+                            BillingFlowParams.newBuilder().setSkuDetails(skuDetails).build()
+                        billingClient?.launchBillingFlow(requireActivity(), billingFlowParams)
+                    }
                 }
             }
         }
@@ -113,22 +64,21 @@ class SubscriptionFragment : BaseFragment() {
     }
 
     fun clearPurchases() {
-        val purchasesResult: PurchasesResult =
-            billingClient.queryPurchases(BillingClient.SkuType.SUBS)
-        for (sourcePurchase in purchasesResult.purchasesList) {
+        val purchasesResult: PurchasesResult? =
+            billingClient?.queryPurchases(BillingClient.SkuType.SUBS)
+        for (sourcePurchase in purchasesResult?.purchasesList!!) {
             if (sourcePurchase != null) {
                 val listener: ConsumeResponseListener = object : ConsumeResponseListener {
-                    override fun onConsumeResponse(
-                        billingResult: BillingResult?,
-                        purchaseToken: String?
-                    ) {
-//                        billingResult.toString().toast()
+                    override fun onConsumeResponse(p0: BillingResult, p1: String) {
+
                     }
                 }
+                //                val build = ConsumeParams.newBuilder().setPurchaseToken(sourcePurchase.purchaseToken)
+                //                    .setDeveloperPayload(sourcePurchase.developerPayload).build()
                 val build =
                     ConsumeParams.newBuilder().setPurchaseToken(sourcePurchase.purchaseToken)
-                        .setDeveloperPayload(sourcePurchase.developerPayload).build()
-                billingClient.consumeAsync(build, listener)
+                        .setPurchaseToken(sourcePurchase.sku).build()
+                billingClient?.consumeAsync(build, listener)
             } else {
                 println("null")
             }
@@ -137,28 +87,28 @@ class SubscriptionFragment : BaseFragment() {
 
     private fun acknowledgePurchase() {
         val receiptData = Gson().fromJson(Prefs.get().SUBS_DATA, ReceiptData::class.java)
-        val params = AcknowledgePurchaseParams.newBuilder().setPurchaseToken(receiptData.purchaseToken).build()
+        val params =
+            AcknowledgePurchaseParams.newBuilder().setPurchaseToken(receiptData.purchaseToken)
+                .build()
 
-        billingClient.acknowledgePurchase(params) { _ ->
-//          val receiptData = Gson().fromJson(purchase.originalJson, ReceiptData::class.java)
-            mViewModel.requestSavePayment.set(RequestSavePayment(receiptData, sku))
+        billingClient?.acknowledgePurchase(params) { _ ->
+            //          val receiptData = Gson().fromJson(purchase.originalJson, ReceiptData::class.java)
+            mViewModel.requestSavePayment.set(RequestSavePayment(receiptData, SKU))
             mViewModel.callSavePaymentApi().observe(viewLifecycleOwner, Observer {
                 Prefs.get().SUBS_DATA = ""
-                commonCallbacks?.showAlertDialog(
-                    it.message,
-                    DialogInterface.OnClickListener { _, _ ->
-        findNavController().popBackStack(R.id.HomeFragment, false)
-                    })
+                commonCallbacks?.showAlertDialog(it.message,
+                                                 DialogInterface.OnClickListener { _, _ ->
+                                                     findNavController().popBackStack(R.id.HomeFragment,
+                                                                                      false)
+                                                 })
             })
         }
 
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater,
+                              container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
         mBinding = FragmentSubscriptionBinding.inflate(inflater, container, false).apply {
             clickHandler = onClickHandler
             viewModel = mViewModel
@@ -180,8 +130,8 @@ class SubscriptionFragment : BaseFragment() {
     }
 
     override fun handlingBackPress(): Boolean {
-//        activity?.finish()
-//        findNavController().popBackStack(R.id.HomeFragment, false)
+//                activity?.finish()
+                (activity as HomeActivity).navController.popBackStack(R.id.HomeFragment, false)
         return true
     }
 
@@ -196,6 +146,39 @@ class SubscriptionFragment : BaseFragment() {
     }
 
     inner class ClickHandler {
+        fun manageSubs() {
+            "https://play.google.com/store/account/subscriptions".openInBrowser()
+        }
+    }
+
+    override fun onSubsCompleted(billingResult: BillingResult, purchases: List<Purchase>?) {
+        when {
+            billingResult?.responseCode == BillingClient.BillingResponseCode.OK && !purchases.isEmptyy() -> {
+                val purchaseData = purchases?.get(0)
+                Prefs.get().SUBS_DATA = purchaseData?.originalJson.toString()
+                acknowledgePurchase()
+            }
+
+            billingResult?.responseCode == BillingClient.BillingResponseCode.USER_CANCELED -> {
+                /*"USER_CANCELED".toast()*/
+            }
+
+            else -> {
+                if (billingResult?.responseCode == BillingClient.BillingResponseCode.ITEM_ALREADY_OWNED) {
+                    clearPurchases()
+                    if (!billingResult.debugMessage.isEmptyy()) billingResult.debugMessage.toast()
+                }
+            }
+
+        }
+    }
+
+    override fun onConnected(var1: BillingResult) {
+//        clearPurchases()
+        loadAllSKUs()
+    }
+
+    override fun onDisconnected() {
 
     }
 
