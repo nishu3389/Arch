@@ -13,8 +13,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.raykellyfitness.R
 import com.raykellyfitness.base.*
 import com.raykellyfitness.databinding.FragmentTipsDetailBinding
@@ -23,6 +21,7 @@ import com.raykellyfitness.networking.Api
 import com.raykellyfitness.ui.activity.HomeActivity
 import com.raykellyfitness.ui.tipsandtricks.Media
 import com.raykellyfitness.util.Constant.IMAGE
+import com.raykellyfitness.util.Constant.POST_TYPE_BLOG
 import com.raykellyfitness.util.Constant.URL
 import com.raykellyfitness.util.ParcelKeys
 import com.raykellyfitness.util.ParcelKeys.PK_POST_ID
@@ -73,7 +72,7 @@ class TipsDetailFragment : BaseFragment() {
                 mBinding.tvDesc.setHtml(it.data!!.description)
                 mBinding.tvDate.text = it.data!!.date.changeTimeFormat(getString(R.string.from_date), getString(R.string.to_date))
 
-                if(type.equals(Api.POST_TYPE_BLOG)){
+                if(type.equals(POST_TYPE_BLOG)){
                     mBinding.tvTitle.gone()
                     mBinding.tvWeek.text = mViewModel.model?.title
                 }else{
@@ -97,7 +96,7 @@ class TipsDetailFragment : BaseFragment() {
     }
 
     private fun setSlider(media: List<Media>?) {
-        mAdapter = SliderAdapter(media, this)
+        mAdapter = SliderAdapter(mBinding,media, this)
         mBinding.viewPager.adapter = mAdapter
     }
 
@@ -106,7 +105,9 @@ class TipsDetailFragment : BaseFragment() {
 
         if(type.isEmptyy()){
             type = arguments?.getString(ParcelKeys.PK_POST_TYPE)!!
-            if(!type.equals(Api.POST_TYPE_BLOG))
+
+
+            if(!type.equals(POST_TYPE_BLOG))
             mViewModel.type = arguments?.getString(ParcelKeys.PK_POST_DAY)!!
         }
 
@@ -130,16 +131,16 @@ class TipsDetailFragment : BaseFragment() {
         }
     }
 
-    class SliderAdapter(private var sliderViews: List<Media>?, var fragment: TipsDetailFragment) : PagerAdapter() {
+    class SliderAdapter(var mBinding: FragmentTipsDetailBinding, private var sliderViews: List<Media>?, var fragment: TipsDetailFragment) : PagerAdapter() {
 
         override fun instantiateItem(container: ViewGroup, position: Int): Any {
             var inflater = container.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            val binding: MealDetailSliderBinding = DataBindingUtil.inflate(
-                inflater,
-                R.layout.meal_detail_slider,
-                container,
-                false
-            )
+            val binding: MealDetailSliderBinding = DataBindingUtil.inflate(inflater, R.layout.meal_detail_slider, container, false)
+
+            if(sliderViews?.size!!>1)
+                mBinding.viewShadow.visible()
+            else
+                mBinding.viewShadow.gone()
 
             setImageAndClickWork(container.context, binding, position)
 

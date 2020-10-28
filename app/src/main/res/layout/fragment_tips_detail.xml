@@ -53,6 +53,13 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"/>
 
+                        <View
+                            android:id="@+id/view_shadow"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:background="#33000000"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_33sdp"/>
+
                         <com.rd.PageIndicatorView
                             android:id="@+id/indicator"
                             app:piv_viewPager="@id/view_pager"
@@ -65,7 +72,7 @@
                             app:piv_animationType="scale"
                             app:piv_dynamicCount="true"
                             android:gravity="center_vertical"
-                            android:layout_marginBottom="@dimen/_17sdp"
+                            android:layout_marginBottom="@dimen/_13sdp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
 
@@ -96,8 +103,12 @@
 
                 <com.raykellyfitness.views.CommonTextViewSemiBold
                     android:id="@+id/tv_week"
-                    tools:text="Week 01"
+                    tools:text="Week 01 efe dfdf rgfdg gfgf fgfgfg fgfgf"
                     android:textColor="@color/offwhite"
+                    android:gravity="left"
+                    android:paddingRight="@dimen/_10sdp"
+                    app:layout_constraintStart_toStartOf="@id/tv_title"
+                    app:layout_constraintRight_toLeftOf="@id/tv_date"
                     android:textSize="@dimen/_13sdp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_title"

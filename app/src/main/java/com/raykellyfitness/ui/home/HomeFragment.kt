@@ -20,6 +20,11 @@ import com.raykellyfitness.model.request.RequestForgotPassword
 import com.raykellyfitness.model.request.RequestSavePayment
 import com.raykellyfitness.networking.Api
 import com.raykellyfitness.ui.subscription.SubsCompleteListener
+import com.raykellyfitness.util.Constant.POST_TYPE_BLOG
+import com.raykellyfitness.util.Constant.POST_TYPE_EXERCISE
+import com.raykellyfitness.util.Constant.POST_TYPE_MEAL
+import com.raykellyfitness.util.Constant.POST_TYPE_MOTIVATION
+import com.raykellyfitness.util.Constant.POST_TYPE_TIPS
 import com.raykellyfitness.util.Constant.SKU
 import com.raykellyfitness.util.Prefs
 import com.raykellyfitness.util.permission.DeviceRuntimePermission
@@ -91,19 +96,19 @@ class HomeFragment : BaseFragment(), SubsCompleteListener {
         }
         mBinding.rrMeal.push()?.setOnClickListener {
             Prefs.get().SHUTDOWN = ""
-            navigate(R.id.TipsAndTricksFragment, Pair("type", Api.POST_TYPE_MEAL))
+            navigate(R.id.TipsAndTricksFragment, Pair("type", POST_TYPE_MEAL))
         }
         mBinding.rrTips.push()?.setOnClickListener {
-            navigate(R.id.TipsAndTricksFragment, Pair("type", Api.POST_TYPE_TIPS))
+            navigate(R.id.TipsAndTricksFragment, Pair("type", POST_TYPE_TIPS))
         }
         mBinding.rrExercise.push()?.setOnClickListener {
-            navigate(R.id.TipsAndTricksFragment, Pair("type", Api.POST_TYPE_EXERCISE))
+            navigate(R.id.TipsAndTricksFragment, Pair("type", POST_TYPE_EXERCISE))
         }
        mBinding.rrMotivation.push()?.setOnClickListener {
-            navigate(R.id.TipsAndTricksFragment, Pair("type", Api.POST_TYPE_MOTIVATION))
+            navigate(R.id.TipsAndTricksFragment, Pair("type", POST_TYPE_MOTIVATION))
         }
        mBinding.rrBlogs.push()?.setOnClickListener {
-            navigate(R.id.TipsAndTricksFragment, Pair("type", Api.POST_TYPE_BLOG))
+            navigate(R.id.TipsAndTricksFragment, Pair("type", POST_TYPE_BLOG))
         }
     }
 

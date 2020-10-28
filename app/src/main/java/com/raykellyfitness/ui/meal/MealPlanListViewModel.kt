@@ -5,7 +5,6 @@ import com.raykellyfitness.base.AsyncViewController
 import com.raykellyfitness.base.BaseViewModel
 import com.raykellyfitness.model.response.*
 import com.raykellyfitness.networking.Api
-import com.raykellyfitness.networking.Api.POST_TYPE_MEAL
 import com.raykellyfitness.ui.tipsandtricks.RequestPosts
 
 class MealPlanListViewModel(controller: AsyncViewController) : BaseViewModel(controller) {

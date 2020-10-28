@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.raykellyfitness.R
@@ -15,6 +16,8 @@ import com.raykellyfitness.databinding.FragmentNotificationsBinding
 import com.raykellyfitness.model.request.Notification
 import com.raykellyfitness.model.request.ResponseNotifications
 import com.raykellyfitness.ui.activity.HomeActivity
+import com.raykellyfitness.util.Constant
+import com.raykellyfitness.util.ParcelKeys
 
 class NotificationsFragment : BaseFragment() {
 
@@ -24,12 +27,19 @@ class NotificationsFragment : BaseFragment() {
 
 
     var adapter = NotificationsAdapter(R.layout.row_notification) { model ->
-        navigate(
-            R.id.TipsDetailFragment,
-            Pair("id", model.id),
-            Pair("type", model.type),
-            Pair("typeName", model.day)
-        )
+
+            when (model?.type) {
+
+                Constant.POST_TYPE_BLOG -> navigate(R.id.TipsDetailFragment,
+                                                    Pair(ParcelKeys.PK_POST_ID, model?.id),
+                                                    Pair( ParcelKeys.PK_POST_TYPE , model?.type),
+                                                    Pair(ParcelKeys.PK_POST_DAY , model?.message),
+                                                    Pair(ParcelKeys.PK_FROM , ParcelKeys.PK_FROM)
+                )
+
+                else -> navigate(R.id.TipsAndTricksFragment, Pair(ParcelKeys.PK_POST_TYPE, model.type),Pair(ParcelKeys.PK_FROM , ParcelKeys.PK_FROM))
+            }
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

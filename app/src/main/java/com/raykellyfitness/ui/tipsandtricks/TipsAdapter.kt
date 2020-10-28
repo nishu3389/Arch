@@ -5,6 +5,7 @@ import com.raykellyfitness.base.*
 import com.raykellyfitness.databinding.RowTipsInnerBinding
 import com.raykellyfitness.databinding.RowTipsOuterBinding
 import com.raykellyfitness.networking.Api
+import com.raykellyfitness.util.Constant.POST_TYPE_BLOG
 
 class TipsAdapterOuter(
     val type : String,
@@ -13,7 +14,7 @@ class TipsAdapterOuter(
 ) : BaseRecyclerAdapter<RowTipsOuterBinding, ResponseTipsOuterItem>() {
 
     override fun bind(holder: ViewHolder, item: ResponseTipsOuterItem, position: Int) {
-        if(type.equals(Api.POST_TYPE_BLOG,true)){
+        if(type.equals(POST_TYPE_BLOG,true)){
             item.open = true
             holder.binding.card.gone()
         }

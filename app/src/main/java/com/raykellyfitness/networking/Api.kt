@@ -37,16 +37,16 @@ object Api {
     const val GET_POSTS_MEAL = "getPosts"
     const val POST_DETAIL = "post_detail"
 
-    const val POST_TYPE_TIPS = "tips"
-    const val POST_TYPE_MEAL = "meal"
-    const val POST_TYPE_EXERCISE = "excercise"
-    const val POST_TYPE_MOTIVATION = "daily_motivation"
-    const val POST_TYPE_BLOG = "blog"
+    const val API_POST_TYPE_TIPS = "tips"
+    const val API_POST_TYPE_MEAL = "meal"
+    const val API_POST_TYPE_EXERCISE = "exercise"
+    const val API_POST_TYPE_MOTIVATION = "daily_motivation"
+    const val API_POST_TYPE_BLOG = "blog"
 
     const val ContactUsQuery = ""
     const val ChangePassword = "change_password"
     const val SAVE_PAYMENT = "Authentication"
-    const val Notifications = "notifications"
+    const val Notifications = "get_notification"
 
     /*------------------------------PHASE 2 Sales Profile---------------------------------*/
     const val GETCUSTOMERPROFILE = ""

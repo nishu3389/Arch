@@ -13,7 +13,7 @@ class NotificationsAdapter(
 
     override fun bind(holder: ViewHolder, item: Notification, position: Int) {
         holder.binding.model = item
-        holder.binding.tvDate.text = item.created_at.changeTimeFormat("yyyy-MM-dd hh:mm:ss", "EEEE dd MMM, yyyy")
+        holder.binding.tvDate.text = item.created.changeTimeFormat("yyyy-MM-dd hh:mm:ss", "EEEE dd MMM, yyyy")
         holder.itemView.push()?.setOnClickListener { onClickListener.invoke(item) }
     }
 

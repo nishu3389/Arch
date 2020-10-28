@@ -12,5 +12,6 @@ object ParcelKeys{
     const val PK_POST_ID="id"
     const val PK_POST_TYPE="type"
     const val PK_POST_DAY="typeName"
+    const val PK_FROM="from"
     const val REQUEST_PICK_IMAGE = 1005
 }

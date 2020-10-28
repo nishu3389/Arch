@@ -24,6 +24,7 @@ import com.raykellyfitness.ui.splash.SplashActivity
 import com.raykellyfitness.util.Constant
 import com.raykellyfitness.util.Constant.NOTIFICATION_TYPE_POST
 import com.raykellyfitness.util.ParcelKeys
+import com.raykellyfitness.util.ParcelKeys.PK_FROM
 import com.raykellyfitness.util.ParcelKeys.PK_POST_DAY
 import com.raykellyfitness.util.ParcelKeys.PK_POST_ID
 import com.raykellyfitness.util.ParcelKeys.PK_POST_TYPE
@@ -65,7 +66,6 @@ class HomeActivity : BaseActivity(), NavController.OnDestinationChangedListener,
 
         initWork()
         otherWork()
-        MainApplication.setInstance(this)
         setStatusBarColor("#ffffff")
     }
 
@@ -125,6 +125,7 @@ class HomeActivity : BaseActivity(), NavController.OnDestinationChangedListener,
     }
 
     private fun initWork() {
+        MainApplication.setInstance(this)
         context = this
         intent?.let {
             if (intent != null && intent.extras != null && intent.extras!!.containsKey(Constant.BEAN)) {
@@ -179,24 +180,8 @@ class HomeActivity : BaseActivity(), NavController.OnDestinationChangedListener,
 
     }
 
-    fun highlightTabNone() {
-        //        highlightTab(TAB_NONE)
-    }
-
     fun highlightHomeTab() {
         highlightTab(TAB_HOME)
-    }
-
-    fun highlightHealthTab() {
-        //        highlightTab(TAB_HEALTH)
-    }
-
-    fun highlightNotificationTab() {
-        //        highlightTab(TAB_NOTIFICATION)
-    }
-
-    fun highlightSettingsTab() {
-        //        highlightTab(TAB_SETTINGS)
     }
 
     private fun setNavigationController(): NavController {
@@ -310,12 +295,19 @@ class HomeActivity : BaseActivity(), NavController.OnDestinationChangedListener,
     }
 
     private fun getDestination(notification: NotificationBean?) {
-        if (notification?.notificationType.equals(NOTIFICATION_TYPE_POST)) navController.navigate(R.id.TipsDetailFragment,
-                                                                                                  bundleOf(
-                                                                                                      PK_POST_ID to notification?.postId,
-                                                                                                      PK_POST_TYPE to notification?.type,
-                                                                                                      PK_POST_DAY to notification?.day))
-        else navController.navigate(R.id.NotificationsFragment)
+
+        if (notification?.notificationType.equals(NOTIFICATION_TYPE_POST)) when (notification?.type) {
+
+            Constant.POST_TYPE_BLOG -> navController.navigate(R.id.TipsDetailFragment,
+                                                              bundleOf(PK_POST_ID to notification?.postId,
+                                                                       PK_POST_TYPE to notification?.type,
+                                                                       PK_POST_DAY to notification?.day,
+                                                                       PK_FROM to PK_FROM))
+
+            else -> navController.navigate(R.id.TipsAndTricksFragment, bundleOf(PK_POST_TYPE to notification?.type,
+                                                                                PK_FROM to PK_FROM))
+        }
+        else navController.navigate(R.id.SubscriptionFragment)
     }
 
     override fun requestLogout() {

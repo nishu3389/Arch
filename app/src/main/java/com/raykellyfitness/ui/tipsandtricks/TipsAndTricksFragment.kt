@@ -10,19 +10,22 @@ import com.raykellyfitness.R
 import com.raykellyfitness.base.*
 import com.raykellyfitness.databinding.FragmentTipsAndTricksBinding
 import com.raykellyfitness.model.response.MasterResponse
-import com.raykellyfitness.networking.Api
-import com.raykellyfitness.networking.Api.POST_TYPE_BLOG
-import com.raykellyfitness.networking.Api.POST_TYPE_EXERCISE
-import com.raykellyfitness.networking.Api.POST_TYPE_MEAL
-import com.raykellyfitness.networking.Api.POST_TYPE_MOTIVATION
-import com.raykellyfitness.networking.Api.POST_TYPE_TIPS
 import com.raykellyfitness.ui.activity.HomeActivity
+import com.raykellyfitness.util.Constant.POST_TYPE_BLOG
+import com.raykellyfitness.util.Constant.POST_TYPE_EXERCISE
+import com.raykellyfitness.util.Constant.POST_TYPE_MEAL
+import com.raykellyfitness.util.Constant.POST_TYPE_MOTIVATION
+import com.raykellyfitness.util.Constant.POST_TYPE_TIPS
 import com.raykellyfitness.util.ParcelKeys
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class TipsAndTricksFragment : BaseFragment() {
 
     var type: String = ""
+    var fromNotification = false
 
     var adapter = TipsAdapterOuter(type,R.layout.row_tips_outer) { model, modelOuter ->
         navigate(
@@ -85,7 +88,7 @@ class TipsAndTricksFragment : BaseFragment() {
         mealList.clear()
         mealList = it?.data as ArrayList<ResponseTipsOuterItem>
 
-        if(type.equals(Api.POST_TYPE_BLOG)){
+        if(type.equals(POST_TYPE_BLOG)){
             adapter = TipsAdapterOuter(type,R.layout.row_tips_outer) { model, modelOuter ->
                 navigate(
                     R.id.TipsDetailFragment,
@@ -96,6 +99,9 @@ class TipsAndTricksFragment : BaseFragment() {
             }
             mBinding.recyclerOuterMeal.adapter = adapter
         }
+
+        if(fromNotification && !mealList.isEmptyy())
+            mealList.get(0).open = true
 
         adapter.setNewItems(mealList)
         adapter.addClickEventWithView(R.id.card, mClickHandler::mealClicked)
@@ -119,6 +125,10 @@ class TipsAndTricksFragment : BaseFragment() {
         (activity as HomeActivity).showLogo(true)
         if (type.isEmptyy()) {
             type = arguments?.getString("type")!!
+
+            if(arguments!=null && requireArguments().containsKey(ParcelKeys.PK_FROM))
+                fromNotification = true
+
             when (type) {
                 POST_TYPE_MEAL -> {
                     (activity as HomeActivity).setTitle(getString(R.string.meal))
