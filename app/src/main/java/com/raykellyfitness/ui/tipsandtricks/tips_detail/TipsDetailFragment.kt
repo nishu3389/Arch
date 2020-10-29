@@ -75,6 +75,7 @@ class TipsDetailFragment : BaseFragment() {
                 if(type.equals(POST_TYPE_BLOG)){
                     mBinding.tvTitle.gone()
                     mBinding.tvWeek.text = mViewModel.model?.title
+                    mBinding.tvDate.gone()
                 }else{
                     mBinding.tvTitle.visible()
                     mBinding.tvTitle.text = mViewModel.model?.title
@@ -136,11 +137,6 @@ class TipsDetailFragment : BaseFragment() {
         override fun instantiateItem(container: ViewGroup, position: Int): Any {
             var inflater = container.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             val binding: MealDetailSliderBinding = DataBindingUtil.inflate(inflater, R.layout.meal_detail_slider, container, false)
-
-            if(sliderViews?.size!!>1)
-                mBinding.viewShadow.visible()
-            else
-                mBinding.viewShadow.gone()
 
             setImageAndClickWork(container.context, binding, position)
 

@@ -70,7 +70,7 @@ class ResponseNotifications : ArrayList<Notification>()
 
 @Parcelize
 data class Notification(
-    val id: String = "1",
+    val post_id: String = "1",
     val message: String = "New chest workout available to try, we hope you may like it, click here to have a look on it.",
     val type: String = "meal",
     val created: String = "2020-09-11 00:00:00"

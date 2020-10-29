@@ -5,9 +5,9 @@ object Constant {
     //const val AMZ_BASE_URL = "https://hookup-user-profile.s3.ap-south-1.amazonaws.com/"
 
     const val POST_TYPE_TIPS = "Tips & Tricks"
-    const val POST_TYPE_MEAL = "meal"
-    const val POST_TYPE_EXERCISE = "exercise"
-    const val POST_TYPE_MOTIVATION = "daily_motivation"
+    const val POST_TYPE_MEAL = "Meal"
+    const val POST_TYPE_EXERCISE = "Exercise"
+    const val POST_TYPE_MOTIVATION = "Daily Motivation"
     const val POST_TYPE_BLOG = "blog"
 
     var SKU = "product_subscription"

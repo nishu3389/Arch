@@ -39,7 +39,7 @@ object Api {
 
     const val API_POST_TYPE_TIPS = "tips"
     const val API_POST_TYPE_MEAL = "meal"
-    const val API_POST_TYPE_EXERCISE = "exercise"
+    const val API_POST_TYPE_EXERCISE = "excercise"
     const val API_POST_TYPE_MOTIVATION = "daily_motivation"
     const val API_POST_TYPE_BLOG = "blog"
 

@@ -304,8 +304,7 @@ class HomeActivity : BaseActivity(), NavController.OnDestinationChangedListener,
                                                                        PK_POST_DAY to notification?.day,
                                                                        PK_FROM to PK_FROM))
 
-            else -> navController.navigate(R.id.TipsAndTricksFragment, bundleOf(PK_POST_TYPE to notification?.type,
-                                                                                PK_FROM to PK_FROM))
+            else -> navController.navigate(R.id.TipsAndTricksFragment, bundleOf(PK_POST_TYPE to notification?.type, PK_FROM to PK_FROM))
         }
         else navController.navigate(R.id.SubscriptionFragment)
     }
