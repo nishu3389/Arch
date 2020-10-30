@@ -1,6 +1,9 @@
 package com.raykellyfitness.fcm
 
-import android.app.*
+import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Intent
 import android.os.Build
 import android.util.Log
@@ -12,10 +15,11 @@ import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.google.gson.Gson
 import com.raykellyfitness.R
-import com.raykellyfitness.ui.activity.HomeActivity
 import com.raykellyfitness.base.sendToServer
+import com.raykellyfitness.ui.activity.HomeActivity
 import com.raykellyfitness.util.Constant
 import com.raykellyfitness.util.Prefs
+import java.util.*
 
 // Dummy Notification link
 // http://3uwebtest.projectstatus.in/TermsOfUse
@@ -62,7 +66,11 @@ class FcmService : FirebaseMessagingService() {
         notifyIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         notifyIntent.putExtra(Constant.TYPE, notificationBean.notificationType)
         notifyIntent.putExtra(Constant.BEAN, notificationBean)
-        var notifyPendingIntent = PendingIntent.getActivity(this, 0, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+        notifyIntent.setAction(System.currentTimeMillis().toString())
+        var notifyPendingIntent = PendingIntent.getActivity(this,
+                                                            getRandomNumber(1,100),
+                                                            notifyIntent,
+                                                            PendingIntent.FLAG_UPDATE_CURRENT)
 
 
         notificationBean?.let {
@@ -83,6 +91,12 @@ class FcmService : FirebaseMessagingService() {
             val notificationManager = NotificationManagerCompat.from(this)
             notificationManager.notify(System.currentTimeMillis().toInt(), mBuilder)
         }
+    }
+
+    fun getRandomNumber(min: Int, max: Int): Int {
+        // min (inclusive) and max (exclusive)
+        val r = Random()
+        return r.nextInt(max - min) + min
     }
 
     private fun sendBroadCast(notification: NotificationBean?) {

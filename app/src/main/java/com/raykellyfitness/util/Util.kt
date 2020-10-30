@@ -23,11 +23,6 @@ import com.daimajia.androidanimations.library.YoYo
 import com.github.mikephil.charting.data.Entry
 import com.raykellyfitness.R
 import com.raykellyfitness.base.MainApplication
-import com.raykellyfitness.base.touch
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.security.MessageDigest
@@ -37,31 +32,75 @@ import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
 
-
 class Util {
 
     companion object {
 
-        private fun addNextDate(
-            i: Float,
-            map: HashMap<Float, String>,
-            date: String,
-            values1: ArrayList<Entry>,
-            values2: ArrayList<Entry>
-        ) {
+
+
+        private const val SECOND_MILLIS = 1000
+        private const val MINUTE_MILLIS = 60 * SECOND_MILLIS
+        private const val HOUR_MILLIS = 60 * MINUTE_MILLIS
+        private const val DAY_MILLIS = 24 * HOUR_MILLIS
+
+        private fun currentDate(): Date {
+            val calendar = Calendar.getInstance()
+            return calendar.time
+        }
+
+        fun getTimeAgo(strDate: String, format: String?): String {
+
+            val format = SimpleDateFormat(format)
+            try {
+                val date = format.parse(strDate)
+
+                var time = date.time
+                if (time < 1000000000000L) {
+                    time *= 1000
+                }
+
+                val now = currentDate().time
+                if (time > now || time <= 0) {
+                    return "in the future"
+                }
+
+                val diff = now - time
+                return when {
+                    diff < MINUTE_MILLIS -> "moments ago"
+                    diff < 2 * MINUTE_MILLIS -> "a minute ago"
+                    diff < 60 * MINUTE_MILLIS -> "${diff / MINUTE_MILLIS} minutes ago"
+                    diff < 2 * HOUR_MILLIS -> "an hour ago"
+                    diff < 24 * HOUR_MILLIS -> "${diff / HOUR_MILLIS} hours ago"
+                    diff < 48 * HOUR_MILLIS -> "yesterday"
+                    else -> "${diff / DAY_MILLIS} days ago"
+                }
+            } catch (e: ParseException) {
+                e.printStackTrace()
+                return ""
+            }
+
+
+        }
+
+
+
+
+        private fun addNextDate(i: Float,
+                                map: HashMap<Float, String>,
+                                date: String,
+                                values1: ArrayList<Entry>,
+                                values2: ArrayList<Entry>) {
             val nextDate = getNextDate(date)
             map.put(i, nextDate)
             values1.add(Entry(i, 0.0f))
             values2.add(Entry(i, 0.0f))
         }
 
-        private fun addPreviousDate(
-            i: Float,
-            map: HashMap<Float, String>,
-            date: String,
-            values1: ArrayList<Entry>,
-            values2: ArrayList<Entry>
-        ) {
+        private fun addPreviousDate(i: Float,
+                                    map: HashMap<Float, String>,
+                                    date: String,
+                                    values1: ArrayList<Entry>,
+                                    values2: ArrayList<Entry>) {
             val nextDate = getPreviousDate(date)
             map.put(i, nextDate)
             values1.add(Entry(i, 0.0f))
@@ -102,11 +141,7 @@ class Util {
 
 
 
-        fun changeTimeFormat(
-            d: String?,
-            from: String?,
-            to: String?
-        ): String? {
+        fun changeTimeFormat(d: String?, from: String?, to: String?): String? {
             if (TextUtils.isEmpty(d)) return ""
             var date1: Date? = null
             val simpleDateFormat =
@@ -147,11 +182,7 @@ class Util {
             return isTodayOrAfterToday
         }
 
-        fun isTodayOrAfterToday(
-            currentDate: String?,
-            myDate: String?,
-            formate: String?
-        ): Boolean {
+        fun isTodayOrAfterToday(currentDate: String?, myDate: String?, formate: String?): Boolean {
             val dfDate = SimpleDateFormat(formate)
             var isTodayOrAfterToday = false
             try {
@@ -246,10 +277,7 @@ class Util {
             return ourdate
         }
 
-        fun updateStatusBarColor(
-            color: String,
-            acti: FragmentActivity
-        ) {// Color must be in hexadecimal fromat
+        fun updateStatusBarColor(color: String, acti: FragmentActivity) {// Color must be in hexadecimal fromat
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 val window = acti?.window
                 window?.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
@@ -277,7 +305,7 @@ class Util {
             return str
         }
 
-        fun isAfter(startDate: String?, endDate: String?, dateFormate:String): Boolean {
+        fun isAfter(startDate: String?, endDate: String?, dateFormate: String): Boolean {
             val dfDate = SimpleDateFormat(dateFormate)
             var b = false
             try {
@@ -389,10 +417,8 @@ class Util {
             var key: String? = null
             try {
                 val packageName = context.applicationContext.packageName
-                val info = context.packageManager.getPackageInfo(
-                    packageName,
-                    PackageManager.GET_SIGNATURES
-                )
+                val info = context.packageManager.getPackageInfo(packageName,
+                                                                 PackageManager.GET_SIGNATURES)
                 for (signature in info.signatures) {
                     val md = MessageDigest.getInstance("SHA")
                     md.update(signature.toByteArray())
@@ -406,12 +432,7 @@ class Util {
             }
             return key
         }
-        public fun distance(
-            lat1: Double,
-            lon1: Double,
-            lat2: Double,
-            lon2: Double
-        ): Double {
+        public fun distance(lat1: Double, lon1: Double, lat2: Double, lon2: Double): Double {
             val theta = lon1 - lon2
             var dist = (Math.sin(deg2rad(lat1))
                     * Math.sin(deg2rad(lat2))
@@ -437,11 +458,9 @@ class Util {
         fun showErrorSneaker(context: Context, msg: String?) {
             Sneaker.with(context as Activity)
                 .setTitle("Error!")
-                .setMessage(msg?:"Something went wrong, please try again later")
-                .setTypeface(Typeface.createFromAsset(
-                    context.getAssets(),
-                    "fonts/poppins_semibold.ttf"
-                ))
+                .setMessage(msg ?: "Something went wrong, please try again later")
+                .setTypeface(Typeface.createFromAsset(context.getAssets(),
+                                                      "fonts/poppins_semibold.ttf"))
                 .sneakError()
             //        speak(msg);
             vibrate(context, 200)
@@ -451,12 +470,8 @@ class Util {
             Sneaker.with(context as Activity)
                 .setTitle("Error!")
                 .setMessage("$msg")
-                .setTypeface(
-                    Typeface.createFromAsset(
-                        context.getAssets(),
-                        "fonts/poppins_semibold.ttf"
-                    )
-                )
+                .setTypeface(Typeface.createFromAsset(context.getAssets(),
+                                                      "fonts/poppins_semibold.ttf"))
                 .sneakError()
             vibrate(context, 200)
             //        speak(msg);
@@ -468,12 +483,8 @@ class Util {
                 Sneaker.with(context as Activity)
                     .setTitle("Success!")
                     .setMessage(msg)
-                    .setTypeface(
-                        Typeface.createFromAsset(
-                            context.getAssets(),
-                            "fonts/poppins_semibold.ttf"
-                        )
-                    )
+                    .setTypeface(Typeface.createFromAsset(context.getAssets(),
+                                                          "fonts/poppins_semibold.ttf"))
                     .sneakSuccess()
             } catch (e: java.lang.Exception) {
                 e.printStackTrace()
@@ -484,12 +495,8 @@ class Util {
             Sneaker.with(context as Activity)
                 .setTitle("Alert")
                 .setMessage(msg)
-                .setTypeface(
-                    Typeface.createFromAsset(
-                        context.getAssets(),
-                        "fonts/poppins_semibold.ttf"
-                    )
-                )
+                .setTypeface(Typeface.createFromAsset(context.getAssets(),
+                                                      "fonts/poppins_semibold.ttf"))
                 .sneakWarning()
             vibrate(context, 200)
         }
@@ -503,12 +510,8 @@ class Util {
                 .setTitle("Alert")
                 .setMessage(msg, R.color.white)
                 .setIcon(R.drawable.ic_warning)
-                .setTypeface(
-                    Typeface.createFromAsset(
-                        context.getAssets(),
-                        "fonts/poppins_semibold.ttf"
-                    )
-                )
+                .setTypeface(Typeface.createFromAsset(context.getAssets(),
+                                                      "fonts/poppins_semibold.ttf"))
                 .sneakError()
             YoYo.with(Techniques.Shake).duration(500).playOn(view)
             vibrate(context, 200)
@@ -520,12 +523,7 @@ class Util {
                 context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
             // Vibrate for 500 milliseconds
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                v.vibrate(
-                    VibrationEffect.createOneShot(
-                        millis,
-                        VibrationEffect.DEFAULT_AMPLITUDE
-                    )
-                )
+                v.vibrate(VibrationEffect.createOneShot(millis, VibrationEffect.DEFAULT_AMPLITUDE))
             } else {
                 //deprecated in API 26
                 v.vibrate(millis)

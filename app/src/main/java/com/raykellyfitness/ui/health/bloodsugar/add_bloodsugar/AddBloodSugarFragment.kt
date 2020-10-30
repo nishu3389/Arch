@@ -22,7 +22,6 @@ import com.raykellyfitness.ui.activity.HomeActivity
 import com.raykellyfitness.ui.health.HealthFragment
 import java.util.*
 
-
 class AddBloodSugarFragment : BaseFragment(), OnChartValueSelectedListener {
 
     var map = HashMap<Float,String>()
@@ -36,11 +35,9 @@ class AddBloodSugarFragment : BaseFragment(), OnChartValueSelectedListener {
         setupViewModel()
     }
 
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         mBinding = FragmentAddBloodSugarBinding.inflate(inflater, container, false).apply {
             viewModel = mViewModel
-
         }
 
         return mBinding.root
@@ -77,7 +74,7 @@ class AddBloodSugarFragment : BaseFragment(), OnChartValueSelectedListener {
     }
 
     fun setupChart() {
-        (this.parentFragment as HealthFragment).setupChart(mBinding.chart1, map)
+        (this.parentFragment as HealthFragment).setupChart(mBinding.chart1, map, Pair(1.0f, 35.0f))
         chart = mBinding.chart1
         chart!!.setOnChartValueSelectedListener(this)
     }
@@ -86,22 +83,16 @@ class AddBloodSugarFragment : BaseFragment(), OnChartValueSelectedListener {
         (this.parentFragment as HealthFragment).setChartData(null, listWeight,null, mBinding.chart1, map, (this.parentFragment as HealthFragment).BLOOD_SUGAR)
     }
 
-
     private fun setupViewModel() {
         mViewModel = ViewModelProviders.of(this, MyViewModelProvider(commonCallbacks as AsyncViewController)).get(AddBloodSugarViewModel::class.java)
     }
 
     override fun onValueSelected(e: Entry?, h: Highlight?) {
-        mBinding.chart1.centerViewToAnimated(
-            e!!.x, e.y, mBinding.chart1.getData().getDataSetByIndex(
-                h!!.dataSetIndex
-            ).getAxisDependency(), 500
-        )
+        mBinding.chart1.centerViewToAnimated(e!!.x, e.y, mBinding.chart1.getData().getDataSetByIndex(h!!.dataSetIndex).getAxisDependency(), 500)
     }
 
     override fun onNothingSelected() {
 
     }
-
 
 }

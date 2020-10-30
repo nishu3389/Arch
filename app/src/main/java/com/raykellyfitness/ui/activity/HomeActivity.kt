@@ -25,6 +25,7 @@ import com.raykellyfitness.util.Constant
 import com.raykellyfitness.util.Constant.NOTIFICATION_TYPE_POST
 import com.raykellyfitness.util.ParcelKeys
 import com.raykellyfitness.util.ParcelKeys.PK_FROM
+import com.raykellyfitness.util.ParcelKeys.PK_FROM_NOTIFICATION
 import com.raykellyfitness.util.ParcelKeys.PK_POST_DAY
 import com.raykellyfitness.util.ParcelKeys.PK_POST_ID
 import com.raykellyfitness.util.ParcelKeys.PK_POST_TYPE
@@ -304,7 +305,7 @@ class HomeActivity : BaseActivity(), NavController.OnDestinationChangedListener,
                                                                        PK_POST_DAY to notification?.day,
                                                                        PK_FROM to PK_FROM))
 
-            else -> navController.navigate(R.id.TipsAndTricksFragment, bundleOf(PK_POST_TYPE to notification?.type, PK_FROM to PK_FROM))
+            else -> navController.navigate(R.id.TipsAndTricksFragment, bundleOf(PK_POST_TYPE to notification?.type, PK_FROM to PK_FROM_NOTIFICATION))
         }
         else navController.navigate(R.id.SubscriptionFragment)
     }

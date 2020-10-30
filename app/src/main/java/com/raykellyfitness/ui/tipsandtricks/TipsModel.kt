@@ -5,6 +5,8 @@ class ResponseTipsOuter : ArrayList<ResponseTipsOuterItem>()
 data class ResponseTipsOuterItem(
     val data_list: List<ResponseTipsInner>,
     val day: String,
+    val title: String,
+    val day_title: String,
     var open: Boolean,
     val date: String
 )
@@ -15,6 +17,7 @@ data class ResponseTipsInner(
     val media_url: String,
     val publish_count: String,
     val title: String,
+    val day_title: String,
     val updated_at: String
 )
 

@@ -23,6 +23,55 @@ object Constant {
     val ACTION_CONCIERGE_PROCESSED: String? = "ConceirgeProcessed"
     val ACTION_BUDGET: String? = "ACTION_BUDGET"
 
+    ///////////WEIGHT RANGE///////////////////////
+    val WEIGHT_RANGE_MIN = 1
+    val WEIGHT_RANGE_MAX = 500
+
+    val HEIGHT_RANGE_MIN = 1
+    val HEIGHT_RANGE_MAX = 250
+    ///////////WEIGHT RANGE///////////////////////
+
+    ///////////BP RANGE///////////////////////
+    val DIASTOLIC_BP_RANGE_MIN = 1
+    val DIASTOLIC_BP_RANGE_MAX = 250
+
+    val SYSTOLIC_BP_RANGE_MIN = 1
+    val SYSTOLIC_BP_RANGE_MAX = 250
+    ///////////BP RANGE///////////////////////
+
+    ///////////BS RANGE///////////////////////
+    val FASTING_SUGAR_RANGE_MIN = 1
+    val FASTING_SUGAR_RANGE_MAX = 30
+
+    val POST_FASTING_SUGAR_RANGE_MIN = 1
+    val POST_FASTING_SUGAR_RANGE_MAX = 30
+    ///////////BS RANGE///////////////////////
+
+
+
+    val ENTER_WEIGHT_RANGE: String? =
+        "Please enter your weight between $WEIGHT_RANGE_MIN to $WEIGHT_RANGE_MAX KG"
+    val ENTER_HEIGHT_RANGE: String? =
+        "Please enter your height between $HEIGHT_RANGE_MIN to $HEIGHT_RANGE_MAX CM."
+
+
+    val ENTER_DIASTOLIC_BP_RANGE: String? =
+        "Please enter your Diastolic blood pressure level between $DIASTOLIC_BP_RANGE_MIN to " +
+                "$DIASTOLIC_BP_RANGE_MAX mmHg."
+    val ENTER_SYSTOLIC_BP_RANGE: String? =
+        "Please enter your Systolic blood pressure between $SYSTOLIC_BP_RANGE_MIN to " +
+                "$SYSTOLIC_BP_RANGE_MAX mmHg."
+
+
+    val ENTER_FASTING_SUGAR_RANGE: String? =
+        "Please enter your Fasting blood sugar level between $FASTING_SUGAR_RANGE_MIN to " +
+                "$FASTING_SUGAR_RANGE_MAX mmol/L."
+    val ENTER_POST_FASTING_SUGAR_RANGE: String? =
+        "Please enter your Post Fasting blood sugar level between $POST_FASTING_SUGAR_RANGE_MIN to " +
+                "$POST_FASTING_SUGAR_RANGE_MAX mmol/L."
+
+
+
     val ENTER_WEIGHT: String? = "Please enter your weight."
     val ENTER_HEIGHT: String? = "Please enter your height."
     val ENTER_DIASTOLIC_BP: String? = "Please enter your Diastolic blood pressure."
@@ -34,7 +83,6 @@ object Constant {
     val VIDEO: String? = "video"
     val URL: String? = "url"
     val NO_RECORD_AVAILABLE: String? = "No records available"
-
 
     val MAIN_BOARD_ACTIVITY: String? = "com.raykellyfitness.ui.activity.MainBoardActivity"
 
@@ -48,9 +96,9 @@ object Constant {
     const val ITEM_FOR_GIVEAWAY = 2
     const val ITEM_FOR_DONATE = 3
 
-
-//    const val STRIPE_PUBLISHABLE_KEY: String = "pk_test_51H5nNGHagS9NaLqefyzH9pFJNFgmfVg7tHkL6XwFFJixCtOw5eRFe4nzl5xrwOcSe9h8Pk0jubSGcwnq4iEOAAZ100wcpwY6pe"
-    const val STRIPE_PUBLISHABLE_KEY: String = "pk_test_51H8HZVHkhGxsTLKhGcgaEAlHEVIEbdkjFygPVQ5iNO8JG3Q75W4zFVFBX1l1Pv2N4swytx57z2YFRqtlcrujUsXc00NfJwPcWL"
+    //    const val STRIPE_PUBLISHABLE_KEY: String = "pk_test_51H5nNGHagS9NaLqefyzH9pFJNFgmfVg7tHkL6XwFFJixCtOw5eRFe4nzl5xrwOcSe9h8Pk0jubSGcwnq4iEOAAZ100wcpwY6pe"
+    const val STRIPE_PUBLISHABLE_KEY: String =
+        "pk_test_51H8HZVHkhGxsTLKhGcgaEAlHEVIEbdkjFygPVQ5iNO8JG3Q75W4zFVFBX1l1Pv2N4swytx57z2YFRqtlcrujUsXc00NfJwPcWL"
     const val AMZ_BASE_URL = "https://hookup-post-images.s3.ap-south-1.amazonaws.com/"
 
     const val CODE_DIRECTORY: Int = 208
@@ -59,10 +107,10 @@ object Constant {
 
     const val PROFILE_NORMAL = 1
     const val PROFILE_SALES = 2
-    const val KEY_PROFILE_TYPE= "key_profile_type"
+    const val KEY_PROFILE_TYPE = "key_profile_type"
 
-    const val BEAN= "bean"
-    const val TYPE= "type"
+    const val BEAN = "bean"
+    const val TYPE = "type"
 
     const val REGISTER = "REGISTER"
     const val FORGOT_PASSWORD = "FORGOT_PASSWORD"
@@ -83,9 +131,6 @@ object Constant {
     const val API_DATE_FORMAT_1 = "dd-MM-yyyy HH:mm a"
     const val API_DATE_FORMAT_2 = "dd MMM yyyy hh:mm:ss a"
     const val API_DATE_FORMAT_3 = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"
-
-
-
 
 
 }

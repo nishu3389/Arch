@@ -410,7 +410,7 @@ fun List<Any>?.isEmptyy(): Boolean {
 }
 
 
-fun List<Any>?.isEmptyyThenShow(view : View): Boolean {
+fun List<Any>?.isEmptyyThenHide(view : View): Boolean {
 
     if (this == null){
         view.gone()

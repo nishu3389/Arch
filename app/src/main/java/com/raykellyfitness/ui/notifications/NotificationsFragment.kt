@@ -33,11 +33,11 @@ class NotificationsFragment : BaseFragment() {
                 Constant.POST_TYPE_BLOG -> navigate(R.id.TipsDetailFragment,
                                                     Pair(ParcelKeys.PK_POST_ID, model?.post_id),
                                                     Pair( ParcelKeys.PK_POST_TYPE , model?.type),
-                                                    Pair(ParcelKeys.PK_POST_DAY , model?.message),
+                                                    Pair(ParcelKeys.PK_POST_DAY , model?.day),
                                                     Pair(ParcelKeys.PK_FROM , ParcelKeys.PK_FROM)
                 )
 
-                else -> navigate(R.id.TipsAndTricksFragment, Pair(ParcelKeys.PK_POST_TYPE, model.type),Pair(ParcelKeys.PK_FROM , ParcelKeys.PK_FROM))
+                else -> navigate(R.id.TipsAndTricksFragment, Pair(ParcelKeys.PK_POST_TYPE, model.type),Pair(ParcelKeys.PK_FROM , ParcelKeys.PK_FROM_NOTIFICATION_LIST), Pair(ParcelKeys.PK_POST_DAY , model?.day))
             }
 
     }

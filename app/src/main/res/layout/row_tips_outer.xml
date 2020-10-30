@@ -36,24 +36,23 @@
 
                 <com.raykellyfitness.views.CommonTextViewSemiBold
                     android:id="@+id/tv_week"
-                    android:text="@{model.day}"
-                    tool:text="Week 05"
+                    tool:text="Lorem Ipsum is simply dummy text of the printing a"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:paddingRight="@dimen/_25sdp"
+                    android:layout_marginRight="@dimen/_25sdp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     android:textColor="@{model.open ? @color/white : @color/black}"
-                    android:textSize="@dimen/_13sdp"
+                    android:textSize="@dimen/_11sdp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
                 <com.raykellyfitness.views.CommonTextView
                     android:id="@+id/tv_date"
                     tool:text="Wednesday, 13 sep, 2020"
+                    android:visibility="gone"
                     android:textColor="@{model.open ? @color/white : @color/black}"
                     android:gravity="center_vertical|left"
-                    android:paddingLeft="@dimen/_18sdp"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toRightOf="@id/tv_week"
                     app:layout_constraintRight_toLeftOf="@id/img_right"
                     android:layout_width="wrap_content"
@@ -69,6 +68,16 @@
                     app:layout_constraintRight_toRightOf="parent"
                     android:layout_width="@dimen/_20sdp"
                     android:layout_height="@dimen/_20sdp"></ImageView>
+
+                <com.raykellyfitness.views.CommonTextView
+                    android:id="@+id/tv_date2"
+                    tool:text="Wednesday, 13 sep, 2020"
+                    android:textColor="@{model.open ? @color/white : @color/black}"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    app:layout_constraintTop_toBottomOf="@id/tv_week"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

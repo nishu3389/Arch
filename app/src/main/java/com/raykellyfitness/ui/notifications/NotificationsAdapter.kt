@@ -5,6 +5,7 @@ import com.raykellyfitness.base.changeTimeFormat
 import com.raykellyfitness.base.push
 import com.raykellyfitness.databinding.RowNotificationBinding
 import com.raykellyfitness.model.request.Notification
+import com.raykellyfitness.util.Util
 
 class NotificationsAdapter(
     override val layoutId: Int,
@@ -13,7 +14,7 @@ class NotificationsAdapter(
 
     override fun bind(holder: ViewHolder, item: Notification, position: Int) {
         holder.binding.model = item
-        holder.binding.tvDate.text = item.created.changeTimeFormat("yyyy-MM-dd hh:mm:ss", "EEEE dd MMM, yyyy")
+        holder.binding.tvDate.text = Util.getTimeAgo(item.created,"yyyy-MM-dd hh:mm:ss")
         holder.itemView.push()?.setOnClickListener { onClickListener.invoke(item) }
     }
 

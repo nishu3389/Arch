@@ -75,7 +75,7 @@ class AddBloodPressureFragment : BaseFragment(), OnChartValueSelectedListener {
     }
 
     fun setupChart() {
-        (this.parentFragment as HealthFragment).setupChart(mBinding.chart1, map)
+        (this.parentFragment as HealthFragment).setupChart(mBinding.chart1, map, Pair(1.0f, 250.0f))
         chart = mBinding.chart1
         chart!!.setOnChartValueSelectedListener(this)
     }

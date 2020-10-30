@@ -11,7 +11,9 @@ import com.raykellyfitness.model.response.*
 import com.raykellyfitness.util.Prefs
 import com.raykellyfitness.networking.Api
 import com.raykellyfitness.util.Constant.ENTER_HEIGHT
+import com.raykellyfitness.util.Constant.ENTER_HEIGHT_RANGE
 import com.raykellyfitness.util.Constant.ENTER_WEIGHT
+import com.raykellyfitness.util.Constant.ENTER_WEIGHT_RANGE
 
 class AddWeightViewModel(controller: AsyncViewController) : BaseViewModel(controller) {
 
@@ -30,11 +32,20 @@ class AddWeightViewModel(controller: AsyncViewController) : BaseViewModel(contro
             ENTER_WEIGHT?.showWarning()
             return false
         }
+        if (data.weight!!.toDouble()<1 || data.weight!!.toDouble()>500) {
+            ENTER_WEIGHT_RANGE?.showWarning()
+            return false
+        }
 
         if (data.height.isEmptyy() || data.height!!.toDouble()<=0) {
             ENTER_HEIGHT?.showWarning()
             return false
         }
+        if (data.height!!.toDouble()<1 || data.height!!.toDouble()>250) {
+            ENTER_HEIGHT_RANGE?.showWarning()
+            return false
+        }
+
 
         val user = Prefs.get().loginData
         user?.height = data.height!!

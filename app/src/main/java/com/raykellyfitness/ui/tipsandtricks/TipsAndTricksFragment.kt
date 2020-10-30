@@ -26,6 +26,8 @@ class TipsAndTricksFragment : BaseFragment() {
 
     var type: String = ""
     var fromNotification = false
+    var fromNotificationList = false
+    var day = ""
 
     var adapter = TipsAdapterOuter(type,R.layout.row_tips_outer) { model, modelOuter ->
         navigate(
@@ -84,11 +86,10 @@ class TipsAndTricksFragment : BaseFragment() {
 
     private fun handleTipsOrMealResponse(it: MasterResponse<ResponseTipsOuter>?) {
 
-
         mealList.clear()
         mealList = it?.data as ArrayList<ResponseTipsOuterItem>
 
-        if(type.equals(POST_TYPE_BLOG)){
+        if(type.equals(POST_TYPE_BLOG) || type.equals(POST_TYPE_EXERCISE)){
             adapter = TipsAdapterOuter(type,R.layout.row_tips_outer) { model, modelOuter ->
                 navigate(
                     R.id.TipsDetailFragment,
@@ -102,6 +103,12 @@ class TipsAndTricksFragment : BaseFragment() {
 
         if(fromNotification && !mealList.isEmptyy())
             mealList.get(0).open = true
+        else if(fromNotificationList && !mealList.isEmptyy()){
+            mealList.filter {
+                it.day?.equals(day,true)
+            }?.get(0)?.
+            open = true
+        }
 
         adapter.setNewItems(mealList)
         adapter.addClickEventWithView(R.id.card, mClickHandler::mealClicked)
@@ -126,8 +133,12 @@ class TipsAndTricksFragment : BaseFragment() {
         if (type.isEmptyy()) {
             type = arguments?.getString("type")!!
 
-            if(arguments!=null && requireArguments().containsKey(ParcelKeys.PK_FROM))
+            if(arguments!=null && requireArguments().containsKey(ParcelKeys.PK_FROM) && requireArguments().getString(ParcelKeys.PK_FROM).equals(ParcelKeys.PK_FROM_NOTIFICATION))
                 fromNotification = true
+            else if(arguments!=null && requireArguments().containsKey(ParcelKeys.PK_FROM) && requireArguments().getString(ParcelKeys.PK_FROM).equals(ParcelKeys.PK_FROM_NOTIFICATION_LIST)){
+                fromNotificationList = true
+                day = requireArguments().getString(ParcelKeys.PK_POST_DAY,"")!!
+            }
 
             when (type) {
                 POST_TYPE_MEAL -> {

@@ -10,7 +10,13 @@ import com.raykellyfitness.model.request.*
 import com.raykellyfitness.model.response.*
 import com.raykellyfitness.networking.Api
 import com.raykellyfitness.util.Constant.ENTER_FASTING_SUGAR
+import com.raykellyfitness.util.Constant.ENTER_FASTING_SUGAR_RANGE
 import com.raykellyfitness.util.Constant.ENTER_POST_FASTING_SUGAR
+import com.raykellyfitness.util.Constant.ENTER_POST_FASTING_SUGAR_RANGE
+import com.raykellyfitness.util.Constant.FASTING_SUGAR_RANGE_MAX
+import com.raykellyfitness.util.Constant.FASTING_SUGAR_RANGE_MIN
+import com.raykellyfitness.util.Constant.POST_FASTING_SUGAR_RANGE_MAX
+import com.raykellyfitness.util.Constant.POST_FASTING_SUGAR_RANGE_MIN
 
 class AddBloodSugarViewModel(controller: AsyncViewController) : BaseViewModel(controller) {
 
@@ -25,25 +31,34 @@ class AddBloodSugarViewModel(controller: AsyncViewController) : BaseViewModel(co
 
         val data = requestAddBloodSugar.get() ?: return false
 
-        if (data.blood_sugar_fasting.isEmptyy() || data.blood_sugar_fasting!!.toDouble()<=0) {
+        if (data.blood_sugar_fasting.isEmptyy() || data.blood_sugar_fasting!!.toDouble() <= 0) {
             ENTER_FASTING_SUGAR?.showWarning()
             return false
         }
+        if (data.blood_sugar_fasting!!.toDouble() < FASTING_SUGAR_RANGE_MIN || data.blood_sugar_fasting!!.toDouble() > FASTING_SUGAR_RANGE_MAX) {
+            ENTER_FASTING_SUGAR_RANGE?.showWarning()
+            return false
+        }
 
-        if (data.blood_sugar_postprandial.isEmptyy() || data.blood_sugar_postprandial!!.toDouble()<=0) {
+        if (data.blood_sugar_postprandial.isEmptyy() || data.blood_sugar_postprandial!!.toDouble() <= 0) {
             ENTER_POST_FASTING_SUGAR?.showWarning()
+            return false
+        }
+        if (data.blood_sugar_postprandial!!.toDouble() < POST_FASTING_SUGAR_RANGE_MIN || data.blood_sugar_postprandial!!.toDouble() > POST_FASTING_SUGAR_RANGE_MAX) {
+            ENTER_POST_FASTING_SUGAR_RANGE?.showWarning()
             return false
         }
 
         return true
     }
 
-    fun callAddBloodSugarApi() : MutableLiveData<MasterResponse<ResponseAddBloodSugar>> {
+    fun callAddBloodSugarApi(): MutableLiveData<MasterResponse<ResponseAddBloodSugar>> {
         responseAddBloodSugar = MutableLiveData<MasterResponse<ResponseAddBloodSugar>>()
-        baseRepo.restClient.callApi(Api.ADD_BLOOD_SUGAR, requestAddBloodSugar.get(), responseAddBloodSugar)
+        baseRepo.restClient.callApi(Api.ADD_BLOOD_SUGAR,
+                                    requestAddBloodSugar.get(),
+                                    responseAddBloodSugar)
         return responseAddBloodSugar
     }
-
 
 
 }

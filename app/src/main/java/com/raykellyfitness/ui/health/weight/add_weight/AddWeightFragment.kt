@@ -65,7 +65,7 @@ class AddWeightFragment : BaseFragment(), OnChartValueSelectedListener {
     }
 
     private fun setBMI(list: ResponseAddWeight?) {
-        if(!list.isEmptyyThenShow(mBinding.tvBmi)){
+        if(!list.isEmptyyThenHide(mBinding.tvBmi)){
             val last = list?.last()
 
             if(last?.height.isEmptyy() || last?.weight.isEmptyy()){
@@ -82,7 +82,7 @@ class AddWeightFragment : BaseFragment(), OnChartValueSelectedListener {
 
 
     fun setupChart() {
-        (this.parentFragment as HealthFragment).setupChart(mBinding.chart1, map)
+        (this.parentFragment as HealthFragment).setupChart(mBinding.chart1, map, Pair(1.0f, 550.0f))
         chart = mBinding.chart1
         chart!!.setOnChartValueSelectedListener(this)
     }

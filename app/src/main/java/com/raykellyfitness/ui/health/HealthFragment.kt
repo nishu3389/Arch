@@ -54,13 +54,11 @@ import kotlin.collections.HashMap
 
 class HealthFragment : BaseFragment() {
 
-    var WEIGHT = 1
-    var BLOOD_SUGAR = 2
-    var BLOOD_PRESSURE = 3
+    val WEIGHT = 1
+    val BLOOD_SUGAR = 2
+    val BLOOD_PRESSURE = 3
 
-    var graphType = mapOf(1 to "weight", BLOOD_SUGAR to "bs" , BLOOD_PRESSURE to "bp")
-
-    var range = 10.0f
+    val range = 10.0f
     var callByClick = false
     var listWeight = MutableLiveData<ResponseAddWeight>()
     var listBloodSugar = MutableLiveData<ResponseAddBloodSugar>()
@@ -76,12 +74,9 @@ class HealthFragment : BaseFragment() {
         setupViewModel()
     }
 
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater,
+                              container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
         mBinding = FragmentHealthBinding.inflate(inflater, container, false).apply {
             clickHandler = ClickHandler()
             viewModel = mViewModel
@@ -106,10 +101,10 @@ class HealthFragment : BaseFragment() {
     }
 
     override fun onApiRequestFailed(apiUrl: String, errCode: Int, errorMessage: String): Boolean {
-        if ((apiUrl.equals(Api.LIST_WEIGHT) || apiUrl.equals(Api.LIST_BLOOD_PRESSURE) || apiUrl.equals(Api.LIST_BLOOD_SUGAR)) && !callByClick)
-            return true
-        else
-            return super.onApiRequestFailed(apiUrl, errCode, errorMessage)
+        if ((apiUrl.equals(Api.LIST_WEIGHT) || apiUrl.equals(Api.LIST_BLOOD_PRESSURE) || apiUrl.equals(
+                Api.LIST_BLOOD_SUGAR)) && !callByClick
+        ) return true
+        else return super.onApiRequestFailed(apiUrl, errCode, errorMessage)
     }
 
     fun callInitialApis() {
@@ -137,7 +132,6 @@ class HealthFragment : BaseFragment() {
         (activity as HomeActivity).setTitle("")
     }
 
-
     private fun manageClicks() {
         (activity as HomeActivity).mBinding.imgRight.push()?.setOnClickListener {
 
@@ -148,9 +142,7 @@ class HealthFragment : BaseFragment() {
                         if (!it.data.isNullOrEmpty() && it.data!!.size > 0) {
                             Collections.reverse(it.data!!)
                             showWeightDialog(it.data!!)
-                        }
-                        else
-                            NO_RECORD_AVAILABLE?.showWarning()
+                        } else NO_RECORD_AVAILABLE?.showWarning()
                     })
                 }
                 1 -> {
@@ -158,9 +150,7 @@ class HealthFragment : BaseFragment() {
                         if (!it.data.isNullOrEmpty() && it.data!!.size > 0) {
                             Collections.reverse(it.data!!)
                             showBloodSugarDialog(it.data!!)
-                        }
-                        else
-                            NO_RECORD_AVAILABLE?.showWarning()
+                        } else NO_RECORD_AVAILABLE?.showWarning()
                     })
                 }
                 2 -> {
@@ -168,9 +158,7 @@ class HealthFragment : BaseFragment() {
                         if (!it.data.isNullOrEmpty() && it.data!!.size > 0) {
                             Collections.reverse(it.data!!)
                             showBloodPressureDialog(it.data!!)
-                        }
-                        else
-                            NO_RECORD_AVAILABLE?.showWarning()
+                        } else NO_RECORD_AVAILABLE?.showWarning()
                     })
                 }
             }
@@ -179,35 +167,28 @@ class HealthFragment : BaseFragment() {
     }
 
     private fun showBloodPressureDialog(data: ResponseAddBloodPressure) {
-        popup = Pop.on(activity)
-            .with()
-            .cancelable(false)
-            .layout(R.layout.blood_pressure_list)
-            .show {
+        popup =
+            Pop.on(activity).with().cancelable(false).layout(R.layout.blood_pressure_list).show {
 
-                it?.findViewById<RecyclerView>(R.id.recycler).apply {
-                    var adapter = BloodPressureListAdapter(R.layout.row_blood_pressure_list)
-                    this!!.adapter = adapter
-                    adapter.setNewItems(data)
-                }
-
-                it?.findViewById<ImageView>(R.id.img_cross).apply {
-                    this?.push()?.setOnClickListener {
-                        popup?.dismiss()
+                    it?.findViewById<RecyclerView>(R.id.recycler).apply {
+                        var adapter = BloodPressureListAdapter(R.layout.row_blood_pressure_list)
+                        this!!.adapter = adapter
+                        adapter.setNewItems(data)
                     }
-                }
 
-            }
+                    it?.findViewById<ImageView>(R.id.img_cross).apply {
+                        this?.push()?.setOnClickListener {
+                            popup?.dismiss()
+                        }
+                    }
+
+                }
 
         popup?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
     }
 
     private fun showBloodSugarDialog(data: ResponseAddBloodSugar) {
-        popup = Pop.on(activity)
-            .with()
-            .cancelable(false)
-            .layout(R.layout.blood_sugar_list)
-            .show {
+        popup = Pop.on(activity).with().cancelable(false).layout(R.layout.blood_sugar_list).show {
 
                 it?.findViewById<RecyclerView>(R.id.recycler).apply {
                     var adapter = BloodSugarListAdapter(R.layout.row_blood_sugar_list)
@@ -227,11 +208,7 @@ class HealthFragment : BaseFragment() {
     }
 
     private fun showWeightDialog(data: ResponseAddWeight) {
-        popup = Pop.on(activity)
-            .with()
-            .cancelable(false)
-            .layout(R.layout.weight_list)
-            .show {
+        popup = Pop.on(activity).with().cancelable(false).layout(R.layout.weight_list).show {
 
                 it?.findViewById<RecyclerView>(R.id.recycler).apply {
                     var adapter = WeightListAdapter(R.layout.row_weight_list)
@@ -268,11 +245,9 @@ class HealthFragment : BaseFragment() {
         }
 
         mBinding.viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-            override fun onPageScrolled(
-                position: Int,
-                positionOffset: Float,
-                positionOffsetPixels: Int
-            ) {
+            override fun onPageScrolled(position: Int,
+                                        positionOffset: Float,
+                                        positionOffsetPixels: Int) {
             }
 
             override fun onPageSelected(position: Int) {
@@ -282,7 +257,6 @@ class HealthFragment : BaseFragment() {
                     2 -> highlightTab(mBinding.tvBloodPressure)
                 }
             }
-
 
             override fun onPageScrollStateChanged(state: Int) {
             }
@@ -318,7 +292,6 @@ class HealthFragment : BaseFragment() {
 
     inner class ClickHandler : IPermissionGranted {
 
-
         override fun permissionGranted(requestCode: Int) {
             when (requestCode) {
 
@@ -332,15 +305,11 @@ class HealthFragment : BaseFragment() {
             when (requestCode) {
 
                 DeviceRuntimePermission.REQUEST_PERMISSION_ACCESS_COARSE__FINE_LOCATION_CAMERA -> (activity as BaseActivity).checkAndAskPermission(
-                    DeviceRuntimePermission(
-                        DeviceRuntimePermission.REQUEST_PERMISSION_ACCESS_COARSE__FINE_LOCATION_CAMERA,
-                        null
-                    )
-                )
+                    DeviceRuntimePermission(DeviceRuntimePermission.REQUEST_PERMISSION_ACCESS_COARSE__FINE_LOCATION_CAMERA,
+                                            null))
             }
         }
     }
-
 
     override fun onDetach() {
         super.onDetach()
@@ -352,7 +321,7 @@ class HealthFragment : BaseFragment() {
         return get ?: ""
     }
 
-    fun setupChart(chart : LineChart,  map : HashMap<Float, String>) {
+    fun setupChart(chart: LineChart, map: HashMap<Float, String>, pair: Pair<Float, Float>) {
         chart!!.description.isEnabled = false
         chart!!.setTouchEnabled(true)
         chart!!.dragDecelerationFrictionCoef = 0.9f
@@ -391,115 +360,111 @@ class HealthFragment : BaseFragment() {
         xAxis.valueFormatter = object : ValueFormatter() {
             override fun getFormattedValue(value: Float): String {
                 value.toString().log()
-                return floatToStringDate(value,map)
+                return floatToStringDate(value, map)
             }
         }
 
         val leftAxis = chart!!.axisLeft
-        leftAxis.typeface = Typeface.createFromAsset(
-            context?.getAssets(),
-            "fonts/poppins_regular.ttf"
-        )
+        leftAxis.typeface =
+            Typeface.createFromAsset(context?.getAssets(), "fonts/poppins_regular.ttf")
         leftAxis.textColor = ColorTemplate.getHoloBlue()
-        leftAxis.axisMaximum = 1100f
-        leftAxis.axisMinimum = 1f
+        leftAxis.axisMaximum = pair.second
+        leftAxis.axisMinimum = pair.first
         leftAxis.textSize = 10f
         leftAxis.needsOffset()
         leftAxis.setDrawGridLines(true)
         leftAxis.isGranularityEnabled = true
 
         val rightAxis = chart!!.axisRight
-        rightAxis.typeface = Typeface.createFromAsset(
-            context?.getAssets(),
-            "fonts/poppins_regular.ttf"
-        )
+        rightAxis.typeface =
+            Typeface.createFromAsset(context?.getAssets(), "fonts/poppins_regular.ttf")
         rightAxis.textColor = ColorTemplate.getHoloBlue()
-        rightAxis.axisMaximum = 1100f
-        rightAxis.axisMinimum = 1f
+        rightAxis.axisMaximum = pair.second
+        rightAxis.axisMinimum = pair.first
         rightAxis.textSize = 10f
         rightAxis.needsOffset()
         rightAxis.setDrawGridLines(true)
         rightAxis.isGranularityEnabled = true
     }
 
-    fun setChartData(listWeight: ResponseAddWeight?, listBS: ResponseAddBloodSugar?, listBP: ResponseAddBloodPressure?, chart : LineChart, map : HashMap<Float, String>, graphType : Int) {
+    fun setChartData(listWeight: ResponseAddWeight?,
+                     listBS: ResponseAddBloodSugar?,
+                     listBP: ResponseAddBloodPressure?,
+                     chart: LineChart,
+                     map: HashMap<Float, String>,
+                     graphType: Int) {
 
         var lable1 = ""
         var lable2 = ""
 
-        if (chart.data != null && chart.data.dataSetCount > 0)
-            chart.clear()
+        if (chart.data != null && chart.data.dataSetCount > 0) chart.clear()
 
         val values1 = ArrayList<Entry>()
         val values2 = ArrayList<Entry>()
 
-        when(graphType){
-                WEIGHT -> {
-                    if(listWeight?.isEmpty()?:true){
-                        values1.add(Entry(0.0f, 0.0f))
-                        values2.add(Entry(0.0f, 0.0f))
-                    }else{
-                        var i = range
-                        lable1 = "Weight (KG)"
-                        lable2 = "Height (CM)"
+        when (graphType) {
 
-                        listWeight?.forEach {
-                            if(!it.created_at.isEmptyy() && !it.weight.isEmptyy() &&  !it.height.isEmptyy()){
-                                i += range
-                                map.put(i, it.created_at.changeTimeFormat("yyyy-MM-dd", "dd MMM")!!)
-                                values1.add(Entry(i, it.weight.toFloat()))
-                                values2.add(Entry(i, it.height.toFloat()))
-                            }
+            WEIGHT -> {
+                if (listWeight?.isEmpty() ?: true) {
+                    values1.add(Entry(0.0f, 0.0f))
+                    values2.add(Entry(0.0f, 0.0f))
+                } else {
+                    var i = range
+                    lable1 = "Weight (KG)"
+                    lable2 = "Height (CM)"
+
+                    listWeight?.forEach {
+                        if (!it.created_at.isEmptyy() && !it.weight.isEmptyy() && !it.height.isEmptyy()) {
+                            i += range
+                            map.put(i, it.created_at.changeTimeFormat("yyyy-MM-dd", "dd MMM")!!)
+                            values1.add(Entry(i, it.weight.toFloat()))
+                            values2.add(Entry(i, it.height.toFloat()))
                         }
                     }
-
                 }
-
-                BLOOD_SUGAR -> {
-
-                    if(listBS?.isEmpty()?:true){
-                        values1.add(Entry(0.0f, 0.0f))
-                        values2.add(Entry(0.0f, 0.0f))
-                    }else{
-                        var i = range
-                        lable1 = "Fasting (mmol/L)"
-                        lable2 = "Post fasting (mmol/L)"
-
-                        listBS?.forEach {
-                            if(!it.created_at.isEmptyy() && !it.blood_sugar_fasting.isEmptyy() &&  !it.blood_sugar_postprandial.isEmptyy()){
-                                i += range
-                                map.put(i, it.created_at.changeTimeFormat("yyyy-MM-dd", "dd MMM")!!)
-                                values1.add(Entry(i, it.blood_sugar_fasting.toFloat()))
-                                values2.add(Entry(i, it.blood_sugar_postprandial.toFloat()))
-                            }
-                        }
-                    }
-
-                }
-
-                BLOOD_PRESSURE -> {
-
-                    if(listBP?.isEmpty()?:true){
-                        values1.add(Entry(0.0f, 0.0f))
-                        values2.add(Entry(0.0f, 0.0f))
-                    }else{
-                        var i = range
-                        lable1 = "Diastolic (mmHg)"
-                        lable2 = "Systolic (mmHg)"
-
-                        listBP?.forEach {
-                            if(!it.created_at.isEmptyy() && !it.blood_pressure_diastolic.isEmptyy() &&  !it.blood_pressure_systolic.isEmptyy()){
-                                i += range
-                                map.put(i, it.created_at.changeTimeFormat("yyyy-MM-dd", "dd MMM")!!)
-                                values1.add(Entry(i, it.blood_pressure_diastolic.toFloat()))
-                                values2.add(Entry(i, it.blood_pressure_systolic.toFloat()))
-                            }
-                        }
-                    }
-
-                }
-
             }
+
+            BLOOD_SUGAR -> {
+                if (listBS?.isEmpty() ?: true) {
+                    values1.add(Entry(0.0f, 0.0f))
+                    values2.add(Entry(0.0f, 0.0f))
+                } else {
+                    var i = range
+                    lable1 = "Fasting (mmol/L)"
+                    lable2 = "Post fasting (mmol/L)"
+
+                    listBS?.forEach {
+                        if (!it.created_at.isEmptyy() && !it.blood_sugar_fasting.isEmptyy() && !it.blood_sugar_postprandial.isEmptyy()) {
+                            i += range
+                            map.put(i, it.created_at.changeTimeFormat("yyyy-MM-dd", "dd MMM")!!)
+                            values1.add(Entry(i, it.blood_sugar_fasting.toFloat()))
+                            values2.add(Entry(i, it.blood_sugar_postprandial.toFloat()))
+                        }
+                    }
+                }
+            }
+
+            BLOOD_PRESSURE -> {
+                if (listBP?.isEmpty() ?: true) {
+                    values1.add(Entry(0.0f, 0.0f))
+                    values2.add(Entry(0.0f, 0.0f))
+                } else {
+                    var i = range
+                    lable1 = "Diastolic (mmHg)"
+                    lable2 = "Systolic (mmHg)"
+
+                    listBP?.forEach {
+                        if (!it.created_at.isEmptyy() && !it.blood_pressure_diastolic.isEmptyy() && !it.blood_pressure_systolic.isEmptyy()) {
+                            i += range
+                            map.put(i, it.created_at.changeTimeFormat("yyyy-MM-dd", "dd MMM")!!)
+                            values1.add(Entry(i, it.blood_pressure_diastolic.toFloat()))
+                            values2.add(Entry(i, it.blood_pressure_systolic.toFloat()))
+                        }
+                    }
+                }
+            }
+
+        }
 
         val set1: LineDataSet
         val set2: LineDataSet
@@ -534,9 +499,9 @@ class HealthFragment : BaseFragment() {
 
         // set data
         chart.setData(data)
-        touchGraph(1000,chart)
-        touchGraph(2000,chart)
-        touchGraph(3000,chart)
+        touchGraph(1000, chart)
+        touchGraph(2000, chart)
+        touchGraph(3000, chart)
     }
 
     private fun touchGraph(time: Long, chart: LineChart) {
@@ -568,8 +533,6 @@ class HealthFragment : BaseFragment() {
         })
     }
 
-
-
     class HealthPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
         override fun getCount(): Int {
@@ -577,16 +540,12 @@ class HealthFragment : BaseFragment() {
         }
 
         override fun getItem(position: Int): Fragment {
-            when (position) {
-                0 -> {
-                    return AddWeightFragment()
-                }
-                1 -> {
-                    return AddBloodSugarFragment()
-                }
-                else -> {
-                    return AddBloodPressureFragment()
-                }
+            return when (position) {
+                0 -> AddWeightFragment()
+
+                1 -> AddBloodSugarFragment()
+
+                else -> AddBloodPressureFragment()
             }
         }
 
