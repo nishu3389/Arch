@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">RKF</string>
+    <string name="app_name">Ray kelly Fitness</string>
 
     <string name="menu_home">Home</string>
     <string name="err_mobile_missing">Contact number should be between 7 to 15 Digit</string>

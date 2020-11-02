@@ -104,10 +104,12 @@ class TipsAndTricksFragment : BaseFragment() {
         if(fromNotification && !mealList.isEmptyy())
             mealList.get(0).open = true
         else if(fromNotificationList && !mealList.isEmptyy()){
-            mealList.filter {
-                it.day?.equals(day,true)
-            }?.get(0)?.
-            open = true
+            try {
+                mealList.filter {
+                    it.day?.equals(day,true)
+                }?.get(0)?.
+                open = true
+            }catch (e:Exception){}
         }
 
         adapter.setNewItems(mealList)

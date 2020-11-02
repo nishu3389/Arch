@@ -8,13 +8,11 @@ import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.raykellyfitness.R
-import com.raykellyfitness.base.AsyncViewController
-import com.raykellyfitness.base.BaseFragment
-import com.raykellyfitness.base.MyViewModelProvider
-import com.raykellyfitness.base.isEmptyy
+import com.raykellyfitness.base.*
 import com.raykellyfitness.databinding.FragmentNotificationsBinding
 import com.raykellyfitness.model.request.Notification
 import com.raykellyfitness.model.request.ResponseNotifications
+import com.raykellyfitness.networking.Api
 import com.raykellyfitness.ui.activity.HomeActivity
 import com.raykellyfitness.util.Constant
 import com.raykellyfitness.util.ParcelKeys
@@ -47,6 +45,15 @@ class NotificationsFragment : BaseFragment() {
         setupViewModel()
     }
 
+    override fun onApiRequestFailed(apiUrl: String, errCode: Int, errorMessage: String): Boolean {
+        if(apiUrl.equals(Api.Notifications)){
+            mBinding.tvNoData.visible()
+            return true
+        }
+
+        return false
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         if (!::mBinding.isInitialized) {
             mBinding = FragmentNotificationsBinding.inflate(inflater, container, false).apply {
@@ -71,19 +78,15 @@ class NotificationsFragment : BaseFragment() {
     }
 
     private fun callInitialApi() {
-
-        var list = ResponseNotifications()
-        for(i in 0..10)
-            list.add(Notification())
-
-        handleResponse(list)
-
         mViewModel.callNotificationsApi().observe(viewLifecycleOwner, Observer {
                 handleResponse(it.data)
         })
     }
 
     private fun handleResponse(data: ResponseNotifications?) {
+
+        data?.clear()
+
         if(!data.isEmptyy(mBinding.tvNoData))
             adapter.setNewItems(data!!)
     }

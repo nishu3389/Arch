@@ -32,7 +32,7 @@
             android:id="@+id/tv_no_data"
             android:textSize="@dimen/_13sdp"
             android:text="No record found"
-            android:visibility="visible"
+            android:visibility="gone"
             android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
