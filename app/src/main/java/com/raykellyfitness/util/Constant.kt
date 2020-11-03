@@ -32,11 +32,11 @@ object Constant {
     ///////////WEIGHT RANGE///////////////////////
 
     ///////////BP RANGE///////////////////////
-    val DIASTOLIC_BP_RANGE_MIN = 1
-    val DIASTOLIC_BP_RANGE_MAX = 250
+    val DIASTOLIC_BP_RANGE_MIN = 50
+    val DIASTOLIC_BP_RANGE_MAX = 120
 
-    val SYSTOLIC_BP_RANGE_MIN = 1
-    val SYSTOLIC_BP_RANGE_MAX = 250
+    val SYSTOLIC_BP_RANGE_MIN = 80
+    val SYSTOLIC_BP_RANGE_MAX = 220
     ///////////BP RANGE///////////////////////
 
     ///////////BS RANGE///////////////////////

@@ -38,7 +38,6 @@ class TipsAndTricksFragment : BaseFragment() {
         )
     }
 
-
     var mealList = arrayListOf<ResponseTipsOuterItem>()
     val mClickHandler: ClickHandler by lazy { ClickHandler() }
     lateinit var mViewModel: TipsAndTricksViewModel
@@ -50,11 +49,7 @@ class TipsAndTricksFragment : BaseFragment() {
     }
 
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         if (!::mBinding.isInitialized) {
             mBinding = FragmentTipsAndTricksBinding.inflate(inflater, container, false).apply {
                 clickHandler = ClickHandler()
@@ -145,27 +140,27 @@ class TipsAndTricksFragment : BaseFragment() {
             when (type) {
                 POST_TYPE_MEAL -> {
                     (activity as HomeActivity).setTitle(getString(R.string.meal))
-//                    mBinding.recyclerExercise.visibility = View.GONE
+//                   mBinding.recyclerExercise.visibility = View.GONE
                     mBinding.recyclerOuterMeal.visibility = View.VISIBLE
                 }
                 POST_TYPE_TIPS -> {
                     (activity as HomeActivity).setTitle(getString(R.string.tips_and_tricks))
-//                    mBinding.recyclerExercise.visibility = View.GONE
+//                   mBinding.recyclerExercise.visibility = View.GONE
                     mBinding.recyclerOuterMeal.visibility = View.VISIBLE
                 }
                 POST_TYPE_EXERCISE -> {
                     (activity as HomeActivity).setTitle(getString(R.string.exercise))
-//                    mBinding.recyclerExercise.visibility = View.VISIBLE
+//                   mBinding.recyclerExercise.visibility = View.VISIBLE
                     mBinding.recyclerOuterMeal.visibility = View.GONE
                 }
                 POST_TYPE_MOTIVATION -> {
                     (activity as HomeActivity).setTitle(getString(R.string.motivation))
-//                    mBinding.recyclerExercise.visibility = View.VISIBLE
+//                   mBinding.recyclerExercise.visibility = View.VISIBLE
                     mBinding.recyclerOuterMeal.visibility = View.GONE
                 }
                 POST_TYPE_BLOG -> {
                     (activity as HomeActivity).setTitle(getString(R.string.blogs))
-//                    mBinding.recyclerExercise.visibility = View.VISIBLE
+//                   mBinding.recyclerExercise.visibility = View.VISIBLE
                     mBinding.recyclerOuterMeal.visibility = View.GONE
                 }
             }
@@ -173,15 +168,11 @@ class TipsAndTricksFragment : BaseFragment() {
     }
 
     private fun setupViewModel() {
-        mViewModel =
-            ViewModelProviders.of(this, MyViewModelProvider(commonCallbacks as AsyncViewController))
-                .get(TipsAndTricksViewModel::class.java)
+        mViewModel = ViewModelProviders.of(this, MyViewModelProvider(commonCallbacks as AsyncViewController)).get(TipsAndTricksViewModel::class.java)
     }
 
     inner class ClickHandler {
-
         fun mealClicked(position: Int, model: ResponseTipsOuterItem) {
-
             if (!model.open) {
                 mealList.forEach {
                     it.open = false
@@ -194,10 +185,7 @@ class TipsAndTricksFragment : BaseFragment() {
                 }
                 adapter.notifyDataSetChanged()
             }
-
         }
-
     }
-
 
 }

@@ -20,6 +20,7 @@ import com.raykellyfitness.model.request.RequestAddBloodSugar
 import com.raykellyfitness.model.request.ResponseAddBloodSugar
 import com.raykellyfitness.ui.activity.HomeActivity
 import com.raykellyfitness.ui.health.HealthFragment
+import com.raykellyfitness.util.Constant
 import java.util.*
 
 class AddBloodSugarFragment : BaseFragment(), OnChartValueSelectedListener {
@@ -74,7 +75,9 @@ class AddBloodSugarFragment : BaseFragment(), OnChartValueSelectedListener {
     }
 
     fun setupChart() {
-        (this.parentFragment as HealthFragment).setupChart(mBinding.chart1, map, Pair(1.0f, 35.0f))
+        (this.parentFragment as HealthFragment).setupChart(mBinding.chart1, map,
+                                                           Pair(Constant.FASTING_SUGAR_RANGE_MIN.toFloat(), Constant.FASTING_SUGAR_RANGE_MAX+5.toFloat())
+        )
         chart = mBinding.chart1
         chart!!.setOnChartValueSelectedListener(this)
     }

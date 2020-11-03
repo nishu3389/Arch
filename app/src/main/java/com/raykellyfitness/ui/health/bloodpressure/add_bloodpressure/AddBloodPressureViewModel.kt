@@ -9,6 +9,7 @@ import com.raykellyfitness.base.showWarning
 import com.raykellyfitness.model.request.*
 import com.raykellyfitness.model.response.*
 import com.raykellyfitness.networking.Api
+import com.raykellyfitness.util.Constant
 import com.raykellyfitness.util.Constant.ENTER_DIASTOLIC_BP
 import com.raykellyfitness.util.Constant.ENTER_DIASTOLIC_BP_RANGE
 import com.raykellyfitness.util.Constant.ENTER_SYSTOLIC_BP
@@ -31,7 +32,7 @@ class AddBloodPressureViewModel(controller: AsyncViewController) : BaseViewModel
             ENTER_DIASTOLIC_BP?.showWarning()
             return false
         }
-        if (data.blood_pressure_diastolic!!.toDouble() < 1 || data.blood_pressure_diastolic!!.toDouble() > 250) {
+        if (data.blood_pressure_diastolic!!.toDouble() < Constant.DIASTOLIC_BP_RANGE_MIN || data.blood_pressure_diastolic!!.toDouble() > Constant.DIASTOLIC_BP_RANGE_MAX) {
             ENTER_DIASTOLIC_BP_RANGE?.showWarning()
             return false
         }
@@ -40,7 +41,7 @@ class AddBloodPressureViewModel(controller: AsyncViewController) : BaseViewModel
             ENTER_SYSTOLIC_BP?.showWarning()
             return false
         }
-        if (data.blood_pressure_systolic!!.toDouble() < 1 || data.blood_pressure_systolic!!.toDouble() > 250) {
+        if (data.blood_pressure_systolic!!.toDouble() < Constant.SYSTOLIC_BP_RANGE_MIN || data.blood_pressure_systolic!!.toDouble() > Constant.SYSTOLIC_BP_RANGE_MAX) {
             ENTER_SYSTOLIC_BP_RANGE?.showWarning()
             return false
         }

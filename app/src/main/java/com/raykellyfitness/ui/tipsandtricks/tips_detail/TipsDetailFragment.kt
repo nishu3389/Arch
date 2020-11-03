@@ -97,7 +97,10 @@ class TipsDetailFragment : BaseFragment() {
     }
 
     private fun setSlider(media: List<Media>?) {
-        if(media.isEmptyyThenHide(mBinding.viewShadow)){}
+        if(!media.isEmptyy() && media?.size!!>1)
+            mBinding.viewShadow.visible()
+        else
+            mBinding.viewShadow.gone()
 
         mAdapter = SliderAdapter(mBinding,media, this)
         mBinding.viewPager.adapter = mAdapter

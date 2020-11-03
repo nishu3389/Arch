@@ -18,6 +18,7 @@ import com.raykellyfitness.model.request.RequestAddWeight
 import com.raykellyfitness.model.request.ResponseAddWeight
 import com.raykellyfitness.ui.activity.HomeActivity
 import com.raykellyfitness.ui.health.HealthFragment
+import com.raykellyfitness.util.Constant
 import java.util.*
 
 class AddWeightFragment : BaseFragment(), OnChartValueSelectedListener {
@@ -82,7 +83,9 @@ class AddWeightFragment : BaseFragment(), OnChartValueSelectedListener {
 
 
     fun setupChart() {
-        (this.parentFragment as HealthFragment).setupChart(mBinding.chart1, map, Pair(1.0f, 550.0f))
+        (this.parentFragment as HealthFragment).setupChart(mBinding.chart1, map,
+                                                           Pair(Constant.WEIGHT_RANGE_MIN.toFloat(), Constant.WEIGHT_RANGE_MAX+50.toFloat())
+        )
         chart = mBinding.chart1
         chart!!.setOnChartValueSelectedListener(this)
     }

@@ -20,6 +20,7 @@ import com.raykellyfitness.model.request.RequestAddBloodPressure
 import com.raykellyfitness.model.request.ResponseAddBloodPressure
 import com.raykellyfitness.ui.activity.HomeActivity
 import com.raykellyfitness.ui.health.HealthFragment
+import com.raykellyfitness.util.Constant
 import java.util.*
 
 class AddBloodPressureFragment : BaseFragment(), OnChartValueSelectedListener {
@@ -75,7 +76,7 @@ class AddBloodPressureFragment : BaseFragment(), OnChartValueSelectedListener {
     }
 
     fun setupChart() {
-        (this.parentFragment as HealthFragment).setupChart(mBinding.chart1, map, Pair(1.0f, 250.0f))
+        (this.parentFragment as HealthFragment).setupChart(mBinding.chart1, map, Pair(Constant.DIASTOLIC_BP_RANGE_MIN-5.toFloat(), Constant.SYSTOLIC_BP_RANGE_MAX+10.toFloat()))
         chart = mBinding.chart1
         chart!!.setOnChartValueSelectedListener(this)
     }

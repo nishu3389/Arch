@@ -10,6 +10,7 @@ import com.raykellyfitness.model.request.*
 import com.raykellyfitness.model.response.*
 import com.raykellyfitness.util.Prefs
 import com.raykellyfitness.networking.Api
+import com.raykellyfitness.util.Constant
 import com.raykellyfitness.util.Constant.ENTER_HEIGHT
 import com.raykellyfitness.util.Constant.ENTER_HEIGHT_RANGE
 import com.raykellyfitness.util.Constant.ENTER_WEIGHT
@@ -28,24 +29,23 @@ class AddWeightViewModel(controller: AsyncViewController) : BaseViewModel(contro
 
         val data = requestAddWeight.get() ?: return false
 
-        if (data.weight.isEmptyy() || data.weight!!.toDouble()<=0) {
+        if (data.weight.isEmptyy() || data.weight!!.toDouble() <= 0) {
             ENTER_WEIGHT?.showWarning()
             return false
         }
-        if (data.weight!!.toDouble()<1 || data.weight!!.toDouble()>500) {
+        if (data.weight!!.toDouble() < Constant.WEIGHT_RANGE_MIN || data.weight!!.toDouble() > Constant.WEIGHT_RANGE_MAX) {
             ENTER_WEIGHT_RANGE?.showWarning()
             return false
         }
 
-        if (data.height.isEmptyy() || data.height!!.toDouble()<=0) {
+        if (data.height.isEmptyy() || data.height!!.toDouble() <= 0) {
             ENTER_HEIGHT?.showWarning()
             return false
         }
-        if (data.height!!.toDouble()<1 || data.height!!.toDouble()>250) {
+        if (data.height!!.toDouble() < Constant.HEIGHT_RANGE_MIN || data.height!!.toDouble() > Constant.HEIGHT_RANGE_MAX) {
             ENTER_HEIGHT_RANGE?.showWarning()
             return false
         }
-
 
         val user = Prefs.get().loginData
         user?.height = data.height!!
@@ -55,12 +55,11 @@ class AddWeightViewModel(controller: AsyncViewController) : BaseViewModel(contro
         return true
     }
 
-    fun callAddWeightApi() : MutableLiveData<MasterResponse<ResponseAddWeight>> {
+    fun callAddWeightApi(): MutableLiveData<MasterResponse<ResponseAddWeight>> {
         responseAddWeight = MutableLiveData<MasterResponse<ResponseAddWeight>>()
         baseRepo.restClient.callApi(Api.ADD_WEIGHT, requestAddWeight.get(), responseAddWeight)
         return responseAddWeight
     }
-
 
 
 }
