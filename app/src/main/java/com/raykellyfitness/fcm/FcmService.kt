@@ -18,6 +18,7 @@ import com.raykellyfitness.R
 import com.raykellyfitness.base.sendToServer
 import com.raykellyfitness.ui.activity.HomeActivity
 import com.raykellyfitness.util.Constant
+import com.raykellyfitness.util.Constant.NOTIFICATION_TYPE_SUBSCRIPTION
 import com.raykellyfitness.util.Prefs
 import java.util.*
 
@@ -44,7 +45,7 @@ class FcmService : FirebaseMessagingService() {
 
         Log.e("message receive", "receive " + remoteMessage?.data)
 
-        val notificationBean = Gson().run {
+        var notificationBean = Gson().run {
             fromJson(remoteMessage?.data?.get("body"), NotificationBean::class.java)
         }
 
@@ -64,6 +65,7 @@ class FcmService : FirebaseMessagingService() {
 
         val notifyIntent = Intent(this, HomeActivity::class.java)
         notifyIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+//        notificationBean.notificationType = NOTIFICATION_TYPE_SUBSCRIPTION
         notifyIntent.putExtra(Constant.TYPE, notificationBean.notificationType)
         notifyIntent.putExtra(Constant.BEAN, notificationBean)
         notifyIntent.setAction(System.currentTimeMillis().toString())

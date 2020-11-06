@@ -35,8 +35,7 @@ import com.raykellyfitness.util.permission.DeviceRuntimePermission
 import com.raykellyfitness.util.permission.IPermissionGranted
 import kotlinx.android.synthetic.main.content_main.*
 
-class HomeActivity : BaseActivity(), NavController.OnDestinationChangedListener,
-    IPermissionGranted {
+class HomeActivity : BaseActivity(), NavController.OnDestinationChangedListener, IPermissionGranted {
 
     var notificationModel: NotificationBean? = null
     var fromNotification: Boolean = false
@@ -52,11 +51,9 @@ class HomeActivity : BaseActivity(), NavController.OnDestinationChangedListener,
     private lateinit var appBarConfiguration: AppBarConfiguration
     lateinit var navController: NavController
 
-    private val fragmentsWhereBottomTabsShouldBeShown =
-        listOf(R.id.HomeFragment, R.id.SettingsFragment, R.id.NotificationsFragment)
+    private val fragmentsWhereBottomTabsShouldBeShown = listOf(R.id.HomeFragment, R.id.SettingsFragment, R.id.NotificationsFragment)
 
-    private val fragmentsTabs =
-        listOf(R.id.SettingsFragment, R.id.HealthFragment, R.id.NotificationsFragment)
+    private val fragmentsTabs = listOf(R.id.SettingsFragment, R.id.HealthFragment, R.id.NotificationsFragment)
 
     lateinit var mBinding: ActivityMainBinding
 
@@ -192,9 +189,7 @@ class HomeActivity : BaseActivity(), NavController.OnDestinationChangedListener,
         return navController
     }
 
-    override fun onDestinationChanged(controller: NavController,
-                                      destination: NavDestination,
-                                      arguments: Bundle?) {
+    override fun onDestinationChanged(controller: NavController, destination: NavDestination, arguments: Bundle?) {
 
         if (fragmentsWhereBottomTabsShouldBeShown.contains(destination.id)) {
             showBack(false)
@@ -254,7 +249,6 @@ class HomeActivity : BaseActivity(), NavController.OnDestinationChangedListener,
         }
     }
 
-    var fromChecklistToServiceDirectory = false
     override fun onBackPressed() {
 
         when {
@@ -296,7 +290,6 @@ class HomeActivity : BaseActivity(), NavController.OnDestinationChangedListener,
     }
 
     private fun getDestination(notification: NotificationBean?) {
-
         if (notification?.notificationType.equals(NOTIFICATION_TYPE_POST)) when (notification?.type) {
 
             Constant.POST_TYPE_BLOG -> navController.navigate(R.id.TipsDetailFragment,
@@ -306,6 +299,7 @@ class HomeActivity : BaseActivity(), NavController.OnDestinationChangedListener,
                                                                        PK_FROM to PK_FROM))
 
             else -> navController.navigate(R.id.TipsAndTricksFragment, bundleOf(PK_POST_TYPE to notification?.type, PK_FROM to PK_FROM_NOTIFICATION))
+
         }
         else navController.navigate(R.id.SubscriptionFragment)
     }
@@ -328,10 +322,8 @@ class HomeActivity : BaseActivity(), NavController.OnDestinationChangedListener,
     }
 
     private fun onLogOutSuccess() {
-
         Prefs.get().clear()
-        startActivity(Intent(this,
-                             SplashActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK))
+        startActivity(Intent(this, SplashActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK))
         finish()
     }
 

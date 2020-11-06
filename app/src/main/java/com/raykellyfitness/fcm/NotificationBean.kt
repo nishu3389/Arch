@@ -14,7 +14,7 @@ data class NotificationBean(
 	val type: String? = "",
 
 	@field:SerializedName("notification_type")
-	val notificationType: String? = "",
+	var notificationType: String? = "",
 
 	@field:SerializedName("day")
 	val day: String? = "",

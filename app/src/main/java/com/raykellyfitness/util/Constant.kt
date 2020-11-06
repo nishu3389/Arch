@@ -9,6 +9,7 @@ object Constant {
     const val POST_TYPE_EXERCISE = "Exercise"
     const val POST_TYPE_MOTIVATION = "Daily Motivation"
     const val POST_TYPE_BLOG = "blog"
+    const val POST_TYPE_POST = "post"
 
     var SKU = "product_subscription"
     val NOTIFICATION_TYPE_SUBSCRIPTION: String? = "subscription"
