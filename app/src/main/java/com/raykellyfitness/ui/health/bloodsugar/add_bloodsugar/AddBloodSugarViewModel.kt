@@ -40,19 +40,24 @@ class AddBloodSugarViewModel(controller: AsyncViewController) : BaseViewModel(co
             return false
         }
 
-        if (data.blood_sugar_postprandial.isEmptyy() || data.blood_sugar_postprandial!!.toDouble() <= 0) {
+       /* if (data.blood_sugar_postprandial.isEmptyy() || data.blood_sugar_postprandial!!.toDouble() <= 0) {
             ENTER_POST_FASTING_SUGAR?.showWarning()
             return false
         }
         if (data.blood_sugar_postprandial!!.toDouble() < POST_FASTING_SUGAR_RANGE_MIN || data.blood_sugar_postprandial!!.toDouble() > POST_FASTING_SUGAR_RANGE_MAX) {
             ENTER_POST_FASTING_SUGAR_RANGE?.showWarning()
             return false
-        }
+        }*/
 
         return true
     }
 
     fun callAddBloodSugarApi(): MutableLiveData<MasterResponse<ResponseAddBloodSugar>> {
+
+        if (requestAddBloodSugar.get()?.blood_sugar_postprandial.isEmptyy() || requestAddBloodSugar.get()?.blood_sugar_postprandial!!.toDouble() <= 0) {
+            requestAddBloodSugar.get()?.blood_sugar_postprandial = "0"
+        }
+
         responseAddBloodSugar = MutableLiveData<MasterResponse<ResponseAddBloodSugar>>()
         baseRepo.restClient.callApi(Api.ADD_BLOOD_SUGAR,
                                     requestAddBloodSugar.get(),
