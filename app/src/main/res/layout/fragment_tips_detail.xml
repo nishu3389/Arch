@@ -161,6 +161,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:src="@drawable/back_arrow"
+            android:tint="@color/white"
             android:padding="@dimen/_12sdp"
             android:layout_margin="@dimen/_8sdp"
             android:layout_width="@dimen/_40sdp"

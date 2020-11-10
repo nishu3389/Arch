@@ -20,23 +20,21 @@ class TipsAdapterOuter(
 
         if(type.equals(POST_TYPE_BLOG,true) || type.equals(POST_TYPE_EXERCISE,true)){
             item.open = true
-//            holder.binding.tvWeek.text = item.day
+            holder.binding.tvWeek.text = item.day
             holder.binding.card.gone()
             holder.binding.tvDate.visible()
             holder.binding.tvDate2.gone()
         }else if(type.equals(POST_TYPE_EXERCISE,true)){
-//            holder.binding.tvWeek.text = item.day_title?:item.day
+            holder.binding.tvWeek.text = item.day_title?:item.day
             holder.binding.tvDate2.text = date
             holder.binding.tvDate.gone()
             holder.binding.tvDate2.visible()
-//            holder.binding.card.gone()
         }else{
-//            holder.binding.tvWeek.text = item.day
+            holder.binding.tvWeek.text = item.day
             holder.binding.tvDate.visible()
             holder.binding.tvDate2.gone()
         }
 
-        holder.binding.tvWeek.text = item.day
         holder.binding.model = item
         holder.binding.tvDate.text = date
 
