@@ -2,5 +2,4 @@
 
 <resources>
     <item name="mainLayout" type="id"/>
-    <item type="id" name="item_click_support"/>
 </resources>

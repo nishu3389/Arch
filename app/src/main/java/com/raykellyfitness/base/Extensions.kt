@@ -373,7 +373,7 @@ fun View.gone() {
 
 fun Context.titleWithLogo(str: Int): Spanny? {
     return Spanny("")
-        .append(" ".plus(this.getString(str)), ImageSpan(this, R.drawable.logo_icon))
+        .append(" ".plus(this.getString(str)), ImageSpan(this, R.mipmap.launcher))
 }
 
 fun Context.highlight(str: String): Spanny? {
@@ -640,7 +640,7 @@ fun String.sendNotification() {
             R.string.channel_id
         )
     )
-        .setSmallIcon(R.drawable.logo_icon)
+        .setSmallIcon(R.mipmap.launcher)
         .setContentTitle(this)
         .setContentText(this)
         .setContentIntent(notifyPendingIntent)

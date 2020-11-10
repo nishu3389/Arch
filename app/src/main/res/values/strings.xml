@@ -52,7 +52,6 @@
     <string name="address">Address</string>
 
     <string name="Cancel">Cancel</string>
-    <string name="discover">Discover</string>
 
     <string name="msg_app_logout_confirmation">Are you sure you want to logout?</string>
     <string name="yes">Yes</string>
@@ -75,7 +74,6 @@
     <string name="sales_profile">Sales Profile</string>
     <string name="redeem_free_boxes">Redeem Free Boxes</string>
 
-    <string name="cancel">Cancel</string>
     <string name="msg_permission_justification">%1$s is required %2$s\n\nPlease consider granting the permission to proceed.</string>
 
     <string name="done">done</string>
@@ -91,10 +89,6 @@
     <string name="error_item_price">Please enter item Price</string>
     <string name="error_item_price_not_zero">Item Price should not be zero</string>
     <string name="error_item_donation">Please select donation body</string>
-    <string name="ok">ok</string>
-
-    <string name="removed">Removed</string>
-    <string name="close">Close</string>
 
     <!--map and place api key-->
     <string name="place_api">AIzaSyBz9HF2GWFkQodINXDEiZlLGX2VXuTyYKg</string>
@@ -111,7 +105,7 @@
     <string name="lbl_choose_from_gallery">Choose from gallery</string>
 
     <string name="channel_name">RKF</string>
-    <string name="channel_description">3U Customer Notification</string>
+    <string name="channel_description">RKF Notification</string>
     <string name="channel_id">1</string>
     <!--facebook id-->
 
@@ -120,13 +114,9 @@
     <string name="lorem_large">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries.</string>
     <string name="lorem_short">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</string>
     <string name="login_terms_message">By proceeding you also agree to the Terms of Service and Privacy Policy.</string>
-    <string name="slider_1_msg_1"><![CDATA[Welcome!\nFollow the meal plan to the letter for best results. Most people lose 12kg to 17kg over the 10 weeks!]]></string>
     <string name="slider_1_msg_2"><![CDATA[Follow the meal plan to the letter for best results. Most people lose 12kg to 17kg over the 10 weeks!]]></string>
-    <string name="slider_2_msg_1">We start you lightly\nand build steadily</string>
 
-    <string name="slider_3_msg_1">Qualified and Experienced\nExercise Professional</string>
     <string name="slider_3_msg_2">If you are taking glucose lowering medications (such as insulin) you will need your dose reduced.\nPlease consult your doctor if you are unsure of how to do this.</string>
-    <string name="slider_4_msg_1">Qualified and Experienced\nExercise Professional</string>
     <string name="slider_4_msg_2">If you ever get to the point where you are struggling, please let us know. We want to help!</string>
     <string name="tips_tricks"><![CDATA[Tips & Tricks]]></string>
     <string name="change_password">Change Password</string>
@@ -152,7 +142,6 @@
     <string name="slider_2_msg_2">If you haven\'t been exercising recently, just start with 20-30 minutes of walking each day.</string>
     <string name="from_date">yyyy-MM-dd hh:mm:ss</string>
     <string name="to_date">EEEE dd MMM, yyyy</string>
-    <string name="bean">bean</string>
     <string name="manage_subscriptions"><u>Manage Subscriptions</u></string>
 
 </resources>
