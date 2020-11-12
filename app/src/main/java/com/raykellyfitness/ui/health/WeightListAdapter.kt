@@ -22,6 +22,12 @@ class BloodSugarListAdapter(override val layoutId: Int) : BaseRecyclerAdapter<Ro
 
     override fun bind(holder: ViewHolder, item: ResponseAddBloodSugarItem, position: Int) {
         holder.binding.model = item
+
+        if(item.blood_sugar_postprandial.toFloat()<=0)
+            holder.binding.tvHeight.text = "NA"
+        else
+            holder.binding.tvHeight.text = "${item.blood_sugar_postprandial} mmol/L"
+
         holder.binding.tvDate.text = item.created_at.changeTimeFormat("yyyy-MM-dd","dd MMM, yyyy")
     }
 

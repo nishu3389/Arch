@@ -33,9 +33,7 @@ import com.raykellyfitness.R
 import com.raykellyfitness.ui.activity.HomeActivity
 import com.raykellyfitness.base.*
 import com.raykellyfitness.databinding.FragmentHealthBinding
-import com.raykellyfitness.model.request.ResponseAddBloodPressure
-import com.raykellyfitness.model.request.ResponseAddBloodSugar
-import com.raykellyfitness.model.request.ResponseAddWeight
+import com.raykellyfitness.model.request.*
 import com.raykellyfitness.networking.Api
 import com.raykellyfitness.ui.health.bloodpressure.add_bloodpressure.AddBloodPressureFragment
 import com.raykellyfitness.ui.health.bloodsugar.add_bloodsugar.AddBloodSugarFragment
@@ -101,10 +99,10 @@ class HealthFragment : BaseFragment() {
     }
 
     override fun onApiRequestFailed(apiUrl: String, errCode: Int, errorMessage: String): Boolean {
-        if ((apiUrl.equals(Api.LIST_WEIGHT) || apiUrl.equals(Api.LIST_BLOOD_PRESSURE) || apiUrl.equals(
-                Api.LIST_BLOOD_SUGAR)) && !callByClick
-        ) return true
-        else return super.onApiRequestFailed(apiUrl, errCode, errorMessage)
+        if ((apiUrl.equals(Api.LIST_WEIGHT) || apiUrl.equals(Api.LIST_BLOOD_PRESSURE) || apiUrl.equals(Api.LIST_BLOOD_SUGAR)) && !callByClick)
+            return true
+        else
+            return super.onApiRequestFailed(apiUrl, errCode, errorMessage)
     }
 
     fun callInitialApis() {
@@ -140,24 +138,33 @@ class HealthFragment : BaseFragment() {
                 0 -> {
                     mViewModel.callWeightListApi().observe(viewLifecycleOwner, Observer {
                         if (!it.data.isNullOrEmpty() && it.data!!.size > 0) {
-                            Collections.reverse(it.data!!)
-                            showWeightDialog(it.data!!)
+                            val filter = it.data!!.filter {
+                                !it.weight.isEmptyy() && !it.height.isEmptyy()
+                            }
+                            Collections.reverse(filter!!)
+                            showWeightDialog(filter!!)
                         } else NO_RECORD_AVAILABLE?.showWarning()
                     })
                 }
                 1 -> {
                     mViewModel.callBloodSugarListApi().observe(viewLifecycleOwner, Observer {
                         if (!it.data.isNullOrEmpty() && it.data!!.size > 0) {
-                            Collections.reverse(it.data!!)
-                            showBloodSugarDialog(it.data!!)
+                            val filter = it.data!!.filter {
+                                !it.blood_sugar_fasting.isEmptyy() && !it.blood_sugar_postprandial.isEmptyy()
+                            }
+                            Collections.reverse(filter!!)
+                            showBloodSugarDialog(filter!!)
                         } else NO_RECORD_AVAILABLE?.showWarning()
                     })
                 }
                 2 -> {
                     mViewModel.callBloodPressureListApi().observe(viewLifecycleOwner, Observer {
                         if (!it.data.isNullOrEmpty() && it.data!!.size > 0) {
-                            Collections.reverse(it.data!!)
-                            showBloodPressureDialog(it.data!!)
+                            val filter = it.data!!.filter {
+                                !it.blood_pressure_systolic.isEmptyy() && !it.blood_pressure_diastolic.isEmptyy()
+                            }
+                            Collections.reverse(filter!!)
+                            showBloodPressureDialog(filter!!)
                         } else NO_RECORD_AVAILABLE?.showWarning()
                     })
                 }
@@ -166,9 +173,9 @@ class HealthFragment : BaseFragment() {
         }
     }
 
-    private fun showBloodPressureDialog(data: ResponseAddBloodPressure) {
-        popup =
-            Pop.on(activity).with().cancelable(false).layout(R.layout.blood_pressure_list).show {
+    private fun showBloodPressureDialog(data: List<ResponseAddBloodPressureItem>) {
+        if(data!=null && data.isNotEmpty()){
+            popup = Pop.on(activity).with().cancelable(false).layout(R.layout.blood_pressure_list).show {
 
                     it?.findViewById<RecyclerView>(R.id.recycler).apply {
                         var adapter = BloodPressureListAdapter(R.layout.row_blood_pressure_list)
@@ -183,12 +190,15 @@ class HealthFragment : BaseFragment() {
                     }
 
                 }
-
-        popup?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            popup?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        }else{
+            commonCallbacks?.showAlertDialog("No record found", null)
+        }
     }
 
-    private fun showBloodSugarDialog(data: ResponseAddBloodSugar) {
-        popup = Pop.on(activity).with().cancelable(false).layout(R.layout.blood_sugar_list).show {
+    private fun showBloodSugarDialog(data: List<ResponseAddBloodSugarItem>) {
+        if(data!=null && data.isNotEmpty()){
+            popup = Pop.on(activity).with().cancelable(false).layout(R.layout.blood_sugar_list).show {
 
                 it?.findViewById<RecyclerView>(R.id.recycler).apply {
                     var adapter = BloodSugarListAdapter(R.layout.row_blood_sugar_list)
@@ -203,12 +213,16 @@ class HealthFragment : BaseFragment() {
                 }
 
             }
-
-        popup?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            popup?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        }else{
+            commonCallbacks?.showAlertDialog("No record found", null)
+        }
     }
 
-    private fun showWeightDialog(data: ResponseAddWeight) {
-        popup = Pop.on(activity).with().cancelable(false).layout(R.layout.weight_list).show {
+    private fun showWeightDialog(data: List<ResponseAddWeightItem>) {
+
+        if(data!=null && data.isNotEmpty()){
+            popup = Pop.on(activity).with().cancelable(false).layout(R.layout.weight_list).show {
 
                 it?.findViewById<RecyclerView>(R.id.recycler).apply {
                     var adapter = WeightListAdapter(R.layout.row_weight_list)
@@ -224,7 +238,10 @@ class HealthFragment : BaseFragment() {
 
             }
 
-        popup?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            popup?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        }else{
+            commonCallbacks?.showAlertDialog("No record found", null)
+        }
     }
 
     private fun setupViewPager() {
@@ -438,7 +455,10 @@ class HealthFragment : BaseFragment() {
                             i += range
                             map.put(i, it.created_at.changeTimeFormat("yyyy-MM-dd", "dd MMM")!!)
                             values1.add(Entry(i, it.blood_sugar_fasting.toFloat()))
+
+                            if(it.blood_sugar_postprandial.toFloat()>0)
                             values2.add(Entry(i, it.blood_sugar_postprandial.toFloat()))
+
                         }
                     }
                 }
