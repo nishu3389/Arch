@@ -44,7 +44,7 @@ class IntroSliderFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        Prefs.get().isIntroShown = true
+        Prefs.get().isIntroShown = true
 
         setupViewPager(
             arrayListOf(

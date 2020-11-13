@@ -13,11 +13,10 @@
     <ImageView
         android:id="@+id/cross"
         android:layout_margin="@dimen/_10sdp"
-        android:src="@drawable/ic_cross"
-        android:tint="@color/white"
+        android:src="@drawable/cross_red"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:padding="@dimen/_8sdp"
+        android:padding="@dimen/_6sdp"
         android:layout_width="@dimen/_40sdp"
         android:layout_height="@dimen/_40sdp"></ImageView>
 

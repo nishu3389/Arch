@@ -101,7 +101,7 @@ class RestClient() {
             httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.HEADERS
             httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
             okClientBuilder.addInterceptor(httpLoggingInterceptor)
-            okClientBuilder.addInterceptor(ChuckerInterceptor(MainApplication.get().getContext()))
+//            okClientBuilder.addInterceptor(ChuckerInterceptor(MainApplication.get().getContext()))
 //            }
             return okClientBuilder.build()
         } catch (e: Exception) {
