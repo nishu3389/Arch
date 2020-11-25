@@ -52,42 +52,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
-            <com.raykellyfitness.views.CommonTextViewMedium
-                android:textSize="@dimen/_12sdp"
-                android:textColor="@color/white"
-                android:layout_marginLeft="@dimen/_20sdp"
-                android:layout_marginRight="@dimen/_20sdp"
-                android:text="Diastolic (mmHg)"
-                android:layout_marginTop="@dimen/_15sdp"
-                android:gravity="center_horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-            <com.raykellyfitness.views.CommonEditTextMedium
-                android:textSize="@dimen/_12sdp"
-                android:textColor="@color/white"
-                android:layout_marginLeft="@dimen/_20sdp"
-                android:layout_marginRight="@dimen/_20sdp"
-                android:textColorHint="@color/white"
-                android:gravity="center_horizontal"
-                android:layout_gravity="center_horizontal"
-                android:textCursorDrawable="@null"
-                android:layout_marginTop="@dimen/_5sdp"
-                android:background="@color/transparent"
-                android:inputType="numberDecimal"
-                android:text="@={viewModel.requestAddBloodPressure.blood_pressure_diastolic}"
-                android:maxLength="3"
-                android:hint=""
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-            <View
-                android:layout_marginTop="@dimen/_5sdp"
-                android:layout_marginLeft="@dimen/_20sdp"
-                android:layout_marginRight="@dimen/_20sdp"
-                android:background="@color/colorDivider"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"></View>
 
             <com.raykellyfitness.views.CommonTextViewMedium
                 android:textSize="@dimen/_12sdp"
@@ -126,6 +90,45 @@
                 android:background="@color/colorDivider"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"></View>
+
+            <com.raykellyfitness.views.CommonTextViewMedium
+                android:textSize="@dimen/_12sdp"
+                android:textColor="@color/white"
+                android:layout_marginLeft="@dimen/_20sdp"
+                android:layout_marginRight="@dimen/_20sdp"
+                android:text="Diastolic (mmHg)"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:gravity="center_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <com.raykellyfitness.views.CommonEditTextMedium
+                android:textSize="@dimen/_12sdp"
+                android:textColor="@color/white"
+                android:layout_marginLeft="@dimen/_20sdp"
+                android:layout_marginRight="@dimen/_20sdp"
+                android:textColorHint="@color/white"
+                android:gravity="center_horizontal"
+                android:layout_gravity="center_horizontal"
+                android:textCursorDrawable="@null"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:background="@color/transparent"
+                android:inputType="numberDecimal"
+                android:text="@={viewModel.requestAddBloodPressure.blood_pressure_diastolic}"
+                android:maxLength="3"
+                android:hint=""
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <View
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginLeft="@dimen/_20sdp"
+                android:layout_marginRight="@dimen/_20sdp"
+                android:background="@color/colorDivider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"></View>
+
+
 
             <com.raykellyfitness.views.CommonTextViewMedium
                 android:id="@+id/tv_add"

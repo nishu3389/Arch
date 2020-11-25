@@ -20,7 +20,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:src="@drawable/onboarding_1_pic"/>
+            android:src="@drawable/onboarding_one"/>
 
        <!-- <com.raykellyfitness.views.CommonTextView
             android:id="@+id/tv_2"

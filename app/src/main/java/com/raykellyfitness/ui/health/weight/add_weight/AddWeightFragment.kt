@@ -91,6 +91,12 @@ class AddWeightFragment : BaseFragment(), OnChartValueSelectedListener {
     }
 
     private fun setChartData(listWeight: ResponseAddWeight?) {
+        if(listWeight!=null && listWeight.size>0){
+            listWeight.forEach {
+                if(!it.height.isEmptyy() && it.height.toDouble()>0)
+                mViewModel.userHeight = it.height
+            }
+        }
         (this.parentFragment as HealthFragment).setChartData(
             listWeight,
             null,
@@ -120,6 +126,7 @@ class AddWeightFragment : BaseFragment(), OnChartValueSelectedListener {
                 })
             }
         }
+
     }
 
     private fun setupViewModel() {

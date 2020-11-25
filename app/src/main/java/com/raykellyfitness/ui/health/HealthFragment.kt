@@ -470,15 +470,15 @@ class HealthFragment : BaseFragment() {
                     values2.add(Entry(0.0f, 0.0f))
                 } else {
                     var i = range
-                    lable1 = "Diastolic (mmHg)"
-                    lable2 = "Systolic (mmHg)"
+                    lable1 = "Systolic (mmHg)"
+                    lable2 = "Diastolic (mmHg)"
 
                     listBP?.forEach {
                         if (!it.created_at.isEmptyy() && !it.blood_pressure_diastolic.isEmptyy() && !it.blood_pressure_systolic.isEmptyy()) {
                             i += range
                             map.put(i, it.created_at.changeTimeFormat("yyyy-MM-dd", "dd MMM")!!)
-                            values1.add(Entry(i, it.blood_pressure_diastolic.toFloat()))
-                            values2.add(Entry(i, it.blood_pressure_systolic.toFloat()))
+                            values1.add(Entry(i, it.blood_pressure_systolic.toFloat()))
+                            values2.add(Entry(i, it.blood_pressure_diastolic.toFloat()))
                         }
                     }
                 }

@@ -28,21 +28,21 @@ class AddBloodPressureViewModel(controller: AsyncViewController) : BaseViewModel
 
         val data = requestAddBloodPressure.get() ?: return false
 
-        if (data.blood_pressure_diastolic.isEmptyy() || data.blood_pressure_diastolic!!.toDouble() <= 0) {
-            ENTER_DIASTOLIC_BP?.showWarning()
-            return false
-        }
-        if (data.blood_pressure_diastolic!!.toDouble() < Constant.DIASTOLIC_BP_RANGE_MIN || data.blood_pressure_diastolic!!.toDouble() > Constant.DIASTOLIC_BP_RANGE_MAX) {
-            ENTER_DIASTOLIC_BP_RANGE?.showWarning()
-            return false
-        }
-
         if (data.blood_pressure_systolic.isEmptyy() || data.blood_pressure_systolic!!.toDouble() <= 0) {
             ENTER_SYSTOLIC_BP?.showWarning()
             return false
         }
         if (data.blood_pressure_systolic!!.toDouble() < Constant.SYSTOLIC_BP_RANGE_MIN || data.blood_pressure_systolic!!.toDouble() > Constant.SYSTOLIC_BP_RANGE_MAX) {
             ENTER_SYSTOLIC_BP_RANGE?.showWarning()
+            return false
+        }
+
+        if (data.blood_pressure_diastolic.isEmptyy() || data.blood_pressure_diastolic!!.toDouble() <= 0) {
+            ENTER_DIASTOLIC_BP?.showWarning()
+            return false
+        }
+        if (data.blood_pressure_diastolic!!.toDouble() < Constant.DIASTOLIC_BP_RANGE_MIN || data.blood_pressure_diastolic!!.toDouble() > Constant.DIASTOLIC_BP_RANGE_MAX) {
+            ENTER_DIASTOLIC_BP_RANGE?.showWarning()
             return false
         }
 

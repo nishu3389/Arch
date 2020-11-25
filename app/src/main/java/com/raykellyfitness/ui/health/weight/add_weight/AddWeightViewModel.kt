@@ -18,6 +18,7 @@ import com.raykellyfitness.util.Constant.ENTER_WEIGHT_RANGE
 
 class AddWeightViewModel(controller: AsyncViewController) : BaseViewModel(controller) {
 
+    var userHeight = ""
     var requestAddWeight = ObservableField<RequestAddWeight>()
     var responseAddWeight = MutableLiveData<MasterResponse<ResponseAddWeight>>()
 
@@ -38,13 +39,21 @@ class AddWeightViewModel(controller: AsyncViewController) : BaseViewModel(contro
             return false
         }
 
-        if (data.height.isEmptyy() || data.height!!.toDouble() <= 0) {
-            ENTER_HEIGHT?.showWarning()
-            return false
-        }
-        if (data.height!!.toDouble() < Constant.HEIGHT_RANGE_MIN || data.height!!.toDouble() > Constant.HEIGHT_RANGE_MAX) {
-            ENTER_HEIGHT_RANGE?.showWarning()
-            return false
+
+
+        if(userHeight.isEmptyy()){
+            if (data.height.isEmptyy() || data.height!!.toDouble() <= 0) {
+                ENTER_HEIGHT?.showWarning()
+                return false
+            }
+
+            if (data.height!!.toDouble() < Constant.HEIGHT_RANGE_MIN || data.height!!.toDouble() > Constant.HEIGHT_RANGE_MAX) {
+                ENTER_HEIGHT_RANGE?.showWarning()
+                return false
+            }
+        }else{
+            if (data.height.isEmptyy() || data.height!!.toDouble() <= 0)
+            data.height = userHeight
         }
 
         val user = Prefs.get().loginData
