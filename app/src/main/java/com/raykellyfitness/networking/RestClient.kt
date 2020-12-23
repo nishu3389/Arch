@@ -29,10 +29,9 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 import kotlin.collections.HashMap
 
-
 class RestClient() {
 
-    val CONNECTION_TIMEOUT = 300
+    val CONNECTION_TIMEOUT = 30
     val RESULT_FAILED = 7
     val RESULT_NO_INTERNET = 8
     val RESULT_UNKNOWN = 9

@@ -43,6 +43,23 @@ class Util {
         private const val HOUR_MILLIS = 60 * MINUTE_MILLIS
         private const val DAY_MILLIS = 24 * HOUR_MILLIS
 
+        fun convertUtcToLocal(ourDate: String?, inputFormat: String? = Constant.API_DATE_FORMAT, outputFormat: String? = Constant.API_DATE_FORMAT): String? {
+            var ourDate = ourDate
+            try {
+                val formatter = SimpleDateFormat(inputFormat)
+                formatter.timeZone = TimeZone.getTimeZone("UTC")
+                val value = formatter.parse(ourDate)
+                val dateFormatter = SimpleDateFormat(outputFormat) //this format changeable
+                dateFormatter.timeZone = TimeZone.getDefault()
+                ourDate = dateFormatter.format(value)
+
+                //Log.d("ourDate", ourDate);
+            } catch (e: java.lang.Exception) {
+                ourDate = "00-00-0000 00:00"
+            }
+            return ourDate
+        }
+
         private fun currentDate(): Date {
             val calendar = Calendar.getInstance()
             return calendar.time
@@ -81,8 +98,6 @@ class Util {
 
 
         }
-
-
 
 
         private fun addNextDate(i: Float,

@@ -21,6 +21,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.util.*
+import kotlin.collections.ArrayList
 
 class TipsAndTricksFragment : BaseFragment() {
 
@@ -29,13 +31,11 @@ class TipsAndTricksFragment : BaseFragment() {
     var fromNotificationList = false
     var day = ""
 
-    var adapter = TipsAdapterOuter(type,R.layout.row_tips_outer) { model, modelOuter ->
-        navigate(
-            R.id.TipsDetailFragment,
-            Pair(ParcelKeys.PK_POST_ID, model.id),
-            Pair(ParcelKeys.PK_POST_TYPE, type),
-            Pair(ParcelKeys.PK_POST_DAY, modelOuter.day)
-        )
+    var adapter = TipsAdapterOuter(type, R.layout.row_tips_outer) { model, modelOuter ->
+        navigate(R.id.TipsDetailFragment,
+                 Pair(ParcelKeys.PK_POST_ID, model.id),
+                 Pair(ParcelKeys.PK_POST_TYPE, type),
+                 Pair(ParcelKeys.PK_POST_DAY, modelOuter.day))
     }
 
     var mealList = arrayListOf<ResponseTipsOuterItem>()
@@ -48,8 +48,9 @@ class TipsAndTricksFragment : BaseFragment() {
         setupViewModel()
     }
 
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater,
+                              container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
         if (!::mBinding.isInitialized) {
             mBinding = FragmentTipsAndTricksBinding.inflate(inflater, container, false).apply {
                 clickHandler = ClickHandler()
@@ -62,7 +63,6 @@ class TipsAndTricksFragment : BaseFragment() {
         return mBinding.root
     }
 
-
     private fun otherWork() {
         setupRecycler()
         callInitialApis()
@@ -72,39 +72,38 @@ class TipsAndTricksFragment : BaseFragment() {
         mBinding.recyclerOuterMeal.adapter = adapter
     }
 
-
     fun callInitialApis() {
         mBinding.recyclerOuterMeal.visibility = View.INVISIBLE
         mViewModel.callgetPostsApi(type).observe(viewLifecycleOwner, Observer { handleTipsOrMealResponse(it) })
     }
-
 
     private fun handleTipsOrMealResponse(it: MasterResponse<ResponseTipsOuter>?) {
 
         mealList.clear()
         mealList = it?.data as ArrayList<ResponseTipsOuterItem>
 
-        if(type.equals(POST_TYPE_BLOG) || type.equals(POST_TYPE_EXERCISE)){
-            adapter = TipsAdapterOuter(type,R.layout.row_tips_outer) { model, modelOuter ->
-                navigate(
-                    R.id.TipsDetailFragment,
-                    Pair("id", model.id),
-                    Pair("type", type),
-                    Pair("typeName", modelOuter.day)
-                )
+        if (type.equals(POST_TYPE_BLOG)) {
+            Collections.reverse(mealList[0].data_list)
+        }
+
+        if (type.equals(POST_TYPE_BLOG) || type.equals(POST_TYPE_EXERCISE)) {
+            adapter = TipsAdapterOuter(type, R.layout.row_tips_outer) { model, modelOuter ->
+                navigate(R.id.TipsDetailFragment,
+                         Pair("id", model.id),
+                         Pair("type", type),
+                         Pair("typeName", modelOuter.day))
             }
             mBinding.recyclerOuterMeal.adapter = adapter
         }
 
-        if(fromNotification && !mealList.isEmptyy())
-            mealList.get(0).open = true
-        else if(fromNotificationList && !mealList.isEmptyy()){
+        if (fromNotification && !mealList.isEmptyy()) mealList.get(0).open = true
+        else if (fromNotificationList && !mealList.isEmptyy()) {
             try {
                 mealList.filter {
-                    it.day?.equals(day,true)
-                }?.get(0)?.
-                open = true
-            }catch (e:Exception){}
+                    it.day?.equals(day, true)
+                }?.get(0)?.open = true
+            } catch (e: Exception) {
+            }
         }
 
         adapter.setNewItems(mealList)
@@ -130,37 +129,40 @@ class TipsAndTricksFragment : BaseFragment() {
         if (type.isEmptyy()) {
             type = arguments?.getString("type")!!
 
-            if(arguments!=null && requireArguments().containsKey(ParcelKeys.PK_FROM) && requireArguments().getString(ParcelKeys.PK_FROM).equals(ParcelKeys.PK_FROM_NOTIFICATION))
-                fromNotification = true
-            else if(arguments!=null && requireArguments().containsKey(ParcelKeys.PK_FROM) && requireArguments().getString(ParcelKeys.PK_FROM).equals(ParcelKeys.PK_FROM_NOTIFICATION_LIST)){
+            if (arguments != null && requireArguments().containsKey(ParcelKeys.PK_FROM) && requireArguments().getString(
+                    ParcelKeys.PK_FROM).equals(ParcelKeys.PK_FROM_NOTIFICATION)
+            ) fromNotification = true
+            else if (arguments != null && requireArguments().containsKey(ParcelKeys.PK_FROM) && requireArguments().getString(
+                    ParcelKeys.PK_FROM).equals(ParcelKeys.PK_FROM_NOTIFICATION_LIST)
+            ) {
                 fromNotificationList = true
-                day = requireArguments().getString(ParcelKeys.PK_POST_DAY,"")!!
+                day = requireArguments().getString(ParcelKeys.PK_POST_DAY, "")!!
             }
 
             when (type) {
                 POST_TYPE_MEAL -> {
                     (activity as HomeActivity).setTitle(getString(R.string.meal))
-//                   mBinding.recyclerExercise.visibility = View.GONE
+                    //                   mBinding.recyclerExercise.visibility = View.GONE
                     mBinding.recyclerOuterMeal.visibility = View.VISIBLE
                 }
                 POST_TYPE_TIPS -> {
                     (activity as HomeActivity).setTitle(getString(R.string.tips_and_tricks))
-//                   mBinding.recyclerExercise.visibility = View.GONE
+                    //                   mBinding.recyclerExercise.visibility = View.GONE
                     mBinding.recyclerOuterMeal.visibility = View.VISIBLE
                 }
                 POST_TYPE_EXERCISE -> {
                     (activity as HomeActivity).setTitle(getString(R.string.exercise))
-//                   mBinding.recyclerExercise.visibility = View.VISIBLE
+                    //                   mBinding.recyclerExercise.visibility = View.VISIBLE
                     mBinding.recyclerOuterMeal.visibility = View.GONE
                 }
                 POST_TYPE_MOTIVATION -> {
                     (activity as HomeActivity).setTitle(getString(R.string.motivation))
-//                   mBinding.recyclerExercise.visibility = View.VISIBLE
+                    //                   mBinding.recyclerExercise.visibility = View.VISIBLE
                     mBinding.recyclerOuterMeal.visibility = View.GONE
                 }
                 POST_TYPE_BLOG -> {
                     (activity as HomeActivity).setTitle(getString(R.string.blogs))
-//                   mBinding.recyclerExercise.visibility = View.VISIBLE
+                    //                   mBinding.recyclerExercise.visibility = View.VISIBLE
                     mBinding.recyclerOuterMeal.visibility = View.GONE
                 }
             }
@@ -168,7 +170,9 @@ class TipsAndTricksFragment : BaseFragment() {
     }
 
     private fun setupViewModel() {
-        mViewModel = ViewModelProviders.of(this, MyViewModelProvider(commonCallbacks as AsyncViewController)).get(TipsAndTricksViewModel::class.java)
+        mViewModel =
+            ViewModelProviders.of(this, MyViewModelProvider(commonCallbacks as AsyncViewController))
+                .get(TipsAndTricksViewModel::class.java)
     }
 
     inner class ClickHandler {

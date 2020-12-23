@@ -60,10 +60,10 @@ class HomeFragment : BaseFragment(), SubsCompleteListener {
         (activity as HomeActivity).setTitle("")
         (activity as HomeActivity).highlightHomeTab()
         manageClicks()
-        checkSubsData()
+        checkUnSyncedSubsData()
     }
 
-    private fun checkSubsData() {
+    private fun checkUnSyncedSubsData() {
         if(!Prefs.get().SUBS_DATA.isEmptyy()){
             val receiptData = Gson().fromJson(Prefs.get().SUBS_DATA, ReceiptData::class.java)
             mViewModel.requestSavePayment.set(RequestSavePayment(receiptData, receiptData.productId))
@@ -74,7 +74,6 @@ class HomeFragment : BaseFragment(), SubsCompleteListener {
                     DialogInterface.OnClickListener { _, _ -> })
             })
         }
-
     }
 
     override fun onResume() {
@@ -90,10 +89,10 @@ class HomeFragment : BaseFragment(), SubsCompleteListener {
     }
 
     private fun manageClicks() {
-        mBinding.rrMeal.setOnLongClickListener {
+       /* mBinding.rrMeal.setOnLongClickListener {
             navigate(R.id.SubscriptionFragment)
             false
-        }
+        }*/
         mBinding.rrMeal.push()?.setOnClickListener {
             Prefs.get().SHUTDOWN = ""
             navigate(R.id.TipsAndTricksFragment, Pair("type", POST_TYPE_MEAL))

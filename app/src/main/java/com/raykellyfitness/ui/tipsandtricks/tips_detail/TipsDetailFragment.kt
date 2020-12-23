@@ -20,11 +20,14 @@ import com.raykellyfitness.databinding.MealDetailSliderBinding
 import com.raykellyfitness.networking.Api
 import com.raykellyfitness.ui.activity.HomeActivity
 import com.raykellyfitness.ui.tipsandtricks.Media
+import com.raykellyfitness.util.Constant
 import com.raykellyfitness.util.Constant.IMAGE
 import com.raykellyfitness.util.Constant.POST_TYPE_BLOG
 import com.raykellyfitness.util.Constant.URL
 import com.raykellyfitness.util.ParcelKeys
 import com.raykellyfitness.util.ParcelKeys.PK_POST_ID
+import com.raykellyfitness.util.Util
+import com.raykellyfitness.util.UtilJava
 
 class TipsDetailFragment : BaseFragment() {
 
@@ -70,7 +73,9 @@ class TipsDetailFragment : BaseFragment() {
             Observer {
                 mViewModel.model = it.data
                 mBinding.tvDesc.setHtml(it.data!!.description)
-                mBinding.tvDate.text = it.data!!.date.changeTimeFormat(getString(R.string.from_date), getString(R.string.to_date))
+
+                val convertUtcToLocal = Util.convertUtcToLocal(it.data!!.date)
+                mBinding.tvDate.text = convertUtcToLocal?.changeTimeFormat(Constant.API_DATE_FORMAT, getString(R.string.to_date))
 
                 if(type.equals(POST_TYPE_BLOG)){
                     mBinding.tvTitle.gone()

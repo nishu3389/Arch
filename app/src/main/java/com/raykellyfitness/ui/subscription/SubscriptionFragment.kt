@@ -35,7 +35,23 @@ class SubscriptionFragment() : BaseFragment(), SubsCompleteListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupViewModel()
+        setObserver()
+        checkUnSyncedSubsData()
     }
+
+    private fun checkUnSyncedSubsData() {
+        if(!Prefs.get().SUBS_DATA.isEmptyy()){
+            val receiptData = Gson().fromJson(Prefs.get().SUBS_DATA, ReceiptData::class.java)
+            mViewModel.requestSavePayment.set(RequestSavePayment(receiptData, receiptData.productId))
+            mViewModel.callSavePaymentApi().observe(this, Observer {
+                Prefs.get().SUBS_DATA = ""
+                commonCallbacks?.showAlertDialog(
+                    it.message,
+                    DialogInterface.OnClickListener { _, _ -> findNavController().popBackStack(R.id.HomeFragment, false) })
+            })
+        }
+    }
+
 
     private fun setupBillingClient() {
         billingClient = MainApplication.get().getInAppBillingClient(this)
@@ -51,8 +67,7 @@ class SubscriptionFragment() : BaseFragment(), SubsCompleteListener {
                 for (skuDetails in skuDetailsList) {
                     //this will return both the SKUs from Google Play Console
                     if (skuDetails.sku == SKU) mBinding.tvPurchase?.push()?.setOnClickListener {
-                        val billingFlowParams =
-                            BillingFlowParams.newBuilder().setSkuDetails(skuDetails).build()
+                        val billingFlowParams = BillingFlowParams.newBuilder().setSkuDetails(skuDetails).build()
                         billingClient?.launchBillingFlow(requireActivity(), billingFlowParams)
                     }
                 }
@@ -94,16 +109,23 @@ class SubscriptionFragment() : BaseFragment(), SubsCompleteListener {
         billingClient?.acknowledgePurchase(params) { _ ->
             //          val receiptData = Gson().fromJson(purchase.originalJson, ReceiptData::class.java)
             mViewModel.requestSavePayment.set(RequestSavePayment(receiptData, SKU))
-            mViewModel.callSavePaymentApi().observe(viewLifecycleOwner, Observer {
+            mViewModel.callSavePaymentApi().observe(SubscriptionFragment@this, Observer {
                 Prefs.get().SUBS_DATA = ""
-                commonCallbacks?.showAlertDialog(it.message,
-                                                 DialogInterface.OnClickListener { _, _ ->
-                                                     findNavController().popBackStack(R.id.HomeFragment,
-                                                                                      false)
-                                                 })
+                commonCallbacks?.showAlertDialog(it.message, DialogInterface.OnClickListener { _, _ ->
+                    findNavController().popBackStack(R.id.HomeFragment, false)
+                })
             })
         }
 
+    }
+
+    private fun setObserver() {
+       /* mViewModel.responseSavePayment.observe(this, Observer {
+            Prefs.get().SUBS_DATA = ""
+            commonCallbacks?.showAlertDialog(it.message, DialogInterface.OnClickListener { _, _ ->
+                findNavController().popBackStack(R.id.HomeFragment, false)
+            })
+        })*/
     }
 
     override fun onCreateView(inflater: LayoutInflater,
@@ -130,8 +152,8 @@ class SubscriptionFragment() : BaseFragment(), SubsCompleteListener {
     }
 
     override fun handlingBackPress(): Boolean {
-//                activity?.finish()
-                (activity as HomeActivity).navController.popBackStack(R.id.HomeFragment, false)
+        //                activity?.finish()
+        (activity as HomeActivity).navController.popBackStack(R.id.HomeFragment, false)
         return true
     }
 
@@ -174,7 +196,7 @@ class SubscriptionFragment() : BaseFragment(), SubsCompleteListener {
     }
 
     override fun onConnected(var1: BillingResult) {
-//        clearPurchases()
+        //        clearPurchases()
         loadAllSKUs()
     }
 

@@ -10,10 +10,14 @@ import com.raykellyfitness.ui.tipsandtricks.ResponseTipsOuter
 
 object Api {
 
-    const val URL_DEMO_SERVER = "http://fitnesstrackerapp.projectstatus.in/api/"
+    const val URL_DEMO_SERVER = "http://raykellystransform.projectstatus.in/api/"
+    const val TERMS = "http://raykellystransform.projectstatus.in/welcome/terms_and_conditions"
+    const val PRIVACY_POLICY = "http://raykellystransform.projectstatus.in/welcome/privacy_policy"
+//    http://raykellystransform.projectstatus.in/SubscriptionScheduler/sendDailyNotif
 
-    const val TERMS = "http://fitnesstrackerapp.projectstatus.in/welcome/terms_and_conditions"
-    const val PRIVACY_POLICY = "http://fitnesstrackerapp.projectstatus.in/welcome/privacy_policy"
+//  const val URL_DEMO_SERVER = "http://fitnesstrackerapp.projectstatus.in/api/"
+//  const val TERMS = "http://fitnesstrackerapp.projectstatus.in/welcome/terms_and_conditions"
+//  const val PRIVACY_POLICY = "http://fitnesstrackerapp.projectstatus.in/welcome/privacy_policy"
 
     //    const val TERMS = URL_DEV + "termsofuse"
 
@@ -52,7 +56,6 @@ object Api {
     const val GETCUSTOMERPROFILE = ""
     /*------------------------------PHASE 2 Sales Profile---------------------------------*/
 
-
     fun getApiRequestType(url: String): ApiRequestType {
 
         val result = ApiRequestType()
@@ -87,7 +90,8 @@ object Api {
             }
 
             GETCUSTOMERPROFILE -> {
-                result.responseType = object : TypeToken<MasterResponse<ResponseGetProfile>>() {}.type
+                result.responseType =
+                    object : TypeToken<MasterResponse<ResponseGetProfile>>() {}.type
                 result.url = BASE_URL
                 result.requestType = RequestType.POST
                 return result
@@ -129,63 +133,72 @@ object Api {
             }
 
             ADD_WEIGHT -> {
-                result.responseType = object : TypeToken<MasterResponse<ResponseAddWeight>>() {}.type
+                result.responseType =
+                    object : TypeToken<MasterResponse<ResponseAddWeight>>() {}.type
                 result.url = BASE_URL
                 result.requestType = RequestType.POST
                 return result
             }
 
             ADD_BLOOD_SUGAR -> {
-                result.responseType = object : TypeToken<MasterResponse<ResponseAddBloodSugar>>() {}.type
+                result.responseType =
+                    object : TypeToken<MasterResponse<ResponseAddBloodSugar>>() {}.type
                 result.url = BASE_URL
                 result.requestType = RequestType.POST
                 return result
             }
 
             ADD_BLOOD_PRESSURE -> {
-                result.responseType = object : TypeToken<MasterResponse<ResponseAddBloodPressure>>() {}.type
+                result.responseType =
+                    object : TypeToken<MasterResponse<ResponseAddBloodPressure>>() {}.type
                 result.url = BASE_URL
                 result.requestType = RequestType.POST
                 return result
             }
 
             LIST_WEIGHT -> {
-                result.responseType = object : TypeToken<MasterResponse<ResponseAddWeight>>() {}.type
+                result.responseType =
+                    object : TypeToken<MasterResponse<ResponseAddWeight>>() {}.type
                 result.url = BASE_URL
                 result.requestType = RequestType.POST
                 return result
             }
 
             LIST_BLOOD_PRESSURE -> {
-                result.responseType = object : TypeToken<MasterResponse<ResponseAddBloodPressure>>() {}.type
+                result.responseType =
+                    object : TypeToken<MasterResponse<ResponseAddBloodPressure>>() {}.type
                 result.url = BASE_URL
                 result.requestType = RequestType.POST
                 return result
             }
 
             LIST_BLOOD_SUGAR -> {
-                result.responseType = object : TypeToken<MasterResponse<ResponseAddBloodSugar>>() {}.type
+                result.responseType =
+                    object : TypeToken<MasterResponse<ResponseAddBloodSugar>>() {}.type
                 result.url = BASE_URL
                 result.requestType = RequestType.POST
                 return result
             }
 
             GET_POSTS_TIPS -> {
-                result.responseType = object : TypeToken<MasterResponse<ResponseTipsOuter>>() {}.type
+                result.responseType =
+                    object : TypeToken<MasterResponse<ResponseTipsOuter>>() {}.type
                 result.url = BASE_URL
                 result.requestType = RequestType.POST
                 return result
             }
 
             GET_POSTS_MEAL -> {
-                result.responseType = object : TypeToken<MasterResponse<ResponseMealOuter>>() {}.type
+                result.responseType =
+                    object : TypeToken<MasterResponse<ResponseMealOuter>>() {}.type
                 result.url = BASE_URL
                 result.requestType = RequestType.POST
                 return result
             }
 
             POST_DETAIL -> {
-                result.responseType = object : TypeToken<MasterResponse<ResponseTipsDetail>>() {}.type
+                result.responseType =
+                    object : TypeToken<MasterResponse<ResponseTipsDetail>>() {}.type
                 result.url = BASE_URL
                 result.requestType = RequestType.POST
                 return result
@@ -199,15 +212,15 @@ object Api {
             }
 
             Notifications -> {
-                result.responseType = object : TypeToken<MasterResponse<ResponseNotifications>>() {}.type
+                result.responseType =
+                    object : TypeToken<MasterResponse<ResponseNotifications>>() {}.type
                 result.url = BASE_URL
                 result.requestType = RequestType.POST
                 return result
             }
 
-
         }
         throw IllegalStateException("API is not registered")
     }
-    //a
+
 }

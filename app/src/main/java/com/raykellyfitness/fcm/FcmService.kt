@@ -77,7 +77,7 @@ class FcmService : FirebaseMessagingService() {
 
         notificationBean?.let {
             val mBuilder = NotificationCompat.Builder(this, getString(R.string.channel_id))
-                .setSmallIcon(R.mipmap.launcher_round)
+                .setSmallIcon(R.drawable.transparent_icon)
                 .setContentTitle(notificationBean.message)
                 .setContentText(notificationBean.message)
                 .setContentIntent(notifyPendingIntent)

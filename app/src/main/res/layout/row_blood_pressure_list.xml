@@ -31,7 +31,7 @@
 
         <com.raykellyfitness.views.CommonTextView
             android:id="@+id/tv_title_weight"
-            android:text="Diastolic:"
+            android:text="Systolic:"
             android:textColor="@color/white"
             android:textSize="@dimen/_10sdp"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -42,7 +42,7 @@
 
         <com.raykellyfitness.views.CommonTextView
             android:id="@+id/tv_title_height"
-            android:text="Systolic:"
+            android:text="Diastolic:"
             android:textColor="@color/white"
             android:textSize="@dimen/_10sdp"
             app:layout_constraintLeft_toRightOf="@id/tv_title_weight"
@@ -53,7 +53,7 @@
 
         <com.raykellyfitness.views.CommonTextViewMedium
             android:id="@+id/tv_weight"
-            android:text="@{model.blood_pressure_diastolic+` mmHg`}"
+            android:text="@{model.blood_pressure_systolic+` mmHg`}"
             tool:text="85"
             android:textSize="@dimen/_11sdp"
             android:textColor="@color/white"
@@ -64,7 +64,7 @@
 
         <com.raykellyfitness.views.CommonTextViewMedium
             android:id="@+id/tv_height"
-            android:text="@{model.blood_pressure_systolic+` mmHg`}"
+            android:text="@{model.blood_pressure_diastolic+` mmHg`}"
             android:textColor="@color/white"
             android:textSize="@dimen/_11sdp"
             tool:text="175"

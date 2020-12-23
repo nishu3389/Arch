@@ -46,6 +46,7 @@ import com.raykellyfitness.R
 import com.raykellyfitness.networking.Api.BASE_URL
 import com.raykellyfitness.networking.Api.UPDATE_TOKEN_TO_SERVER
 import com.raykellyfitness.ui.activity.HomeActivity
+import com.raykellyfitness.util.Constant
 import com.raykellyfitness.util.Prefs
 import com.raykellyfitness.util.RoundedCornersTransform
 import com.raykellyfitness.util.Util
@@ -159,7 +160,7 @@ fun String.changeToLongDate(): Long {
     }
 }
 
-fun String.changeTimeFormat(from: String?, to: String?): String? {
+fun String.changeTimeFormat(from: String? = Constant.API_DATE_FORMAT, to: String?): String? {
     if (TextUtils.isEmpty(this)) return ""
     var date1: Date? = null
     val simpleDateFormat =

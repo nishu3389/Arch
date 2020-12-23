@@ -64,7 +64,7 @@ class MainApplication : Application() {
         super.onCreate()
         instance = this
 
-        UCEHandler.Builder(applicationContext).build()
+//        UCEHandler.Builder(applicationContext).build()
 
         var okHttpClient: OkHttpClient? = null
         if (BuildConfig.DEBUG) {

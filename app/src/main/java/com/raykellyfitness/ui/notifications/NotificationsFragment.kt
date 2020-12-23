@@ -23,21 +23,18 @@ class NotificationsFragment : BaseFragment() {
     lateinit var mBinding: FragmentNotificationsBinding
     var onClickHandler = ClickHandler()
 
-
     var adapter = NotificationsAdapter(R.layout.row_notification) { model ->
-
-            when (model?.type) {
-
-                Constant.POST_TYPE_BLOG -> navigate(R.id.TipsDetailFragment,
-                                                    Pair(ParcelKeys.PK_POST_ID, model?.post_id),
-                                                    Pair( ParcelKeys.PK_POST_TYPE , model?.type),
-                                                    Pair(ParcelKeys.PK_POST_DAY , model?.day),
-                                                    Pair(ParcelKeys.PK_FROM , ParcelKeys.PK_FROM)
-                )
-
-                else -> navigate(R.id.TipsAndTricksFragment, Pair(ParcelKeys.PK_POST_TYPE, model.type),Pair(ParcelKeys.PK_FROM , ParcelKeys.PK_FROM_NOTIFICATION_LIST), Pair(ParcelKeys.PK_POST_DAY , model?.day))
-            }
-
+        when (model?.type) {
+            Constant.POST_TYPE_BLOG -> navigate(R.id.TipsDetailFragment,
+                                                Pair(ParcelKeys.PK_POST_ID, model?.post_id),
+                                                Pair(ParcelKeys.PK_POST_TYPE, model?.type),
+                                                Pair(ParcelKeys.PK_POST_DAY, model?.day),
+                                                Pair(ParcelKeys.PK_FROM, ParcelKeys.PK_FROM))
+            else -> navigate(R.id.TipsAndTricksFragment,
+                             Pair(ParcelKeys.PK_POST_TYPE, model.type),
+                             Pair(ParcelKeys.PK_FROM, ParcelKeys.PK_FROM_NOTIFICATION_LIST),
+                             Pair(ParcelKeys.PK_POST_DAY, model?.day))
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,11 +43,10 @@ class NotificationsFragment : BaseFragment() {
     }
 
     override fun onApiRequestFailed(apiUrl: String, errCode: Int, errorMessage: String): Boolean {
-        if(apiUrl.equals(Api.Notifications)){
+        if (apiUrl.equals(Api.Notifications)) {
             mBinding.tvNoData.visible()
             return true
         }
-
         return false
     }
 
@@ -60,9 +56,9 @@ class NotificationsFragment : BaseFragment() {
                 clickHandler = onClickHandler
                 viewModel = mViewModel
             }
-            initWork()
             otherWork()
         }
+        initWork()
         return mBinding.root
     }
 
@@ -79,16 +75,15 @@ class NotificationsFragment : BaseFragment() {
 
     private fun callInitialApi() {
         mViewModel.callNotificationsApi().observe(viewLifecycleOwner, Observer {
-                handleResponse(it.data)
+            handleResponse(it.data)
         })
     }
 
     private fun handleResponse(data: ResponseNotifications?) {
 
-        data?.clear()
+        //        data?.clear()
 
-        if(!data.isEmptyy(mBinding.tvNoData))
-            adapter.setNewItems(data!!)
+        if (!data.isEmptyy(mBinding.tvNoData)) adapter.setNewItems(data!!)
     }
 
     private fun setupRecycler() {
@@ -100,7 +95,9 @@ class NotificationsFragment : BaseFragment() {
     }
 
     private fun setupViewModel() {
-        mViewModel = ViewModelProviders.of(this, MyViewModelProvider(commonCallbacks as AsyncViewController)).get(NotificationsViewModel::class.java)
+        mViewModel =
+            ViewModelProviders.of(this, MyViewModelProvider(commonCallbacks as AsyncViewController))
+                .get(NotificationsViewModel::class.java)
     }
 
     inner class ClickHandler {

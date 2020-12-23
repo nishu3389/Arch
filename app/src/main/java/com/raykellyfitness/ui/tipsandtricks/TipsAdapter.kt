@@ -5,8 +5,11 @@ import com.raykellyfitness.base.*
 import com.raykellyfitness.databinding.RowTipsInnerBinding
 import com.raykellyfitness.databinding.RowTipsOuterBinding
 import com.raykellyfitness.networking.Api
+import com.raykellyfitness.util.Constant
 import com.raykellyfitness.util.Constant.POST_TYPE_BLOG
 import com.raykellyfitness.util.Constant.POST_TYPE_EXERCISE
+import com.raykellyfitness.util.Util
+import com.raykellyfitness.util.UtilJava
 
 class TipsAdapterOuter(
     val type : String,
@@ -16,7 +19,8 @@ class TipsAdapterOuter(
 
     override fun bind(holder: ViewHolder, item: ResponseTipsOuterItem, position: Int) {
 
-        var date = item.date.changeTimeFormat("yyyy-MM-dd hh:mm:ss", "EEEE dd MMM, yyyy")
+        val convertUtcToLocal = Util.convertUtcToLocal(item.date)
+        var date = convertUtcToLocal?.changeTimeFormat(Constant.API_DATE_FORMAT, "EEEE dd MMM, yyyy")
 
         if(type.equals(POST_TYPE_BLOG,true) || type.equals(POST_TYPE_EXERCISE,true)){
             item.open = true

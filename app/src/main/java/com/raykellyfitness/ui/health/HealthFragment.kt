@@ -38,7 +38,10 @@ import com.raykellyfitness.networking.Api
 import com.raykellyfitness.ui.health.bloodpressure.add_bloodpressure.AddBloodPressureFragment
 import com.raykellyfitness.ui.health.bloodsugar.add_bloodsugar.AddBloodSugarFragment
 import com.raykellyfitness.ui.health.weight.add_weight.AddWeightFragment
+import com.raykellyfitness.util.Constant
 import com.raykellyfitness.util.Constant.NO_RECORD_AVAILABLE
+import com.raykellyfitness.util.Util
+import com.raykellyfitness.util.UtilJava
 import com.raykellyfitness.util.permission.DeviceRuntimePermission
 import com.raykellyfitness.util.permission.IPermissionGranted
 import com.raykellyfitness.views.CommonTextView
@@ -433,7 +436,8 @@ class HealthFragment : BaseFragment() {
                     listWeight?.forEach {
                         if (!it.created_at.isEmptyy() && !it.weight.isEmptyy() && !it.height.isEmptyy()) {
                             i += range
-                            map.put(i, it.created_at.changeTimeFormat("yyyy-MM-dd", "dd MMM")!!)
+                            val convertUtcToLocal = Util.convertUtcToLocal(it.created_at)
+                            map.put(i, convertUtcToLocal?.changeTimeFormat(to = "dd MMM")!!)
                             values1.add(Entry(i, it.weight.toFloat()))
                             values2.add(Entry(i, it.height.toFloat()))
                         }
@@ -453,7 +457,10 @@ class HealthFragment : BaseFragment() {
                     listBS?.forEach {
                         if (!it.created_at.isEmptyy() && !it.blood_sugar_fasting.isEmptyy() && !it.blood_sugar_postprandial.isEmptyy()) {
                             i += range
-                            map.put(i, it.created_at.changeTimeFormat("yyyy-MM-dd", "dd MMM")!!)
+
+                            val convertUtcToLocal = Util.convertUtcToLocal(it.created_at)
+                            map.put(i, convertUtcToLocal?.changeTimeFormat(Constant.API_DATE_FORMAT, "dd MMM")!!)
+
                             values1.add(Entry(i, it.blood_sugar_fasting.toFloat()))
 
                             if(it.blood_sugar_postprandial.toFloat()>0)
@@ -476,7 +483,8 @@ class HealthFragment : BaseFragment() {
                     listBP?.forEach {
                         if (!it.created_at.isEmptyy() && !it.blood_pressure_diastolic.isEmptyy() && !it.blood_pressure_systolic.isEmptyy()) {
                             i += range
-                            map.put(i, it.created_at.changeTimeFormat("yyyy-MM-dd", "dd MMM")!!)
+                            val convertUtcToLocal = Util.convertUtcToLocal(it.created_at)
+                            map.put(i, convertUtcToLocal?.changeTimeFormat(Constant.API_DATE_FORMAT, "dd MMM")!!)
                             values1.add(Entry(i, it.blood_pressure_systolic.toFloat()))
                             values2.add(Entry(i, it.blood_pressure_diastolic.toFloat()))
                         }

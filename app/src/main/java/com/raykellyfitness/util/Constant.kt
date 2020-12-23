@@ -133,6 +133,8 @@ object Constant {
     const val API_DATE_FORMAT_2 = "dd MMM yyyy hh:mm:ss a"
     const val API_DATE_FORMAT_3 = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"
 
+    const val API_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss"
+
 
 }
 
