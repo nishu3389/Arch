@@ -7,18 +7,12 @@
         android:id="@+id/LoginFragment"
         android:name="com.raykellyfitness.ui.login.LoginFragment"
         tools:layout="@layout/fragment_login" />
-    <fragment
-        android:id="@+id/RegisterFragment"
-        android:name="com.raykellyfitness.Register.RegisterFragment"
-        tools:layout="@layout/fragment_register" />
+
     <fragment
         android:id="@+id/ForgotPasswordFragment"
         android:name="com.raykellyfitness.ui.forgot_password.ForgotPasswordFragment"
         tools:layout="@layout/fragment_forgot_password" />
-    <fragment
-        android:id="@+id/OTPFragment"
-        android:name="com.three.u.otp.OTPFragment"
-        tools:layout="@layout/fragment_otp" />
+
     <fragment
         android:id="@+id/ChangePasswordFragment"
         android:name="com.raykellyfitness.ui.changepassword.ChangePasswordFragment"
@@ -27,11 +21,6 @@
         android:id="@+id/ResetPasswordFragment"
         android:name="com.raykellyfitness.ui.reset_password.ResetPasswordFragment"
         tools:layout="@layout/fragment_change_password" />
-
-    <fragment
-        android:id="@+id/ProfileEditFragment"
-        android:name="com.three.u.profileedit.ProfileEditFragment"
-        tools:layout="@layout/fragment_profile_edit" />
 
     <fragment
         android:id="@+id/IntroSliderFragment"

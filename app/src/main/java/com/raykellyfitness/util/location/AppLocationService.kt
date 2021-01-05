@@ -1,6 +1,7 @@
 package com.raykellyfitness.util.location
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Service
 import android.content.Context
 import android.content.Intent
@@ -17,7 +18,8 @@ class AppLocationService(context: Context) : Service(),
     protected var locationManager: LocationManager?
     var location: Location? = null
     private val context: Context
-    fun getLocation(provider: String?): Location? {
+    @SuppressLint("MissingPermission")
+    fun getLocation(provider: String): Location? {
         if (locationManager!!.isProviderEnabled(provider)) {
             locationManager!!.requestLocationUpdates(
                 provider,

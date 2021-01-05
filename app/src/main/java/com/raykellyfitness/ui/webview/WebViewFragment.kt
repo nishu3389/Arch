@@ -149,7 +149,7 @@ class WebViewFragment : BaseFragment(), IPermissionGranted {
 
     fun loadUrl(url: String?) {
         url.let {
-            mBinding.webView.postDelayed({ mBinding.webView.loadUrl(url) }, 500)
+            mBinding.webView.postDelayed({ url?.let { it1 -> mBinding.webView.loadUrl(it1) } }, 500)
         }
     }
 
@@ -412,7 +412,7 @@ class WebViewFragment : BaseFragment(), IPermissionGranted {
     }
 
     @Throws(IOException::class)
-    fun modifyOrientation(bitmap: Bitmap?, image_absolute_path: String?): Bitmap? {
+    fun modifyOrientation(bitmap: Bitmap?, image_absolute_path: String): Bitmap? {
         val ei = ExifInterface(image_absolute_path)
         val orientation: Int =
             ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL)

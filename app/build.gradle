@@ -13,8 +13,8 @@ apply plugin: "kotlin-kapt"
 apply plugin: 'dagger.hilt.android.plugin'
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.2"
+    compileSdkVersion 30
+    buildToolsVersion "29.0.3"
     defaultConfig {
         applicationId "com.raykellyfitness"
         minSdkVersion 21

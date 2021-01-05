@@ -384,7 +384,7 @@ class Util {
 
             } catch (e: ParseException) {
                 e.printStackTrace()
-                Log.e("ConvTimeE", e.message)
+                e.message?.let { Log.e("ConvTimeE", it) }
             }
 
             return convTime
