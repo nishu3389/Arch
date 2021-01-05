@@ -169,7 +169,7 @@ abstract class BaseActivity : AnotherBaseActivity(), CommonCallbacks, OnLocaleCh
                 var button : Button
                 button= aD?.getButton(DialogInterface.BUTTON_POSITIVE)!!
 
-                button?.setBackgroundResource(R.color.white)
+                button.setBackgroundResource(R.color.white)
                 mBaseViewModel.alertDialogController.value = null
             }
 
@@ -278,10 +278,6 @@ abstract class BaseActivity : AnotherBaseActivity(), CommonCallbacks, OnLocaleCh
         }
     }
 
-    override fun attachBaseContext(base: Context?) {
-        super.attachBaseContext(base)
-
-    }
 
     override fun onResume() {
         super.onResume()

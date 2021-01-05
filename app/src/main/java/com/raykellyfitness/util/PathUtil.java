@@ -20,7 +20,7 @@ public class PathUtil {
     /*
      * Gets the file path of the given Uri.
      */
-    @SuppressLint("NewApi")
+    @SuppressLint({"NewApi", "Recycle"})
     public static String getPath(Context context, Uri uri) throws URISyntaxException {
         final boolean needToCheckUri = Build.VERSION.SDK_INT >= 19;
         String selection = null;
@@ -60,7 +60,8 @@ public class PathUtil {
                 if (cursor.moveToFirst()) {
                     return cursor.getString(column_index);
                 }
-            } catch (Exception e) {
+            } catch (Exception ignored) {
+                ignored.printStackTrace();
             }
         } else if ("file".equalsIgnoreCase(uri.getScheme())) {
             return uri.getPath();

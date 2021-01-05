@@ -31,7 +31,7 @@
 
         <com.raykellyfitness.views.CommonTextView
             android:id="@+id/tv_title_weight"
-            android:text="Weight:"
+            android:text="@string/weight_"
             android:textColor="@color/white"
             android:textSize="@dimen/_10sdp"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -42,7 +42,7 @@
 
         <com.raykellyfitness.views.CommonTextView
             android:id="@+id/tv_title_height"
-            android:text="Height:"
+            android:text="@string/height_"
             android:textColor="@color/white"
             android:textSize="@dimen/_10sdp"
             app:layout_constraintLeft_toRightOf="@id/tv_title_weight"
@@ -83,7 +83,7 @@
             app:layout_constraintTop_toBottomOf="@id/tv_weight"
             android:background="@color/colorDivider"
             android:layout_width="match_parent"
-            android:layout_height="1dp"></View>
+            android:layout_height="1dp" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

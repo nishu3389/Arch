@@ -316,7 +316,7 @@ class HealthFragment : BaseFragment() {
             when (requestCode) {
 
                 DeviceRuntimePermission.REQUEST_PERMISSION_ACCESS_COARSE__FINE_LOCATION_CAMERA -> {
-                    findNavController().navigate(R.id.ScanQRCodeFragment)
+
                 }
             }
         }
@@ -356,7 +356,7 @@ class HealthFragment : BaseFragment() {
 
         // modify the legend ...
         l.form = Legend.LegendForm.LINE
-        l.typeface = Typeface.createFromAsset(context?.getAssets(), "fonts/poppins_regular.ttf")
+        l.typeface = Typeface.createFromAsset(context?.assets, "fonts/poppins_regular.ttf")
         l.textSize = 11f
         l.textColor = Color.BLACK
         l.verticalAlignment = Legend.LegendVerticalAlignment.BOTTOM
@@ -367,7 +367,7 @@ class HealthFragment : BaseFragment() {
         l.xOffset = 10f
 
         val xAxis = chart!!.xAxis
-        xAxis.typeface = Typeface.createFromAsset(context?.getAssets(), "fonts/poppins_regular.ttf")
+        xAxis.typeface = Typeface.createFromAsset(context?.assets, "fonts/poppins_regular.ttf")
         xAxis.textSize = 8f
         xAxis.textColor = Color.BLACK
         xAxis.yOffset = -3f
@@ -386,7 +386,7 @@ class HealthFragment : BaseFragment() {
 
         val leftAxis = chart!!.axisLeft
         leftAxis.typeface =
-            Typeface.createFromAsset(context?.getAssets(), "fonts/poppins_regular.ttf")
+            Typeface.createFromAsset(context?.assets, "fonts/poppins_regular.ttf")
         leftAxis.textColor = ColorTemplate.getHoloBlue()
         leftAxis.axisMaximum = pair.second
         leftAxis.axisMinimum = pair.first
@@ -397,7 +397,7 @@ class HealthFragment : BaseFragment() {
 
         val rightAxis = chart!!.axisRight
         rightAxis.typeface =
-            Typeface.createFromAsset(context?.getAssets(), "fonts/poppins_regular.ttf")
+            Typeface.createFromAsset(context?.assets, "fonts/poppins_regular.ttf")
         rightAxis.textColor = ColorTemplate.getHoloBlue()
         rightAxis.axisMaximum = pair.second
         rightAxis.axisMinimum = pair.first
@@ -526,7 +526,7 @@ class HealthFragment : BaseFragment() {
         data.setValueTextSize(9f)
 
         // set data
-        chart.setData(data)
+        chart.data = data
         touchGraph(1000, chart)
         touchGraph(2000, chart)
         touchGraph(3000, chart)
@@ -541,7 +541,7 @@ class HealthFragment : BaseFragment() {
 
     fun handleTouch(chart: LineChart, nestedScrollView: NestedScrollView) {
 
-        chart.setOnTouchListener(View.OnTouchListener { v, event ->
+        chart.setOnTouchListener { _, event ->
             val action = event.action
             when (action) {
                 MotionEvent.ACTION_DOWN -> {
@@ -558,7 +558,7 @@ class HealthFragment : BaseFragment() {
             }
 
             false
-        })
+        }
     }
 
     class HealthPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {

@@ -30,12 +30,12 @@ class BloodSugarListAdapter(override val layoutId: Int) : BaseRecyclerAdapter<Ro
         holder.binding.model = item
 
         if(item.blood_sugar_postprandial.toFloat()<=0)
-            holder.binding.tvHeight.text = "NA"
+            holder.binding.tvHeight.text = Constant.NA
         else
             holder.binding.tvHeight.text = "${item.blood_sugar_postprandial} mmol/L"
 
         val convertUtcToLocal = Util.convertUtcToLocal(item.created_at)
-        holder.binding.tvDate.text = convertUtcToLocal?.changeTimeFormat(Constant.API_DATE_FORMAT, "dd MMM, yyyy")
+        holder.binding.tvDate.text = convertUtcToLocal?.changeTimeFormat(Constant.API_DATE_FORMAT, Constant.DATE_FORMAT)
 
     }
 

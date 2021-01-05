@@ -11,8 +11,6 @@
             name="model"
             type="com.raykellyfitness.ui.tipsandtricks.ResponseTipsOuterItem" />
 
-
-
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -58,16 +56,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
-                <ImageView
+                <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/img_right"
                     android:src="@{model.open ? @drawable/down_arrow : @drawable/arrow_right}"
                     android:padding="@dimen/_3sdp"
-                    android:tint="@{model.open ? @color/white : @color/black}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     android:layout_width="@dimen/_20sdp"
-                    android:layout_height="@dimen/_20sdp"></ImageView>
+                    android:layout_height="@dimen/_20sdp"
+                    android:tint="@{model.open ? @color/white : @color/black}"
+                    />
 
                 <com.raykellyfitness.views.CommonTextView
                     android:id="@+id/tv_date2"

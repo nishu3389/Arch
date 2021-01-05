@@ -32,7 +32,6 @@ class Locality {
                 latitude, longitude,
                 mActivity, GeocoderHandler()
             )
-        } else {
         }
     }
 

@@ -120,6 +120,10 @@ object Constant {
     const val DUMMY_EMAIL = "test1@gmail.com"
     const val DUMMY_PASSWORD = "12345678"
 
+    const val BMI = "BMI = "
+    const val DATE_FORMAT = "dd MMM, yyyy"
+    const val NA = "NA"
+    const val MMOL = "mmol/L"
     const val PHONE = ""
     const val COUNTRYCODE = ""
 

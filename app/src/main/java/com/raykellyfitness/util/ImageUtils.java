@@ -13,7 +13,7 @@ public class ImageUtils {
         try {
             mediaMetadataRetriever = new MediaMetadataRetriever();
             if (Build.VERSION.SDK_INT >= 14)
-                mediaMetadataRetriever.setDataSource(videoPath, new HashMap<String, String>());
+                mediaMetadataRetriever.setDataSource(videoPath, new HashMap<>());
             else
                 mediaMetadataRetriever.setDataSource(videoPath);
             //   mediaMetadataRetriever.setDataSource(videoPath);

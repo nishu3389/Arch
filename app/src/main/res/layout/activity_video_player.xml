@@ -20,7 +20,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             android:layout_width="@dimen/_40sdp"
-            android:layout_height="@dimen/_40sdp"></ImageView>
+            android:layout_height="@dimen/_40sdp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

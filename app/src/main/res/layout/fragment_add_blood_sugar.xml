@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -48,7 +47,7 @@
                 android:layout_marginRight="@dimen/_20sdp"
                 android:textColor="@color/white"
                 android:layout_marginTop="@dimen/_10sdp"
-                android:text="Enter your sugar level"
+                android:text="@string/enter_your_sugar_level"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
@@ -57,7 +56,7 @@
                 android:layout_marginLeft="@dimen/_20sdp"
                 android:layout_marginRight="@dimen/_20sdp"
                 android:textColor="@color/white"
-                android:text="Fasting (mmol/L)"
+                android:text="@string/fasting_mmol_l"
                 android:layout_marginTop="@dimen/_15sdp"
                 android:gravity="center_horizontal"
                 android:layout_width="match_parent"
@@ -87,14 +86,14 @@
                 android:layout_marginRight="@dimen/_20sdp"
                 android:background="@color/colorDivider"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"></View>
+                android:layout_height="1dp" />
 
             <com.raykellyfitness.views.CommonTextViewMedium
                 android:textSize="@dimen/_12sdp"
                 android:layout_marginLeft="@dimen/_20sdp"
                 android:layout_marginRight="@dimen/_20sdp"
                 android:textColor="@color/white"
-                android:text="Post Fasting (mmol/L)"
+                android:text="@string/post_fasting_mmol_l"
                 android:layout_marginTop="@dimen/_20sdp"
                 android:gravity="center_horizontal"
                 android:layout_width="match_parent"
@@ -125,12 +124,12 @@
                 android:layout_marginTop="@dimen/_5sdp"
                 android:background="@color/colorDivider"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"></View>
+                android:layout_height="1dp" />
 
             <com.raykellyfitness.views.CommonTextViewMedium
                 android:id="@+id/tv_add"
                 android:textColor="@color/black"
-                android:text="ADD"
+                android:text="@string/add"
                 android:layout_marginLeft="@dimen/_20sdp"
                 android:layout_marginRight="@dimen/_20sdp"
                 android:layout_marginTop="@dimen/_20sdp"

@@ -26,6 +26,8 @@ import com.raykellyfitness.util.Constant.POST_TYPE_MEAL
 import com.raykellyfitness.util.Constant.POST_TYPE_MOTIVATION
 import com.raykellyfitness.util.Constant.POST_TYPE_TIPS
 import com.raykellyfitness.util.Constant.SKU
+import com.raykellyfitness.util.ParcelKeys.PK_POST_ID
+import com.raykellyfitness.util.ParcelKeys.PK_POST_TYPE
 import com.raykellyfitness.util.Prefs
 import com.raykellyfitness.util.permission.DeviceRuntimePermission
 import com.raykellyfitness.util.permission.IPermissionGranted
@@ -95,19 +97,19 @@ class HomeFragment : BaseFragment(), SubsCompleteListener {
         }*/
         mBinding.rrMeal.push()?.setOnClickListener {
             Prefs.get().SHUTDOWN = ""
-            navigate(R.id.TipsAndTricksFragment, Pair("type", POST_TYPE_MEAL))
+            navigate(R.id.TipsAndTricksFragment, Pair(PK_POST_TYPE, POST_TYPE_MEAL))
         }
         mBinding.rrTips.push()?.setOnClickListener {
-            navigate(R.id.TipsAndTricksFragment, Pair("type", POST_TYPE_TIPS))
+            navigate(R.id.TipsAndTricksFragment, Pair(PK_POST_TYPE, POST_TYPE_TIPS))
         }
         mBinding.rrExercise.push()?.setOnClickListener {
-            navigate(R.id.TipsAndTricksFragment, Pair("type", POST_TYPE_EXERCISE))
+            navigate(R.id.TipsAndTricksFragment, Pair(PK_POST_TYPE, POST_TYPE_EXERCISE))
         }
        mBinding.rrMotivation.push()?.setOnClickListener {
-            navigate(R.id.TipsAndTricksFragment, Pair("type", POST_TYPE_MOTIVATION))
+            navigate(R.id.TipsAndTricksFragment, Pair(PK_POST_TYPE, POST_TYPE_MOTIVATION))
         }
        mBinding.rrBlogs.push()?.setOnClickListener {
-            navigate(R.id.TipsAndTricksFragment, Pair("type", POST_TYPE_BLOG))
+            navigate(R.id.TipsAndTricksFragment, Pair(PK_POST_TYPE, POST_TYPE_BLOG))
         }
     }
 
@@ -122,7 +124,6 @@ class HomeFragment : BaseFragment(), SubsCompleteListener {
             when (requestCode) {
 
                 DeviceRuntimePermission.REQUEST_PERMISSION_ACCESS_COARSE__FINE_LOCATION_CAMERA -> {
-                    findNavController().navigate(R.id.ScanQRCodeFragment)
                 }
             }
         }

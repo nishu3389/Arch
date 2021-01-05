@@ -68,7 +68,7 @@ class FcmService : FirebaseMessagingService() {
 //        notificationBean.notificationType = NOTIFICATION_TYPE_SUBSCRIPTION
         notifyIntent.putExtra(Constant.TYPE, notificationBean.notificationType)
         notifyIntent.putExtra(Constant.BEAN, notificationBean)
-        notifyIntent.setAction(System.currentTimeMillis().toString())
+        notifyIntent.action = System.currentTimeMillis().toString()
         var notifyPendingIntent = PendingIntent.getActivity(this,
                                                             getRandomNumber(1,100),
                                                             notifyIntent,

@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
 
@@ -41,7 +39,7 @@
 
                     <com.raykellyfitness.views.CommonTextViewMedium
                         style="@style/HomeMenuText"
-                        android:text="Meal Plan" />
+                        android:text="@string/meal_plan" />
 
                 </RelativeLayout>
 
@@ -79,7 +77,7 @@
 
                     <com.raykellyfitness.views.CommonTextViewMedium
                         style="@style/HomeMenuText"
-                        android:text="Exercise" />
+                        android:text="@string/exercise" />
 
                 </RelativeLayout>
 
@@ -98,7 +96,7 @@
 
                     <com.raykellyfitness.views.CommonTextViewMedium
                         style="@style/HomeMenuText"
-                        android:text="Motivation" />
+                        android:text="@string/motivation" />
 
                 </RelativeLayout>
 
@@ -117,7 +115,7 @@
 
                     <com.raykellyfitness.views.CommonTextViewMedium
                         style="@style/HomeMenuText"
-                        android:text="Blogs" />
+                        android:text="@string/blogs" />
 
                 </RelativeLayout>
 
@@ -129,7 +127,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_40sdp"></View>
+                android:layout_height="@dimen/_40sdp" />
 
         </LinearLayout>
 

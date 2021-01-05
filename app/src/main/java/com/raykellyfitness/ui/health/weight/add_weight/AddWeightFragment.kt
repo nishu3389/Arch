@@ -74,10 +74,10 @@ class AddWeightFragment : BaseFragment(), OnChartValueSelectedListener {
                 return
             }
 
-            val bmi = calculateBMI(last?.weight?.toDouble()!!, last?.height?.toDouble()!!)
+            val bmi = calculateBMI(last?.weight?.toDouble()!!, last.height.toDouble())
             val interpretBMI = bmi?.let { interpretBMI(it) }
 
-            mBinding.tvBmi.text = "BMI = $bmi ($interpretBMI)"
+            mBinding.tvBmi.text = Constant.BMI + "$bmi ($interpretBMI)"
         }
     }
 
@@ -139,9 +139,9 @@ class AddWeightFragment : BaseFragment(), OnChartValueSelectedListener {
 
     override fun onValueSelected(e: Entry?, h: Highlight?) {
         mBinding.chart1.centerViewToAnimated(
-            e!!.x, e.y, mBinding.chart1.getData().getDataSetByIndex(
+            e!!.x, e.y, mBinding.chart1.data.getDataSetByIndex(
                 h!!.dataSetIndex
-            ).getAxisDependency(), 500
+            ).axisDependency, 500
         )
     }
 
@@ -150,8 +150,8 @@ class AddWeightFragment : BaseFragment(), OnChartValueSelectedListener {
     }
 
     private fun calculateBMI(weight: Double, height: Double): Double? {
-        val heightMM = height?.div(100)
-        val bmi = weight?.div((heightMM * heightMM))
+        val heightMM = height.div(100)
+        val bmi = weight.div((heightMM * heightMM))
         return String.format("%.2f", bmi).toDouble()
     }
 

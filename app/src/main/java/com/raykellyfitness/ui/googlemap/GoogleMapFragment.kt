@@ -94,11 +94,11 @@ class GoogleMapFragment : BaseFragment(), IPermissionGranted, OnMapReadyCallback
 
         fun doneClicked()
         {
-            Prefs.get().selectLocation=selectAddress.toString()
-            putParcel(bundleOf(PK_SELECTED_ADDRESS to selectAddress,
-                PK_SELECTED_LATITUDE to selectLatitude,
-                PK_SELECTED_LONGITUDE to selectLongitude),R.id.AddItemFragment)
-            findNavController().popBackStack()
+//            Prefs.get().selectLocation=selectAddress.toString()
+//            putParcel(bundleOf(PK_SELECTED_ADDRESS to selectAddress,
+//                PK_SELECTED_LATITUDE to selectLatitude,
+//                PK_SELECTED_LONGITUDE to selectLongitude),R.id.AddItemFragment)
+//            findNavController().popBackStack()
         }
         fun changeClicked()
         {
@@ -146,7 +146,7 @@ class GoogleMapFragment : BaseFragment(), IPermissionGranted, OnMapReadyCallback
     {
         //        if(googleMap !=null) {
         googleMap = map
-        googleMap!!.isMyLocationEnabled = true
+//        googleMap!!.isMyLocationEnabled = true
         // mActivity.showProgress();
         if (latLng == null) getCurrentLatLng(false)
 

@@ -1,5 +1,6 @@
 package com.raykellyfitness.base
 
+import android.annotation.SuppressLint
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -67,17 +68,17 @@ fun View.find(id: Int): View {
 }
 
 fun View.get(): String {
-    if ((this as EditText).getText().isEmpty())
+    if ((this as EditText).text.isEmpty())
         return ""
     else
-        return (this as EditText).getText().toString()
+        return this.text.toString()
 }
 
 fun EditText.get(): String {
-    if (this.getText().isEmpty())
+    if (this.text.isEmpty())
         return ""
     else
-        return this.getText().toString().trim()
+        return this.text.toString().trim()
 }
 
 fun ImageView.set(imgUrl: String?) {
@@ -115,9 +116,9 @@ fun ImageView.set(con: Context, imgUrl: String?, placeholder: Int) {
 fun EditText.setGender(gender: Int?) {
     if (gender != null) {
         when (gender) {
-            1 -> this.setText("Male")
-            2 -> this.setText("Female")
-            else -> this.setText("Other")
+//            1 -> this.setText(context.getString(R.string.male))
+//            2 -> this.setText(context.getString(R.string.female))
+//            else -> this.setText(context.getString(R.string.other))
         }
     }
 }
@@ -140,7 +141,7 @@ fun ImageView.set(imgUrl: String?, tranformation: RoundedCornersTransform) {
 fun EditText.onTextChange(view: View) {
     this.addTextChangedListener(object : TextWatcher {
         override fun afterTextChanged(s: Editable?) {
-            view?.visibility = android.view.View.GONE
+            view.visibility = android.view.View.GONE
         }
 
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -315,6 +316,7 @@ fun View.push(clickListener: View.OnClickListener) {
     PushDownAnim.setPushDownAnimTo(this).setOnClickListener { clickListener }
 }
 
+@SuppressLint("UseCompatLoadingForDrawables")
 fun Context.setDrawable(imgview: AppCompatImageView?, drawable: Int?) {
     imgview.let {
         drawable.let {
@@ -339,7 +341,7 @@ fun Context.setTvBGColor(tv: TextView?, color: Int?) {
     tv.let {
         color.let {
             try {
-                tv!!.setBackground(this.resources.getDrawable(color!!))
+                tv!!.background = this.resources.getDrawable(color!!)
             } catch (e: Exception) {
             }
         }
@@ -351,7 +353,7 @@ fun Context.setTvBGDrawable(tv: TextView?, color: Int?) {
     tv.let {
         color.let {
             try {
-                tv!!.setBackground(this.resources.getDrawable(color!!))
+                tv!!.background = this.resources.getDrawable(color!!)
             } catch (e: Exception) {
             }
         }
@@ -364,12 +366,12 @@ fun View?.visible() {
 }
 
 fun View.invisible() {
-    this?.visibility = View.INVISIBLE
+    this.visibility = View.INVISIBLE
 //    YoYo.with(Techniques.SlideOutDown).onEnd { this?.visibility = View.INVISIBLE }.playOn(this)
 }
 
 fun View.gone() {
-    this?.visibility = View.GONE
+    this.visibility = View.GONE
 }
 
 fun Context.titleWithLogo(str: Int): Spanny? {
@@ -524,12 +526,12 @@ fun String.hasPlusAndDash(): Boolean {
 fun Context.shareApp() {
     val appPackageName = this.packageName
     val sendIntent = Intent()
-    sendIntent.setAction(Intent.ACTION_SEND)
+    sendIntent.action = Intent.ACTION_SEND
     sendIntent.putExtra(
         Intent.EXTRA_TEXT,
         "Check out the App at: https://play.google.com/store/apps/details?id=$appPackageName"
     )
-    sendIntent.setType("text/plain")
+    sendIntent.type = "text/plain"
     this.startActivity(sendIntent)
 }
 
@@ -593,8 +595,8 @@ fun View.touch() {
     val downTime: Long = SystemClock.uptimeMillis()
     val eventTime: Long = SystemClock.uptimeMillis() + 100
 
-    val x = this.getX() + this.getWidth()  / 2
-    val y = this.getY() + this.getHeight() / 2
+    val x = this.x + this.width / 2
+    val y = this.y + this.height / 2
 
     val metaState = 0
     val motionEvent = MotionEvent.obtain(

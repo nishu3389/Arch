@@ -29,6 +29,32 @@ import android.widget.Scroller;
  */
 public class TouchImageView extends androidx.appcompat.widget.AppCompatImageView {
 
+
+    /**
+     * The enum State.
+     */
+    private enum State {
+        /**
+         * None state.
+         */
+        NONE,
+        /**
+         * Drag state.
+         */
+        DRAG,
+        /**
+         * Zoom state.
+         */
+        ZOOM,
+        /**
+         * Fling state.
+         */
+        FLING,
+        /**
+         * Animate zoom state.
+         */
+        ANIMATE_ZOOM };
+
     /**
      * The constant DEBUG.
      */
@@ -70,30 +96,6 @@ public class TouchImageView extends androidx.appcompat.widget.AppCompatImageView
      */
     prevMatrix;
 
-    /**
-     * The enum State.
-     */
-    private static enum State {
-        /**
-         * None state.
-         */
-        NONE,
-        /**
-         * Drag state.
-         */
-        DRAG,
-        /**
-         * Zoom state.
-         */
-        ZOOM,
-        /**
-         * Fling state.
-         */
-        FLING,
-        /**
-         * Animate zoom state.
-         */
-        ANIMATE_ZOOM };
     /**
      * The State.
      */
@@ -897,9 +899,6 @@ public class TouchImageView extends androidx.appcompat.widget.AppCompatImageView
     private int setViewSize(int mode, int size, int drawableWidth) {
         int viewSize;
         switch (mode) {
-            case MeasureSpec.EXACTLY:
-                viewSize = size;
-                break;
 
             case MeasureSpec.AT_MOST:
                 viewSize = Math.min(drawableWidth, size);

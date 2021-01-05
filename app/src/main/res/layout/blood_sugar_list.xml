@@ -21,13 +21,13 @@
     <ImageView
         android:id="@+id/img_cross"
         android:src="@drawable/cancel"
-        android:tint="@color/white"
         android:padding="@dimen/_13sdp"
         android:layout_marginTop="@dimen/_5sdp"
         android:layout_marginRight="@dimen/_2sdp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_width="@dimen/_40sdp"
-        android:layout_height="@dimen/_40sdp"></ImageView>
+        android:layout_height="@dimen/_40sdp"
+        app:tint="@color/white" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

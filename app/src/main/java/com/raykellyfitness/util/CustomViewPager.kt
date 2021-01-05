@@ -30,7 +30,7 @@ class CustomViewPager : ViewPager {
                     MeasureSpec.UNSPECIFIED
                 )
             )
-            val h: Int = child.getMeasuredHeight()
+            val h: Int = child.measuredHeight
             heightMeasureSpec = makeMeasureSpec(
                 h,
                 EXACTLY

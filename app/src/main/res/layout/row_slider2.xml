@@ -9,8 +9,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        xmlns:tools="http://schemas.android.com/tools">
+        android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.Guideline
             android:layout_width="wrap_content"
@@ -37,41 +36,6 @@
             android:text="@string/slider_2_msg_2"
             style="@style/slider_text"
             />
-
-        <!--<LinearLayout
-            app:layout_constraintTop_toBottomOf="@id/imv_item"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <com.raykellyfitness.views.CommonTextViewMedium
-                android:id="@+id/tv_1"
-                android:textSize="17sp"
-                android:paddingLeft="@dimen/_20sdp"
-                android:paddingRight="@dimen/_20sdp"
-                android:paddingBottom="@dimen/_15sdp"
-                android:paddingTop="@dimen/_15sdp"
-                android:textColor="@color/white"
-                android:layout_gravity="center"
-                android:visibility="gone"
-                android:text="@string/slider_2_msg_1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-            <com.raykellyfitness.views.CommonTextView
-                android:id="@+id/tv_2"
-                android:text="@string/slider_2_msg_2"
-                style="@style/slider_text"
-                />
-
-        </LinearLayout>-->
-
-
-
-
-
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

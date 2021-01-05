@@ -324,66 +324,6 @@ class Validator {
         }
 
 
-        fun isEmailValid(email: String, tv: TextView): Boolean {
-            if (email?.isEmpty()) {
-                tv.text = "Please enter an email id"
-                tv.visible()
-                return false
-            }
-
-            if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                tv.text = "Please enter valid email id"
-                tv.visible()
-                return false
-            }
-
-            return true
-        }
-
-        fun isEmailOrPhoneValid(email: String, tv: TextView): Boolean {
-            if (email?.isEmpty()) {
-                tv.text = "Please enter an email id"
-                tv.visible()
-                return false
-            }
-
-            if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                tv.text = "Please enter valid email id or phone number"
-                tv.visible()
-                return false
-            }
-
-            return true
-        }
-
-        fun isEmailOrPhoneValid(email: String?, errMsgHolder: ObservableField<String>): Boolean {
-            if (email?.isEmpty() == true) {
-                errMsgHolder.set(
-                    MainApplication.get().getString(R.string.err_email_or_phone_missing)
-                )
-                errMsgHolder.get()?.showWarning()
-                return false
-            } else errMsgHolder.set("")
-            return true
-        }
-
-        fun isPasswordValid(password: String?, errMsgHolder: ObservableField<String>): Boolean {
-            if (password?.isEmptyy() == true) {
-                errMsgHolder.set(MainApplication.get().getString(R.string.err_password_missing))
-                errMsgHolder.get()?.showWarning()
-                return false
-            } else errMsgHolder.set("")
-
-            if (password!!.length !in 6..20) {
-                errMsgHolder.set(
-                    MainApplication.get().getString(R.string.err_password_length_invalid)
-                )
-                errMsgHolder.get()?.showWarning()
-                return false
-            } else errMsgHolder.set("")
-
-            return true
-        }
 
         fun isPasswordValidLogin(
             password: String?,

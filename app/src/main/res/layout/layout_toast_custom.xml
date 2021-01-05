@@ -15,7 +15,7 @@
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="@dimen/_5sdp"
         android:layout_width="@dimen/_18sdp"
-        android:layout_height="@dimen/_18sdp"></ImageView>
+        android:layout_height="@dimen/_18sdp" />
 
     <TextView android:id="@+id/txtvw"
         tools:text="Something went wrong"

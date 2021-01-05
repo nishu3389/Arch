@@ -205,7 +205,7 @@ open class BaseFragment : BundleFragment() {
                 calendar.set(Calendar.YEAR, year1)
                 calendar.set(Calendar.MONTH, month1)
                 calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth1)
-                val date: Date = calendar.getTime()
+                val date: Date = calendar.time
                 dob = formatForServer.format(date)
                 val currentDate: String = SimpleDateFormat(format).format(Date())
 
@@ -235,18 +235,18 @@ open class BaseFragment : BundleFragment() {
             e.printStackTrace()
         }
         date.let {
-            val mills: Long = date!!.getTime()
-            datePickerDialog.getDatePicker().minDate = mills
+            val mills: Long = date!!.time
+            datePickerDialog.datePicker.minDate = mills
         }
         val calendar: Calendar = Calendar.getInstance()
         calendar.add(Calendar.YEAR, -18)
-        datePickerDialog.getDatePicker().setMinDate(getCurrentDate())
+        datePickerDialog.datePicker.minDate = getCurrentDate()
         datePickerDialog.show()
         return dateTimeLiveData
     }
 
     open fun getCurrentDate(): Long {
-        return Calendar.getInstance().getTimeInMillis()
+        return Calendar.getInstance().timeInMillis
     }
 
     fun showSuccessBar(msg: String) {
@@ -373,10 +373,10 @@ open class BaseFragment : BundleFragment() {
         videoView?.setOrientationListener { orientation: Int ->
             if (orientation == SENSOR_PORTRAIT) {
                 //do something
-                activity?.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT)
+                activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT
             } else if (orientation == SENSOR_LANDSCAPE) {
                 //do something
-                activity?.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE)
+                activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE
             }
         }
 
@@ -397,7 +397,7 @@ open class BaseFragment : BundleFragment() {
             if(!advData.isEmptyy()){
                 val list = Gson().fromJson<List<AdvModel?>?>(
                     advData,
-                    object : TypeToken<List<AdvModel?>?>() {}.getType()
+                    object : TypeToken<List<AdvModel?>?>() {}.type
                 )
                 arrayList = list?.filter { it?.advertisementType == type }
             }
@@ -509,7 +509,7 @@ open class BaseFragment : BundleFragment() {
             if (drawUnderline) {
                 super.updateDrawState(ds)
             } else {
-                ds?.isUnderlineText = false
+                ds.isUnderlineText = false
             }
         }
 

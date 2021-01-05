@@ -72,7 +72,7 @@ class GoogleMapActivity: BaseActivity(), IPermissionGranted, OnMapReadyCallback,
         MainApplication.setInstance(this)
         mBinding.clickHandler=DemoMapClickHandler()
         setSupportActionBar(mBinding.toolbar)
-        mBinding.tvTitle.setText(resources?.getString(R.string.select_location))
+        mBinding.tvTitle.text = resources?.getString(R.string.select_location)
         if(isLocationEditable)
             mBinding.btnChange.visibility=View.VISIBLE
         else
@@ -83,7 +83,7 @@ class GoogleMapActivity: BaseActivity(), IPermissionGranted, OnMapReadyCallback,
         supportActionBar!!.setDisplayShowTitleEnabled(false);
         setPermissionGranted(this)
         permissionDenied(DeviceRuntimePermission.REQUEST_ACCESS_COARSE__FINE_LOCATION_PERMISSION)
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN)
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean
@@ -116,7 +116,7 @@ class GoogleMapActivity: BaseActivity(), IPermissionGranted, OnMapReadyCallback,
         } catch (e: Exception) {
             Log.e("Address Map", "Could not initialize google play", e)
         }
-        val mapFragment = this.getSupportFragmentManager()
+        val mapFragment = this.supportFragmentManager
             .findFragmentById(R.id.gmap) as SupportMapFragment
 
         mapFragment.getMapAsync(this)
@@ -151,7 +151,7 @@ class GoogleMapActivity: BaseActivity(), IPermissionGranted, OnMapReadyCallback,
                             .position(latLng!!)
                             .draggable(false)
                     )
-                    mBinding.tvAddress.setText(selectAddress)
+                    mBinding.tvAddress.text = selectAddress
                 }
                 googleMap!!.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 18f))
                 googleMap!!.setOnCameraMoveListener(this)
@@ -285,7 +285,7 @@ class GoogleMapActivity: BaseActivity(), IPermissionGranted, OnMapReadyCallback,
 
         Handler().postDelayed({
             val inputManager = this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            inputManager.hideSoftInputFromWindow(edt.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS)
+            inputManager.hideSoftInputFromWindow(edt.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
         },1000)
 
     }

@@ -36,7 +36,7 @@ class AddBloodSugarFragment : BaseFragment(), OnChartValueSelectedListener {
         setupViewModel()
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         mBinding = FragmentAddBloodSugarBinding.inflate(inflater, container, false).apply {
             viewModel = mViewModel
         }
@@ -91,7 +91,7 @@ class AddBloodSugarFragment : BaseFragment(), OnChartValueSelectedListener {
     }
 
     override fun onValueSelected(e: Entry?, h: Highlight?) {
-        mBinding.chart1.centerViewToAnimated(e!!.x, e.y, mBinding.chart1.getData().getDataSetByIndex(h!!.dataSetIndex).getAxisDependency(), 500)
+        mBinding.chart1.centerViewToAnimated(e!!.x, e.y, mBinding.chart1.data.getDataSetByIndex(h!!.dataSetIndex).axisDependency, 500)
     }
 
     override fun onNothingSelected() {

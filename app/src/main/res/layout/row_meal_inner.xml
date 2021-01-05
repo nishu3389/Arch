@@ -32,7 +32,7 @@
                 android:scaleType="centerCrop"
                 android:src="@drawable/placeholder"
                 android:layout_width="@dimen/_40sdp"
-                android:layout_height="@dimen/_40sdp"></ImageView>
+                android:layout_height="@dimen/_40sdp" />
 
         </androidx.cardview.widget.CardView>
 
@@ -59,14 +59,14 @@
             app:layout_constraintRight_toRightOf="parent"
             android:src="@drawable/arrow_right"
             android:layout_width="@dimen/_10sdp"
-            android:layout_height="@dimen/_10sdp"></ImageView>
+            android:layout_height="@dimen/_10sdp" />
 
         <View
             android:layout_marginTop="@dimen/_15sdp"
             app:layout_constraintTop_toBottomOf="@id/card"
             android:background="@color/colorDivider"
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"></View>
+            android:layout_height="0.5dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

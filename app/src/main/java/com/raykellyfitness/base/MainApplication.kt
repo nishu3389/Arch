@@ -35,8 +35,8 @@ class MainApplication : Application() {
     var billingClient: BillingClient? = null
 
     companion object {
-        private var width = Resources.getSystem().getDisplayMetrics().widthPixels;
-        private var height = Resources.getSystem().getDisplayMetrics().heightPixels;
+        private var width = Resources.getSystem().displayMetrics.widthPixels;
+        private var height = Resources.getSystem().displayMetrics.heightPixels;
 
         fun widthPercent(percent: Double): Int {
             val d = width * percent / 100

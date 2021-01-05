@@ -17,6 +17,9 @@ import com.raykellyfitness.util.Constant.POST_TYPE_MEAL
 import com.raykellyfitness.util.Constant.POST_TYPE_MOTIVATION
 import com.raykellyfitness.util.Constant.POST_TYPE_TIPS
 import com.raykellyfitness.util.ParcelKeys
+import com.raykellyfitness.util.ParcelKeys.PK_POST_DAY
+import com.raykellyfitness.util.ParcelKeys.PK_POST_ID
+import com.raykellyfitness.util.ParcelKeys.PK_POST_TYPE
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
@@ -89,9 +92,9 @@ class TipsAndTricksFragment : BaseFragment() {
         if (type.equals(POST_TYPE_BLOG) || type.equals(POST_TYPE_EXERCISE)) {
             adapter = TipsAdapterOuter(type, R.layout.row_tips_outer) { model, modelOuter ->
                 navigate(R.id.TipsDetailFragment,
-                         Pair("id", model.id),
-                         Pair("type", type),
-                         Pair("typeName", modelOuter.day))
+                         Pair(PK_POST_ID, model.id),
+                         Pair(PK_POST_TYPE, type),
+                         Pair(PK_POST_DAY, modelOuter.day))
             }
             mBinding.recyclerOuterMeal.adapter = adapter
         }

@@ -81,7 +81,6 @@ class SettingsFragment : BaseFragment() {
             when (requestCode) {
 
                 DeviceRuntimePermission.REQUEST_PERMISSION_ACCESS_COARSE__FINE_LOCATION_CAMERA -> {
-                    findNavController().navigate(R.id.ScanQRCodeFragment)
                 }
             }
         }

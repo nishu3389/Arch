@@ -36,7 +36,7 @@ class AddBloodPressureFragment : BaseFragment(), OnChartValueSelectedListener {
         setupViewModel()
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         mBinding = FragmentAddBloodPressureBinding.inflate(inflater, container, false).apply {
             viewModel = mViewModel
 
@@ -91,9 +91,9 @@ class AddBloodPressureFragment : BaseFragment(), OnChartValueSelectedListener {
 
     override fun onValueSelected(e: Entry?, h: Highlight?) {
         mBinding.chart1.centerViewToAnimated(
-            e!!.x, e.y, mBinding.chart1.getData().getDataSetByIndex(
+            e!!.x, e.y, mBinding.chart1.data.getDataSetByIndex(
                 h!!.dataSetIndex
-            ).getAxisDependency(), 500
+            ).axisDependency, 500
         )
     }
     override fun onNothingSelected() {}

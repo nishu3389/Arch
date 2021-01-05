@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
 
@@ -33,7 +31,7 @@
 
                 <com.raykellyfitness.views.CommonTextView
                     android:id="@+id/tv_weight"
-                    android:text="Weight"
+                    android:text="@string/weight"
                     style="@style/HeathTabText"
                     android:background="@drawable/health_tab_bg"
                     android:textColor="@color/white"
@@ -41,12 +39,12 @@
 
                 <com.raykellyfitness.views.CommonTextView
                     android:id="@+id/tv_blood_sugar"
-                    android:text="Blood Sugar"
+                    android:text="@string/blood_sugar"
                     style="@style/HeathTabText"/>
 
                 <com.raykellyfitness.views.CommonTextView
                     android:id="@+id/tv_blood_pressure"
-                    android:text="Blood Pressure"
+                    android:text="@string/blood_pressure"
                     style="@style/HeathTabText"/>
 
             </LinearLayout>

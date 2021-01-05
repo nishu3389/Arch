@@ -53,11 +53,7 @@ class AppLocationService(context: Context) : Service(),
             context,
             Manifest.permission.ACCESS_FINE_LOCATION
         )
-        return if (result == PackageManager.PERMISSION_GRANTED) {
-            true
-        } else {
-            false
-        }
+        return result == PackageManager.PERMISSION_GRANTED
     } /*
     public void requestLocationPermission() {
         ActivityCompat.requestPermissions(context, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);

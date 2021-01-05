@@ -188,7 +188,7 @@ class Prefs {
         get() {
             val sF = MainApplication.get().getContext()
                 .getSharedPreferences(PREF_NAME_GLOBAL, MODE_PRIVATE)
-            return sF.getInt(PREF_CHECK_LIST_PERCENT, 0) ?: 0
+            return sF.getInt(PREF_CHECK_LIST_PERCENT, 0)
         }
         set(value) {
             val sF = MainApplication.get().getContext()

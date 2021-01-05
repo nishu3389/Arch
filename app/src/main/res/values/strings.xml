@@ -4,11 +4,10 @@
     <string name="menu_home">Home</string>
     <string name="err_mobile_missing">Contact number should be between 7 to 15 Digit</string>
     <string name="err_country_code_length">Country code should be between 1 to 3 Digit</string>
-    <string name="err_mobile_format">Contact number format should be like: +61-1234567890</string>
+    <string name="err_mobile_format">Contact number format should be like: +61–1234567890</string>
     <string name="err_mobile_invalid">Contact number is not valid</string>
     <!--Validation : Login-->
     <string name="err_email_missing">Please enter your email Id.</string>
-    <string name="err_email_or_phone_missing">Please enter an email id or mobile number</string>
     <string name="err_password_missing">Please enter password.</string>
     <string name="err_cpassword_missing">Please enter Confirm password</string>
 
@@ -49,7 +48,6 @@
     <string name="gps_network_not_enabled">GPS location not enabled</string>
     <string name="service_not_available">Service Not Available</string>
     <string name="invalid_lat_long_used">Invalid lat long</string>
-    <string name="address">Address</string>
 
     <string name="Cancel">Cancel</string>
 
@@ -67,12 +65,8 @@
     <string name="login">Login</string>
     <string name="welcome_to">Welcome to</string>
     <string name="login_message">RAY KELLY Fitness Customer Login!</string>
-    <string name="checklist">Checklist</string>
-    <string name="_3u_agent">3U Agent</string>
 
     <string name="profile">Profile</string>
-    <string name="sales_profile">Sales Profile</string>
-    <string name="redeem_free_boxes">Redeem Free Boxes</string>
 
     <string name="msg_permission_justification">%1$s is required %2$s\n\nPlease consider granting the permission to proceed.</string>
 
@@ -139,9 +133,55 @@
     <string name="_10_days_meal_plan">10 days meal plan</string>
     <string name="purchase_subscriptions">Purchase Subscriptions</string>
     <string name="continue_to_purchase">Continue to purchase</string>
-    <string name="slider_2_msg_2">If you haven\'t been exercising recently, just start with 20-30 minutes of walking each day.</string>
-    <string name="from_date">yyyy-MM-dd hh:mm:ss</string>
+    <string name="slider_2_msg_2">If you haven\'t been exercising recently, just start with 20–30 minutes of walking each day.</string>
     <string name="to_date">EEEE dd MMM, yyyy</string>
     <string name="manage_subscriptions"><u>Manage Subscriptions</u></string>
+    <string name="title">Title</string>
+    <string name="home">Home</string>
+    <string name="health">Health</string>
+    <string name="notification">Notification</string>
+    <string name="settings">Settings</string>
+    <string name="enter_blood_sugar_text">Enter your blood pressure level</string>
+    <string name="systolic_mmhg">Systolic (mmHg)</string>
+    <string name="diastolic_mmhg">Diastolic (mmHg)</string>
+
+    <string name="enter_your_sugar_level">Enter your sugar level</string>
+    <string name="fasting_mmol_l">Fasting (mmol/L)</string>
+    <string name="post_fasting_mmol_l">Post Fasting (mmol/L)</string>
+
+    <string name="bmi_27_8_overweight">BMI = 27.8 (Overweight)</string>
+    <string name="enter_your_weight_and_height">Enter your Weight and Height</string>
+    <string name="weight_kg">Weight (KG)</string>
+    <string name="height_cm">Height (CM)</string>
+    <string name="add">ADD</string>
+    <string name="old_password">Old Password</string>
+    <string name="new_password">New Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="weight">Weight</string>
+    <string name="blood_sugar">Blood Sugar</string>
+    <string name="blood_pressure">Blood Pressure</string>
+    <string name="meal_plan">Meal Plan</string>
+    <string name="user_email">User Email</string>
+    <string name="name">Name</string>
+    <string name="email">Email</string>
+    <string name="height">Height</string>
+    <string name="address">Address</string>
+    <string name="otp">OTP</string>
+    <string name="enter_otp">Enter OTP</string>
+    <string name="enter_new_password">Enter new password</string>
+    <string name="confimr_password">Confimr Password</string>
+    <string name="john_kerry">John Kerry</string>
+    <string name="logout">Logout</string>
+    <string name="app_version_v1_0">App Version v1.0</string>
+    <string name="no_record_found">No record found</string>
+    <string name="skip">Skip</string>
+    <string name="next">Next</string>
+    <string name="systolic">Systolic:</string>
+    <string name="diastolic">Diastolic:</string>
+    <string name="fasting">Fasting:</string>
+    <string name="post_fasting">Post Fasting:</string>
+    <string name="welcome">Welcome!</string>
+    <string name="weight_">Weight:</string>
+    <string name="height_">Height:</string>
 
 </resources>

@@ -22,12 +22,7 @@ import static com.raykellyfitness.util.Constant.STRIPE_PUBLISHABLE_KEY;
 
 public class UtilJava {
     void jm(BottomNavigationView navigationView){
-        navigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                return false;
-            }
-        });
+        navigationView.setOnNavigationItemSelectedListener(item -> false);
     }
 
     // ("US","USD","000123456789", BankAccountTokenParams.Type.Individual,"Avinash","110000000");

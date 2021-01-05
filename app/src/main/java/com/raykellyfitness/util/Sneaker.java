@@ -638,14 +638,11 @@ public class Sneaker implements View.OnClickListener {
         if (mAutoHide) {
             Handler handler = new Handler();
             handler.removeCallbacks(null);
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        getLayout().startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.popup_hide));
-                        viewGroup.removeView(getLayout());
-                    }catch (Exception e){e.printStackTrace();}
-                }
+            handler.postDelayed(() -> {
+                try {
+                    getLayout().startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.popup_hide));
+                    viewGroup.removeView(getLayout());
+                }catch (Exception e){e.printStackTrace();}
             }, mDuration);
         }
     }

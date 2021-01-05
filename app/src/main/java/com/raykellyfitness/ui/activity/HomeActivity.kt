@@ -133,7 +133,7 @@ class HomeActivity : BaseActivity(), NavController.OnDestinationChangedListener,
         }
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         mBinding.apply {
-            toolbar.setTitle("")
+            toolbar.title = ""
             setSupportActionBar(toolbar)
         }
 
@@ -210,7 +210,7 @@ class HomeActivity : BaseActivity(), NavController.OnDestinationChangedListener,
     }
 
     override fun setTitle(title: CharSequence?) {
-        mBinding.tvTitle.setText(title)
+        mBinding.tvTitle.text = title
     }
 
     @SuppressLint("MissingSuperCall")
@@ -235,7 +235,7 @@ class HomeActivity : BaseActivity(), NavController.OnDestinationChangedListener,
         when (requestCode) {
 
             DeviceRuntimePermission.REQUEST_PERMISSION_ACCESS_COARSE__FINE_LOCATION_CAMERA -> {
-                navController.navigate(R.id.ScanQRCodeFragment)
+
             }
         }
     }
