@@ -1,4 +1,4 @@
-package com.github.aakira.hilt.di.qualifiers
+package com.raykellyfitness.di.qualifiers
 
 import javax.inject.Qualifier
 

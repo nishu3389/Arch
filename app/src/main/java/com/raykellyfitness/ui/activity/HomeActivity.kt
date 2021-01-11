@@ -123,7 +123,6 @@ class HomeActivity : BaseActivity(), NavController.OnDestinationChangedListener,
     }
 
     private fun initWork() {
-        MainApplication.setInstance(this)
         context = this
         intent?.let {
             if (intent != null && intent.extras != null && intent.extras!!.containsKey(Constant.BEAN)) {

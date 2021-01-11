@@ -498,8 +498,7 @@ class Util {
                 Sneaker.with(context as Activity)
                     .setTitle("Success!")
                     .setMessage(msg)
-                    .setTypeface(Typeface.createFromAsset(context.getAssets(),
-                                                          "fonts/poppins_semibold.ttf"))
+                    .setTypeface(Typeface.createFromAsset(context.getAssets(), "fonts/poppins_semibold.ttf"))
                     .sneakSuccess()
             } catch (e: java.lang.Exception) {
                 e.printStackTrace()
@@ -510,23 +509,18 @@ class Util {
             Sneaker.with(context as Activity)
                 .setTitle("Alert")
                 .setMessage(msg)
-                .setTypeface(Typeface.createFromAsset(context.getAssets(),
-                                                      "fonts/poppins_semibold.ttf"))
+                .setTypeface(Typeface.createFromAsset(context.getAssets(), "fonts/poppins_semibold.ttf"))
                 .sneakWarning()
             vibrate(context, 200)
         }
 
-        fun convertPixelsToDp(px: Float): Float {
-            return px / (MainApplication.getActivityInstance().resources?.displayMetrics?.densityDpi!!.toFloat() / DisplayMetrics.DENSITY_DEFAULT)
-        }
 
         fun showWarningSneaker(context: Context, msg: String?, view: View?) {
             Sneaker.with(context as Activity)
                 .setTitle("Alert")
                 .setMessage(msg, R.color.white)
                 .setIcon(R.drawable.ic_warning)
-                .setTypeface(Typeface.createFromAsset(context.getAssets(),
-                                                      "fonts/poppins_semibold.ttf"))
+                .setTypeface(Typeface.createFromAsset(context.getAssets(), "fonts/poppins_semibold.ttf"))
                 .sneakError()
             YoYo.with(Techniques.Shake).duration(500).playOn(view)
             vibrate(context, 200)
@@ -534,8 +528,7 @@ class Util {
 
 
         fun vibrate(context: Context, millis: Long) {
-            val v =
-                context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+            val v = context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
             // Vibrate for 500 milliseconds
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 v.vibrate(VibrationEffect.createOneShot(millis, VibrationEffect.DEFAULT_AMPLITUDE))

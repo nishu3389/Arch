@@ -9,10 +9,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
-import android.os.Build
-import android.os.SystemClock
-import android.os.VibrationEffect
-import android.os.Vibrator
+import android.os.*
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
@@ -35,11 +32,6 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
-import com.androidnetworking.AndroidNetworking
-import com.androidnetworking.common.Priority
-import com.androidnetworking.error.ANError
-import com.androidnetworking.interfaces.JSONObjectRequestListener
-import com.binaryfork.spanny.Spanny
 import com.bumptech.glide.Glide
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
@@ -273,7 +265,7 @@ fun ImageView.loadImage(con: Context, url: String?) {
 }
 
 fun String.toast() {
-    MainApplication.getActivityInstance().runOnUiThread {
+    Handler(Looper.getMainLooper()).post {
         val inflater = MainApplication.get().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val layout = inflater.inflate(R.layout.layout_toast_custom, null, false)
         val tv = layout.findViewById(R.id.txtvw) as TextView
@@ -286,30 +278,31 @@ fun String.toast() {
     }
 }
 
-fun String.showWarning() {
-    MainApplication.getActivityInstance().let {
-        Util.showWarningSneaker(it, this)
-    }
-}
 
 fun String.log() {
-    Log.d(MainApplication.getActivityInstance().packageName, this)
+    Log.d(MainApplication.get().packageName, this)
+}
+
+
+fun String.openInBrowser() {
+    MainApplication.get().globalObservers.openInBrowserLiveData?.value = this
+}
+
+fun String.showWarning() {
+    MainApplication.get().globalObservers.warningAlertLiveData?.value = this
 }
 
 fun String.showSuccess() {
-    MainApplication.getActivityInstance().let {
-        Util.showSuccessSneaker(it, this)
-    }
+    MainApplication.get().globalObservers.successAlertLiveData?.value = this
 }
 
 fun String.showError() {
-    MainApplication.getActivityInstance().let {
-        Util.showErrorSneaker(it, this)
-    }
+    MainApplication.get().globalObservers.errorAlertLiveData?.value = this
 }
 
+
 fun String.showWarning(view: View) {
-    Util.showWarningSneaker(MainApplication.getActivityInstance(), this, view)
+    Util.showWarningSneaker(MainApplication.get(), this, view)
 }
 
 fun View.push(clickListener: View.OnClickListener) {
@@ -374,15 +367,17 @@ fun View.gone() {
     this.visibility = View.GONE
 }
 
+/*
 fun Context.titleWithLogo(str: Int): Spanny? {
     return Spanny("")
         .append(" ".plus(this.getString(str)), ImageSpan(this, R.mipmap.launcher))
 }
+*/
 
-fun Context.highlight(str: String): Spanny? {
+/*fun Context.highlight(str: String): Spanny? {
     return Spanny("")
         .append(str, UnderlineSpan(), ForegroundColorSpan(Color.RED))
-}
+}*/
 
 fun EditText.enable(bool: Boolean) {
     this.isFocusable = bool
@@ -502,10 +497,6 @@ fun String.isNotEmptyy(): Boolean {
     return true
 }
 
-fun String.openInBrowser() {
-    val intent = Intent(Intent.ACTION_VIEW).setData(Uri.parse(this))
-    MainApplication.getActivityInstance().startActivity(intent)
-}
 
 fun String.isNumber(): Boolean {
     return try {
@@ -558,6 +549,8 @@ fun <F : Fragment> AppCompatActivity.getCurrentFragment(fragmentClass: Class<F>)
     return null
 }
 
+
+/*
 fun String.sendToServer() {
 
     if (Prefs.get().loginData != null) {
@@ -590,6 +583,7 @@ fun String.sendToServer() {
             })
     }
 }
+*/
 
 fun View.touch() {
     val downTime: Long = SystemClock.uptimeMillis()
@@ -613,25 +607,25 @@ fun View.touch() {
 fun String.sendNotification() {
 
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-        val name = MainApplication.getActivityInstance().getString(R.string.channel_name)
-        val description = MainApplication.getActivityInstance().getString(R.string.channel_description)
+        val name = MainApplication.get().getString(R.string.channel_name)
+        val description = MainApplication.get().getString(R.string.channel_description)
         val importance = NotificationManager.IMPORTANCE_DEFAULT
         val channel = NotificationChannel(
-            MainApplication.getActivityInstance().getString(R.string.channel_id), name, importance
+            MainApplication.get().getString(R.string.channel_id), name, importance
         )
         channel.description = description
         // Register the channel with the system; you can't change the importance
         // or other notification behaviors after this
-        val notificationManager = MainApplication.getActivityInstance().getSystemService(
+        val notificationManager = MainApplication.get().getSystemService(
             NotificationManager::class.java
         )
         notificationManager!!.createNotificationChannel(channel)
     }
 
-    val notifyIntent = Intent(MainApplication.getActivityInstance(), HomeActivity::class.java)
+    val notifyIntent = Intent(MainApplication.get(), HomeActivity::class.java)
     notifyIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
     var notifyPendingIntent = PendingIntent.getActivity(
-        MainApplication.getActivityInstance(),
+        MainApplication.get(),
         0,
         notifyIntent,
         PendingIntent.FLAG_UPDATE_CURRENT
@@ -639,7 +633,7 @@ fun String.sendNotification() {
 
 
     val mBuilder = NotificationCompat.Builder(
-        MainApplication.getActivityInstance(), MainApplication.getActivityInstance().getString(
+        MainApplication.get(), MainApplication.get().getString(
             R.string.channel_id
         )
     )
@@ -651,7 +645,7 @@ fun String.sendNotification() {
         //.setLargeIcon(bmp)
         .setColor(
             ContextCompat.getColor(
-                MainApplication.getActivityInstance(),
+                MainApplication.get(),
                 R.color.colorPrimary
             )
         )
@@ -661,14 +655,14 @@ fun String.sendNotification() {
     /* to remove notification after click*/
     mBuilder.flags = mBuilder.flags or Notification.FLAG_AUTO_CANCEL
 
-    val notificationManager = NotificationManagerCompat.from(MainApplication.getActivityInstance())
+    val notificationManager = NotificationManagerCompat.from(MainApplication.get())
     notificationManager.notify(System.currentTimeMillis().toInt(), mBuilder)
 
 }
 
 fun vibrate(millis: Long) {
     val v =
-        MainApplication.getActivityInstance().getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+        MainApplication.get().getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
     // Vibrate for 500 milliseconds
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
         v.vibrate(

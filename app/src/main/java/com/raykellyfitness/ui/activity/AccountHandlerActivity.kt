@@ -24,7 +24,6 @@ class AccountHandlerActivity : BaseActivity() {
         mBinding = DataBindingUtil.setContentView(this, com.raykellyfitness.R.layout.activity_account_handler)
         navController = setNavigationController()
 
-        MainApplication.setInstance(this)
         if (!Prefs.get().isIntroShown)
             navController.navigate(R.id.IntroSliderFragment)
         else

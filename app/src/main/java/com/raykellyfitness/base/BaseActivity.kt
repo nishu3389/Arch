@@ -26,9 +26,10 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.findNavController
+import androidx.lifecycle.observe
 import com.akexorcist.localizationactivity.core.LocalizationActivityDelegate
 import com.akexorcist.localizationactivity.core.OnLocaleChangedListener
 import com.raykellyfitness.R
@@ -61,14 +62,23 @@ abstract class BaseActivity : AnotherBaseActivity(), CommonCallbacks, OnLocaleCh
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN or WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
         setupBasics()
         setStatusBarColor("#F5333F")
+
+        manageGlobalObservers()
+
     }
 
-    fun setStatusBarColor(color : String) {
-        Util.updateStatusBarColor(color,this as FragmentActivity)
+    private fun manageGlobalObservers() {
+        MainApplication.get().globalObservers.manageGlobalObservers(this@BaseActivity)
+    }
+
+    fun setStatusBarColor(color: String) {
+        Util.updateStatusBarColor(color, this as FragmentActivity)
     }
 
     private fun setupBasics() {
-        mBaseViewModel = ViewModelProviders.of(this, MyViewModelProvider(this as AsyncViewController)).get(BaseActivityViewModel::class.java)
+        mBaseViewModel = ViewModelProviders.of(this,
+                                               MyViewModelProvider(this as AsyncViewController)).get(
+            BaseActivityViewModel::class.java)
         setObservers()
     }
 
@@ -81,13 +91,15 @@ abstract class BaseActivity : AnotherBaseActivity(), CommonCallbacks, OnLocaleCh
     }
 
     override fun showProgressDialog() {
-        if (mBaseViewModel.progressDialogStatus.value == null || !mBaseViewModel.progressDialogStatus.value.equals("_show")) {
+        if (mBaseViewModel.progressDialogStatus.value == null || !mBaseViewModel.progressDialogStatus.value.equals(
+                "_show")) {
             mBaseViewModel.progressDialogStatus.value = "_show"
         }
     }
 
     override fun hideProgressDialog() {
-        if (mBaseViewModel.progressDialogStatus.value == null || !mBaseViewModel.progressDialogStatus.value.equals("_hide")) {
+        if (mBaseViewModel.progressDialogStatus.value == null || !mBaseViewModel.progressDialogStatus.value.equals(
+                "_hide")) {
             mBaseViewModel.progressDialogStatus.value = "_hide"
         }
     }
@@ -150,24 +162,20 @@ abstract class BaseActivity : AnotherBaseActivity(), CommonCallbacks, OnLocaleCh
                 aD!!.window?.setBackgroundDrawableResource(R.drawable.bg_white_updates)
 
                 dialogBinding.btnYes.push()?.setOnClickListener {
-                    mBaseViewModel.alertDialogSpecs.alertDialogBtnListener?.onClick(
-                        aD,
-                        DialogInterface.BUTTON_POSITIVE
-                    )
+                    mBaseViewModel.alertDialogSpecs.alertDialogBtnListener?.onClick(aD,
+                                                                                    DialogInterface.BUTTON_POSITIVE)
                     aD?.dismiss()
                 }
                 dialogBinding.btnNo.push()?.setOnClickListener {
-                    mBaseViewModel.alertDialogSpecs.alertDialogBtnListener?.onClick(
-                        aD,
-                        DialogInterface.BUTTON_NEGATIVE
-                    )
+                    mBaseViewModel.alertDialogSpecs.alertDialogBtnListener?.onClick(aD,
+                                                                                    DialogInterface.BUTTON_NEGATIVE)
                     aD?.dismiss()
                 }
 
 
                 aD!!.show()
-                var button : Button
-                button= aD?.getButton(DialogInterface.BUTTON_POSITIVE)!!
+                var button: Button
+                button = aD?.getButton(DialogInterface.BUTTON_POSITIVE)!!
 
                 button.setBackgroundResource(R.color.white)
                 mBaseViewModel.alertDialogController.value = null
@@ -191,10 +199,15 @@ abstract class BaseActivity : AnotherBaseActivity(), CommonCallbacks, OnLocaleCh
     override fun showAlertDialog(msg: String, btnListener: DialogInterface.OnClickListener?) {
         mBaseViewModel.alertDialogSpecs = AlertDialogSpecs()
         mBaseViewModel.alertDialogSpecs.alertDialogBtnListener = btnListener
-        mBaseViewModel.alertDialogController.value =  if(!msg.isEmptyy()) msg.trim() else getString(R.string.something_went_wrong)
+        mBaseViewModel.alertDialogController.value =  if(!msg.isEmptyy()) msg.trim() else getString(
+            R.string.something_went_wrong)
     }
 
-    override fun showAlertDialog(title: String, msg: String, btnPosTxt: String, btnNegTxt: String, btnListener: DialogInterface.OnClickListener?) {
+    override fun showAlertDialog(title: String,
+                                 msg: String,
+                                 btnPosTxt: String,
+                                 btnNegTxt: String,
+                                 btnListener: DialogInterface.OnClickListener?) {
         mBaseViewModel.alertDialogSpecs = AlertDialogSpecs()
         mBaseViewModel.alertDialogSpecs.title = title
         mBaseViewModel.alertDialogSpecs.btnPos = btnPosTxt
@@ -227,11 +240,14 @@ abstract class BaseActivity : AnotherBaseActivity(), CommonCallbacks, OnLocaleCh
     override fun onApiCallFailed(apiUrl: String, errCode: Int, errorMessage: String): Boolean {
 
         when(errCode){
-            SESSION_EXPIRED -> showAlertDialog("Your session has been expired. Please login now.", DialogInterface.OnClickListener { _, _ -> onLogOutSuccess() })
+            SESSION_EXPIRED -> showAlertDialog("Your session has been expired. Please login now.",
+                                               DialogInterface.OnClickListener { _, _ -> onLogOutSuccess() })
 
             SUBSCRIPTION_EXPIRED -> getCurrentFragment(BaseFragment::class.java)?.onSubscriptionExpired()
 
-            else -> if (getCurrentFragment(BaseFragment::class.java)?.onApiRequestFailed(apiUrl, errCode, errorMessage) == false)
+            else -> if (getCurrentFragment(BaseFragment::class.java)?.onApiRequestFailed(apiUrl,
+                                                                                         errCode,
+                                                                                         errorMessage) == false)
                     showAlertDialog(errorMessage, null)
         }
 
@@ -241,7 +257,8 @@ abstract class BaseActivity : AnotherBaseActivity(), CommonCallbacks, OnLocaleCh
     private fun onLogOutSuccess() {
 
         Prefs.get().clear()
-        startActivity(Intent(this, SplashActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK))
+        startActivity(Intent(this,
+                             SplashActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK))
         finish()
     }
 
@@ -306,10 +323,7 @@ abstract class BaseActivity : AnotherBaseActivity(), CommonCallbacks, OnLocaleCh
         }
         val results = ArrayList<String>()
         for (s in runtimePermission.permission) {
-            if (ContextCompat.checkSelfPermission(
-                    applicationContext,
-                    s
-                ) != PackageManager.PERMISSION_GRANTED
+            if (ContextCompat.checkSelfPermission(applicationContext, s) != PackageManager.PERMISSION_GRANTED
             ) {
                 results.add(s)
             }
@@ -353,7 +367,9 @@ abstract class BaseActivity : AnotherBaseActivity(), CommonCallbacks, OnLocaleCh
     }
 
     @TargetApi(Build.VERSION_CODES.M)
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(requestCode: Int,
+                                            permissions: Array<String>,
+                                            grantResults: IntArray) {
         val grantedPermissions =
             ArrayList<String>()
         var i = 0
@@ -365,20 +381,22 @@ abstract class BaseActivity : AnotherBaseActivity(), CommonCallbacks, OnLocaleCh
                 if (!showRationale) {
                     if (permission != Manifest.permission.ACCESS_COARSE_LOCATION) {
                         getPermissionDialogContent(permission)?.let {
-                            showRequestPermissionAlert(
-                                "Permission Required !!", it,
-                                true, permission, requestCode
-                            )
+                            showRequestPermissionAlert("Permission Required !!",
+                                                       it,
+                                                       true,
+                                                       permission,
+                                                       requestCode)
                         }
                     }
                     isShowRequestAlert = false
 
                 } else if (permission != Manifest.permission.ACCESS_COARSE_LOCATION) {
                     getPermissionDialogContent(permission)?.let {
-                        showRequestPermissionAlert(
-                            "Permission Required !!", it,
-                            false, permission, requestCode
-                        )
+                        showRequestPermissionAlert("Permission Required !!",
+                                                   it,
+                                                   false,
+                                                   permission,
+                                                   requestCode)
                     }
                 }
                 // user denied WITHOUT never ask again
@@ -396,7 +414,11 @@ abstract class BaseActivity : AnotherBaseActivity(), CommonCallbacks, OnLocaleCh
     }
 
     private var isShowRequestAlert = false
-    private  fun showRequestPermissionAlert(title: String, message: String, isNeverAskAgainChecked: Boolean, permission: String, reqCode: Int) {
+    private  fun showRequestPermissionAlert(title: String,
+                                            message: String,
+                                            isNeverAskAgainChecked: Boolean,
+                                            permission: String,
+                                            reqCode: Int) {
         var btnText = ""
         btnText = if (isNeverAskAgainChecked) {
             "Go to Settings"
@@ -407,9 +429,7 @@ abstract class BaseActivity : AnotherBaseActivity(), CommonCallbacks, OnLocaleCh
             android.app.AlertDialog.Builder(this, R.style.AlertDialogTheme)
         builder.setTitle(title)
         builder.setMessage(message)
-        builder.setPositiveButton(
-            btnText
-        ) { dialog: DialogInterface?, which: Int ->
+        builder.setPositiveButton(btnText) { dialog: DialogInterface?, which: Int ->
             if (isNeverAskAgainChecked) {
                 isShowRequestAlert = true
                 val intent =
@@ -422,9 +442,7 @@ abstract class BaseActivity : AnotherBaseActivity(), CommonCallbacks, OnLocaleCh
                 requestPermission(arrayOf(permission), reqCode)
             }
         }
-        builder.setNegativeButton(
-            "Cancel"
-        ) { dialog: DialogInterface, which: Int ->
+        builder.setNegativeButton("Cancel") { dialog: DialogInterface, which: Int ->
             isShowRequestAlert = true
             dialog.dismiss()
         }

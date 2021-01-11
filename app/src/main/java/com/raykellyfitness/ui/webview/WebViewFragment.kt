@@ -93,7 +93,7 @@ class WebViewFragment : BaseFragment(), IPermissionGranted {
             url = it?.getString("url")
         }
 
-        (activity as HomeActivity).title = context?.titleWithLogo(R.string.setup_bank_account)
+//        (activity as HomeActivity).title = context?.titleWithLogo(R.string.setup_bank_account)
 
         setHasOptionsMenu(false)
     }

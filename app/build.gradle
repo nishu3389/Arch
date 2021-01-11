@@ -48,7 +48,7 @@ android {
     }
 
     lintOptions {
-        checkReleaseBuilds false
+        checkReleaseBuilds true
         // Or, if you prefer, you can continue to check for errors in release builds,
         // but continue the build even when errors are found:
         abortOnError false
@@ -98,17 +98,13 @@ dependencies {
     implementation 'joda-time:joda-time:2.9.1'
     implementation 'com.akexorcist:localizationactivity:1.2.2'
     implementation 'com.google.android.gms:play-services-location:17.0.0'
-    implementation 'de.hdodenhof:circleimageview:3.0.1'
+//    implementation 'de.hdodenhof:circleimageview:3.0.1'
 
     //implementation 'com.github.dhaval2404:imagepicker-support:1.5'
-    implementation 'com.github.yalantis:ucrop:2.2.4-native'
-
-    implementation 'com.github.yalantis:ucrop:2.2.2'
     implementation 'com.google.android.gms:play-services-auth:18.0.0'
 
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
     implementation 'com.google.android.libraries.places:places:2.2.0'
-    implementation 'com.makeramen:roundedimageview:2.3.0'
     implementation 'com.google.firebase:firebase-messaging:20.1.0'
 
 
@@ -116,15 +112,14 @@ dependencies {
     implementation 'com.google.android.gms:play-services-auth:18.0.0'
 
 
-    implementation 'com.binaryfork:spanny:1.0.4'
-    implementation 'com.afollestad.material-dialogs:core:3.3.0'
     implementation 'androidx.core:core-ktx:1.5.0-alpha01'
-    implementation 'com.github.ittianyu:BottomNavigationViewEx:2.0.4'
-    implementation 'com.eightbitlab:bottomnavigationbar:0.9.6'
-//    implementation 'com.github.mukeshsolanki:android-otpview-pinview:2.1.0'
-//    implementation 'com.github.GoodieBag:Pinview:v1.4'
-    implementation 'com.chaos.view:pinview:1.4.3'
+//    implementation 'com.github.ittianyu:BottomNavigationViewEx:2.0.4'
     implementation 'androidx.core:core:1.3.0'
+//    implementation 'com.stripe:stripe-android:14.5.0'
+//    implementation 'com.amitshekhar.android:android-networking:1.0.2'
+//    implementation 'com.rishabhharit.roundedimageview:RoundedImageView:0.8.4'
+//    implementation 'com.afollestad.material-dialogs:core:3.3.0''com.binaryfork:spanny:1.0.4'
+
     implementation 'com.daimajia.easing:library:2.0@aar'
     implementation 'com.daimajia.androidanimations:library:2.3@aar'
     implementation 'com.vistrav:pop:2.3'
@@ -135,25 +130,27 @@ dependencies {
     debugImplementation "com.github.chuckerteam.chucker:library:3.3.0"
     releaseImplementation "com.github.chuckerteam.chucker:library-no-op:3.3.0"
     implementation 'com.mikhaellopez:hfrecyclerview-kotlin:1.1.1'
-    implementation 'com.stripe:stripe-android:14.5.0'
     implementation 'com.intuit.ssp:ssp-android:1.0.6'
     implementation 'gun0912.ted:tedpermission:2.2.3'
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
     implementation 'jp.wasabeef:picasso-transformations:2.2.1'
-    implementation 'com.amitshekhar.android:android-networking:1.0.2'
-    implementation 'com.rishabhharit.roundedimageview:RoundedImageView:0.8.4'
-    implementation "com.phelat:navigationresult:1.0.1"
-
     implementation "com.google.dagger:hilt-android:2.28-alpha"
     kapt "com.google.dagger:hilt-android-compiler:2.28-alpha"
-    implementation 'id.zelory:compressor:3.0.0'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.9'
-    implementation 'com.romandanylyk:pageindicatorview:1.0.3'
-    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
-    implementation 'com.github.RohitSurwase.UCE-Handler:uce_handler:1.4'
+    implementation "com.phelat:navigationresult:1.0.1"
     implementation 'com.github.JarvanMo:ExoVideoView:2.1.6'
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
     implementation 'org.sufficientlysecure:html-textview:4.0'
     implementation 'com.android.billingclient:billing:3.0.1'
-    implementation 'com.anjlab.android.iab.v3:library:1.0.44'
+    implementation 'com.romandanylyk:pageindicatorview:1.0.3'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.9'
+    implementation 'id.zelory:compressor:3.0.0'
+    implementation 'com.github.yalantis:ucrop:2.2.4-native'
+    implementation 'com.github.yalantis:ucrop:2.2.2'
+    implementation 'com.makeramen:roundedimageview:2.3.0'
+//    implementation 'com.binaryfork:spanny:1.0.4'
+//    implementation 'com.eightbitlab:bottomnavigationbar:0.9.6'
+//    implementation 'com.github.RohitSurwase.UCE-Handler:uce_handler:1.4'
+//    implementation 'com.anjlab.android.iab.v3:library:1.0.44'
+//    implementation 'com.chaos.view:pinview:1.4.3'
 }

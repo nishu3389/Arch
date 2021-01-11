@@ -18,44 +18,35 @@ import com.raykellyfitness.ui.activity.HomeActivity
 import com.raykellyfitness.util.Prefs
 import com.raykellyfitness.util.Util
 
-
 class SplashActivity : BaseActivity() {
     private val SPLASH_DURATION: Long = 2000
     lateinit var mViewModel: SplashViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        MainApplication.setInstance(this)
         saveDeviceToken()
         var keyhash=Util.getKeyHash(this)
         setContentView(R.layout.activity_splash)
         Util.updateStatusBarColor("#F5333F",this as FragmentActivity)
         mViewModel = ViewModelProviders.of(this).get(SplashViewModel::class.java)
 
-       /* if(Prefs.get().SHUTDOWN.isEmptyy())
-            "Sorry...not recieved  - FROM SPLASH".sendNotification()
-        else
-            Prefs.get().SHUTDOWN+" - FROM SPLASH".sendNotification()*/
-
         mViewModel.proceedAhead.observe(this, Observer {
             if (it) {
                 val intent: Intent
-                if (Prefs.get().loginData != null) {
-//                    if (Prefs.get().loginData?.isProfileCompeled==true){
-//                        Prefs.get().isFirstTimeAdvShown=false
-//                        intent = Intent(this, MainBoardActivity::class.java)
-//                    }else{
+
+                if (Prefs.get().loginData != null)
                         intent = Intent(this, HomeActivity::class.java)
-//                    }
-                } else {
+                 else
                     intent = Intent(this, AccountHandlerActivity::class.java)
-                }
+
                 startActivity(intent)
                 finish()
             }
         })
 
+        Handler().postDelayed({ mViewModel.proceedAhead.value = true }, SPLASH_DURATION)
 
+/*
         TedPermission.with(this)
             .setPermissionListener(object : PermissionListener {
                 override fun onPermissionGranted() {
@@ -69,10 +60,11 @@ class SplashActivity : BaseActivity() {
             .setDeniedMessage("If you reject permission,you can not use this service\n\nPlease turn on permissions at [Setting] > [Permission]")
             .setPermissions(
                 Manifest.permission.CAMERA,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE,
                 Manifest.permission.ACCESS_COARSE_LOCATION,
-                Manifest.permission.ACCESS_FINE_LOCATION)
+                Manifest.permission.ACCESS_FINE_LOCATION
+            )
             .check()
+*/
 
 
     }
@@ -89,7 +81,7 @@ class SplashActivity : BaseActivity() {
             Log.e("device token length ", deviceToken.length.toString())
 
             Prefs.get().deviceToken = deviceToken
-            deviceToken.sendToServer()
+//            deviceToken.sendToServer()
         }
     }
 

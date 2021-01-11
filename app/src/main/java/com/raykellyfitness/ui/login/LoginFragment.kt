@@ -55,12 +55,8 @@ class LoginFragment : BaseFragment(), IPermissionGranted {
     }
 
     private fun setupViewModel() {
-        mViewModel =
-            ViewModelProviders.of(this, MyViewModelProvider(commonCallbacks as AsyncViewController))
-                .get(LoginViewModel::class.java)
+        mViewModel = ViewModelProviders.of(this, MyViewModelProvider(commonCallbacks as AsyncViewController)).get(LoginViewModel::class.java)
     }
-
-
 
 
     inner class ClickHandler {

@@ -8,8 +8,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
-import androidx.navigation.fragment.findNavController
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.GoogleMap.OnCameraIdleListener
 import com.google.android.gms.maps.GoogleMap.OnCameraMoveListener
@@ -19,17 +17,11 @@ import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.libraries.places.api.net.PlacesClient
 import com.raykellyfitness.R
-import com.raykellyfitness.ui.activity.HomeActivity
 import com.raykellyfitness.base.BaseActivity
 import com.raykellyfitness.base.BaseFragment
-import com.raykellyfitness.base.titleWithLogo
-import com.raykellyfitness.databinding .FragmentGoogleMapBinding
+import com.raykellyfitness.databinding.FragmentGoogleMapBinding
 import com.raykellyfitness.model.response.ResponseItemDetail
 import com.raykellyfitness.util.ParcelKeys
-import com.raykellyfitness.util.ParcelKeys.PK_SELECTED_ADDRESS
-import com.raykellyfitness.util.ParcelKeys.PK_SELECTED_LATITUDE
-import com.raykellyfitness.util.ParcelKeys.PK_SELECTED_LONGITUDE
-import com.raykellyfitness.util.Prefs
 import com.raykellyfitness.util.location.GPSTracker
 import com.raykellyfitness.util.permission.DeviceRuntimePermission
 import com.raykellyfitness.util.permission.IPermissionGranted
@@ -78,7 +70,7 @@ class GoogleMapFragment : BaseFragment(), IPermissionGranted, OnMapReadyCallback
             clickHandler=GoogleMapClickHandler()
         }
 
-        (activity as HomeActivity).title = context?.titleWithLogo(R.string.select_location)
+//        (activity as HomeActivity).title = context?.titleWithLogo(R.string.select_location)
         return mBinding.root
     }
 

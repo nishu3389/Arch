@@ -25,10 +25,6 @@ import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.fragment.findNavController
-import com.androidnetworking.AndroidNetworking
-import com.androidnetworking.common.Priority
-import com.androidnetworking.error.ANError
-import com.androidnetworking.interfaces.JSONObjectRequestListener
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.jarvanmo.exoplayerview.media.SimpleMediaSource
@@ -414,64 +410,6 @@ open class BaseFragment : BundleFragment() {
         activity?.startActivityForResult(openURL, 987)
     }
 
-    fun showAdv(type: Int, imageView: ImageView, sectionId: Int){
-
-        var adv : AdvModel? = null
-
-        getAdvList(type)?.let {
-            if(it !=null && it.size>0 && it.isNotEmpty())
-                context?.let { con ->
-                    adv = it.random()
-                    imageView.setAdv(con, adv?.advertisementImage)
-                    imageView.push()?.setOnClickListener {
-                        adv?.advertisementURL?.let { adUrl -> onAdClick(adUrl) }
-                    }
-                }
-            else imageView.gone()
-
-        }?:run{
-            imageView.gone()
-        }
-
-        adv?.advertisementId?.let { callAdvCountApi(it, sectionId) }
-    }
-
-    fun callAdvCountApi(advId: Int, advSectionId: Int){
-
-        val headers = HashMap<String, String>()
-
-        headers["Content-Type"] = "application/json"
-        headers["ApiServiceToken"] = "U3System@2020"
-        headers["Offset"] = "1"
-        headers["AppVersion"] = "1.0"
-        headers["DeviceType"] = "2"
-
-        Prefs.get().loginData?.apply {
-            headers["Token"] = "$token"
-            headers["UserId"] = "$id"
-        }
-
-        AndroidNetworking.post(Api.BASE_URL + "PromotionAdvertisement/UpdateAdvertisementAccess")
-            .addHeaders(headers)
-            .addJSONObjectBody(
-                JSONObject().put("AdvertismentId", advId).put(
-                    "AdvertisementSectionId",
-                    advSectionId
-                )
-            )
-            .setTag("test")
-            .setPriority(Priority.MEDIUM)
-            .build()
-            .getAsJSONObject(object : JSONObjectRequestListener {
-                override fun onResponse(response: JSONObject?) {
-                    response.toString().log()
-                }
-
-                override fun onError(anError: ANError?) {
-                    anError?.toString()?.log()
-                }
-            })
-    }
 
 
     fun setClickable(

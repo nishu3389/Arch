@@ -15,7 +15,7 @@ import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.google.gson.Gson
 import com.raykellyfitness.R
-import com.raykellyfitness.base.sendToServer
+import com.raykellyfitness.base.toast
 import com.raykellyfitness.ui.activity.HomeActivity
 import com.raykellyfitness.util.Constant
 import com.raykellyfitness.util.Constant.NOTIFICATION_TYPE_SUBSCRIPTION
@@ -30,12 +30,13 @@ class FcmService : FirebaseMessagingService() {
         super.onNewToken(token)
         Log.e("device_token", token)
         Prefs.get().deviceToken = token
-        token.sendToServer()
+//        token.sendToServer()
     }
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         super.onMessageReceived(remoteMessage)
         Log.e("message receive", "receive")
+
         if (Prefs.get().loginData != null) {
             createNotificationChannel(remoteMessage)
         }

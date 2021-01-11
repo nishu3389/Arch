@@ -69,7 +69,7 @@ class GoogleMapActivity: BaseActivity(), IPermissionGranted, OnMapReadyCallback,
 
 
         mBinding=DataBindingUtil.setContentView(this,R.layout.activity_google_map)
-        MainApplication.setInstance(this)
+
         mBinding.clickHandler=DemoMapClickHandler()
         setSupportActionBar(mBinding.toolbar)
         mBinding.tvTitle.text = resources?.getString(R.string.select_location)
