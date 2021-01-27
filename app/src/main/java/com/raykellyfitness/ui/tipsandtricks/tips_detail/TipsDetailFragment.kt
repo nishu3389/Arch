@@ -102,10 +102,19 @@ class TipsDetailFragment : BaseFragment() {
     }
 
     private fun setSlider(media: List<Media>?) {
+
+      /*-------------Hide/Show pager indicator view----------------*/
         if(!media.isEmptyy() && media?.size!!>1)
             mBinding.viewShadow.visible()
         else
             mBinding.viewShadow.gone()
+            mBinding.imgPlaceholder.visible()
+
+        /*-------------Hide/Show pager no image placeholder view----------------*/
+        if(!media.isEmptyy() && media?.size!!>0)
+            mBinding.imgPlaceholder.gone()
+        else
+            mBinding.imgPlaceholder.visible()
 
         mAdapter = SliderAdapter(mBinding,media, this)
         mBinding.viewPager.adapter = mAdapter
