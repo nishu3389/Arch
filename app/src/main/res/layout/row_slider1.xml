@@ -40,7 +40,6 @@
             android:layout_height="0dp">
 
             <com.raykellyfitness.views.CommonTextViewMedium
-                android:id="@+id/tv_1"
                 android:textSize="@dimen/_13sdp"
                 android:paddingLeft="@dimen/_20sdp"
                 android:paddingRight="@dimen/_20sdp"
@@ -55,7 +54,6 @@
                 android:layout_height="wrap_content"/>
 
             <com.raykellyfitness.views.CommonTextView
-                android:id="@+id/tv_2"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/imv_item"
                 android:text="@string/slider_1_msg_2"

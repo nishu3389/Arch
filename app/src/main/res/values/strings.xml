@@ -104,7 +104,6 @@
     <!--facebook id-->
 
 
-    <string name="setup_bank_account">Setup Bank Account</string>
     <string name="lorem_large">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries.</string>
     <string name="lorem_short">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</string>
     <string name="login_terms_message">By proceeding you also agree to the Terms of Service and Privacy Policy.</string>

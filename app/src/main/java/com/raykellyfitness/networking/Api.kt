@@ -11,15 +11,8 @@ import com.raykellyfitness.ui.tipsandtricks.ResponseTipsOuter
 object Api {
 
     const val URL_DEMO_SERVER = "http://raykellystransform.projectstatus.in/api/"
-    const val TERMS = "http://raykellystransform.projectstatus.in/welcome/terms_and_conditions"
-    const val PRIVACY_POLICY = "http://raykellystransform.projectstatus.in/welcome/privacy_policy"
-//    http://raykellystransform.projectstatus.in/SubscriptionScheduler/sendDailyNotif
-
-//  const val URL_DEMO_SERVER = "http://fitnesstrackerapp.projectstatus.in/api/"
-//  const val TERMS = "http://fitnesstrackerapp.projectstatus.in/welcome/terms_and_conditions"
-//  const val PRIVACY_POLICY = "http://fitnesstrackerapp.projectstatus.in/welcome/privacy_policy"
-
-    //    const val TERMS = URL_DEV + "termsofuse"
+    const val TERMS = "http://raykellystransform.projectstatus.in/Terms"
+    const val PRIVACY_POLICY = "http://raykellystransform.projectstatus.in/Privacy"
 
     const val BASE_URL = URL_DEMO_SERVER
 

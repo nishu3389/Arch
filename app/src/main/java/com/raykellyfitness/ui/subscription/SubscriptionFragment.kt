@@ -22,9 +22,6 @@ import com.raykellyfitness.util.Prefs
 
 class SubscriptionFragment() : BaseFragment(), SubsCompleteListener {
 
-    //    var sku = "android.test.purchased"
-    //    var sku = "android.test.canceled"
-
     private var billingClient: BillingClient? = null
     private val skuList = listOf(SKU)
 
@@ -52,15 +49,14 @@ class SubscriptionFragment() : BaseFragment(), SubsCompleteListener {
         }
     }
 
-
     private fun setupBillingClient() {
         billingClient = MainApplication.get().getInAppBillingClient(this)
     }
 
     private fun loadAllSKUs() = if (billingClient?.isReady!!) {
-        val params =
-            SkuDetailsParams.newBuilder().setSkusList(skuList).setType(BillingClient.SkuType.SUBS)
-                .build()
+
+        val params = SkuDetailsParams.newBuilder().setSkusList(skuList).setType(BillingClient.SkuType.SUBS).build()
+
         billingClient?.querySkuDetailsAsync(params) { billingResult, skuDetailsList ->
             // Process the result.
             if (billingResult.responseCode == BillingClient.BillingResponseCode.OK && skuDetailsList != null && skuDetailsList?.isNotEmpty()) {
@@ -203,6 +199,5 @@ class SubscriptionFragment() : BaseFragment(), SubsCompleteListener {
     override fun onDisconnected() {
 
     }
-
 
 }
