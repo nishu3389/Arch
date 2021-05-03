@@ -26,7 +26,7 @@ object Constant {
 
     ///////////WEIGHT RANGE///////////////////////
     val WEIGHT_RANGE_MIN = 1
-    val WEIGHT_RANGE_MAX = 500
+    val WEIGHT_RANGE_MAX = 250
 
     val HEIGHT_RANGE_MIN = 1
     val HEIGHT_RANGE_MAX = 250

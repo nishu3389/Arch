@@ -45,7 +45,7 @@ class LoginFragment : BaseFragment(), IPermissionGranted {
         (activity as BaseActivity).setPermissionGranted(this)
         permissionDenied(DeviceRuntimePermission.REQUEST_ACCESS_COARSE__FINE_LOCATION_PERMISSION)
 
-        // TODO: 24-06-2020 temp code by avinash 
+//        TODO: 24-06-2020 temp code by avinash
 //        val get = mViewModel.requestLogin.get()
 //        get?.Email =  "androiduser@mailinator.com"
 //        get?.Password = "123456"

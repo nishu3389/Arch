@@ -84,7 +84,7 @@ class AddWeightFragment : BaseFragment(), OnChartValueSelectedListener {
 
     fun setupChart() {
         (this.parentFragment as HealthFragment).setupChart(mBinding.chart1, map,
-                                                           Pair(Constant.WEIGHT_RANGE_MIN.toFloat(), Constant.WEIGHT_RANGE_MAX+50.toFloat())
+                                                           Pair(Constant.WEIGHT_RANGE_MIN.toFloat(), Constant.WEIGHT_RANGE_MAX+40.toFloat())
         )
         chart = mBinding.chart1
         chart!!.setOnChartValueSelectedListener(this)
