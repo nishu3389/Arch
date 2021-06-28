@@ -31,7 +31,6 @@ import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 
-
 class WebViewFragment : BaseFragment(), IPermissionGranted {
 
     private var mUploadMessage: ValueCallback<Uri?>? = null

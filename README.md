@@ -7,3 +7,5 @@ Username : sachin
 
 Password : teamandroid
 ---------------------------------GIT-----------------------------------------------------
+
+Demostration of some utility functions in HomeFragment.kt
