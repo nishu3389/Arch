@@ -77,6 +77,7 @@ class WebViewFragment : BaseFragment(), IPermissionGranted {
         otherWork()
     }
 
+    /*----------If you want to navigate back on the webpages on backpressed-----------*/
     /* override fun handlingBackPress(): Boolean {
 
          if(mBinding.webView.canGoBack())
@@ -91,8 +92,6 @@ class WebViewFragment : BaseFragment(), IPermissionGranted {
         arguments.let {
             url = it?.getString("url")
         }
-
-//        (activity as HomeActivity).title = context?.titleWithLogo(R.string.setup_bank_account)
 
         setHasOptionsMenu(false)
     }
@@ -113,20 +112,6 @@ class WebViewFragment : BaseFragment(), IPermissionGranted {
         mBinding.webView.getSettings().supportZoom();
 
         loadUrl(url)
-//        mBinding.webView.clearCache(true)
-//        requireContext().deleteDatabase("webview.db")
-//        requireContext().deleteDatabase("webviewCache.db")
-
-        /* if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-             CookieSyncManager.createInstance(context)
-             val cookieManager: CookieManager = CookieManager.getInstance()
-             cookieManager.removeAllCookies({ value -> })
-         }
-         else {
-             CookieSyncManager.createInstance(context)
-             val cookieManager: CookieManager = CookieManager.getInstance()
-             cookieManager.removeAllCookie()
-         }*/
 
         mBinding.webView.setWebViewClient(object : WebViewClient() {
 
@@ -360,6 +345,10 @@ class WebViewFragment : BaseFragment(), IPermissionGranted {
             // this is important, call the callback with null parameter
             mFilePathCallback?.onReceiveValue(null)
         }
+
+
+      /*---------------Code to pick or capture an image when requested by webview/webpage---------------*/
+
         /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             if (*//*requestCode != INPUT_FILE_REQUEST_CODE || *//*mFilePathCallback == null) {
                 super.onActivityResult(requestCode, resultCode, data)
@@ -410,50 +399,6 @@ class WebViewFragment : BaseFragment(), IPermissionGranted {
         return
     }
 
-    @Throws(IOException::class)
-    fun modifyOrientation(bitmap: Bitmap?, image_absolute_path: String): Bitmap? {
-        val ei = ExifInterface(image_absolute_path)
-        val orientation: Int =
-            ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL)
-        return when (orientation) {
-            ExifInterface.ORIENTATION_ROTATE_90 -> bitmap?.let { rotate(it, 90f) }
-            ExifInterface.ORIENTATION_ROTATE_180 -> bitmap?.let { rotate(it, 180f) }
-            ExifInterface.ORIENTATION_ROTATE_270 -> bitmap?.let { rotate(it, 270f) }
-            ExifInterface.ORIENTATION_FLIP_HORIZONTAL -> bitmap?.let { flip(it, true, false) }
-            ExifInterface.ORIENTATION_FLIP_VERTICAL -> bitmap?.let { flip(it, false, true) }
-            else -> bitmap
-        }
-    }
 
-    fun rotate(bitmap: Bitmap, degrees: Float): Bitmap? {
-        val matrix = Matrix()
-        matrix.postRotate(degrees)
-        return Bitmap.createBitmap(
-            bitmap,
-            0,
-            0,
-            bitmap.getWidth(),
-            bitmap.getHeight(),
-            matrix,
-            true
-        )
-    }
-
-    fun flip(bitmap: Bitmap, horizontal: Boolean, vertical: Boolean): Bitmap? {
-        val matrix = Matrix()
-        matrix.preScale(
-            if (horizontal) (-1).toFloat() else 1F,
-            if (vertical) (-1).toFloat() else 1F
-        )
-        return Bitmap.createBitmap(
-            bitmap,
-            0,
-            0,
-            bitmap.getWidth(),
-            bitmap.getHeight(),
-            matrix,
-            true
-        )
-    }
 
 }
