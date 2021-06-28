@@ -14,7 +14,6 @@
     <string name="err_email_invalid">Please enter your valid email Id.</string>
     <string name="err_email_or_phone_invalid">Please enter valid email id or phone number</string>
     <string name="err_password_length_invalid">Password length should be 6 to 20</string>
-    <string name="confirm_new_password">Confirm New Password</string>
     <string name="err_otp_missing">Please enter OTP</string>
     <string name="err_title_missing">Please enter Name</string>
     <string name="err_address_missing">Please enter address</string>
@@ -24,9 +23,6 @@
     <string name="err_country_missing">Please enter country</string>
     <string name="err_postcode_missing">Please enter postcode</string>
     <string name="err_postcode_length">Postcode length should be 4 to 10</string>
-    <string name="err_query_missing">Please enter query</string>
-
-    <string name="err_select_age">Please select age</string>
 
     <string name="err_select_gender">Please select gender</string>
 
@@ -40,9 +36,6 @@
     <string name="err_new_password_max_length">Password length must not be greater than 20</string>
     <string name="err_confirm_password_missing">Please confirm new password.</string>
     <string name="err_passwords_not_same">Password and confirm password does not match.</string>
-    <string name="submit">Submit</string>
-    <string name="forgot_password_subtitle">Enter your registered email\naddress to receive password reset\ninstructions</string>
-    <string name="otp_message_forgot_password">Please enter the verification code\nsent to your email to reset\nyour password</string>
 
     <string name="open_location_settings">Open Location Settings</string>
     <string name="gps_network_not_enabled">GPS location not enabled</string>
@@ -56,17 +49,13 @@
     <string name="no">No</string>
     <string name="no_network_connected">No Network Connected</string>
 
-    <string name="forgot_your_password">Forgot Password</string>
     <string name="bad_response">Bad Response</string>
     <string name="something_went_wrong">Something went wrong, please try again later</string>
 
     <string name="password">Password</string>
-    <string name="forgot_your_password_q"><u>Forgot password?</u></string>
     <string name="login">Login</string>
     <string name="welcome_to">Welcome to</string>
     <string name="login_message">CUSTOMER LOGIN!</string>
-
-    <string name="profile">Profile</string>
 
     <string name="msg_permission_justification">%1$s is required %2$s\n\nPlease consider granting the permission to proceed.</string>
 
@@ -86,21 +75,10 @@
     <string name="channel_description">Architecture Notification</string>
     <string name="channel_id">1</string>
     <string name="login_terms_message">By proceeding you also agree to the Terms of Service and Privacy Policy.</string>
-    <string name="tips_tricks"><![CDATA[Tips & Tricks]]></string>
-    <string name="change_password">Change Password</string>
     <string name="enter_your_email">Enter your email</string>
     <string name="title">Title</string>
     <string name="home">Home</string>
-    <string name="old_password">Old Password</string>
-    <string name="new_password">New Password</string>
-    <string name="confirm_password">Confirm Password</string>
     <string name="user_email">User Email</string>
-    <string name="name">Name</string>
-    <string name="email">Email</string>
     <string name="address">Address</string>
-    <string name="otp">OTP</string>
-    <string name="enter_otp">Enter OTP</string>
-    <string name="enter_new_password">Enter new password</string>
-    <string name="confimr_password">Confimr Password</string>
 
 </resources>

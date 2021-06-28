@@ -39,8 +39,10 @@ class HomeFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        (activity as HomeActivity).showLogo(true)
+        (activity as HomeActivity).showBack(false)
+        (activity as HomeActivity).showLogo(false)
         (activity as HomeActivity).setTitle(R.string.home.get())
+
 
         // send notification
         "Some message".sendNotification()
@@ -61,7 +63,7 @@ class HomeFragment : BaseFragment() {
         R.string.app_name.get()
 
         // open some url in default browser
-        "https://www.google.com/".openInBrowser()
+//        "https://www.google.com/".openInBrowser()
 
         // show success message
         "Congrates".showSuccess()
@@ -94,6 +96,9 @@ class HomeFragment : BaseFragment() {
         var list = arrayListOf("a", "b", "c")
         list.isEmptyy()
 
+        // get a random element from list
+        list.random()
+
         // share app
         requireContext().shareApp()
 
@@ -101,13 +106,14 @@ class HomeFragment : BaseFragment() {
         mBinding.edt.onTextChange { str ->
             // do something in afterTextChanged here
             // or use the str
+            str.log()
         }
 
+        // set right drawable click listener
         mBinding.edt.onRightDrawableClick {
             // do something on drawable right click
+            "Clicked".toast()
         }
-
-
 
     }
 

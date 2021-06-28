@@ -145,10 +145,11 @@ class HomeActivity : BaseActivity(), NavController.OnDestinationChangedListener,
     override fun onBackPressed() {
 
         when {
-            fragmentsTabs.contains(navController.currentDestination?.id) -> {
+            // used when there are multiple fragments/bottom tabs on home screen
+            /*fragmentsTabs.contains(navController.currentDestination?.id) -> {
                 backToHome()
                 return
-            }
+            }*/
             navController.currentDestination?.id == R.id.HomeFragment -> {
                 finish()
             }

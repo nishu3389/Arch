@@ -19,7 +19,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:layout_alignParentTop="true"
-                android:background="#FFFFFF"
+                android:background="@color/colorPrimary"
                 android:gravity="center">
 
                 <RelativeLayout
@@ -57,7 +57,7 @@
                             android:layout_gravity="center"
                             android:gravity="center"
                             android:lineSpacingExtra="3sp"
-                            android:textColor="@color/black"
+                            android:textColor="@color/white"
                             android:textSize="19sp" />
 
                     </LinearLayout>

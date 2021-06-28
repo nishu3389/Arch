@@ -17,24 +17,27 @@ import com.architecture.util.Prefs
 import com.architecture.util.Util
 
 class SplashActivity : BaseActivity() {
+
     private val SPLASH_DURATION: Long = 2000
     lateinit var mViewModel: SplashViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        initWork()
+        otherWork()
+    }
+
+    private fun otherWork() {
         saveDeviceToken()
-        var keyhash=Util.getKeyHash(this)
-        setContentView(R.layout.activity_splash)
-        Util.updateStatusBarColor("#F5333F",this as FragmentActivity)
-        mViewModel = androidx.lifecycle.ViewModelProvider(this).get(SplashViewModel::class.java)
 
         mViewModel.proceedAhead.observe(this, Observer {
             if (it) {
                 val intent: Intent
 
                 if (Prefs.get().loginData != null)
-                        intent = Intent(this, HomeActivity::class.java)
-                 else
+                    intent = Intent(this, HomeActivity::class.java)
+                else
                     intent = Intent(this, AccountHandlerActivity::class.java)
 
                 startActivity(intent)
@@ -44,6 +47,13 @@ class SplashActivity : BaseActivity() {
 
         Handler(Looper.getMainLooper()).postDelayed({ mViewModel.proceedAhead.value = true }, SPLASH_DURATION)
 
+    }
+
+    private fun initWork() {
+        setContentView(R.layout.activity_splash)
+        var keyhash=Util.getKeyHash(this)
+        Util.updateStatusBarColor(R.color.chuck_colorPrimaryDark,this as FragmentActivity)
+        mViewModel = androidx.lifecycle.ViewModelProvider(this).get(SplashViewModel::class.java)
     }
 
     override fun requestLogout() {
@@ -61,6 +71,5 @@ class SplashActivity : BaseActivity() {
 //            deviceToken.sendToServer()
         }
     }
-
 
 }

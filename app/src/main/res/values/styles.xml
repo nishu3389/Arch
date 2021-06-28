@@ -19,16 +19,6 @@
         <item name="android:windowLightStatusBar" tools:ignore="NewApi">true</item>
     </style>
 
-    <style name="AppTitle">
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@color/black</item>
-        <item name="android:textSize">30sp</item>
-        <item name="elevation">0dp</item>
-        <item name="android:windowContentOverlay">@null</item>
-        <item name="android:gravity">center_vertical</item>
-    </style>
-
     <style name="regular">
         <item name="android:fontFamily">@font/poppins_regular</item>
         <item name="android:layout_width">wrap_content</item>
@@ -41,23 +31,6 @@
 
 
     <!--Sign Up-->
-
-    <style name="passwordEdtInputLayout">
-        <item name="android:maxLines">1</item>
-        <item name="android:textSize">@dimen/_15sdp</item>
-        <item name="android:maxLength">20</item>
-        <item name="android:inputType">textPassword</item>
-    </style>
-
-    <style name="AppMaterialButton">
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@color/white</item>
-        <item name="android:textSize">16sp</item>
-        <item name="android:layout_marginTop">@dimen/_10sdp</item>
-        <item name="android:layout_marginBottom">@dimen/_20sdp</item>
-        <item name="android:textAllCaps">true</item>
-    </style>
 
     <style name="AppTheme.NoActionBarNew">
         <item name="android:textColor">#000</item>
@@ -85,39 +58,6 @@
     <!--////////////////////Tabs style///////////////////////////////////-->
 
     <!--////////////////////Tabs style///////////////////////////////////-->
-
-    <style name="HomeMenuInner">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:layout_marginTop">@dimen/_20sdp</item>
-        <item name="android:background">@drawable/three_side_rounded_bg</item>
-    </style>
-
-    <style name="HomeMenu">
-        <item name="android:elevation">@dimen/_5sdp</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/_100sdp</item>
-        <item name="android:layout_marginTop">@dimen/_10sdp</item>
-    </style>
-
-    <style name="HomeMenuText">
-        <item name="android:textSize">20sp</item>
-        <item name="android:textColor">@color/white</item>
-        <item name="android:paddingLeft">@dimen/_15sdp</item>
-        <item name="android:layout_centerVertical">true</item>
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-    </style>
-
-    <style name="HomeMenuImage">
-        <!--        <item name="android:scaleType">centerCrop</item>-->
-        <item name="android:layout_marginRight">@dimen/_2sdp</item>
-        <item name="android:layout_marginBottom">@dimen/_10sdp</item>
-        <item name="android:layout_alignParentTop">true</item>
-        <item name="android:layout_alignParentRight">true</item>
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">match_parent</item>
-    </style>
 
 
 </resources>

@@ -1,2 +1,0 @@
-alias - rkf
-password - 123456

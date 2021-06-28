@@ -43,6 +43,7 @@ var API_ERROR = 201
 var SUBSCRIPTION_EXPIRED = 202
 var SESSION_EXPIRED = 203
 
+
 abstract class BaseActivity : AnotherBaseActivity(), CommonCallbacks, OnLocaleChangedListener {
 
     var mediaPlayerTap: MediaPlayer? = null
