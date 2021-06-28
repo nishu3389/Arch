@@ -8,7 +8,7 @@
 
         <variable
             name="clickHandler"
-            type="com.raykellyfitness.ui.googlemap.GoogleMapFragment.GoogleMapClickHandler" />
+            type="com.architecture.ui.googlemap.GoogleMapFragment.GoogleMapClickHandler" />
     </data>
 
 

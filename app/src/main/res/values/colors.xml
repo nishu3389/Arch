@@ -4,19 +4,12 @@
     <color name="colorPrimaryDark">#8B0000</color>
     <color name="colorAccent">#000</color>
 
-    <color name="meal_light">#eeeeee</color>
-    <color name="appDark">#e5314d</color>
-    <color name="app_red">#F33341</color>
-
     <color name="transparent_white">#80ffffff</color>
-    <color name="transparent">#00ffffff</color>
-    <color name="off_white">#f5f5f5</color>
 
 
     //app color real
 
     <color name="white">#ffffff</color>
-    <color name="offwhite">#f3fcfc</color>
     <color name="black">#222222</color>
     <color name="black_color">#222222</color>
 

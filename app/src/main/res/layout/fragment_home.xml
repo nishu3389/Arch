@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
         <variable
             name="viewModel"
-            type="com.raykellyfitness.ui.home.HomeViewModel" />
+            type="com.architecture.ui.home.HomeViewModel" />
 
         <variable
             name="clickHandler"
-            type="com.raykellyfitness.ui.home.HomeFragment.ClickHandler" />
+            type="com.architecture.ui.home.HomeFragment.ClickHandler" />
 
         <variable
             name="checkListProgress"
@@ -18,119 +19,40 @@
         <import type="android.view.View" />
     </data>
 
-    <androidx.core.widget.NestedScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/tv"
+            style="@style/regular"
+            android:text="HOME"
+            android:textColor="@color/white"
+            android:padding="@dimen/_10sdp"
+            android:background="@color/cardview_dark_background"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/img"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"></ImageView>
+
+        <EditText
+            android:id="@+id/edt"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/img"
+            android:drawableRight="@drawable/ic_cross"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/_20sdp"
-            android:layout_marginRight="@dimen/_20sdp"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"></EditText>
 
-            <!--Meal Plan-->
-            <RelativeLayout
-                android:id="@+id/rr_meal"
-                style="@style/HomeMenu">
-
-                <RelativeLayout style="@style/HomeMenuInner">
-
-                    <com.raykellyfitness.views.CommonTextViewMedium
-                        style="@style/HomeMenuText"
-                        android:text="@string/meal_plan" />
-
-                </RelativeLayout>
-
-                <ImageView
-                    style="@style/HomeMenuImage"
-                    android:src="@drawable/meal_plan" />
-
-            </RelativeLayout>
-
-            <!--Tips and Tricks-->
-            <RelativeLayout
-                android:id="@+id/rr_tips"
-                style="@style/HomeMenu">
-
-                <RelativeLayout style="@style/HomeMenuInner">
-
-                    <com.raykellyfitness.views.CommonTextViewMedium
-                        style="@style/HomeMenuText"
-                        android:text="@string/tips_tricks" />
-
-                </RelativeLayout>
-
-                <ImageView
-                    style="@style/HomeMenuImage"
-                    android:src="@drawable/bhaisahab" />
-
-            </RelativeLayout>
-
-            <!--Exercise-->
-            <RelativeLayout
-                android:id="@+id/rr_exercise"
-                style="@style/HomeMenu">
-
-                <RelativeLayout style="@style/HomeMenuInner">
-
-                    <com.raykellyfitness.views.CommonTextViewMedium
-                        style="@style/HomeMenuText"
-                        android:text="@string/exercise" />
-
-                </RelativeLayout>
-
-                <ImageView
-                    style="@style/HomeMenuImage"
-                    android:src="@drawable/exercise" />
-
-            </RelativeLayout>
-
-            <!--Motivation-->
-            <RelativeLayout
-                android:id="@+id/rr_motivation"
-                style="@style/HomeMenu">
-
-                <RelativeLayout style="@style/HomeMenuInner">
-
-                    <com.raykellyfitness.views.CommonTextViewMedium
-                        style="@style/HomeMenuText"
-                        android:text="@string/motivation" />
-
-                </RelativeLayout>
-
-                <ImageView
-                    style="@style/HomeMenuImage"
-                    android:src="@drawable/success" />
-
-            </RelativeLayout>
-
-            <!--Blogs-->
-            <RelativeLayout
-                android:id="@+id/rr_blogs"
-                style="@style/HomeMenu">
-
-                <RelativeLayout style="@style/HomeMenuInner">
-
-                    <com.raykellyfitness.views.CommonTextViewMedium
-                        style="@style/HomeMenuText"
-                        android:text="@string/blogs" />
-
-                </RelativeLayout>
-
-                <ImageView
-                    style="@style/HomeMenuImage"
-                    android:src="@drawable/blog" />
-
-            </RelativeLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_40sdp" />
-
-        </LinearLayout>
-
-    </androidx.core.widget.NestedScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

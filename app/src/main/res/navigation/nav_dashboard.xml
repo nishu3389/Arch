@@ -6,75 +6,20 @@
 
     <fragment
         android:id="@+id/HomeFragment"
-        android:name="com.raykellyfitness.ui.home.HomeFragment"
+        android:name="com.architecture.ui.home.HomeFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" />
-    <fragment
-        android:id="@+id/SettingsFragment"
-        android:name="com.raykellyfitness.ui.settings.SettingsFragment"
-        android:label="@string/menu_home"
-        tools:layout="@layout/fragment_settings" />
 
-    <fragment
-        android:id="@+id/SubscriptionFragment"
-        android:name="com.raykellyfitness.ui.subscription.SubscriptionFragment"
-        tools:layout="@layout/fragment_subscription" />
-
-    <fragment
-        android:id="@+id/TipsAndTricksFragment"
-        android:name="com.raykellyfitness.ui.tipsandtricks.TipsAndTricksFragment"
-        tools:layout="@layout/fragment_tips_and_tricks" />
-
-    <fragment
-        android:id="@+id/TipsDetailFragment"
-        android:name="com.raykellyfitness.ui.tipsandtricks.tips_detail.TipsDetailFragment"
-        tools:layout="@layout/fragment_tips_detail" />
-
-    <fragment
-        android:id="@+id/HealthFragment"
-        android:name="com.raykellyfitness.ui.health.HealthFragment"
-        android:label="@string/menu_home"
-        tools:layout="@layout/fragment_settings" />
-
-     <fragment
-        android:id="@+id/NotificationsFragment"
-        android:name="com.raykellyfitness.ui.notifications.NotificationsFragment"
-        android:label="@string/menu_home"
-        tools:layout="@layout/fragment_notifications" />
-
-    <fragment
-        android:id="@+id/AddWeightFragment"
-        android:name="com.raykellyfitness.ui.health.weight.add_weight.AddWeightFragment"
-        android:label="@string/menu_home"
-        tools:layout="@layout/fragment_settings" />
-
-    <fragment
-        android:id="@+id/ProfileShowFragment"
-        android:name="com.raykellyfitness.ui.profile.ProfileFragment"
-        android:label="@string/profile"
-        tools:layout="@layout/fragment_profile_show">
-
-        <argument
-            android:name="type"
-            app:argType="string" />
-
-    </fragment>
-
-    <fragment
-        android:id="@+id/ChangePasswordFragment"
-        android:name="com.raykellyfitness.ui.changepassword.ChangePasswordFragment"
-        android:label="@string/change_password"
-        tools:layout="@layout/fragment_change_password" />
 
     <fragment
         android:id="@+id/GoogleMapFragment"
-        android:name="com.raykellyfitness.ui.googlemap.GoogleMapFragment"
+        android:name="com.architecture.ui.googlemap.GoogleMapFragment"
         android:label="@string/select_location"
         tools:layout="@layout/fragment_google_map" />
 
     <fragment
         android:id="@+id/WebViewFragment"
-        android:name="com.raykellyfitness.ui.webview.WebViewFragment"
+        android:name="com.architecture.ui.webview.WebViewFragment"
         tools:layout="@layout/webview_fragment" />
 
 </navigation>

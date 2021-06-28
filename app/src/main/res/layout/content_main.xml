@@ -14,66 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:defaultNavHost="true"
-            android:layout_above="@id/bottom_navigation_bar"
             app:navGraph="@navigation/nav_dashboard" />
-
-        <LinearLayout
-            android:id="@+id/bottom_navigation_bar"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_60sdp"
-            android:background="@drawable/tab_bg"
-            android:layout_alignParentBottom="true"
-            android:gravity="center"
-            android:layout_gravity="center"
-            android:orientation="horizontal">
-
-            <com.raykellyfitness.views.CommonTextView
-                android:id="@+id/tab_home"
-                android:layout_width="0dp"
-                android:layout_weight="0.9"
-                android:text="@string/home"
-                android:textSize="17sp"
-                android:textColor="@color/white"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:layout_height="match_parent"/>
-
-            <com.raykellyfitness.views.CommonTextView
-                android:id="@+id/tab_health"
-                android:layout_width="0dp"
-                android:layout_weight="0.9"
-                android:text="@string/health"
-                android:textSize="17sp"
-                android:textColor="@color/white"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:layout_height="match_parent"/>
-
-            <com.raykellyfitness.views.CommonTextView
-                android:id="@+id/tab_notification"
-                android:layout_width="0dp"
-                android:layout_weight="1.3"
-                android:text="@string/notification"
-                android:textSize="17sp"
-                android:textColor="@color/white"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:layout_height="match_parent"/>
-
-            <com.raykellyfitness.views.CommonTextView
-                android:id="@+id/tab_settings"
-                android:layout_width="0dp"
-                android:layout_weight="0.9"
-                android:text="@string/settings"
-                android:textSize="17sp"
-                android:textColor="@color/white"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:layout_height="match_parent"/>
-
-
-
-        </LinearLayout>
 
     </RelativeLayout>
 </layout>

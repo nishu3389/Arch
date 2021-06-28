@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:36054244654:android:d124f6fbd8e6fb83376ebf",
         "android_client_info": {
-          "package_name": "com.raykellyfitness"
+          "package_name": "com.architecture"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "36054244654-9t4mhvmog2fc447ns9cps4h7hvdnfu06.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.raykellyfitness",
+            "package_name": "com.architecture",
             "certificate_hash": "c8c775d0d91a735bf59604191556566b40317eba"
           }
         },

@@ -3,29 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     app:startDestination="@id/LoginFragment">
+
     <fragment
         android:id="@+id/LoginFragment"
-        android:name="com.raykellyfitness.ui.login.LoginFragment"
+        android:name="com.architecture.ui.login.LoginFragment"
         tools:layout="@layout/fragment_login" />
-
-    <fragment
-        android:id="@+id/ForgotPasswordFragment"
-        android:name="com.raykellyfitness.ui.forgot_password.ForgotPasswordFragment"
-        tools:layout="@layout/fragment_forgot_password" />
-
-    <fragment
-        android:id="@+id/ChangePasswordFragment"
-        android:name="com.raykellyfitness.ui.changepassword.ChangePasswordFragment"
-        tools:layout="@layout/fragment_change_password" />
-    <fragment
-        android:id="@+id/ResetPasswordFragment"
-        android:name="com.raykellyfitness.ui.reset_password.ResetPasswordFragment"
-        tools:layout="@layout/fragment_change_password" />
-
-    <fragment
-        android:id="@+id/IntroSliderFragment"
-        android:name="com.raykellyfitness.ui.intro_slider.IntroSliderFragment"
-        tools:layout="@layout/intro_slider" />
 
 
 </navigation>

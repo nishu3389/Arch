@@ -5,11 +5,11 @@
 
         <variable
             name="viewModel"
-            type="com.raykellyfitness.ui.webview.WebviewViewModel" />
+            type="com.architecture.ui.webview.WebviewViewModel" />
 
         <variable
             name="clickHandler"
-            type="com.raykellyfitness.ui.webview.WebViewFragment.ClickHandler" />
+            type="com.architecture.ui.webview.WebViewFragment.ClickHandler" />
     </data>
 
     <LinearLayout
