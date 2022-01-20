@@ -22,6 +22,23 @@ class HomeFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupViewModel()
+
+        val numbers = arrayOf<Int>(-2, -3, 4, -1, -2, 1, 5, -3)
+        val maxSubArraySum = maxSubArraySum(numbers)
+
+    }
+
+    private fun maxSubArraySum(arr: Array<Int>) : Int{
+        var a = arr[0];
+        var b = 0;
+
+        for (i in arr) {
+            b += i
+            if (b < 0) b = 0
+            else if (a < b) a = b
+        }
+
+        return a
     }
 
     override fun onCreateView(inflater: LayoutInflater,
@@ -43,9 +60,8 @@ class HomeFragment : BaseFragment() {
         (activity as HomeActivity).showLogo(false)
         (activity as HomeActivity).setTitle(R.string.home.get())
 
-
         // send notification
-        "Some message".sendNotification()
+        //        "Some message".sendNotification()
 
         // show log
         "Some message".log()
@@ -63,7 +79,7 @@ class HomeFragment : BaseFragment() {
         R.string.app_name.get()
 
         // open some url in default browser
-//        "https://www.google.com/".openInBrowser()
+        //        "https://www.google.com/".openInBrowser()
 
         // show success message
         "Congrates".showSuccess()
@@ -81,13 +97,9 @@ class HomeFragment : BaseFragment() {
         mBinding.tv.visible()
 
         // hide any view
-        mBinding.tv.gone()
 
-        // set image from url to imageview
+        mBinding.tv.gone() // set image from url to imageview
         mBinding.img.set(requireContext(), "https://picsum.photos/200")
-
-        // set image from drawable to imageview
-        mBinding.img.set(requireContext(), R.drawable.back_arrow)
 
         // set color
         mBinding.tv.color(R.color.black)
@@ -100,25 +112,25 @@ class HomeFragment : BaseFragment() {
         list.random()
 
         // share app
-        requireContext().shareApp()
+        //        requireContext().shareApp()
 
         // addTextChangedListener on edittext
-        mBinding.edt.onTextChange { str ->
-            // do something in afterTextChanged here
+        mBinding.edt.onTextChange { str -> // do something in afterTextChanged here
             // or use the str
             str.log()
         }
 
         // set right drawable click listener
-        mBinding.edt.onRightDrawableClick {
-            // do something on drawable right click
+        mBinding.edt.onRightDrawableClick { // do something on drawable right click
             "Clicked".toast()
         }
 
     }
 
     private fun setupViewModel() {
-        mViewModel = ViewModelProvider(this, MyViewModelProvider(commonCallbacks as AsyncViewController)).get(HomeViewModel::class.java)
+        mViewModel = ViewModelProvider(this,
+                                       MyViewModelProvider(commonCallbacks as AsyncViewController)).get(
+            HomeViewModel::class.java)
     }
 
     inner class ClickHandler : IPermissionGranted {
